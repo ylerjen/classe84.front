@@ -1,0 +1,24 @@
+{
+  "name": "classe84.org",
+  "version": "1.0.0",
+  "description": "Frontend for the classe84.org website",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.assembla.com:classe84.frontend.git"
+  },
+  "keywords": [
+    "classe84.org"
+  ],
+  "author": "Yann Lerjen <yann.lerjen@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "~3.8.11",
+    "jasmine": "~2.3.1",
+    "karma": "~0.12.36",
+    "gulp-compass": "~2.1.0"
+  }
+}
