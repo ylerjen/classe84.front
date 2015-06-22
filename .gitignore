@@ -1,0 +1,4 @@
+# External libraries
+#===================
+libs/*
+node_modules/*
