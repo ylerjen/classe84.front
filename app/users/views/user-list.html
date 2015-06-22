@@ -1,0 +1,24 @@
+<section ng-controller="UserListCtrl as uctrl">
+	<h1>Membres de la classe</h1>
+
+	<div class="action-items">
+		<a href="#/users/add" class="button small"><i class="fa fa-user-plus"></i> New member</a>	
+	</div>
+
+	<form class="simple-form list-filter">		
+		<label for="user-list-filter" class="right inline">Recherche</label>
+		<input type="text" id="user-list-filter" placeholder="Nom Prénom" ng-model="queryCriteria">
+	</form>
+
+	<ul id="member_list" class="users-list">
+		<li class="user-item panel animation" ng-repeat="user in uctrl.users | filter: userListQuery | orderBy: ['lastname','firstname'] as results">
+			<a href="#/users/show/{{user.id}}">
+				<i ng-class=" user.gender === 'F'  ? 'fa-female' : 'fa-male'" class="user-ico fa fa-2x"></i>
+				<p class="user-name">{{user.getFullName()}}</p>
+			</a>
+		</li>
+		<li class="user-item animation" ng-if="results.length === 0">
+			<strong class="label alert">Aucun résultat trouvé...</strong>
+		</li>
+	</ul>
+</section>

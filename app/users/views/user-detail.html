@@ -1,0 +1,77 @@
+<section ng-controller="UserDetailCtrl as uctrl">
+	<h1>Details de {{uctrl.currentUser.getFullName()}}</h1>
+
+
+	<div class="ribbon">
+			{{uctrl.currentUser.isActiv ? "Membre actif" : "Membre inactif"}}
+	</div>
+
+		<!--div class="">
+			<a href="#/users/edit/{{uctrl.currentUser.id}}" class="item">
+				<i class="fa fa-pencil"></i>
+		    	<label>Edit</label>
+			</a>
+			<button class="item">
+				<i class="fa fa-trash">
+				<label>Delete</label>
+			</a>
+		</div-->
+
+	<div class="button-group round action-items text-right">
+		<a href="#/users/edit/{{uctrl.currentUser.id}}" class="button small">
+			<i class="fa fa-pencil"></i>
+		</a>
+		<button class="button small alert" ng-click="uctrl.deleteUser()">
+			<i class="fa fa-trash"></i>
+		</button>
+	</div>
+
+
+	<div class="row">
+		<div class="large-6 columns">
+			<label>Nom de famille</label>
+		</div><div class="large-6 columns">
+			{{uctrl.currentUser.lastname}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<label>Prénom</label>
+		</div><div class="large-6 columns">
+			{{uctrl.currentUser.firstname}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<label for="usr-email">Email</label>
+		</div><div class="large-6 columns">
+			{{uctrl.currentUser.email}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<label>Téléphone mobile</label>
+		</div><div class="large-6 columns">
+			{{uctrl.currentUser.mobile}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<label>Téléphone fixe</label>
+		</div><div class="large-6 columns">
+			{{uctrl.currentUser.phone}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<label>Genre</label>
+		</div><div class="large-6 columns">
+			{{uctrl.currentUser.gender === 'F' ? 'Femme': 'Homme'}}
+		</div>
+	</div>
+</section>
