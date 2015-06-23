@@ -1,15 +1,22 @@
-var classe84App = angular.module('classe84', ['ngRoute', 'ngAnimate', 'UsersCtrl']);
+"use strict";
+ 
+var classe84App,
+appSettings;
+
+(function() {
+
+  classe84App = angular.module('classe84', ['ngRoute', 'ngAnimate', 'UsersCtrl']);
 
 
-var appSettings = {
-  apiUrl: '/api',
-	userViewFolder: 'app/users/views',
-  eventViewFolder: 'app/events/views'
-};
+  appSettings = {
+    apiUrl: '/api',
+  	userViewFolder: 'app/users/views',
+    eventViewFolder: 'app/events/views'
+  };
 
-classe84App.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
+  classe84App.config(['$routeProvider',
+    function($routeProvider) {
+      $routeProvider.
 
     //Users routing
       when('/users', {
@@ -52,3 +59,5 @@ classe84App.config(['$routeProvider',
         redirectTo: '/'
       });
   }]);
+
+})();
