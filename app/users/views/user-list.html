@@ -5,7 +5,7 @@
 		<a href="#/users/add" class="button small"><i class="ico ico-user-plus"></i> New member</a>	
 	</div>
 
-	<form class="simple-form list-filter row">		
+	<form class="sub-nav simple-form list-filter row">		
 		<label for="user-list-filter" class="right inline">Recherche</label>
 		<input type="text" id="user-list-filter" placeholder="Nom Prénom" ng-model="queryCriteria">
 	</form>
@@ -13,9 +13,9 @@
 	<ul id="member_list" class="users-list small-block-grid-2 medium-block-grid-3 large-block-grid-4">
 		<li class="user-item animation" ng-repeat="user in uctrl.users | filter: userListQuery | orderBy: ['lastname','firstname'] as results">
 			<a href="#/users/show/{{user.id}}" class="panel">
-    			<div class="ribbon" ng-hide="user.isActiv">Inactif</div>
+    			<div class="ribbon" ng-hide="user.is_active">Inactif</div>
 				<i ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-lg"></i>
-				<p class="user-name">{{user.getFullName()}}</p>
+				<p class="user-name">{{user.last_name}} {{user.first_name}}</p>
 			</a>
 		</li>
 		<li class="user-item animation" ng-if="results.length === 0">

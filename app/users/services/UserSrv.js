@@ -1,20 +1,15 @@
 classe84App.factory('usrSrv', function($http){
 	return{
 		getUsers : function(){
-			//TODO remove mockup
-			return mockUserList;
-
-			return $http.get(appSettings.apiUrl + '/events/simpleList.json');
+			console.error('Mock getUsers()');
+			//return mockUserList;
+			return $http.get(appSettings.apiUrl + '/users');
 		},
 		getUserById: function(id){
-			//TODO remove mockup
-			return mockUserList[id];
-			return $http.get(appSettings.apiUrl + '/api/users/'+id);
+			return $http.get(appSettings.apiUrl + '/user/'+id);
 		},
 		saveUser: function(user){
-			//TODO
-			throw 'Not Implemented Exception';
-			return $http.get(appSettings.apiUrl + '/api/')
+			return $http.get(appSettings.apiUrl + '/users/');
 		}
 	};
 });

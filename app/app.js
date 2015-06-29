@@ -9,7 +9,7 @@ appSettings;
 
 
   appSettings = {
-    apiUrl: '/api',
+    apiUrl: 'http://api84.loc',
   	userViewFolder: 'app/users/views',
     eventViewFolder: 'app/events/views'
   };

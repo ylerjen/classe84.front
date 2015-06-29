@@ -2,19 +2,21 @@ var usersControllers = angular.module('UsersCtrl', []);
 
 usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
 
-	this.users = mockUserList;
+	that = this;
 
-  //   usrSrv.getUsers().success(function(data){
-		// that.users = data.events;
-  //   });
-  //   
+    usrSrv.getUsers().success(function(users){
+		that.users = users;
+    }).error(function(e){
+		console.error(e);
+    });
+    
   
 
   // User search function
 	$scope.userListQuery = function (item){
 		var criteria = angular.lowercase($scope.queryCriteria),
-		firstname = angular.lowercase(item.firstname),
-		lastname = angular.lowercase(item.lastname);
+		firstname = angular.lowercase(item.first_name),
+		lastname = angular.lowercase(item.last_name);
 		if (firstname.indexOf(criteria || '')!=-1 || lastname.indexOf(criteria || '')!=-1) {
 			return true;
 		}
@@ -35,6 +37,11 @@ classe84App.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', fu
 
 
 	this.saveUser = function(){
+		usrSrv.saveUser().success(function(data){
+			that.users = data.events;
+		  }).error(function(e){
+			console.error(e);
+		  });
 		console.log('save ' + this.currentUser.getFullName());
 		throw 'Not implemented Exception';
 	};
