@@ -1,7 +1,6 @@
 var usersControllers = angular.module('UsersCtrl', []);
 
 usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
-
 	that = this;
 
     usrSrv.getUsers().success(function(users){
@@ -31,9 +30,15 @@ usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', functi
  * @param  {[type]} usrSrv)      user services dependancy injection
  */
 classe84App.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
+	var that = this;
 
 	var userId = $routeParams.userId;
-	this.currentUser = mockUserList[userId-1];
+	usrSrv.findById(userId).success(function(user){
+		console.log(user);
+		that.currentUser = user;
+	}).error(function(e){
+		console.error(e);
+	});
 
 
 	this.saveUser = function(){
@@ -42,7 +47,7 @@ classe84App.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', fu
 		  }).error(function(e){
 			console.error(e);
 		  });
-		console.log('save ' + this.currentUser.getFullName());
+		console.log('save ' + this.currentUser.last_name + ' ' + this.currentUser.first_name);
 		throw 'Not implemented Exception';
 	};
 	this.deleteUser = function(){

@@ -1,9 +1,9 @@
 <section ng-controller="UserDetailCtrl as uctrl">
-	<h1>Details de {{uctrl.currentUser.getFullName()}}</h1>
+	<h1>Details de {{uctrl.currentUser.first_name}}</h1>
 
 
 	<div class="ribbon">
-			{{uctrl.currentUser.isActiv ? "Membre actif" : "Membre inactif"}}
+			{{uctrl.currentUser.is_activ ? "Membre actif" : "Membre inactif"}}
 	</div>
 
 		<!--div class="">
@@ -31,7 +31,7 @@
 		<div class="large-6 columns">
 			<label>Nom de famille</label>
 		</div><div class="large-6 columns">
-			{{uctrl.currentUser.lastname}}
+			{{uctrl.currentUser.last_name}}
 		</div>
 	</div>
 
@@ -39,7 +39,7 @@
 		<div class="large-6 columns">
 			<label>Prénom</label>
 		</div><div class="large-6 columns">
-			{{uctrl.currentUser.firstname}}
+			{{uctrl.currentUser.first_name}}
 		</div>
 	</div>
 
@@ -63,7 +63,7 @@
 		<div class="large-6 columns">
 			<label>Téléphone fixe</label>
 		</div><div class="large-6 columns">
-			{{uctrl.currentUser.phone}}
+			{{uctrl.currentUser.telefon}}
 		</div>
 	</div>
 
