@@ -5,12 +5,17 @@ appSettings;
 
 (function() {
 
-  classe84App = angular.module('classe84', ['ngRoute', 'ngAnimate', 'UsersCtrl']);
+  classe84App = angular.module('classe84',
+    [
+      'ngRoute',
+      'ngAnimate',
+      'UsersCtrl'
+    ]);
 
 
   appSettings = {
     apiUrl: 'http://api84.loc',
-  	userViewFolder: 'app/users/views',
+    userViewFolder: 'app/users/views',
     eventViewFolder: 'app/events/views'
   };
 
