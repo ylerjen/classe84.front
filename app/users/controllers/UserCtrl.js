@@ -1,7 +1,9 @@
+"use strict";
+
 var usersControllers = angular.module('UsersCtrl', []);
 
 usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
-	that = this;
+	var that = this;
 
     usrSrv.getUsers().success(function(users){
 		that.users = users;
@@ -24,12 +26,12 @@ usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', functi
 }]);
 
 /**
- * Manage the user detail and user form for the show/edit/add functionnalities
+ * Manage the user details and user form for the show/edit/add functionnalities
  * @param  {[type]} $scope       angular scope dependancy injection
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} usrSrv)      user services dependancy injection
  */
-classe84App.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
+usersControllers.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
 	var that = this;
 
 	var userId = $routeParams.userId;
@@ -42,11 +44,18 @@ classe84App.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', fu
 
 
 	this.saveUser = function(){
+		if(that.currentUser.gender==='M') {
+			this.currentUser.maidenname = '';
+		} else {
+			if(this.currentUser.maidenname === this.currentUser.last_name){
+				this.currentUser.maidenname = '';
+			}
+		}
 		usrSrv.saveUser().success(function(data){
 			that.users = data.events;
-		  }).error(function(e){
+		}).error(function(e){
 			console.error(e);
-		  });
+		});
 		console.log('save ' + this.currentUser.last_name + ' ' + this.currentUser.first_name);
 		throw 'Not implemented Exception';
 	};
