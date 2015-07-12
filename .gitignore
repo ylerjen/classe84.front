@@ -2,4 +2,12 @@
 #===================
 libs/*
 node_modules/*
+
+# Generated files
+# ===============
+distr/*
+
+# sass cache
+# ==========
 .sass-cache/*
+sass/sass-cache/*
