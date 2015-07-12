@@ -6,7 +6,7 @@
 	<title>Classe 84 de Vétroz</title>
 	<link rel="stylesheet" href="fonts/style.css">
 	<link rel="stylesheet" href="libs/foundation/css/foundation.min.css">
-	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="distr/css/custom.css">
 
 
 	<script src="/libs/modernizr/modernizr.js"></script>
@@ -17,6 +17,7 @@
 	<script src="/app/login/controllers/LoginCtrl.js"></script>
 	<script src="/app/users/services/UserSrv.js"></script>
 	<script src="/app/users/controllers/UserCtrl.js"></script>
+	<script src="/app/commons/directives/NotificationDirective.js"></script>
 </head>
 <body ng-app="classe84">
 	<!-- HEADER -->
@@ -52,7 +53,7 @@
 			</ul>
 		</section>
 	</nav>
-
+	<notification-message></notification-message>
 	<div class="row" ng-view></div>
 </body>
 </html>
