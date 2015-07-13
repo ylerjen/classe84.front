@@ -29,7 +29,7 @@ usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', functi
  * Manage the user details and user form for the show/edit/add functionnalities
  * @param  {[type]} $scope       angular scope dependancy injection
  * @param  {[type]} $routeParams angular routing dependancy injection
- * @param  {[type]} usrSrv)      user services dependancy injection
+ * @param  {[type]} usrSrv       user services dependancy injection
  */
 usersControllers.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
 	var that = this;

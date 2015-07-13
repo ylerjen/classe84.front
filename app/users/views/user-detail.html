@@ -1,7 +1,7 @@
 <section ng-controller="UserDetailCtrl as uctrl">
 	<h1>Details de {{uctrl.currentUser.first_name}}</h1>
 
-
+<div class="row">
 	<div class="ribbon">
 			{{uctrl.currentUser.is_activ ? "Membre actif" : "Membre inactif"}}
 	</div>
@@ -25,53 +25,69 @@
 			<i class="ico ico-trash"></i>
 		</button>
 	</div>
-
+</div>
 
 	<div class="row">
-		<div class="large-6 columns">
-			<label>Nom de famille</label>
-		</div><div class="large-6 columns">
+		<div class="large-6 columns">Nom de famille</div>
+        <div class="large-6 columns">
 			{{uctrl.currentUser.last_name}}
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="large-6 columns">
-			<label>Prénom</label>
-		</div><div class="large-6 columns">
+		<div class="large-6 columns">Prénom</div>
+        <div class="large-6 columns">
 			{{uctrl.currentUser.first_name}}
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="large-6 columns">
-			<label for="usr-email">Email</label>
-		</div><div class="large-6 columns">
-			{{uctrl.currentUser.email}}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="large-6 columns">
-			<label>Téléphone mobile</label>
-		</div><div class="large-6 columns">
-			{{uctrl.currentUser.mobile}}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="large-6 columns">
-			<label>Téléphone fixe</label>
-		</div><div class="large-6 columns">
-			{{uctrl.currentUser.telefon}}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="large-6 columns">
-			<label>Genre</label>
-		</div><div class="large-6 columns">
+		<div class="large-6 columns">Genre</div>
+        <div class="large-6 columns">
 			{{uctrl.currentUser.gender === 'F' ? 'Femme': 'Homme'}}
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="large-6 columns">Date de naissance</div>
+        <div class="large-6 columns">{{uctrl.currentUser.birthdate | date: 'dd.MM.yyyy'}}</div>
+	</div>
+
+	<div class="row" ng-show="uctrl.currentUser.email">
+		<div class="large-6 columns">Email</div>
+        <div class="large-6 columns">
+			<a href="mailto:{{uctrl.currentUser.email}}">{{uctrl.currentUser.email}}</a>
+		</div>
+	</div>
+
+	<div class="row" ng-show="uctrl.currentUser.mobile">
+		<div class="large-6 columns">Téléphone mobile</div>
+        <div class="large-6 columns">
+			<a href="tel:{{uctrl.currentUser.mobile}}">{{uctrl.currentUser.mobile}}</a>
+		</div>
+	</div>
+
+	<div class="row" ng-show="uctrl.currentUser.telefon">
+		<div class="large-6 columns">Téléphone fixe</div>
+        <div class="large-6 columns">
+			<a href="tel:{{uctrl.currentUser.telefon}}">{{uctrl.currentUser.telefon}}</a>
+		</div>
+	</div>
+	
+	<div class="row" ng-show="uctrl.currentUser.facebook">
+		<div class="large-6 columns">Facebook</div>
+        <div class="large-6 columns">
+			<a href="http://www.facebook.com/{{uctrl.currentUser.facebook}}">http://www.facebook.com/{{uctrl.currentUser.facebook}}</a>
+		</div>
+	</div>
+	
+	<div class="row" ng-show="uctrl.currentUser.website">
+		<div class="large-6 columns">Website</div>
+        <div class="large-6 columns">
+			<a href="http://{{uctrl.currentUser.website}}" target="_blank">{{uctrl.currentUser.website}}</a>
+		</div>
+	</div>
+	<addresses></addresses>
+	<event-stats></event-stats>
+	<cotisations></cotisations>
 </section>

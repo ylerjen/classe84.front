@@ -1,5 +1,5 @@
-classe84App.factory('usrSrv', function($http){
-	return{
+classe84App.factory('usrSrv', function ($http) {
+	return {
 		getUsers : function(){
 			return $http.get(appSettings.apiUrl + '/users');
 		},

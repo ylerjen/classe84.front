@@ -1,0 +1,62 @@
+<div class="flipper">
+	<div class="preview">
+		<div>{{address.street1}}</div>
+		<div>{{address.street2}}</div>
+		<div>{{address.npa}} {{address.city}}</div>
+		<div>{{address.region}} - {{address.country}}</div>
+		<div class="tools">
+			<button class="edit"></button>
+		</div>
+	</div>
+	<div class="edit">
+		<form>
+			<div class="row">
+				<div class="large-6 columns">
+					<label for="usr-lastname">Rue</label>
+				</div><div class="large-6 columns">
+					<input type="text" name="addr-street1" placeholder="Av. de la gare 15" ng-model="address.street1" />
+				</div>
+			</div>				
+			<div class="row">
+				<div class="large-6 columns">
+					<label for="usr-lastname">Complément</label>
+				</div><div class="large-6 columns">
+					<input type="text" name="lastname" placeholder="Les Marroniers" ng-model="address.street2" />
+				</div>
+			</div>				
+			<div class="row">
+				<div class="large-6 columns">
+					<label for="usr-lastname">NPA</label>
+				</div><div class="large-6 columns">
+					<input type="text" name="lastname" placeholder="Muster" ng-model="address.npa" />
+				</div>
+			</div>				
+			<div class="row">
+				<div class="large-6 columns">
+					<label for="usr-lastname">Lieu</label>
+				</div><div class="large-6 columns">
+					<input type="text" name="lastname" placeholder="Muster" ng-model="address.locality" />
+				</div>
+			</div>	
+			<div class="row">
+				<div class="large-6 columns">
+					<label for="usr-lastname">Région</label>
+				</div><div class="large-6 columns">
+					<input type="text" name="lastname" placeholder="Muster" ng-model="address.region" />
+				</div>
+			</div>	
+			<div class="row">
+				<div class="large-6 columns">
+					<label for="usr-lastname">Pays</label>
+				</div><div class="large-6 columns">
+					<input type="text" name="lastname" placeholder="Muster" ng-model="address.country" />
+				</div>
+			</div>
+			<div class="save">
+				<button class="save">
+					<i class="fa fa-save"></i>
+				</button>
+			</div>	
+		</form>
+	</div>
+</div>
