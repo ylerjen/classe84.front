@@ -9,7 +9,7 @@ classe84App.directive('notificationMessage', [function () {
         restrict: 'E',
         templateUrl: '/app/commons/views/NotificationMessage.html',
         controller: function($scope) {
-            $scope.message = 'coucou';
+            $scope.message = '';
         }
         //scope: {
         //    wd: '=widget'
