@@ -1,25 +1,15 @@
-/* Directives */
-window.classe84App.directive('addresses', [function () {
-    'use strict';
+// Directives
+'use strict';
+classe84App.directive('addresses', [function () {
     return {
         priority: 0,
         replace: true,
         transclude: true,
         restrict: 'E',
         templateUrl: '/app/addresses/views/addresses.html',
-        controller: function ($scope) {
-            $scope.addresses = [{
-                street1: 'rue de...',
-                street2: 'les marrons',
-                npa: '1943',
-                locality: 'Albertville',
-                region: 'Valais',
-                country: 'Switzerland'
-            }];
+        scope: {
+            "addresses" : "@addresses"
         }
-        //scope: {
-        //    wd: '=widget'
-        //}
     };
 }])
 .directive('address', [function () {
@@ -28,8 +18,5 @@ window.classe84App.directive('addresses', [function () {
         transclude: true,
         restrict: 'E',
         templateUrl: '/app/addresses/views/address.html',
-        controller: function (scope) {
-            
-        }
     };
 }]);
