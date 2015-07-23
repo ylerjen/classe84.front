@@ -1,15 +1,14 @@
 "use strict";
  
 var classe84App,
-appSettings;
+  appSettings;
 
 (function() {
 
   classe84App = angular.module('classe84',
     [
       'ngRoute',
-      'ngAnimate',
-      'UsersCtrl'
+      'ngAnimate'
     ]);
 
 

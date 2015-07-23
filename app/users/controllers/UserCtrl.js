@@ -1,8 +1,6 @@
 "use strict";
 
-var usersControllers = angular.module('UsersCtrl', []);
-
-usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
+classe84App.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
 	var that = this;
 
     usrSrv.getUsers().success(function(users){
@@ -10,8 +8,6 @@ usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', functi
     }).error(function(e){
 		console.error(e);
     });
-    
-  
 
   // User search function
 	$scope.userListQuery = function (item){
@@ -31,35 +27,35 @@ usersControllers.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', functi
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} usrSrv       user services dependancy injection
  */
-usersControllers.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
-	var that = this;
-
+classe84App.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
+	
 	var userId = $routeParams.userId;
 	usrSrv.findById(userId).success(function(user){
 		console.log(user);
-		that.currentUser = user;
+		$scope.currentUser = user;
 	}).error(function(e){
 		console.error(e);
 	});
 
 
-	this.saveUser = function(){
-		if(that.currentUser.gender==='M') {
-			this.currentUser.maidenname = '';
+	$scope.saveUser = function(){
+		if($scope.currentUser.gender==='M') {
+			$scope.currentUser.maidenname = '';
 		} else {
-			if(this.currentUser.maidenname === this.currentUser.last_name){
-				this.currentUser.maidenname = '';
+			if($scope.currentUser.maidenname === $scope.currentUser.last_name){
+				$scope.currentUser.maidenname = '';
 			}
 		}
 		usrSrv.saveUser().success(function(data){
-			that.users = data.events;
+			$scope.users = data.events;
 		}).error(function(e){
 			console.error(e);
 		});
-		console.log('save ' + this.currentUser.last_name + ' ' + this.currentUser.first_name);
+		console.log('save ' + $scope.currentUser.last_name + ' ' + $scope.currentUser.first_name);
 		throw 'Not implemented Exception';
 	};
-	this.deleteUser = function(){
+    
+	$scope.deleteUser = function(){
 		throw 'Not implemented Exception';
 	};
 }]);
