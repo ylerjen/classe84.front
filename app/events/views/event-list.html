@@ -1,0 +1,26 @@
+<section ng-controller="EventListCtrl as evtctrl">
+	<h1>Sorties et évenements</h1>
+
+	<div class="action-items">
+		<a href="#/users/add" class="button small"><i class="ico ico-user-plus"></i> New member</a>	
+	</div>
+
+	<!--form class="sub-nav simple-form list-filter row">		
+		<label for="user-list-filter" class="right inline">Recherche</label>
+		<input type="text" id="user-list-filter" placeholder="Nom Prénom" ng-model="queryCriteria">
+	</form-->
+
+	<ul id="events_list" class="events-list small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+        
+		<li class="event-item animation" ng-repeat="event in evtctrl.events | orderBy: ['event_date']">
+			<a href="#/events/show/{{event.id}}" class="panel">
+    			<div class="ribbon" ng-hide="event.title">Inactif</div>
+				<p class="event-name">{{event.place}} {{event.description}}</p>
+			</a>
+		</li>
+		<li class="event-item animation" ng-if="results.length === 0">
+			<strong class="label alert">Aucun résultat trouvé...</strong>
+		</li>
+        
+	</ul>
+</section>

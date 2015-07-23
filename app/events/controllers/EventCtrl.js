@@ -1,25 +1,15 @@
-var eventsControllers = angular.module('EventsCtrl', []);
+"use strict";
 
-eventsControllers.controller('EventListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
+classe84App.controller('EventListCtrl', ['$scope', '$http', 'evtSrv', function ($scope, $http, evtSrv) {
+	var that = this;
 
-	this.events = mockEventList;
+    evtSrv.getEvents().success(function(data){
+        that.events = data.events;
+    }).error(function(e){
+		console.log('Error lors de la récupération des events : ' + e);
+    }); 
 
-  //   usrSrv.getEvents().success(function(data){
-		// that.events = data.events;
-  //   });
-  //   
   
-
-  // Event search function
-	$scope.eventListQuery = function (item){
-		var criteria = angular.lowercase($scope.queryCriteria),
-		firstname = angular.lowercase(item.firstname),
-		lastname = angular.lowercase(item.lastname);
-		if (firstname.indexOf(criteria || '')!=-1 || lastname.indexOf(criteria || '')!=-1) {
-			return true;
-		}
-		return false;
-	};
 }]);
 
 /**
@@ -28,11 +18,13 @@ eventsControllers.controller('EventListCtrl', ['$scope', '$http', 'usrSrv', func
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} evtSrv)      event services dependancy injection
  */
-classe84App.controller('EventDetailCtrl', ['$scope', '$routeParams', 'evtSrv', function($scope, $routeParams, usrSrv) {
-
+classe84App.controller('EventDetailCtrl', ['$scope', '$routeParams', 'evtSrv', function($scope, $routeParams, evtSrv) {
+    var that = this;
 	var eventId = $routeParams.eventId;
-	this.currentEvent = mockEventList[eventId-1];
-
+	
+    evtSrv.getEvents(eventId).success(function(data){
+        that.events = data.events;
+    });
 
 	this.saveEvent = function(){
 		console.log('save ' + this.currentEvent.getFullName());
