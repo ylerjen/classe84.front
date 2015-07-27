@@ -1,4 +1,4 @@
-<section ng-controller="EventListCtrl as evtctrl">
+<section ng-controller="EventListCtrl">
 	<h1>Sorties et évenements</h1>
 
 	<div class="action-items">
@@ -12,13 +12,16 @@
 
 	<ul id="events_list" class="events-list small-block-grid-2 medium-block-grid-3 large-block-grid-4">
         
-		<li class="event-item animation" ng-repeat="event in evtctrl.events | orderBy: ['event_date']">
-			<a href="#/events/show/{{event.id}}" class="panel">
-    			<div class="ribbon" ng-hide="event.title">Inactif</div>
-				<p class="event-name">{{event.place}} {{event.description}}</p>
+		<li class="panel event-item animation" ng-repeat="event in events | orderBy: ['-event_date']">
+			<a href="#/events/{{event.id}}" class="">
+    			<h2>{{event.title}}</h2>
+                <p class="date"><i class="ico ico-calendar"></i>{{event.event_date}}</p>
+				<p class="organisator"><i class="ico ico-bullhorn"></i>{{event.organisator}}</p>
+	  			<p class="Lieu"><i class="ico ico-map-marker"></i>{{event.place}}</p>
+	  			<p><i class="ico ico-users"></i> 18 participants</p>
 			</a>
 		</li>
-		<li class="event-item animation" ng-if="results.length === 0">
+		<li class="event-item animation" ng-if="events.length === 0">
 			<strong class="label alert">Aucun résultat trouvé...</strong>
 		</li>
         

@@ -1,10 +1,9 @@
 "use strict";
 
 classe84App.controller('EventListCtrl', ['$scope', '$http', 'evtSrv', function ($scope, $http, evtSrv) {
-	var that = this;
-
-    evtSrv.getEvents().success(function(data){
-        that.events = data.events;
+	
+    evtSrv.getEvents().success(function(events){
+        $scope.events = events;
     }).error(function(e){
 		console.log('Error lors de la récupération des events : ' + e);
     }); 
@@ -19,11 +18,10 @@ classe84App.controller('EventListCtrl', ['$scope', '$http', 'evtSrv', function (
  * @param  {[type]} evtSrv)      event services dependancy injection
  */
 classe84App.controller('EventDetailCtrl', ['$scope', '$routeParams', 'evtSrv', function($scope, $routeParams, evtSrv) {
-    var that = this;
-	var eventId = $routeParams.eventId;
+    var eventId = $routeParams.eventId;
 	
-    evtSrv.getEvents(eventId).success(function(data){
-        that.events = data.events;
+    evtSrv.getEventById(eventId).success(function(event){
+        $scope.event = event;
     });
 
 	this.saveEvent = function(){
