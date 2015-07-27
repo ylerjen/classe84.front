@@ -45,7 +45,7 @@ var classe84App,
         templateUrl: appSettings.eventViewFolder + '/event-list.html',
         controller: 'EventListCtrl'
       }).
-      when('/events/:userId', {
+      when('/events/:eventId', {
         templateUrl: appSettings.eventViewFolder + '/event-detail.html',
         controller: 'EventDetailCtrl'
       }).
