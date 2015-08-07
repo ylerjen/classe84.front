@@ -1,6 +1,6 @@
 
 /* Directives */
-classe84App.directive('notificationMessage', [function () {
+angular.module('classe84').directive('notificationMessage', [function () {
     'use strict';
     var directiveDefinitionObject = {
         priority: 0,

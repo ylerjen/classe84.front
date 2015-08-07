@@ -1,11 +1,10 @@
 "use strict";
  
-var classe84App,
-  appSettings;
+var appSettings;
 
 (function() {
 
-  classe84App = angular.module('classe84',
+  angular.module('classe84',
     [
       'ngRoute',
       'ngAnimate'
@@ -18,7 +17,7 @@ var classe84App,
     eventViewFolder: 'app/events/views'
   };
 
-  classe84App.config(['$routeProvider',
+  angular.module('classe84').config(['$routeProvider',
     function($routeProvider) {
       $routeProvider.
 

@@ -1,6 +1,6 @@
 "use strict";
 
-classe84App.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
+angular.module('classe84').controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
 	var that = this;
 
     usrSrv.getUsers().success(function(users){
@@ -27,7 +27,7 @@ classe84App.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} usrSrv       user services dependancy injection
  */
-classe84App.controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
+angular.module('classe84').controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
 	
 	var userId = $routeParams.userId;
 	usrSrv.findById(userId).success(function(user){

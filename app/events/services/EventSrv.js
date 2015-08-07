@@ -1,4 +1,4 @@
-classe84App.factory('evtSrv', function($http){
+angular.module('classe84').factory('evtSrv', function($http){
 	return{
 		getEvents : function(){
 			return $http.get(appSettings.apiUrl + '/events');
