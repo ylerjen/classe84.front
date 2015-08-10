@@ -1,9 +1,9 @@
-<section ng-controller="UserDetailCtrl as uctrl">
-	<h1>Details de {{uctrl.currentUser.first_name}}</h1>
+<section>
+	<h1>Details de {{currentUser.first_name}}</h1>
 
 <div class="row">
 	<div class="ribbon">
-			{{uctrl.currentUser.is_activ ? "Membre actif" : "Membre inactif"}}
+			{{currentUser.is_activ ? "Membre actif" : "Membre inactif"}}
 	</div>
 
 		<!--div class="">
@@ -18,10 +18,10 @@
 		</div-->
 
 	<div class="button-group round action-items text-right">
-		<a href="#/users/edit/{{uctrl.currentUser.id}}" class="button small">
+		<a href="#/users/edit/{{currentUser.id}}" class="button small">
 			<i class="ico ico-pencil"></i>
 		</a>
-		<button class="button small alert" ng-click="uctrl.deleteUser()">
+		<button class="button small alert" ng-click="deleteUser()">
 			<i class="ico ico-trash"></i>
 		</button>
 	</div>
