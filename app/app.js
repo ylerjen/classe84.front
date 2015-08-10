@@ -3,13 +3,17 @@
 var appSettings;
 
 (function() {
-
-  angular.module('classe84',
-    [
+  angular.module('84.controllers', []);
+  angular.module('84.directives', []);
+  angular.module('84.services', []);
+  angular.module('84.filters', []);
+  angular.module('84', [
+      '84.controllers',
+      '84.directives',
+      '84.services',
       'ngRoute',
       'ngAnimate'
     ]);
-
 
   appSettings = {
     apiUrl: 'http://api84.loc',
@@ -17,7 +21,7 @@ var appSettings;
     eventViewFolder: 'app/events/views'
   };
 
-  angular.module('classe84').config(['$routeProvider',
+  angular.module('84').config(['$routeProvider',
     function($routeProvider) {
       $routeProvider.
 

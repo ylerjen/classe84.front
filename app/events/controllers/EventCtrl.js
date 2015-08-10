@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('classe84').controller('EventListCtrl', ['$scope', '$http', 'evtSrv', function ($scope, $http, evtSrv) {
+angular.module('84.controllers').controller('EventListCtrl', ['$scope', '$http', 'evtSrv', function ($scope, $http, evtSrv) {
 	
     evtSrv.getEvents().success(function(events){
         $scope.events = events;
@@ -17,7 +17,7 @@ angular.module('classe84').controller('EventListCtrl', ['$scope', '$http', 'evtS
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} evtSrv)      event services dependancy injection
  */
-angular.module('classe84').controller('EventDetailCtrl', ['$scope', '$routeParams', 'evtSrv', function($scope, $routeParams, evtSrv) {
+angular.module('84.controllers').controller('EventDetailCtrl', ['$scope', '$routeParams', 'evtSrv', function($scope, $routeParams, evtSrv) {
     var eventId = $routeParams.eventId;
 	
     evtSrv.getEventById(eventId).success(function(event){

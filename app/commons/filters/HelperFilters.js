@@ -1,4 +1,4 @@
-classe84App.filter('tel', function () {
+angular.module('84.filters').filter('tel', function () {
     return function (tel) {
         if (!tel.trim()) { return ''; }
 

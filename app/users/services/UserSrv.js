@@ -1,4 +1,4 @@
-angular.module('classe84').factory('usrSrv', function ($http) {
+angular.module('84').factory('usrSrv', function ($http) {
 	return {
 		getUsers : function(){
 			return $http.get(appSettings.apiUrl + '/users');

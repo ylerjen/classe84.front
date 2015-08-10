@@ -1,4 +1,4 @@
-classe84App.factory('loginSrv', function($http){
+angular.module('84.services').factory('loginSrv', function($http){
 	return{
 		login : function(username, password){
 			//TODO remove mockup
