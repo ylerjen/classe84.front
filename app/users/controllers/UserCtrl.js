@@ -27,13 +27,20 @@ angular.module('classe84').controller('UserListCtrl', ['$scope', '$http', 'usrSr
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} usrSrv       user services dependancy injection
  */
-angular.module('classe84').controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', function($scope, $routeParams, usrSrv) {
+angular.module('classe84').controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', 'fbSrv', function($scope, $routeParams, usrSrv, fbSrv) {
 	
 	var userId = $routeParams.userId;
-	usrSrv.findById(userId).success(function(user){
+	usrSrv.findById(userId).success(function (user) {
 		console.log(user);
 		$scope.currentUser = user;
-	}).error(function(e){
+        if(user.fb_user_id !== 0) {
+        fbSrv.getFbSilouetteUrl(user.fb_user_id).success(function (response) {
+            $scope.imgSrc  = response.data && response.data.url ? response.data.url : '';
+        });
+        } else {
+            $scope.imgSrc = 'http://m1m.com/wp-content/uploads/2015/06/default-user-avatar.png';
+        }
+	}).error(function (e) {
 		console.error(e);
 	});
 
