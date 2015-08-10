@@ -8,13 +8,10 @@ angular.module('84.directives')
             replace : true,
             transclude : true,
             restrict : 'A',
-            templateUrl : '/app/addresses/views/addresses.html'
-    /*,
+            templateUrl : '/app/addresses/views/addresses.html',
             scope : {
-                "addresses" : "@addresses",
-                'editingMode' : true
+                "addresses" : "@addresses"
             }
-    */
         };
     }])
     .directive('address', [function () {
