@@ -1,13 +1,13 @@
 <section>
-	<h1>Modifier {{uctrl.currentUser.getFullName()}}</h1>
+	<h1>Modifier {{currentUser.getFullName()}}</h1>
 	<form>
 		<div class="row">
 			<div class="large-6 columns">
 				<label>Genre</label>
 			</div><div class="large-6 columns">
-				<input type="radio" name="gender" value="M" id="gender_m" ng-model="uctrl.currentUser.gender">
+				<input type="radio" name="gender" value="M" id="gender_m" ng-model="currentUser.gender">
 				<label for="gender_m">Homme</label>
-				<input type="radio" name="gender" value="F" id="gender_f" ng-model="uctrl.currentUser.gender">
+				<input type="radio" name="gender" value="F" id="gender_f" ng-model="currentUser.gender">
 				<label for="gender_f">Femme</label>
 			</div>
 		</div>
@@ -16,15 +16,15 @@
 			<div class="large-6 columns">
 				<label for="usr-lastname">Nom de famille</label>
 			</div><div class="large-6 columns">
-				<input type="text" id="usr-lastname" name="lastname" placeholder="Muster" ng-model="uctrl.currentUser.last_name" />
+				<input type="text" id="usr-lastname" name="lastname" placeholder="Muster" ng-model="currentUser.last_name" />
 			</div>
 		</div>		
 
-		<div class="row" ng-hide="uctrl.currentUser.gender !== 'F'">
+		<div class="row" ng-hide="currentUser.gender !== 'F'">
 			<div class="large-6 columns">
 				<label for="usr-maidenname">Nom de jeune fille</label>
 			</div><div class="large-6 columns">
-				<input type="text" id="usr-maidenname" name="maidenname" placeholder="Musterette" ng-model="uctrl.currentUser.maidenname" />
+				<input type="text" id="usr-maidenname" name="maidenname" placeholder="Musterette" ng-model="currentUser.maidenname" />
 			</div>
 		</div>
 
@@ -32,7 +32,7 @@
 			<div class="large-6 columns">
 				<label for="usr-firstname">Prénom</label>
 			</div><div class="large-6 columns">
-				<input type="text" id="usr-firstname" placeholder="Hans" ng-model="uctrl.currentUser.first_name" />
+				<input type="text" id="usr-firstname" placeholder="Hans" ng-model="currentUser.first_name" />
 			</div>
 		</div>
 
@@ -40,7 +40,7 @@
 			<div class="large-6 columns">
 				<label for="usr-email">Email</label>
 			</div><div class="large-6 columns">
-				<input id="usr-email" type="text" name="email" placeholder="name@domain.ch" ng-model="uctrl.currentUser.email" />
+				<input id="usr-email" type="text" name="email" placeholder="name@domain.ch" ng-model="currentUser.email" />
 			</div>
 		</div>
 
@@ -48,7 +48,7 @@
 			<div class="large-6 columns">
 				<label for="usr-mobile">Téléphone mobile</label>
 			</div><div class="large-6 columns">
-				<input type="text" id="usr-mobile" name="email" placeholder="079 123 45 67" ng-model="uctrl.currentUser.mobile" />
+				<input type="text" id="usr-mobile" name="email" placeholder="079 123 45 67" ng-model="currentUser.mobile" />
 			</div>
 		</div>
 
@@ -56,20 +56,18 @@
 			<div class="large-6 columns">
 				<label for="usr-mobile">Téléphone fixe</label>
 			</div><div class="large-6 columns">
-				<input type="text" id="usr-mobile" name="email" placeholder="027 123 45 67" ng-model="uctrl.currentUser.telefon" />
+				<input type="text" id="usr-mobile" name="email" placeholder="027 123 45 67" ng-model="currentUser.telefon" />
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="large-6 columns">
-				<label for="usr-is-activ">Activité du membre</label>
-			</div><div class="large-6 columns">
-				<input type="checkbox" id="usr-is-activ"><label for="usr-is-activ">Est membre actif de la classe</label>
+			<div class="large-12 columns">
+				<input type="checkbox" id="usr-is-activ" ng-model="currentUser.is_active"><label for="usr-is-activ">Est membre actif de la classe</label>
 			</div>
 		</div>
 
 		<div class="row">
-			<button class="large-offset-6 small" ng-click="uctrl.saveUser()">Save</button>
+			<button class="large-offset-6 small" ng-click="saveUser()">Save</button>
 			<a href="#/users" class="	 small">Annuler</button>
 		</div>
 
