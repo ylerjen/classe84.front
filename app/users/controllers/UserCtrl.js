@@ -28,10 +28,8 @@ angular.module('classe84').controller('UserListCtrl', ['$scope', '$http', 'usrSr
  * @param  {[type]} usrSrv       user services dependancy injection
  */
 angular.module('classe84').controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', 'fbSrv', function($scope, $routeParams, usrSrv, fbSrv) {
-	
 	var userId = $routeParams.userId;
 	usrSrv.findById(userId).success(function (user) {
-		console.log(user);
 		$scope.currentUser = user;
         if(user.fb_user_id !== 0) {
         fbSrv.getFbSilouetteUrl(user.fb_user_id).success(function (response) {
