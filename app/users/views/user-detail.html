@@ -1,12 +1,8 @@
 <section>
-	<h1>Details de {{currentUser.first_name}}</h1>
-
-<div class="row">
-	<div class="ribbon">
-			{{currentUser.is_activ ? "Membre actif" : "Membre inactif"}}
-	</div>
-
-		<!--div class="">
+    <h1>Details de {{currentUser.first_name}}</h1>
+    <div class="row">
+        <div class="ribbon">{{currentUser.is_activ ? "Membre actif" : "Membre inactif"}}</div>
+        <!--div class="">
 			<a href="#/users/edit/{{uctrl.currentUser.id}}" class="item">
 				<i class="ico ico-pencil"></i>
 		    	<label>Edit</label>
@@ -16,82 +12,67 @@
 				<label>Delete</label>
 			</a>
 		</div-->
-
-	<div class="button-group round action-items text-right">
-		<a href="#/users/edit/{{currentUser.id}}" class="button small">
+        <div class="button-group round action-items text-right">
+            <a href="#/users/edit/{{currentUser.id}}" class="button small">
 			<i class="ico ico-pencil"></i>
 		</a>
-		<button class="button small alert" ng-click="deleteUser()">
-			<i class="ico ico-trash"></i>
-		</button>
-	</div>
-</div>
-
-<div id="profileImg">
-    <figure><img ng-src="{{ imgSrc }}" alt="Photo de {{ currentUser.first_name }}"></figure>
-</div>
-
-	<div class="row">
-		<div class="small-6 columns">Nom de famille</div>
-        <div class="small-6 columns">
-			{{currentUser.last_name}}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="small-6 columns">Prénom</div>
-        <div class="small-6 columns">
-			{{currentUser.first_name}}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="small-6 columns">Genre</div>
-        <div class="small-6 columns">
-			{{currentUser.gender === 'F' ? 'Femme': 'Homme'}}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="small-6 columns">Date de naissance</div>
+            <button class="button small alert" ng-click="deleteUser()">
+                <i class="ico ico-trash"></i>
+            </button>
+        </div>
+    </div>
+    <div id="profileImg">
+        <figure>
+            <img ng-src="{{ imgSrc }}" alt="Photo de {{ currentUser.first_name }}">
+        </figure>
+    </div>
+    <div class="row">
+        <div class="small-6 columns">Nom de famille</div>
+        <div class="small-6 columns">{{currentUser.last_name}}</div>
+    </div>
+    <div class="row">
+        <div class="small-6 columns">Prénom</div>
+        <div class="small-6 columns">{{currentUser.first_name}}</div>
+    </div>
+    <div class="row">
+        <div class="small-6 columns">Genre</div>
+        <div class="small-6 columns">{{currentUser.gender === 'F' ? 'Femme': 'Homme'}}</div>
+    </div>
+    <div class="row">
+        <div class="small-6 columns">Date de naissance</div>
         <div class="small-6 columns">{{currentUser.birthdate | date: 'dd.MM.yyyy'}}</div>
-	</div>
-
-	<div class="row" ng-show="currentUser.email">
-		<div class="small-6 columns">Email</div>
+    </div>
+    <div class="row" ng-show="currentUser.email">
+        <div class="small-6 columns">Email</div>
         <div class="small-6 columns">
-			<a href="mailto:{{currentUser.email}}">{{currentUser.email}}</a>
-		</div>
-	</div>
-
-	<div class="row" ng-show="currentUser.mobile">
-		<div class="small-6 columns">Téléphone mobile</div>
+            <a href="mailto:{{currentUser.email}}">{{currentUser.email}}</a>
+        </div>
+    </div>
+    <div class="row" ng-show="currentUser.mobile">
+        <div class="small-6 columns">Téléphone mobile</div>
         <div class="small-6 columns">
-			<a href="tel:{{currentUser.mobile}}">{{currentUser.mobile}}</a>
-		</div>
-	</div>
-
-	<div class="row" ng-show="currentUser.telefon">
-		<div class="small-6 columns">Téléphone fixe</div>
+            <a href="tel:{{currentUser.mobile}}">{{currentUser.mobile}}</a>
+        </div>
+    </div>
+    <div class="row" ng-show="currentUser.telefon">
+        <div class="small-6 columns">Téléphone fixe</div>
         <div class="small-6 columns">
-			<a href="tel:{{currentUser.telefon}}">{{currentUser.telefon}}</a>
-		</div>
-	</div>
-	
-	<div class="row" ng-show="currentUser.fb_profile_name">
-		<div class="small-6 columns">Facebook</div>
+            <a href="tel:{{currentUser.telefon}}">{{currentUser.telefon}}</a>
+        </div>
+    </div>
+    <div class="row" ng-show="currentUser.fb_profile_name">
+        <div class="small-6 columns">Facebook</div>
         <div class="small-6 columns">
-			<a href="http://www.facebook.com/{{currentUser.fb_profile_name}}">http://www.facebook.com/{{currentUser.fb_profile_name}}</a>
-		</div>
-	</div>
-	
-	<div class="row" ng-show="currentUser.website">
-		<div class="small-6 columns">Website</div>
+            <a href="http://www.facebook.com/{{currentUser.fb_profile_name}}">http://www.facebook.com/{{currentUser.fb_profile_name}}</a>
+        </div>
+    </div>
+    <div class="row" ng-show="currentUser.website">
+        <div class="small-6 columns">Website</div>
         <div class="small-6 columns">
-			<a href="http://{{currentUser.website}}" target="_blank">{{currentUser.website}}</a>
-		</div>
-	</div>
-	<addresses></addresses>
-	<event-stats></event-stats>
-	<cotisations></cotisations>
+            <a href="http://{{currentUser.website}}" target="_blank">{{currentUser.website}}</a>
+        </div>
+    </div>
+    <div addresses></div>
+    <div event-stats></div>
+    <div cotisations></div>
 </section>
