@@ -1,6 +1,8 @@
 "use strict";
 
-angular.module('84.controllers').controller('EventListCtrl', ['$scope', '$http', 'evtSrv', function ($scope, $http, evtSrv) {
+angular.module('84.events')
+
+.controller('EventListCtrl', ['$scope', '$http', 'evtSrv', function ($scope, $http, evtSrv) {
 	
     evtSrv.getEvents().success(function(events){
         $scope.events = events;
@@ -9,7 +11,7 @@ angular.module('84.controllers').controller('EventListCtrl', ['$scope', '$http',
     }); 
 
   
-}]);
+}])
 
 /**
  * Manage the event detail and event form for the show/edit/add functionnalities
@@ -17,7 +19,7 @@ angular.module('84.controllers').controller('EventListCtrl', ['$scope', '$http',
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} evtSrv)      event services dependancy injection
  */
-angular.module('84.controllers').controller('EventDetailCtrl', ['$scope', '$routeParams', 'evtSrv', function($scope, $routeParams, evtSrv) {
+.controller('EventDetailCtrl', ['$scope', '$routeParams', 'evtSrv', function($scope, $routeParams, evtSrv) {
     var eventId = $routeParams.eventId;
 	
     evtSrv.getEventById(eventId).success(function(event){

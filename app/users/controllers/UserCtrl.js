@@ -1,12 +1,10 @@
 "use strict";
 
-angular.module('84.controllers')
+angular.module('84.users')
 
     .controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
-        var that = this;
-
         usrSrv.getUsers().success(function (users) {
-            that.users = users;
+            $scope.users = users;
         }).error(function (e) {
             console.error(e);
         });

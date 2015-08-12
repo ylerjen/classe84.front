@@ -1,21 +1,20 @@
-angular.module('84').factory('usrSrv', function ($http) {
+angular.module('84.users').factory('usrSrv', ['$http', 'API_URL', function ($http, API_URL) {
 	return {
 		getUsers : function(){
-			return $http.get(appSettings.apiUrl + '/users');
+			return $http.get(API_URL.api84 + '/users');
 		},
 		findById: function(id){
-			return $http.get(appSettings.apiUrl + '/users/' + id);
+			return $http.get(API_URL.api84 + '/users/' + id);
 		},
 		saveUser: function(user){
-			return $http.get(appSettings.apiUrl + '/users/');
+			return $http.get(API_URL.api84 + '/users/');
 		}
 	};
-}).factory('fbSrv', function($http){
-    var fbApiUrl = 'https://graph.facebook.com/';
+}]).factory('fbSrv', ['$http', 'API_URL', function ($http, API_URL) {
     return {
         getFbSilouetteUrl : function (fbId) {           
-            var fbUrl = fbApiUrl + fbId + '/picture?type=normal&redirect=false';
+            var fbUrl = API_URL.fbApiUrl + fbId + '/picture?type=normal&redirect=false';
             return $http.get(fbUrl);
         }
     }
-});
+}]);

@@ -1,6 +1,6 @@
 // Directives
 'use strict';
-angular.module('84.directives')
+angular.module('84.addresses')
     
     .directive('addresses', [function () {
         return {

@@ -1,6 +1,6 @@
 
 /* Directives */
-angular.module('84.directives')
+angular.module('84.notifications')
 
     .directive('notificationMessage', [function () {
         'use strict';

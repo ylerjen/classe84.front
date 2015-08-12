@@ -11,7 +11,7 @@
 	</form>
 
 	<ul id="member_list" class="users-list small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-		<li class="user-item animation" ng-repeat="user in uctrl.users | filter: userListQuery | orderBy: ['last_name'] as results">
+		<li class="user-item animation" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
 			<a href="#/users/show/{{user.id}}" class="panel">
     			<div class="ribbon" ng-hide="user.is_active">Inactif</div>
 				<i ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-lg"></i>

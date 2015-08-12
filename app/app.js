@@ -1,64 +1,66 @@
 "use strict";
- 
-var appSettings;
 
 (function() {
-  angular.module('84.controllers', []);
-  angular.module('84.directives', []);
-  angular.module('84.services', []);
-  angular.module('84.filters', []);
+  
+  angular.module('84.config', []).constant('API_URL', {
+    api84: 'http://api84.loc',
+    fbApiUrl: 'https://graph.facebook.com/'
+  }).constant('PATH', {
+      userViewFolder: 'app/users/views',
+      eventViewFolder: 'app/events/views'
+    });
+    
+  angular.module('84.users', ['84.config']);
+  angular.module('84.addresses', ['84.config']);
+  angular.module('84.events', ['84.config']);
+  angular.module('84.notifications', []);
+  
   angular.module('84', [
-      '84.controllers',
-      '84.directives',
-      '84.services',
+      '84.config',
+      '84.users',
       'ngRoute',
       'ngAnimate'
-    ]);
+    ]).value('appVersion', '1.0.0');
+    
+    
 
-  appSettings = {
-    apiUrl: 'http://api84.loc',
-    userViewFolder: 'app/users/views',
-    eventViewFolder: 'app/events/views'
-  };
-
-  angular.module('84').config(['$routeProvider',
-    function($routeProvider) {
+  angular.module('84').config(['$routeProvider', 'PATH', function($routeProvider, PATH) {
       $routeProvider.
 
     //Users routing
       when('/users', {
-        templateUrl: appSettings.userViewFolder + '/user-list.html',
+        templateUrl: PATH.userViewFolder + '/user-list.html',
         controller: 'UserListCtrl'
       }).
       when('/users/add', {
-        templateUrl: appSettings.userViewFolder + '/user-form.html',
+        templateUrl: PATH.userViewFolder + '/user-form.html',
         controller: 'UserDetailCtrl'
       }).
       when('/users/show/:userId', {
-        templateUrl: appSettings.userViewFolder + '/user-detail.html',
+        templateUrl: PATH.userViewFolder + '/user-detail.html',
         controller: 'UserDetailCtrl'
       }).
       when('/users/edit/:userId', {
-        templateUrl: appSettings.userViewFolder + '/user-form.html',
+        templateUrl: PATH.userViewFolder + '/user-form.html',
         controller: 'UserDetailCtrl'
       }).
 
     //Events routing
       when('/events', {
-        templateUrl: appSettings.eventViewFolder + '/event-list.html',
+        templateUrl: PATH.eventViewFolder + '/event-list.html',
         controller: 'EventListCtrl'
       }).
       when('/events/:eventId', {
-        templateUrl: appSettings.eventViewFolder + '/event-detail.html',
+        templateUrl: PATH.eventViewFolder + '/event-detail.html',
         controller: 'EventDetailCtrl'
       }).
       when('/events/add', {
-        templateUrl: appSettings.eventViewFolder + '/event-detail.html',
+        templateUrl: PATH.eventViewFolder + '/event-detail.html',
         controller: 'EventAddCtrl'
       }).
 /*
       when('/gallery', {
-        templateUrl: appSettings.userViewFolder + '/user-list.html',
+        templateUrl: PATH.userViewFolder + '/user-list.html',
         controller: 'UserListCtrl'
       }).
 */
