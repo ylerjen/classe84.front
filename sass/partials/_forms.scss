@@ -8,3 +8,7 @@
 		display: inline;
 	}
 }
+
+input.ng-dirty.ng-invalid {
+    border-color: red;
+}
