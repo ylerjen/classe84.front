@@ -18,6 +18,7 @@
   angular.module('84', [
       '84.config',
       '84.users',
+      '84.addresses',
       'ngRoute',
       'ngAnimate'
     ]).value('appVersion', '1.0.0');
