@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 gulp.task('compass', function() {
   gulp.src('./sass/*.scss')
     .pipe(compass({
-      css: 'css',
+      css: 'distr/css',
       sass: 'sass',
       style: 'compressed',
       logging: true
