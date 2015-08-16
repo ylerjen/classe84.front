@@ -13,7 +13,10 @@ angular.module('84.users').factory('usrSrv', ['$http', 'API_URL', function ($htt
                 return $http.post(API_URL.api84 + '/users', user);
             }
 
-		}
+		},
+        deleteUser: function (id){
+            return $http.delete(API_URL.api84 + '/users/' + id);
+        }
 	};
 }]).factory('fbSrv', ['$http', 'API_URL', function ($http, API_URL) {
     return {

@@ -61,23 +61,34 @@ angular.module('84.users')
             });
         }
         $scope.saveUser = function () {
-            if ($scope.currentUser.gender === 'M') {
-                $scope.currentUser.maidenname = '';
-            } else {
-                if ($scope.currentUser.maidenname === $scope.currentUser.last_name) {
+            if($scope.myform.$valid){
+                if ($scope.currentUser.gender === 'M') {
                     $scope.currentUser.maidenname = '';
+                } else {
+                    if ($scope.currentUser.maidenname === $scope.currentUser.last_name) {
+                        $scope.currentUser.maidenname = '';
+                    }
                 }
+                usrSrv.saveUser($scope.currentUser).success(function (user) {
+                    $scope.currentUser = user;
+                    $location.path('/users/show/' + user.id);
+                }).error(function (e) {
+                    console.error(e);
+                });
+            } else {
+                alert('Form invalid');//TODO replace with ng-notify
             }
-            usrSrv.saveUser($scope.currentUser).success(function (user) {
-                $scope.currentUser = user;
-                $location.path('/users/show/' + user.id);
-            }).error(function (e) {
-                console.error(e);
-            });
-            console.log('save ' + $scope.currentUser.last_name + ' ' + $scope.currentUser.first_name);
         };
+        
 
-        $scope.deleteUser = function () {
-            throw 'Not implemented Exception';
+        $scope.deleteUser = function (id) {
+            if( confirm('Etes-vous sûr de vouloir effacer ce membre ? ') ) {
+                usrSrv.deleteUser(id).success(function () {
+                    console.log('user ' + id + ' supprimé');
+                    $location.path('/users');
+                }).error(function (e) {
+                    console.error(e);
+                });
+            }
         };
     }]);
