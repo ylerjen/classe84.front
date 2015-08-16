@@ -7,7 +7,12 @@ angular.module('84.users').factory('usrSrv', ['$http', 'API_URL', function ($htt
 			return $http.get(API_URL.api84 + '/users/' + id);
 		},
 		saveUser: function(user){
-			return $http.get(API_URL.api84 + '/users/');
+            if(user.id) {
+                return $http.put(API_URL.api84 + '/users/' + user.id, user);
+            } else {
+                return $http.post(API_URL.api84 + '/users', user);
+            }
+
 		}
 	};
 }]).factory('fbSrv', ['$http', 'API_URL', function ($http, API_URL) {
