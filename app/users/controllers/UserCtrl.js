@@ -61,7 +61,7 @@ angular.module('84.users')
             });
         }
         $scope.saveUser = function () {
-            if($scope.myform.$valid){
+            if($scope.userForm.$valid){
                 if ($scope.currentUser.gender === 'M') {
                     $scope.currentUser.maidenname = '';
                 } else {
