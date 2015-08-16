@@ -27,22 +27,39 @@ angular.module('84.users')
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} usrSrv       user services dependancy injection
  */
-    .controller('UserDetailCtrl', ['$scope', '$routeParams', 'usrSrv', 'fbSrv', function ($scope, $routeParams, usrSrv, fbSrv) {
+    .controller('UserDetailCtrl', ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv', function ($scope, $routeParams, $location, usrSrv, fbSrv) {        
+        this.initUser = function() {            
+            $scope.currentUser = { 
+                first_name  : '', 
+                maiden_name : '', 
+                last_name   : '', 
+                birthdate   : '', 
+                email       : '', 
+                telefon     : '', 
+                mobile      : '', 
+                website     : '', 
+                fb_profile_name: '', 
+                fb_user_id  : '', 
+                is_active   : 0
+            };
+        };
+        
         var userId = $routeParams.userId;
-        usrSrv.findById(userId).success(function (user) {
-            $scope.currentUser = user;
-            if (user.fb_user_id !== 0) {
-                fbSrv.getFbSilouetteUrl(user.fb_user_id).success(function (response) {
-                    $scope.imgSrc = response.data && response.data.url ? response.data.url : '';
-                });
-            } else {
-                $scope.imgSrc = 'http://m1m.com/wp-content/uploads/2015/06/default-user-avatar.png';
-            }
-        }).error(function (e) {
-            console.error(e);
-        });
-
-
+        this.initUser();
+        if(userId){
+            usrSrv.findById(userId).success(function (user) {
+                $scope.currentUser = user;
+                if (user.fb_user_id !== 0) {
+                    fbSrv.getFbSilouetteUrl(user.fb_user_id).success(function (response) {
+                        $scope.imgSrc = response.data && response.data.url ? response.data.url : '';
+                    });
+                } else {
+                    $scope.imgSrc = 'http://m1m.com/wp-content/uploads/2015/06/default-user-avatar.png';
+                }
+            }).error(function (e) {
+                console.error(e);
+            });
+        }
         $scope.saveUser = function () {
             if ($scope.currentUser.gender === 'M') {
                 $scope.currentUser.maidenname = '';
@@ -51,13 +68,13 @@ angular.module('84.users')
                     $scope.currentUser.maidenname = '';
                 }
             }
-            usrSrv.saveUser().success(function (data) {
-                $scope.users = data.events;
+            usrSrv.saveUser($scope.currentUser).success(function (user) {
+                $scope.currentUser = user;
+                $location.path('/users/show/' + user.id);
             }).error(function (e) {
                 console.error(e);
             });
             console.log('save ' + $scope.currentUser.last_name + ' ' + $scope.currentUser.first_name);
-            throw 'Not implemented Exception';
         };
 
         $scope.deleteUser = function () {
