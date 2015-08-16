@@ -53,13 +53,13 @@
         <div class="row" ng-show="currentUser.mobile">
             <div class="small-6 columns">Téléphone mobile</div>
             <div class="small-6 columns">
-                <a href="tel:{{currentUser.mobile}}">{{currentUser.mobile}}</a>
+                <a href="tel:{{currentUser.mobile}}">{{currentUser.mobile | tel}}</a>
             </div>
         </div>
         <div class="row" ng-show="currentUser.telefon">
             <div class="small-6 columns">Téléphone fixe</div>
             <div class="small-6 columns">
-                <a href="tel:{{currentUser.telefon}}">{{currentUser.telefon}}</a>
+                <a href="tel:{{currentUser.telefon}}">{{currentUser.telefon | tel}}</a>
             </div>
         </div>
         <div class="row" ng-show="currentUser.fb_profile_name">
