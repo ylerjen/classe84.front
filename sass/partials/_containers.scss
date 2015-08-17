@@ -1,3 +1,7 @@
+.content {
+    background-color: $bg-content-color;
+    box-shadow: 4px 4px 8px darken($bg-color,10%);
+}
 .action-items {
 	float: right;
 	.action {
