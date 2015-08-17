@@ -1,24 +1,32 @@
 // Directives
 'use strict';
-angular.module('84.addresses')
-    
+angular.module('84.addresses')    
     .directive('addresses', [function () {
         return {
-            priority : 0,
             replace : true,
-            transclude : true,
             restrict : 'A',
             templateUrl : '/app/addresses/views/addresses.html',
-            scope : {
-                "addresses" : "@addresses"
+            scope : {                
+                addresses : "=addressesAttr"
+            },
+            link : function (scope, element, attrs) {
+                scope.$watch('addressesAttr', function(newValue, oldValue) {
+                   console.log(newValue);
+                })
             }
         };
     }])
-    .directive('address', [function () {
-        'use strict';
+    .directive('address', [ function () {
         return {
-            transclude : true,
             restrict : 'A',
             templateUrl : '/app/addresses/views/address.html',
+            scope : {
+                address : '=addressAttr'
+            },
+            link : function (scope, element, attrs) {
+                scope.$watch('addressAttr', function(newValue, oldValue) {
+                   console.log(newValue);
+                })
+            }
         };
     }]);
