@@ -1,0 +1,42 @@
+<form>
+    <div class="row">
+        <div class="large-6 columns">
+            <label for="usr-lastname">Rue</label>
+        </div><div class="large-6 columns">
+            <input type="text" name="addr-street" placeholder="Av. de la gare 15" ng-model="address.street" />
+        </div>
+    </div>				
+    <div class="row">
+        <div class="large-6 columns">
+            <label for="usr-lastname">NPA</label>
+        </div><div class="large-6 columns">
+            <input type="text" name="lastname" placeholder="1963" ng-model="address.npa" />
+        </div>
+    </div>				
+    <div class="row">
+        <div class="large-6 columns">
+            <label for="usr-lastname">Lieu</label>
+        </div><div class="large-6 columns">
+            <input type="text" name="lastname" placeholder="Vétroz" ng-model="address.city" />
+        </div>
+    </div>	
+    <div class="row">
+        <div class="large-6 columns">
+            <label for="usr-lastname">Région</label>
+        </div><div class="large-6 columns">
+            <input type="text" name="lastname" placeholder="Valais" ng-model="address.state" />
+        </div>
+    </div>	
+    <div class="row">
+        <div class="large-6 columns">
+            <label for="usr-lastname">Pays</label>
+        </div><div class="large-6 columns">
+            <input type="text" name="lastname" placeholder="Suisse" ng-model="address.country" />
+        </div>
+    </div>
+    <div class="save">
+        <button class="save" ng-click="saveAddress()">
+            <i class="ico ico-save"></i>
+        </button>
+    </div>	
+</form>

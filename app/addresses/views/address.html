@@ -1,61 +1,20 @@
-<div class="flipper-container content address-item" ng-class="{flipped: false}">
-    <div class="flipper">
-    	<div class="flip-div recto">
-    		<div class="row">{{address.street}}</div>
-    		<div class="row">{{address.npa}} {{address.city}}</div>
-    		<div class="row">{{address.state}} - {{address.country}}</div>
-    		<div class="tools">
-    			<button class="edit" ng-click="editAddress()">
-                    <i class="ico ico-pencil"></i>
-                </button>
-                <button class="default" ng-click="setDefault('address.id')">
-                    <i class="ico ico-check"></i>
-                </button>
-    		</div>
-    	</div>
-    	<div class="flip-div verso">
-    		<form>
-    			<div class="row">
-    				<div class="large-6 columns">
-    					<label for="usr-lastname">Rue</label>
-    				</div><div class="large-6 columns">
-    					<input type="text" name="addr-street" placeholder="Av. de la gare 15" ng-model="address.street" />
-    				</div>
-    			</div>				
-    			<div class="row">
-    				<div class="large-6 columns">
-    					<label for="usr-lastname">NPA</label>
-    				</div><div class="large-6 columns">
-    					<input type="text" name="lastname" placeholder="Muster" ng-model="address.npa" />
-    				</div>
-    			</div>				
-    			<div class="row">
-    				<div class="large-6 columns">
-    					<label for="usr-lastname">Lieu</label>
-    				</div><div class="large-6 columns">
-    					<input type="text" name="lastname" placeholder="Muster" ng-model="address.city" />
-    				</div>
-    			</div>	
-    			<div class="row">
-    				<div class="large-6 columns">
-    					<label for="usr-lastname">Région</label>
-    				</div><div class="large-6 columns">
-    					<input type="text" name="lastname" placeholder="Muster" ng-model="address.state" />
-    				</div>
-    			</div>	
-    			<div class="row">
-    				<div class="large-6 columns">
-    					<label for="usr-lastname">Pays</label>
-    				</div><div class="large-6 columns">
-    					<input type="text" name="lastname" placeholder="Muster" ng-model="address.country" />
-    				</div>
-    			</div>
-    			<div class="save">
-    				<button class="save" ng-click="saveAddress()">
-    					<i class="ico ico-save"></i>
-    				</button>
-    			</div>	
-    		</form>
-    	</div>
+<div class="content address-item">
+    <div class="row">
+        <div class="columns small-2">
+            <i class="ico ico-map-marker ico-2x"></i>
+        </div>
+        <div class="columns small-10">
+            <div class="row">{{address.street}}</div>
+            <div class="row">{{address.npa}} {{address.city}}</div>
+            <div class="row">{{address.state}} - {{address.country}}</div>
+        </div>
+    </div>
+    <div class="tools">
+        <button class="edit" ng-click="editAddress()">
+            <i class="ico ico-pencil"></i>
+        </button>
+        <button class="default" ng-click="setDefault('address.id')">
+            <i class="ico ico-check"></i>
+        </button>
     </div>
 </div>
