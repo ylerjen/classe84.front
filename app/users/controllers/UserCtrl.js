@@ -2,7 +2,7 @@
 
 angular.module('84.users')
 
-    .controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
+    .controller('UserListCtrl', ['$scope', '$http', 'usrSrv', 'notificationSrv', function ($scope, $http, usrSrv, notificationSrv) {
         usrSrv.getUsers().success(function (users) {
             $scope.users = users;
         }).error(function (e) {

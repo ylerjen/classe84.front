@@ -10,7 +10,7 @@
       eventViewFolder: 'app/events/views'
     });
     
-  angular.module('84.users', ['84.config', '84.filters']);
+  angular.module('84.users', ['84.config', '84.notifications', '84.filters']);
   angular.module('84.addresses', ['84.config']);
   angular.module('84.events', ['84.config']);
   angular.module('84.notifications', []);
