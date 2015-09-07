@@ -1,0 +1,10 @@
+<div id="notificationsBox">
+    
+    <button data-ng-click="addNotification('coucou')">+ Add notification</button>
+    <ul>
+        <li ng-repeat="notif in notifications" class="alert-box {{notif.msgType}}">
+            <span ng-bind="notif.msg"></span>
+            <a href="#" ng-click="notif.remove()" class="close">&times;</a>
+        </li>
+    </ul>
+</div>
