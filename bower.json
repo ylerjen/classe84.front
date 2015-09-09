@@ -25,5 +25,8 @@
     "angular": "1.4.0",
     "angular-route": "~1.4.0",
     "angular-animate": "~1.4.0"
+  },
+  "devDependencies": {
+    "jasmine-core": "jasmine#~2.3.4"
   }
 }
