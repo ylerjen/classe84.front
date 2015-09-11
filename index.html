@@ -30,8 +30,8 @@
 </head>
 <body ng-app="84">
 	<!-- HEADER -->
-    <header>
-        <nav class="navbar navbar-dark bg-primary">
+    <header class="navbar navbar-dark bg-primary">
+        <nav class="container">
             <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">&#9776;</button>
             <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
                 <a class="navbar-brand" href="#">Classe 84</a>
@@ -58,12 +58,12 @@
             </form>
         </nav>
     </header>
-    <main class="container">
+    <main class="main-content container">
         <div notifications notifications-attr="notifications"></div>
-        <div ng-view></div>
+        <div class="row">
+            <div ng-view></div>
+        </div>
     </main>
-    <footer>&copy; classe84.org - api v.0.1.0 - app v.0.1.0</footer>
-    
-
+    <footer class="card-block"><div class="container">&copy; classe84.org - api v.0.1.0 / front v.0.1.0</div></footer>
 </body>
 </html>
