@@ -1,6 +1,8 @@
 //BOOTSTRAP 4
 
 // Core variables and mixins
-@import "partials/_variables_btstrp";
+@import "partials/_variables";
+// Bootstrap extension
+@import "partials/_btstrp_addon";
 // Framework
 @import "../libs/bootstrap/scss/bootstrap";
