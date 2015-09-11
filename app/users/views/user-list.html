@@ -1,37 +1,47 @@
-<section class="content row">
-	<h1>Membres de la classe</h1>
-    <div class="col-md-9 col-lg-10">
-        <div class="row">
-        	<div class="action-items">
-        		<a href="#/users/add" class="btn btn-border"><i class="ico ico-user-plus"></i> New member</a>	
-        	</div>
-        
-        	<form class="form-inline">
-                <div class="form-group">		
-                    <label for="user-list-filter">Recherche</label>
-                    <input type="text" id="user-list-filter" class="form-control" placeholder="Nom Prénom" ng-model="queryCriteria" />
+<div class="row">
+    <div class="col-md-8">
+        <section class="card card-block">
+            <h1 class="card-title">Membres de la classe</h1>
+            <div class="row card-block">
+                <div class="col-md-4 pull-right text-right">
+                    <a href="#/users/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
                 </div>
-        	</form>
-        </div>
-    	<ul id="member_list" class="row">
-    		<li class="user-item animation col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
-    			<a href="#/users/show/{{user.id}}" class="panel">
-        			<div class="ribbon" ng-hide="user.is_active">Inactif</div>
-    				<i ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-lg"></i>
-    				<p class="user-name">{{user.last_name}} {{user.first_name}}</p>
-    			</a>
-    		</li>
-    		<li class="user-item animation alert" ng-if="results.length === 0">
-    			<div class="alert-box alert radius">Aucun résultat trouvé...</strong>
-    		</li>
-    	</ul>
+                <form class="col-md-8 form-inline">
+                    <div class="form-group">		
+                        <label for="user-list-filter">Recherche</label>
+                        <input type="text" id="user-list-filter" class="form-control" placeholder="Nom Prénom" ng-model="queryCriteria" />
+                    </div>
+                </form>
+            </div>
+            <div class="card-block"> 
+                <ul id="member_list" class="row no-bullet">
+                    <li class="animation user-item col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
+                        <a href="#/users/show/{{user.id}}" class="">
+                            
+                            <i ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-lg"></i>
+                            <p class="user-name">{{user.last_name}} {{user.first_name}} <span data-ng-hide="user.is_active">(Inactif)</span></p>
+                        </a>
+                    </li>
+                    <li class="animation alert-info alert radius" ng-if="results.length === 0">
+                        <div class="">Aucun résultat trouvé...</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </div>
-    <aside class="col-md-3 col-lg-2">
+    <aside class="col-md-4">
         <div class="card card-block">
-            <h4 class="card-title">Statistiques</h4>
+            <h4 class="card-title">Ratio H/F</h4>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <button class="btn btn-primary-outline">Another link</button>
+        </div>
+        
+        <div class="card card-block">
+            <h4 class="card-title">Ratio In-/Actifs</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <button class="btn btn-primary-outline">Another link</button>
         </div>
     </aside>
-</section>
+</div>
