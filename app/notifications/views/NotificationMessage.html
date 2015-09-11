@@ -1,5 +1,5 @@
-<div id="notificationsBox">
-    <ul>
+<div id="notificationsBox" class="notificationsBox">
+    <ul class="no-bullet">
         <li ng-repeat="notif in notifications" class="alert alert-danger {{notif.msgType}}">
             <span ng-bind="notif.msg"></span>
             <a href="#" ng-click="notif.remove()" class="close">&times;</a>
