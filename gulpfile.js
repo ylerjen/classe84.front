@@ -3,7 +3,7 @@ var gulp = require('gulp'),
   plumber = require('gulp-plumber');;
  
 gulp.task('compass', function() {
-  gulp.src('./sass/*.scss')
+  gulp.src('./sass/**/*.scss')
     .pipe(plumber())
     .pipe(compass({
       css: 'distr/css',
