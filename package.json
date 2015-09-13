@@ -16,7 +16,7 @@
   "author": "Yann Lerjen <yann.lerjen@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "~3.8.11",
+    "gulp": "^3.9.0",
     "gulp-compass": "~2.1.0",
     "gulp-plumber": "^1.0.1",
     "jasmine": "^2.3.2",
