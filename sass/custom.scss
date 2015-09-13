@@ -4,7 +4,7 @@
 @import 'partials/_variables';
 
 // External libraries
-@import 'external.scss';
+@import 'partials/_external';
 
 
 // Helpers
@@ -15,13 +15,14 @@
 
 // Containers
 @import 'partials/_el_containers';
+@import 'partials/_el_images';
+@import 'partials/_el_lists';
 /*
 @import 'partials/_el_fonts';
 @import 'partials/_el_buttons';
 @import 'partials/_el_forms';
 @import 'partials/_el_containers';
 */
-
 
 // Specifics partials
 @import 'partials/_mo_notifications';
