@@ -14,12 +14,16 @@
                 </form>
             </div>
             <div class="card-block"> 
-                <ul id="member_list" class="row no-bullet">
-                    <li class="animation user-item col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
-                        <a href="#/users/show/{{user.id}}" class="">
-                            
-                            <i ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-lg"></i>
-                            <p class="user-name">{{user.last_name}} {{user.first_name}} <span data-ng-hide="user.is_active">(Inactif)</span></p>
+                <ul class="row list-item">
+                    <li class="animation card-item col-xs-12 col-sm-6 col-md-6 col-lg-4" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
+                        <a href="#/users/show/{{user.id}}">                            
+                            <div class="item-ico">
+                                <i data-ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-lg"></i>
+                            </div>
+                            <div class="item-desc">
+                                <div class="user-name" data-ng-class="{inactiv: (!user.is_active)}">{{user.last_name}} {{user.first_name}}</div>
+                                <div class="user-birthdate">{{user.birthdate | date: 'dd.MM.yyyy'}}</div>
+                            </div>
                         </a>
                     </li>
                     <li class="animation alert-info alert radius" ng-if="results.length === 0">

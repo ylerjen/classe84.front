@@ -1,11 +1,12 @@
 
 // Users
 .card-item {
-  .user-birthdate {
-    font-style: italic;
-  }
   .user-name.inactiv {
     text-decoration: line-through;
+  }
+  .user-birthdate {
+    //font-style: italic;
+    font-size: .8em;
   }
 }
 
@@ -22,7 +23,7 @@
     }
   }
   .actions {
-    transform: translateY(-260px);
+    transform: translateY(-235px);
     
   }
   .ribbon {
