@@ -10,21 +10,31 @@ $transition-duration: .2s;
   
   //list animations
   .animation {
-    //-webkit-transition: all linear $transition-duration;
-    transition: all linear $transition-duration;
+    -webkit-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
   
     &.ng-leave,
     &.ng-enter.ng-enter-active {
       opacity: 1;
-      max-height: 40px;
+      top: 0;
+      height: 30px;
     }
   
     &.ng-enter,
     &.ng-leave.ng-leave-active {
       opacity: 0;
-      max-height: 0;
+      top: -50px;
+      height: 0px;
     }
   }
+  
+  
+  
 }
 // list items style
 .card-item {
@@ -50,7 +60,7 @@ $transition-duration: .2s;
   .item-ico {
     border-radius: 50%;
     text-align: center;
-    margin: 0 3*$space-step;
+    margin: 0 3*$space-step;    
   }
   .item-desc {
     color: black;
