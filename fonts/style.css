@@ -23,6 +23,16 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.ico-2x {
+    font-size: 2em;
+}
+.ico-3x {
+    font-size: 3em;
+}
+.ico-4x {
+    font-size: 4em;
+}
+
 .ico-boy:before {
 	content: "\e600";
 }
