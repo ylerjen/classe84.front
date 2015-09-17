@@ -3,7 +3,7 @@
 //colors
 $primary-color:    #3097d1 !default;
 $content-bg-color: #fff !default;
-$global-bg-color:  #dff2ff !default;
+$global-bg-color:  #f5f8fa;//#dff2ff !default;
 
 $female-color: #F53DDE;
 $male-color:   #2674c6;
@@ -95,7 +95,7 @@ $border-width:               .08rem !default;
 //
 // Settings for the `<body>` element.
 
-$body-bg:                    #f5f8fa !default;
+$body-bg:                    $global-bg-color !default;
 $body-color:                 $gray-dark !default;
 
 
