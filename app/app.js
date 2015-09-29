@@ -1,6 +1,5 @@
-"use strict";
-
 (function() {
+  "use strict";
   
   angular.module('84.config', []).constant('API_URL', {
     api84: 'http://api84.loc',
@@ -12,7 +11,7 @@
     
   angular.module('84.users', ['84.config', '84.notifications', '84.filters']);
   angular.module('84.addresses', ['84.config']);
-  angular.module('84.events', ['84.config']);
+  angular.module('84.events', ['ngSanitize','84.config']);
   angular.module('84.notifications', []);
   angular.module('84.filters', []);
   
@@ -20,9 +19,10 @@
       '84.config',
       '84.users',
       '84.addresses',
+      '84.events',
       'ngRoute',
       'ngAnimate'
-    ]).value('appVersion', '1.0.0');
+    ]).value('version', '1.0.0');
     
     
 

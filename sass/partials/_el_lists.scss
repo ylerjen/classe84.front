@@ -49,7 +49,6 @@ $transition-duration: .2s;
     min-height: 50px;
     padding: 2*$space-step $space-step;
     text-decoration: none;
-    width: 100%;
     
     &:hover {
       border-color: $primary-color;
@@ -58,12 +57,13 @@ $transition-duration: .2s;
   
   //list-items
   .item-ico {
-    border-radius: 50%;
     text-align: center;
-    margin: 0 3*$space-step;    
+    margin: 0 3*$space-step; 
+    width: 10%;   
   }
   .item-desc {
     color: black;
     padding: $space-step;
+    width: 90%;
   }
 }

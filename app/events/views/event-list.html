@@ -1,29 +1,41 @@
-<section>
-	<h1>Sorties et évenements</h1>
-
-	<div class="action-items">
-		<a href="#/users/add" class="button small"><i class="ico ico-user-plus"></i> New member</a>	
-	</div>
-
-	<!--form class="sub-nav simple-form list-filter row">		
-		<label for="user-list-filter" class="right inline">Recherche</label>
-		<input type="text" id="user-list-filter" placeholder="Nom Prénom" ng-model="queryCriteria">
-	</form-->
-
-	<ul id="events_list" class="events-list small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+<div class="row">
+    <div class="col-md-8">
+        <section class="card list">
+            <div class="card-block">
+            <h1>Sorties et évenements</h1>
+            </div>
         
-		<li class="panel event-item animation" ng-repeat="event in events | orderBy: ['-event_date']">
-			<a href="#/events/{{event.id}}" class="">
-    			<h2>{{event.title}}</h2>
-                <p class="date"><i class="ico ico-calendar"></i>{{event.event_date}}</p>
-				<p class="organisator"><i class="ico ico-bullhorn"></i>{{event.organisator}}</p>
-	  			<p class="Lieu"><i class="ico ico-map-marker"></i>{{event.place}}</p>
-	  			<p><i class="ico ico-users"></i> 18 participants</p>
-			</a>
-		</li>
-		<li class="event-item animation" ng-if="events.length === 0">
-			<strong class="label alert">Aucun résultat trouvé...</strong>
-		</li>
+            <div class="card-block action-items">
+                <a href="#/users/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
+            </div>
         
-	</ul>
-</section>
+            <!--form class="sub-nav simple-form list-filter row">		
+                <label for="user-list-filter" class="right inline">Recherche</label>
+                <input type="text" id="user-list-filter" placeholder="Nom Prénom" ng-model="queryCriteria">
+            </form-->
+        
+            <div class="card-block">
+                <ul id="events_list" class="row list-item">                
+                    <li class="animation card-item" ng-repeat="event in events | orderBy: ['-event_date']">
+                        <a href="#/events/{{event.id}}">
+                            <div class="item-ico">
+                                <i data-ng-class="event.id > 3 ? 'ico-glass' : 'ico-times'" class="user-ico ico ico-lg"></i>
+                            </div>
+                            <div class="item-desc">
+                                <h2>{{event.title}}</h2>
+                                <p class="date"><i class="ico ico-calendar text-separator"></i> {{event.event_date}}</p>
+                                <p class="organisator"><i class="ico ico-bullhorn"></i> {{event.organisator}}</p>
+                                <p class="Lieu"><i class="ico ico-map-marker"></i> {{event.location}}</p>
+                                <p><i class="ico ico-users"></i> 18 participants</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="event-item animation" ng-if="events.length === 0">
+                        <strong class="label alert">Aucun résultat trouvé...</strong>
+                    </li>                
+                </ul>
+            </div>
+        </section>
+    </div>
+    <aside class="col-md-4"></aside>
+</div>

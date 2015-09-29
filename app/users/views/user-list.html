@@ -1,19 +1,24 @@
 <div class="row">
     <div class="col-md-8">
-        <section class="card card-block">
-            <h1 class="card-title">Membres de la classe</h1>
-            <div class="row card-block">
-                <div class="col-md-4 pull-right text-right">
+        <section class="card list">
+            <div class="card-block">
+                <h1 class="card-title">Membres</h1>
+                <div class="global-actions">
                     <a href="#/users/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
                 </div>
-                <form class="col-md-8 form-inline">
-                    <div class="form-group">		
-                        <label for="user-list-filter">Recherche</label>
-                        <input type="text" id="user-list-filter" class="form-control" placeholder="Nom Prénom" ng-model="queryCriteria" />
+            </div>
+            <div class="card-block inter-block">                
+                <form>
+                    <div class="form-group">
+                        <label for="user-list-filter" class="hidden">Recherche</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="ico ico-search"></i></span>
+                            <input type="text" id="user-list-filter" class="form-control" placeholder="Recherche par Nom Prénom" ng-model="queryCriteria" />
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="card-block"> 
+            <div class="card-block">
                 <ul class="row list-item">
                     <li class="animation card-item col-xs-12 col-sm-6 col-md-6 col-lg-4" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
                         <a href="#/users/show/{{user.id}}">                            

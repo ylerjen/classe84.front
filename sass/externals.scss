@@ -1,0 +1,9 @@
+//BOOTSTRAP 4
+@import "partials/_variables";
+// Bootstrap extension
+@import "partials/_btstrp_addon";
+// Framework
+@import "../libs/bootstrap/scss/bootstrap";
+// Bootstrap override
+@import "partials/_variables";
+@import "partials/_btstrp_override";

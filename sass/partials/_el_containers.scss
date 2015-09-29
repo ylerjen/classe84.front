@@ -2,3 +2,18 @@
     padding: 2rem 1rem;
     
 }
+.article-meta {
+    color: $secondary-color;
+    font-size: 1rem;
+    font-style: italic;
+}
+.inter-block {
+    border-width: $global-border-width 0;
+    border-style: solid;
+    border-color: $global-border-color;
+}
+.global-actions {
+    position: absolute;
+    right: 18px;
+    top: 24px;
+}

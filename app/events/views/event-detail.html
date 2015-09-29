@@ -1,3 +1,21 @@
-<section>
-	<h1>{{event.title}}</h1>
-</section>
+<div class="row">
+    <div class="col-md-8">
+        <section class="card event-details">
+            <div class="card-img-top"><img src="http://images.myswitzerland.com/n49464/images/buehne/ville_de_sion.jpg" alt="Ville de Sion" class="img-responsive"></div>
+            <div class="card-block">
+                <h1 class="card-title">{{event.title}}</h1>
+                <p class="text-muted">Created by {{event.created_by}} at {{event.created_at}}</p>
+            </div>
+            <div class="card-block short-infos">
+                <p>{{event.event_date | date: 'dd.MM.yyyy'}}</p>
+                <p>{{event.location}} ({{event.latitude}} / {{event.longitude}})</p>
+                <p>{{event.price}}</p>
+            </div>
+            <div class="card-block">
+                <div ng-bind-html="event.description"></div>
+                <p>{{event.organisator}}</p>
+            </div>
+        </section>
+    </div>
+    <aside class="col-md-4"></aside>
+</div>

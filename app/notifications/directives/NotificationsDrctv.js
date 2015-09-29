@@ -32,8 +32,7 @@ angular.module('84.notifications')
                     notificationSrv.notify(msg, msgType, 5);
                 }
                 
-                $scope.addNotification('initialized value');
-                $scope.addNotification('second initialized value');
+                $scope.addNotification('This is a notification', 'info');
             }
         };
     }]);
