@@ -10,11 +10,7 @@ $transition-duration: .2s;
   
   //list animations
   .animation {
-    -webkit-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    @include transition( $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all );
     position: relative;
     display: block;
   
