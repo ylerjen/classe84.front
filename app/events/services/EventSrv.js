@@ -1,14 +1,15 @@
-angular.module('84.events').factory('evtSrv', function($http){
+angular.module('84.events').factory('evtSrv', ['$http', 'API_URL', function ($http, API_URL) {
+    "use strict";
 	return{
 		getEvents : function(){
-			return $http.get(appSettings.apiUrl + '/events');
+			return $http.get(API_URL.api84 + '/events');
 		},
 		getEventById: function(id){
-			return $http.get(appSettings.apiUrl + '/events/' + id);
+			return $http.get(API_URL.api84 + '/events/' + id);
 		},
 		saveEvent: function(event){
 			throw 'Not Implemented Exception';
-			return $http.post(appSettings.apiUrl + '/')
+			return $http.post(API_URL.api84 + '/')
 		}
 	};
-});
+}]);

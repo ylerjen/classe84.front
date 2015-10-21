@@ -4,14 +4,57 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Classe 84 de Vétroz</title>
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="fonts/style.css">
-	<link rel="stylesheet" href="libs/foundation/css/foundation.min.css">
+	<link rel="stylesheet" href="distr/css/externals.css">
 	<link rel="stylesheet" href="distr/css/custom.css">
-
-
+</head>
+<body ng-app="84">
+	<!-- HEADER -->
+    <header class="navbar navbar-dark bg-primary">
+        <nav class="container">
+            <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">&#9776;</button>
+            <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+                <a class="navbar-brand" href="#">Classe 84</a>
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">A propos <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/users">Membres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/events">Sorties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/gallery">Photos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline navbar-form pull-right">
+                <button class="btn btn-danger-outline" data-ng-click="addNotification('coucou')">+ Add notification</button>
+            </form>
+        </nav>
+    </header>
+    <main class="main-content container">
+        <div notifications notifications-attr="notifications"></div>
+        <div class="row">
+            <div ng-view></div>
+        </div>
+    </main>
+    <footer class="card-block"><div class="container">&copy; classe84.org - api v.0.1.0 / front v.0.1.0</div></footer>
+    
+    
+    
+    
 	<script src="/libs/modernizr/modernizr.js"></script>
 	<script src="/libs/angular/angular.min.js"></script>
 	<script src="/libs/angular-route/angular-route.min.js"></script>
+	<script src="/libs/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="/libs/angular-animate/angular-animate.min.js"></script>
 	<script src="/app/app.js"></script>
     <script src="/app/commons/filters/HelperFilters.js"></script>
@@ -23,45 +66,7 @@
 	<script src="/app/addresses/directives/AddressDrctv.js"></script>
 	<script src="/app/events/services/EventSrv.js"></script>
 	<script src="/app/events/controllers/EventCtrl.js"></script>
-	<script src="/app/notifications/controllers/NotificationsCtrl.js"></script>
 	<script src="/app/notifications/services/NotificationsSrv.js"></script>
 	<script src="/app/notifications/directives/NotificationsDrctv.js"></script>
-</head>
-<body ng-app="84">
-	<!-- HEADER -->
-	<nav class="top-bar" data-topbar role="navigation" data-d-ng-controller="navCtrl">
-		<ul class="title-area">
-			<li class="name">
-				<h1><a href="/">Classe 1984</a></h1>
-			</li>
-			<!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-		</ul>
-
-		<section class="top-bar-section">
-			<!-- Left Nav Section -->
-			<ul class="left">
-				<li class="active"><a href="#">Accueil</a></li>
-				<li><a href="#">A propos</a></li>
-				<li><a href="#/users">Membres</a></li>
-				<li><a href="#/events">Sorties</a></li>
-				<li><a href="#">Photos</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-
-			<!-- Right Nav Section -->
-			<ul class="right">
-				<li class="has-dropdown">
-					<a href="#">{{username}}Yann</a>
-					<ul class="dropdown">
-						<li><a href="#">First link in dropdown</a></li>
-						<li class="active"><a href="#">Active link in dropdown</a></li>
-					</ul>
-				</li>
-			</ul>
-		</section>
-	</nav>
-	<div notifications notifications-attr="notifications"></div>
-	<div ng-view></div>
 </body>
 </html>

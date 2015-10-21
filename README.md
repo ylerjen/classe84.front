@@ -5,5 +5,5 @@ This SPA should use the services of the classe84.org API to manage the datas.
 
 ## Frameworks ##
 
-- Zurb Foundation
+- Bootstrap 4
 - AngularJS

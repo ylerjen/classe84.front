@@ -1,0 +1,12 @@
+.no-bullet {
+    list-style: none;
+    padding-left: 0;
+}
+.text-separator {
+    padding-left: $space-step;
+    padding-right: $space-step;
+}
+.hidden {
+    visibility: hidden;
+    display: none;
+}

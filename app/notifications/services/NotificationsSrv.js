@@ -5,7 +5,8 @@ angular.module('84.notifications')
         var typeList = ['error', 'warning', 'info', 'success'];
         this.notify = function (msg, msgType, delay) {
             if(typeList.indexOf(msgType) <= 0) {
-                msgType = 'alert';
+                // 0 inclusive to transform an error to a danger class
+                msgType = 'danger';
             }
             this.notificationsList.push({msg: msg, msgType: msgType});
             

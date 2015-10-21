@@ -16,9 +16,12 @@
   "author": "Yann Lerjen <yann.lerjen@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "~3.8.11",
-    "jasmine": "~2.3.1",
-    "karma": "~0.12.36",
-    "gulp-compass": "~2.1.0"
+    "gulp": "^3.9.0",
+    "gulp-compass": "~2.1.0",
+    "gulp-plumber": "^1.0.1",
+    "jasmine": "^2.3.2",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.9",
+    "karma-jasmine": "^0.3.6"
   }
 }

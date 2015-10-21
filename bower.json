@@ -20,10 +20,14 @@
     "tests"
   ],
   "dependencies": {
-    "foundation": "~5.5.2",
-    "modernizr": "~2.8.3",
-    "angular": "1.4.0",
-    "angular-route": "~1.4.0",
-    "angular-animate": "~1.4.0"
+    "angular": "^1.4.0",
+    "angular-animate": "^1.4.0",
+    "angular-route": "^1.4.0",
+    "angular-sanitize": "^1.4.6",
+    "bootstrap": "~4.0.0-alpha",
+    "modernizr": "^2.8.3"
+  },
+  "devDependencies": {
+    "jasmine-core": "jasmine#~2.3.4"
   }
 }

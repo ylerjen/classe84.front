@@ -1,0 +1,64 @@
+// Users
+.card-item {
+  .user-name.inactiv {
+    text-decoration: line-through;
+  }
+  .user-birthdate {
+    //font-style: italic;
+    font-size: .8em;
+  }
+}
+
+// User
+.user-profile {
+  margin-top: 85px;
+  
+  .user-image-holder {
+    text-align: center;
+    position: relative;
+    top: -70px;
+    img {
+        border: 4*$card-border-width solid $global-bg-color;
+        position: relative;
+    }
+  }
+  .user-title {
+    position: relative;
+    top: -20px;
+  }
+  .actions {
+    transform: translateY(-235px);
+    
+  }
+  .ribbon-wrapper {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    //border: 1px solid black;
+  }
+  .ribbon {
+    display: block;
+    font-weight: bold;
+    position: absolute;
+    top: 40px;
+    left: -50px;
+    width: 200px;
+    text-align: center;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform:    rotate(-45deg);
+    -ms-transform:     rotate(-45deg);
+    transform:         rotate(-45deg);
+    border: 1px solid #D7DEC7;
+    box-shadow: 2px 2px 8px #ccc;
+    //z-index: 500;
+    background-color: #BFDC7A;//;$state-success-text;
+    color: black;
+    
+    &.inactiv {
+      background-color: $brand-warning;
+    }
+  }
+}
