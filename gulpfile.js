@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
 	compass = require('gulp-compass'),
-  plumber = require('gulp-plumber');;
+  plumber = require('gulp-plumber');
  
 gulp.task('compass', function() {
   gulp.src('./sass/**/*.scss')
