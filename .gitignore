@@ -11,3 +11,8 @@ distr/*
 # ==========
 .sass-cache/*
 sass/sass-cache/*
+
+# temp files
+# ==========
+temp
+tmp
