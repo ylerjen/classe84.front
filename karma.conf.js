@@ -17,10 +17,10 @@ module.exports = function(config) {
     files: [
       //'dist/**/*.js',
       
-      'libs/angular/angular.min.js',
-      'libs/angular-route/angular-route.min.js',
-      'libs/angular-sanitize/angular-sanitize.min.js',
-      'libs/angular-animate/angular-animate.min.js',
+      '/libs/angular/angular.min.js',
+      '/libs/angular-route/angular-route.min.js',
+      '/libs/angular-sanitize/angular-sanitize.min.js',
+      '/libs/angular-animate/angular-animate.min.js',
       'app/**/*.js',
       'tests/**/*Spec.js'
     ],
@@ -62,7 +62,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Safari'/*, 'Chrome', 'Firefox', 'Opera'*/],
+    browsers: ['Chrome-Canary'/*, 'Chrome', 'Safari', 'Firefox', 'Opera'*/],
 
 
     // Continuous Integration mode
