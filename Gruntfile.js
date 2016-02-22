@@ -1,14 +1,7 @@
 module.exports = function(grunt) {
 
-    // Load the tasks
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-babel');
-    grunt.loadNpmTasks('grunt-typescript');
-    grunt.loadNpmTasks('grunt-karma');
+    // Load the tasks automatically w/ load-grunt-tasks
+    require("load-grunt-tasks")(grunt);
 
 
     // Grunt config 
@@ -29,40 +22,24 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     sassDir: 'sass',
-                    cssDir: 'distr/css'
+                    cssDir: 'dist/css'
                 }
             }
         },
-
-        // Typescript task
-        typescript: {
-            base: {
-                src: ['app/**/*.ts'],
-                dest: 'distr/js/app.js',
-                options: {
-                    module: 'amd', //or commonjs 
-                    target: 'es5', //or es3 
-                    //basePath: 'path/to/typescript/files',
-                    sourceMap: true,
-                    declaration: true
-                }
-            }
-        },
-
-        // Concat        
-        concat: {
-            libs: {
-                files: {
-                    'temp/js/libs.js': ['libs/**/*.js']
-                }
+        
+        // Babel task
+        babel: {            
+            options: {
+                sourceMap: true,
+                presets: ['es2015']
             },
-            app: {
+            dist: {
                 files: {
-                    'temp/js/app.js': ['app/**/*.js']
+                    'dist/app.js': 'app/**/*.js'
                 }
             }
         },
-
+        
         // Uglify
         uglify: {
             options: {
@@ -72,10 +49,17 @@ module.exports = function(grunt) {
             },
             js: {
                 files: {
-                    'distr/js/libs.min.js': ['temp/js/libs.js'],
-                    'distr/js/app.min.js' : ['temp/js/app.js']
+                    'dist/js/libs.min.js': ['temp/js/libs.js'],
+                    'dist/js/app.min.js' : ['temp/js/app.js']
                 }
             }
+        },
+
+        //Karma testing task
+        karma: {
+          unit: {
+            configFile: 'karma.conf.js'
+          }
         },
 
         // Watch task
@@ -88,29 +72,22 @@ module.exports = function(grunt) {
                     files: ['app/**/*.ts', 'app/**/*.js'],
                     tasks: ['jshint']
             },
-            typescript: {
-                files: 'app/**/*.ts',
-                tasks: ['typescript']
+            babel: {
+                files: 'app/**/*.js',
+                tasks: ['concat', 'babel']
             },
             karma: {
                 files: ['app/js/**/*.js', 'test/**/*.js'],
-                tasks: ['compass', 'typescript', 'karma:unit:run'] //NOTE the :run flag
+                tasks: ['compass', 'babel', 'karma:unit:run'] //NOTE the :run flag
             }
-        },
-
-        //Karma testing task
-        karma: {
-          unit: {
-            configFile: 'karma.conf.js'
-          }
         }
     });
 
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('tests', ['compass', 'concat', 'typescript']);
-    grunt.registerTask('dev', ['watch:typescript']);
-    grunt.registerTask('prod', ['compass', 'concat', 'typescript', 'uglify']);
+    grunt.registerTask('tests', ['compass', 'babel', 'karma:unit:run']);
+    grunt.registerTask('build-dev', ['compass', 'babel']);
+    grunt.registerTask('build-prod', ['compass', 'babel', 'uglify']);
 
 };
