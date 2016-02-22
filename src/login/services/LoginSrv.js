@@ -15,6 +15,6 @@ angular.module('84.services').factory('loginSrv', function($http){
 			throw 'Not Implemented Exception';
 			return $http.get(appSettings.apiUrl + '/api/')
 		},
-		validateAccount:
+		validateAccount: function () {}
 	};
 });
