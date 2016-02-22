@@ -5,7 +5,7 @@ node_modules/*
 
 # Generated files
 # ===============
-distr/*
+dist/*
 
 # sass cache
 # ==========
