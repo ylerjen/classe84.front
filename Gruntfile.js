@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
         // JsHint task
         jshint: {
-            files: ['Gruntfile.js', 'app/**/*.js', 'test/**/*.js'],
+            files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
             options: {
                 globals: {
                     jQuery: true
@@ -27,6 +27,27 @@ module.exports = function(grunt) {
             }
         },
         
+        concat: {
+            options: {
+                separator: ';',
+            },
+            app: {
+                files: {
+                    'dist/app.js': ['src/**/*.js']
+                }
+            },
+            libs: {
+                files: {
+                    'dist/libs.js': [
+                        'libs/angular/angular.min.js',
+                        'libs/angular-animate/angular-animate.min.js',
+                        'libs/angular-route/anglar-route.min.js',
+                        'libs/angular-sanitize/angular-sanitize.min.js'
+                    ]
+                }
+            }
+        },
+        
         // Babel task
         babel: {            
             options: {
@@ -35,7 +56,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/app.js': 'app/**/*.js'
+                    'dist/app.js': 'dist/app.js'
                 }
             }
         },
@@ -87,7 +108,7 @@ module.exports = function(grunt) {
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
     grunt.registerTask('tests', ['compass', 'babel', 'karma:unit:run']);
-    grunt.registerTask('build-dev', ['compass', 'babel']);
+    grunt.registerTask('build-dev', ['compass', 'concat', 'babel']);
     grunt.registerTask('build-prod', ['compass', 'babel', 'uglify']);
 
 };
