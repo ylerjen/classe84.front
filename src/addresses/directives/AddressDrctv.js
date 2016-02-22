@@ -1,6 +1,6 @@
 // Directives
 angular.module('84.addresses')    
-    .directive('addresses', [function () {
+    .directive('addresses', [ () => {
     'use strict';
         return {
             replace : true,
@@ -16,7 +16,7 @@ angular.module('84.addresses')
             }
         };
     }])
-    .directive('address', [ function () {
+    .directive('address', [ () => {
         'use strict';
         return {
             restrict : 'A',
