@@ -118,6 +118,10 @@ module.exports = function(grunt) {
             karma: {
                 files: ['src/js/**/*.js', 'test/**/*.js'],
                 tasks: ['compass', 'babel', 'karma:unit:run'] //NOTE the :run flag
+            },
+            dev: {
+                files: ['src/**/*.js', 'sass/**/*.scss'],
+                tasks: 'build-dev'
             }
         }
     });
