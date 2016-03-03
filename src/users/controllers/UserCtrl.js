@@ -1,8 +1,5 @@
-"use strict";
-
-angular.module('84.users')
-
-    .controller('UserListCtrl', ['$scope', '$http', 'usrSrv', 'notificationSrv', function ($scope, $http, usrSrv, notificationSrv) {
+class UserListCtrl {
+    constructor ($scope, $http, usrSrv, notificationSrv) {
         usrSrv.getUsers().success(function (users) {
             $scope.users = users;
         }).error(function (e) {
@@ -19,7 +16,9 @@ angular.module('84.users')
             }
             return false;
         };
-    }])
+    }
+}
+UserListCtrl.$inject = ['$scope', '$http', 'usrSrv', 'notificationSrv'];
 
 /**
  * Manage the user details and user form for the show/edit/add functionnalities
@@ -27,26 +26,11 @@ angular.module('84.users')
  * @param  {[type]} $routeParams angular routing dependancy injection
  * @param  {[type]} usrSrv       user services dependancy injection
  */
-    .controller('UserDetailCtrl', ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv', function ($scope, $routeParams, $location, usrSrv, fbSrv) {        
-        this.initUser = function() {            
-            $scope.currentUser = { 
-                first_name  : '', 
-                maiden_name : '', 
-                last_name   : '', 
-                birthdate   : '', 
-                email       : '', 
-                telefon     : '', 
-                mobile      : '', 
-                website     : '', 
-                fb_profile_name: '', 
-                fb_user_id  : '', 
-                is_active   : 0
-            };
-        };
-        
+class UserDetailCtrl {
+    constructor ($scope, $routeParams, $location, usrSrv, fbSrv) {
         var userId = $routeParams.userId;
         this.initUser();
-        if(userId){
+        if (userId) {
             usrSrv.findById(userId).success(function (user) {
                 $scope.currentUser = user;
                 if (user.fb_user_id !== 0) {
@@ -78,8 +62,7 @@ angular.module('84.users')
             } else {
                 alert('Form invalid');//TODO replace with ng-notify
             }
-        };
-        
+        };       
 
         $scope.deleteUser = function (id) {
             if( confirm('Etes-vous sûr de vouloir effacer ce membre ? ') ) {
@@ -91,4 +74,24 @@ angular.module('84.users')
                 });
             }
         };
-    }]);
+    }
+    initUser () {            
+        this.$scope.currentUser = { 
+            first_name  : '', 
+            maiden_name : '', 
+            last_name   : '', 
+            birthdate   : '', 
+            email       : '', 
+            telefon     : '', 
+            mobile      : '', 
+            website     : '', 
+            fb_profile_name: '', 
+            fb_user_id  : '', 
+            is_active   : 0
+        };
+    };
+}
+
+UserListCtrl.$inject = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
+
+export { UserListCtrl, UserDetailCtrl }
