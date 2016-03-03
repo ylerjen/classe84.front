@@ -3,6 +3,13 @@ module.exports = function(grunt) {
     // Load the tasks automatically w/ load-grunt-tasks
     require("load-grunt-tasks")(grunt);
 
+    var DIST_SCRIPT_PATH = 'dist/js/',
+        DIST_STYLE_PATH  = 'dist/css/'
+    
+
+    var APP_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'app.js',
+        LIB_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'libs.js',
+        CSS_STYLE_BUNDLE  = DIST_STYLE_PATH + 'style.js'
 
     // Grunt config 
     grunt.initConfig({
@@ -16,13 +23,19 @@ module.exports = function(grunt) {
                 }
             }
         },
+        
+        // Clean dist dir
+        clean: {
+            dist: ['dist'],
+            temp: ['tmp']                
+        },
 
         // Compass compilation
         compass: {
             dist: {
                 options: {
                     sassDir: 'sass',
-                    cssDir: 'dist/css'
+                    cssDir: DIST_STYLE_PATH
                 }
             }
         },
@@ -33,12 +46,12 @@ module.exports = function(grunt) {
             },
             app: {
                 files: {
-                    'dist/app.js': ['src/**/*.js']
+                    [APP_SCRIPT_BUNDLE]: ['tmp/**/*.js']
                 }
             },
             libs: {
                 files: {
-                    'dist/libs.js': [
+                    [LIB_SCRIPT_BUNDLE]: [
                         'libs/angular/angular.min.js',
                         'libs/angular-animate/angular-animate.min.js',
                         'libs/angular-route/anglar-route.min.js',
@@ -49,15 +62,20 @@ module.exports = function(grunt) {
         },
         
         // Babel task
-        babel: {            
+        babel: {
             options: {
                 sourceMap: true,
                 presets: ['es2015']
             },
             dist: {
-                files: {
-                    'dist/app.js': 'dist/app.js'
-                }
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/',
+                        src: ['**/*.js'],
+                        dest: 'tmp/js'
+                    }
+                ]
             }
         },
         
@@ -70,8 +88,8 @@ module.exports = function(grunt) {
             },
             js: {
                 files: {
-                    'dist/js/libs.min.js': ['temp/js/libs.js'],
-                    'dist/js/app.min.js' : ['temp/js/app.js']
+                    [LIB_SCRIPT_BUNDLE]: ['temp/js/libs.js'],
+                    [APP_SCRIPT_BUNDLE]: ['temp/js/app.js']
                 }
             }
         },
@@ -90,15 +108,15 @@ module.exports = function(grunt) {
                 tasks: ['compass']
             },
             jshint: {
-                    files: ['app/**/*.ts', 'app/**/*.js'],
+                    files: ['src/**/*.js'],
                     tasks: ['jshint']
             },
             babel: {
-                files: 'app/**/*.js',
+                files: 'src/**/*.js',
                 tasks: ['concat', 'babel']
             },
             karma: {
-                files: ['app/js/**/*.js', 'test/**/*.js'],
+                files: ['src/js/**/*.js', 'test/**/*.js'],
                 tasks: ['compass', 'babel', 'karma:unit:run'] //NOTE the :run flag
             }
         }
@@ -107,8 +125,8 @@ module.exports = function(grunt) {
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('tests', ['compass', 'babel', 'karma:unit:run']);
-    grunt.registerTask('build-dev', ['compass', 'concat', 'babel']);
-    grunt.registerTask('build-prod', ['compass', 'babel', 'uglify']);
+    grunt.registerTask('tests', ['clean', 'compass', 'babel', 'karma:unit:run']);
+    grunt.registerTask('build-dev', ['clean', 'babel', 'concat', 'clean:temp', 'compass']);
+    grunt.registerTask('build-prod', ['clean', 'compass', 'babel', 'uglify']);
 
 };
