@@ -1,4 +1,3 @@
-'use strict';
 angular.module('84.notifications')
     .directive('notifications', [function () {
         return {
