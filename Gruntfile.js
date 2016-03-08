@@ -26,8 +26,7 @@ module.exports = function(grunt) {
         
         // Clean dist dir
         clean: {
-            dist_js: ['dist/js'],
-            dist_css: ['dist/css'],
+            dist: ['dist'],
             temp: ['tmp']                
         },
 
@@ -74,7 +73,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src/',
                         src: ['**/*.js'],
-                        dest: 'tmp/babel/js'
+                        dest: 'tmp/js'
                     }
                 ]
             }
@@ -101,33 +100,28 @@ module.exports = function(grunt) {
             configFile: 'karma.conf.js'
           }
         },
-        
-        // Browserify the babel result
-        browserify: {
-            dist: {
-                options: {
-                    transform: [
-                        ["babelify"]
-                    ]
-                },
-                files: {
-                    // if the source file has an extension of es6 then
-                    // we change the name of the source file accordingly.
-                    // The result file's extension is always .js
-                    "./dist/js/app.js": ["./tmp/babel/*.js"]
-                }
-            }
-        },
 
         // Watch task
         watch: {
-            js: {
-                files: ['./src/**/*.js'],
-                tasks: ['clean:dist_js', 'browserify']
-            },
             compass: {
                 files: ['sass/**/*.scss'],
-                tasks: ['clean:dist_css', 'compass']
+                tasks: ['compass']
+            },
+            jshint: {
+                    files: ['src/**/*.js'],
+                    tasks: ['jshint']
+            },
+            babel: {
+                files: 'src/**/*.js',
+                tasks: ['concat', 'babel']
+            },
+            karma: {
+                files: ['src/js/**/*.js', 'test/**/*.js'],
+                tasks: ['compass', 'babel', 'karma:unit:run'] //NOTE the :run flag
+            },
+            dev: {
+                files: ['src/**/*.js', 'sass/**/*.scss'],
+                tasks: 'build-dev'
             }
         }
     });
@@ -135,8 +129,8 @@ module.exports = function(grunt) {
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('tests', ['build-dev', 'karma:unit:run']);
-    grunt.registerTask('build-dev', ['clean', 'babel', 'browserify', 'clean:temp', 'compass']);
+    grunt.registerTask('tests', ['clean', 'compass', 'babel', 'karma:unit:run']);
+    grunt.registerTask('build-dev', ['clean', 'babel', 'concat', 'clean:temp', 'compass']);
     grunt.registerTask('build-prod', ['clean', 'compass', 'babel', 'uglify']);
 
 };

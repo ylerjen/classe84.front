@@ -1,8 +1,9 @@
+import { EventListCtrl, EventDetailCtrl } from './events/controllers/EventCtrl.js';
 import { UserListCtrl, UserDetailCtrl } from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/userSrv.js';
 import NotificationSrv from './notifications/services/NotificationsSrv.js';
-import AddressSrv from './addresses/services/AddressSrv.js';
-import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
+import AddressSrv from './addrsses/services/AddressSrv.js';
+
 
 (function () {
   
@@ -14,7 +15,6 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         eventViewFolder: 'src/events/views'
     });
 
-    angular.module('84.filters', []);
 
     angular.module('84.notifications', [])
         .service('notificationSrv', NotificationSrv);
@@ -23,16 +23,19 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         .controller('UserListCtrl', UserListCtrl)
         .controller('UserDetailCtrl', UserDetailCtrl)
         .factory('usrSrv', UserService.UserServiceFactory)
-        .factory('fbSrv', UserService.FaceBookServiceFactory);
+        .factory('fbSrv', AddressSrv.FaceBookServiceFactory);
         
     angular.module('84.addresses', ['84.config'])
         .factory('adrSrv', FaceBookService.AddressServiceFactory);
-  
+        
     angular.module('84.events', ['ngSanitize','84.config'])
         .controller('EventListCtrl', EventListCtrl)
         .controller('EventDetailCtrl', EventDetailCtrl);
         
+    angular.module('84.notifications', []);
     
+    angular.module('84.filters', []);
+  
   
     angular.module('84', [
         '84.config',
@@ -41,7 +44,10 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         '84.events',
         'ngRoute',
         'ngAnimate'
-    ]).config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
+    ]).value('version', '1.0.0');
+    
+
+    angular.module('84').config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
 
         //Users routing
@@ -62,8 +68,6 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
             controller: 'UserDetailCtrl'
         }).
 
-
-    /*
         //Events routing
         when('/events', {
             templateUrl: PATH.eventViewFolder + '/event-list.html',
@@ -77,6 +81,7 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventAddCtrl'
         }).
+    /*
         when('/gallery', {
             templateUrl: PATH.userViewFolder + '/user-list.html',
             controller: 'UserListCtrl'
