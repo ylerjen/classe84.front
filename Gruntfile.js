@@ -8,8 +8,7 @@ module.exports = function(grunt) {
     
 
     var APP_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'app.js',
-        LIB_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'libs.js',
-        CSS_STYLE_BUNDLE  = DIST_STYLE_PATH + 'style.js'
+        LIB_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'libs.js'
 
     // Grunt config 
     grunt.initConfig({
@@ -114,7 +113,7 @@ module.exports = function(grunt) {
                     // if the source file has an extension of es6 then
                     // we change the name of the source file accordingly.
                     // The result file's extension is always .js
-                    "./dist/js/app.js": ["./tmp/babel/*.js"]
+                    "./dist/js/app.js": ["./tmp/babel/**/*.js"]
                 }
             }
         },
@@ -123,7 +122,7 @@ module.exports = function(grunt) {
         watch: {
             js: {
                 files: ['./src/**/*.js'],
-                tasks: ['clean:dist_js', 'browserify']
+                tasks: ['clean:dist_js', 'babel', 'browserify']
             },
             compass: {
                 files: ['sass/**/*.scss'],
