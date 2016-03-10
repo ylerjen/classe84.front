@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         compass: {
             dist: {
                 options: {
-                    sassDir: 'sass',
+                    sassDir: 'src/sass',
                     cssDir: DIST_STYLE_PATH
                 }
             }
@@ -53,10 +53,10 @@ module.exports = function(grunt) {
             libs: {
                 files: {
                     [LIB_SCRIPT_BUNDLE]: [
-                        'libs/angular/angular.min.js',
-                        'libs/angular-animate/angular-animate.min.js',
-                        'libs/angular-route/anglar-route.min.js',
-                        'libs/angular-sanitize/angular-sanitize.min.js'
+                        'node_modules/angular/angular.min.js',
+                        'node_modules/angular-animate/angular-animate.min.js',
+                        'node_modules/angular-route/anglar-route.min.js',
+                        'node_modules/angular-sanitize/angular-sanitize.min.js'
                     ]
                 }
             }
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/',
+                        cwd: 'src/js/',
                         src: ['**/*.js'],
                         dest: 'tmp/js'
                     }
@@ -122,11 +122,11 @@ module.exports = function(grunt) {
         // Watch task
         watch: {
             js: {
-                files: ['./src/**/*.js'],
+                files: ['./src/js/**/*.js'],
                 tasks: ['clean:dist_js', 'babel', 'browserify']
             },
             compass: {
-                files: ['sass/**/*.scss'],
+                files: ['./src/sass/**/*.scss'],
                 tasks: ['clean:dist_css', 'compass']
             }
         }
