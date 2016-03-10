@@ -22,4 +22,4 @@
 }
 AddressSrv.AddressServiceFactory.$inject = ['$http'];
 
-export {AddressSrv}
+export {AddressSrv};

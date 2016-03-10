@@ -1,8 +1,9 @@
-angular.module('84.filters').filter('tel', function () {
-    return function (tel) {
-        if (tel) {    
-            var value = tel.trim().replace(/^\+/, '');
+class TelFilter {
+    constructor () {}
     
+    formatTel (tel) {        
+        if (tel) {    
+            var value = tel.trim().replace(/^\+/, '');    
             if (value.match(/[^0-9]/)) {
                 return tel;
             }
@@ -14,9 +15,11 @@ angular.module('84.filters').filter('tel', function () {
                 // 079 123 45 67
                 tel = value.substring(0, 3) + ' ' + value.substring(3, 6) + ' ' + value.substring(6, 8) + ' ' + value.substring(8, 10);
             }
-            return tel;
         } else {
-            return '';
+            tel = '';
         }
+        return tel;
     }
-});
+}
+
+export {TelFilter};

@@ -1,4 +1,4 @@
-angular.module('84.notifications')
+/*angular.module('84.notifications')
     .directive('notifications', [function () {
         return {
             replace : true,
@@ -7,14 +7,14 @@ angular.module('84.notifications')
             scope : {
                 notifications : '=notificationsAttr'
             },
-            /*link: function(scope, elem, attrs) {
+            / *link: function(scope, elem, attrs) {
                 scope.$watch('notifications', function(value) {
                     alert(value);
                 });
                 scope.clearNotifications = function() {
                     scope.notificationsList = [];   
                 }
-            }*/
+            }* /
             controller: function ($scope, notificationSrv) {
                 var counter = 0;
                 
@@ -34,4 +34,4 @@ angular.module('84.notifications')
                 $scope.addNotification('This is a notification', 'info');
             }
         };
-    }]);
+    }]);*/

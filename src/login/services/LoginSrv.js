@@ -1,20 +1,27 @@
-angular.module('84.services').factory('loginSrv', function($http){
-	return{
-		login : function(username, password){
-			//TODO remove mockup
+class LoginSrv {
+    constructor ($http) {
+        this._$http = $http;
+    }
+    login (username, password) {
+        //TODO remove mockup
+        return this._$http.get(appSettings.apiUrl + '/events/simpleList.json');
+    }
+    logout (id) {
+        //TODO remove mockup
+        return mockEventList[id];
+        return this._$http.get(appSettings.apiUrl + '/api/events/'+id);
+    }
+    retrievePassword (event) {
+        //TODO
+        throw 'Not Implemented Exception';
+        return this._$http.get(appSettings.apiUrl + '/api/')
+    }
+    validateAccount () {
+    }
+    static LoginServiceFactory($http) {
+        return new LoginSrv($http);
+    }
+}
+LoginSrv.LoginServiceFactory.$inject = ['$http'];
 
-			return $http.get(appSettings.apiUrl + '/events/simpleList.json');
-		},
-		logout: function(id){
-			//TODO remove mockup
-			return mockEventList[id];
-			return $http.get(appSettings.apiUrl + '/api/events/'+id);
-		},
-		retrievePassword: function(event){
-			//TODO
-			throw 'Not Implemented Exception';
-			return $http.get(appSettings.apiUrl + '/api/')
-		},
-		validateAccount: function () {}
-	};
-});
+export {LoginSrv};

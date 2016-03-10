@@ -1,6 +1,5 @@
-var loginController = angular.module('LoginCtrl', []);
-
-loginController.controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
+angular.module('LoginCtrl', [])
+    .controller('UserListCtrl', ['$scope', '$http', 'usrSrv', function ($scope, $http, usrSrv) {
 
 	this.users = mockUserList;
 

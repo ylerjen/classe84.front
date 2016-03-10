@@ -2,13 +2,13 @@ module.exports = function(grunt) {
 
     // Load the tasks automatically w/ load-grunt-tasks
     require("load-grunt-tasks")(grunt);
-
-    var DIST_SCRIPT_PATH = 'dist/js/',
-        DIST_STYLE_PATH  = 'dist/css/'
     
 
+    var DIST_SCRIPT_PATH = 'dist/js/',
+        DIST_STYLE_PATH  = 'dist/css/';
+
     var APP_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'app.js',
-        LIB_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'libs.js'
+        LIB_SCRIPT_BUNDLE = DIST_SCRIPT_PATH + 'libs.js';
 
     // Grunt config 
     grunt.initConfig({
@@ -25,6 +25,8 @@ module.exports = function(grunt) {
         
         // Clean dist dir
         clean: {
+            dist_css: [DIST_STYLE_PATH],
+            dist_js: [DIST_SCRIPT_PATH],
             dist: ['dist'],
             temp: ['tmp']                
         },
@@ -125,7 +127,7 @@ module.exports = function(grunt) {
             },
             compass: {
                 files: ['sass/**/*.scss'],
-                tasks: ['compass']
+                tasks: ['clean:dist_css', 'compass']
             }
         }
     });
@@ -133,8 +135,8 @@ module.exports = function(grunt) {
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('tests', ['clean', 'compass', 'babel', 'karma:unit:run']);
-    grunt.registerTask('build-dev', ['clean', 'babel', 'concat', 'clean:temp', 'compass']);
-    grunt.registerTask('build-prod', ['clean', 'compass', 'babel', 'uglify']);
+    grunt.registerTask('tests', ['clean:dist', 'compass', 'babel', 'karma:unit:run']);
+    grunt.registerTask('build-dev',  ['clean:dist', 'babel', 'browserify', 'compass', 'clean:temp']);
+    grunt.registerTask('build-prod', ['clean:dist', 'babel', 'browserify', 'uglify', 'compass', 'clean:temp']);
 
 };

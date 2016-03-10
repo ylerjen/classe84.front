@@ -25,4 +25,5 @@ class NotificationSrv {
 }
 
 NotificationSrv.$inject = ['$timeout'];
-export { NotificationSrv };
+
+export {NotificationSrv};

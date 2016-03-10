@@ -1,4 +1,4 @@
-angular.module('84.events').factory('evtSrv', ['$http', 'API_URL', function ($http, API_URL) {
+/*angular.module('84.events').factory('evtSrv', ['$http', 'API_URL', function ($http, API_URL) {
 	return{
 		getEvents : function(){
 			return $http.get(API_URL.api84 + '/events');
@@ -11,4 +11,4 @@ angular.module('84.events').factory('evtSrv', ['$http', 'API_URL', function ($ht
 			return $http.post(API_URL.api84 + '/')
 		}
 	};
-}]);
+}]);*/
