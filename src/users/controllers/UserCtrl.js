@@ -1,6 +1,6 @@
 class UserListCtrl {
-    constructor ($scope, $http, usrSrv, notificationSrv) {
-        usrSrv.getUsers().success(function (users) {
+    constructor ($scope, UsrSrv){//, notificationSrv
+        UsrSrv.getUsers().success(function (users) {
             $scope.users = users;
         }).error(function (e) {
             console.error(e);
@@ -16,9 +16,9 @@ class UserListCtrl {
             }
             return false;
         };
+        $scope.test = 'coucou userListCtrl';
     }
 }
-UserListCtrl.$inject = ['$scope', '$http', 'usrSrv', 'notificationSrv'];
 
 /**
  * Manage the user details and user form for the show/edit/add functionnalities
@@ -92,6 +92,6 @@ class UserDetailCtrl {
     };
 }
 
-UserListCtrl.$inject = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
+UserListCtrl.$inject = ['$scope', '$routeParams', '$location'];//, 'usrSrv', 'fbSrv'];
 
 export { UserListCtrl, UserDetailCtrl }
