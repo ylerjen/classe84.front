@@ -1,3 +1,4 @@
+
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 /*
@@ -5,7 +6,9 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
 import AddressSrv from './addresses/services/AddressSrv.js';
 import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
 */
-(function () {    
+
+(function () {
+  
     angular.module('84.config', []).constant('API_URL', {
         api84: 'http://api84.loc',
         fbApiUrl: 'https://graph.facebook.com/'
@@ -13,8 +16,7 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         userViewFolder: 'src/users/views',
         eventViewFolder: 'src/events/views'
     });
-
-    /*
+/*
     angular.module('84.filters', []);
 
     angular.module('84.notifications', [])
@@ -38,13 +40,32 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
     angular.module('84', ['ngRoute', 'ngAnimate','84.config', '84.users'])
     /*
     angular.module('84', ['84.users'
+
+        .factory('usrSrv', UserService.UserServiceFactory)
+        .factory('fbSrv', AddressSrv.FaceBookServiceFactory);
+        
+    angular.module('84.addresses', ['84.config'])
+        .factory('adrSrv', FaceBookService.AddressServiceFactory);
+        
+    angular.module('84.events', ['ngSanitize','84.config'])
+        .controller('EventListCtrl', EventListCtrl)
+        .controller('EventDetailCtrl', EventDetailCtrl);
+        
+    angular.module('84.notifications', []);
+    
+    angular.module('84.filters', []);
+  
+  
+    angular.module('84', [
         '84.config',
         '84.users',
         '84.addresses',
         'ngRoute',
         'ngAnimate'
     ])*/
-    .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
+    
+
+    angular.module('84').config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
         //Users routing
         when('/users', {
@@ -65,7 +86,6 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
             controller: 'UserDetailCtrl'
         }).
 
-    
         //Events routing
         when('/events', {
             templateUrl: PATH.eventViewFolder + '/event-list.html',
@@ -79,6 +99,7 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventAddCtrl'
         }).
+    /*
         when('/gallery', {
             templateUrl: PATH.userViewFolder + '/user-list.html',
             controller: 'UserListCtrl'

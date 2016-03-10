@@ -19,6 +19,7 @@ class UserService {
         } else {
             return this.$http.post(this.API_URL.api84 + '/users', user);
         }
+
     }
     deleteUser (id) {
         return this.$http.delete(this.API_URL.api84 + '/users/' + id);
@@ -48,4 +49,4 @@ class FaceBookService {
 FaceBookService.$inject = ['$http','API_URL'];
 
 
-export { UserService, FaceBookService };
+export { UserService, FaceBookService }

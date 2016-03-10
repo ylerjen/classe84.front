@@ -25,8 +25,7 @@ module.exports = function(grunt) {
         
         // Clean dist dir
         clean: {
-            dist_js: ['dist/js'],
-            dist_css: ['dist/css'],
+            dist: ['dist'],
             temp: ['tmp']                
         },
 
@@ -73,7 +72,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src/',
                         src: ['**/*.js'],
-                        dest: 'tmp/babel/js'
+                        dest: 'tmp/js'
                     }
                 ]
             }
@@ -126,7 +125,7 @@ module.exports = function(grunt) {
             },
             compass: {
                 files: ['sass/**/*.scss'],
-                tasks: ['clean:dist_css', 'compass']
+                tasks: ['compass']
             }
         }
     });
@@ -134,8 +133,8 @@ module.exports = function(grunt) {
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('tests', ['build-dev', 'karma:unit:run']);
-    grunt.registerTask('build-dev', ['clean', 'babel', 'browserify', 'clean:temp', 'compass']);
+    grunt.registerTask('tests', ['clean', 'compass', 'babel', 'karma:unit:run']);
+    grunt.registerTask('build-dev', ['clean', 'babel', 'concat', 'clean:temp', 'compass']);
     grunt.registerTask('build-prod', ['clean', 'compass', 'babel', 'uglify']);
 
 };
