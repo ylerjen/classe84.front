@@ -1,10 +1,17 @@
+/**
+ * Manage the list of users and the user search
+ * @class UserListCtrl
+ */
 class UserListCtrl {
     constructor ($scope, UsrSrv){//, notificationSrv
-        UsrSrv.getUsers().success(function (users) {
-            $scope.users = users;
-        }).error(function (e) {
-            console.error(e);
-        });
+        this.getUsers(
+            (usersList) => {
+                $scope.users = usersList;
+            }, 
+            (err) => {
+                throw(err);
+            }
+        );    
     
         // User search function
         $scope.userListQuery = function (item) {
@@ -16,82 +23,122 @@ class UserListCtrl {
             }
             return false;
         };
-        $scope.test = 'coucou userListCtrl';
+    }
+    getUsers (successCb, errorCb) {
+        UsrSrv.getUsers()
+            .success(successCb)
+            .error(errorCb);
     }
 }
 
 /**
  * Manage the user details and user form for the show/edit/add functionnalities
- * @param  {[type]} $scope       angular scope dependancy injection
- * @param  {[type]} $routeParams angular routing dependancy injection
- * @param  {[type]} usrSrv       user services dependancy injection
+ * @class UserDetailCtrl
+ * @param  {object} $scope       angular scope dependancy injection
+ * @param  {object} $routeParams angular routing dependancy injection
+ * @param  {object} $location    angular location dependancy injection
+ * @param  {object} usrSrv       user services dependancy injection
  */
 class UserDetailCtrl {
-    constructor ($scope, $routeParams, $location, usrSrv, fbSrv) {
+    constructor ($scope, $routeParams, $location, UsrSrv, FbSrv) {
+        var _self = this;
+        this.$scope = $scope;
+        this.$routeParams = $routeParams;
+        this.$location = $location;
+        this._usrSrv = UsrSrv;
+        this._fbSrv = FbSrv;
+        
         var userId = $routeParams.userId;
-        this.initUser();
+        this.$scope.currentUser = this.getEmptyUser();
         if (userId) {
-            usrSrv.findById(userId).success(function (user) {
-                $scope.currentUser = user;
-                if (user.fb_user_id !== 0) {
-                    fbSrv.getFbSilouetteUrl(user.fb_user_id).success(function (response) {
-                        $scope.imgSrc = response.data && response.data.url ? response.data.url : '';
-                    });
-                } else {
-                    $scope.imgSrc = 'http://m1m.com/wp-content/uploads/2015/06/default-user-avatar.png';
-                }
-            }).error(function (e) {
-                console.error(e);
-            });
-        }
-        $scope.saveUser = function () {
-            if($scope.userForm.$valid){
-                if ($scope.currentUser.gender === 'M') {
-                    $scope.currentUser.maidenname = '';
-                } else {
-                    if ($scope.currentUser.maidenname === $scope.currentUser.last_name) {
-                        $scope.currentUser.maidenname = '';
+            this.getUser(
+                userId, 
+                (user) => {
+                    _self.$scope.currentUser = user;
+                    if (user.fb_user_id !== 0) {
+                        _self._fbSrv.getFbSilouetteUrl(user.fb_user_id).success(function (response) {
+                            _self.$scope.imgSrc = response.data && response.data.url ? response.data.url : '';
+                        });
+                    } else {
+                        _self.$scope.imgSrc = 'http://m1m.com/wp-content/uploads/2015/06/default-user-avatar.png';
                     }
+                },
+                (err) => {
+                    throw(err);
                 }
-                usrSrv.saveUser($scope.currentUser).success(function (user) {
-                    $scope.currentUser = user;
-                    $location.path('/users/show/' + user.id);
-                }).error(function (e) {
-                    console.error(e);
-                });
+            );
+        }
+        this.$scope.saveUser = function () {
+            if(this.$scope.userForm.$valid){
+                this.save();
             } else {
                 alert('Form invalid');//TODO replace with ng-notify
             }
         };       
 
-        $scope.deleteUser = function (id) {
-            if( confirm('Etes-vous sûr de vouloir effacer ce membre ? ') ) {
-                usrSrv.deleteUser(id).success(function () {
-                    console.log('user ' + id + ' supprimé');
-                    $location.path('/users');
-                }).error(function (e) {
-                    console.error(e);
-                });
+        this.$scope.deleteUser = (id) => {
+            if( confirm('Etes-vous sûr de vouloir effacer ce membre ? ') ) {                
+                this.delete(id);                
             }
         };
     }
-    initUser () {            
-        this.$scope.currentUser = { 
-            first_name  : '', 
-            maiden_name : '', 
-            last_name   : '', 
-            birthdate   : '', 
-            email       : '', 
-            telefon     : '', 
-            mobile      : '', 
-            website     : '', 
-            fb_profile_name: '', 
-            fb_user_id  : '', 
-            is_active   : 0
+    
+    getEmptyUser () {            
+        return { 
+            first_name      : '', 
+            maiden_name     : '', 
+            last_name       : '', 
+            birthdate       : '', 
+            email           : '', 
+            telefon         : '', 
+            mobile          : '', 
+            website         : '', 
+            fb_profile_name : '', 
+            fb_user_id      : '', 
+            is_active       : 0
         };
     };
+    /**
+     * Get the user identified by its id
+     * @memberOf UserDetailCtrl
+     * @param {number} id - is the identifier of the user to retrieve
+     * @param {function} successCb - is the callback to execute after the user is retrieved
+     * @param {function} errorCb - is the callback to execute if the get failed
+     */
+    getUser (id, successCb, errorCb) {
+        this._usrSrv.findById(id)
+            .success(successCb)
+            .error(errorCb);
+    }
+    /**
+     * Save the current user
+     * @memberOf UserDetailCtrl
+     */
+    save () {   
+        var user = this.user;     
+        if (user.gender === 'M' || user.maidenname === user.last_name) {
+            user.maidenname = '';
+        }
+        this._usrSrv.saveUser(user).success( (user) => {
+            $location.path('/users/show/' + user.id);
+        }).error(function (e) {
+            console.error(e);
+        });
+    }
+    /**
+     * Delete the current user
+     * @memberOf UserDetailCtrl
+     */
+    delete () {
+        var id = this.currentUser.id;
+        this._usrSrv.deleteUser(id).success(function () {
+            console.log('user ' + id + ' supprimé');
+            $location.path('/users');
+        }).error(function (e) {
+            console.error(e);
+        });
+    }
+    
 }
-
-UserListCtrl.$inject = ['$scope', '$routeParams', '$location'];//, 'usrSrv', 'fbSrv'];
 
 export { UserListCtrl, UserDetailCtrl }

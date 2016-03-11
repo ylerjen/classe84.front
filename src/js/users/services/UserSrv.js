@@ -19,17 +19,11 @@ class UserService {
         } else {
             return this.$http.post(this.API_URL.api84 + '/users', user);
         }
-
     }
     deleteUser (id) {
         return this.$http.delete(this.API_URL.api84 + '/users/' + id);
     }
-
-    getActiveBooks(){
-        return this.$http.get('/api/activeBooks').then(result => result.data );
-    }
 }
-UserService.$inject = ['$http','API_URL'];
 
 /**
  * The facebook service is used to retrieve FB profile informations for a user
@@ -46,7 +40,5 @@ class FaceBookService {
         return this.$http.get(fbUrl);
     }
 }
-FaceBookService.$inject = ['$http','API_URL'];
 
-
-export { UserService, FaceBookService }
+export { UserService, FaceBookService };

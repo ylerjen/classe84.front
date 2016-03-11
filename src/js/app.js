@@ -7,16 +7,24 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
 import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
 */
 
+
+
 (function () {  
+    
+   FaceBookService.$inject = ['$http','API_URL'];
+   UserListCtrl.$inject = ['$scope', 'UsrSrv'];//, 'notificationSrv'
+   UserDetailCtrl.$inject = ['$scope', '$routeParams', '$location', 'UsrSrv', 'FbSrv'];
+    
+    
     angular.module('84.config', []).constant('API_URL', {
         api84: 'http://api84.loc',
         fbApiUrl: 'https://graph.facebook.com/'
     }).constant('PATH', {
-        userViewFolder: 'src/users/views',
-        eventViewFolder: 'src/events/views'
+        userViewFolder: 'src/js/users/views',
+        eventViewFolder: 'src/js/events/views'
     });
     
-    angular.module('84.filters', []);
+    //angular.module('84.filters', []);
 /*
     angular.module('84.notifications', [])
         .service('notificationSrv', NotificationSrv);
@@ -30,13 +38,15 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
     angular.module('84.addresses', ['84.config'])
         .factory('adrSrv', FaceBookService.AddressServiceFactory);
   */
-    UserListCtrl.$inject = ['$scope', 'UsrSrv'];//, 'notificationSrv'
+  
    angular.module('84.users', [])
         .controller('UserListCtrl', UserListCtrl)
-        .service('UsrSrv', UserService);
-        //.factory('fbSrv', UserService.FaceBookServiceFactory);*/
+        .controller('UserDetailCtrl', UserDetailCtrl)
+        .service('UsrSrv', UserService)
+        .service('FbSrv', FaceBookService);
         
     /*
+        
         
     angular.module('84.addresses', ['84.config'])
         .factory('adrSrv', FaceBookService.AddressServiceFactory);
@@ -55,9 +65,7 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         'ngAnimate'
     ])*/
     angular.module('84', ['ngRoute', 'ngAnimate','84.config', '84.users'])
-    
-
-    angular.module('84').config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
+    .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
         //Users routing
         when('/users', {
@@ -69,10 +77,12 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
             templateUrl: PATH.userViewFolder + '/user-form.html',
             controller: 'UserDetailCtrl'
         }).
+        */
         when('/users/show/:userId', {
             templateUrl: PATH.userViewFolder + '/user-detail.html',
             controller: 'UserDetailCtrl'
         }).
+        /*
         when('/users/edit/:userId', {
             templateUrl: PATH.userViewFolder + '/user-form.html',
             controller: 'UserDetailCtrl'
