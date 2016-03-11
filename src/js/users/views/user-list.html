@@ -4,7 +4,7 @@
             <div class="card-block">
                 <h1 class="card-title">Membres</h1>
                 <div class="global-actions">
-                    <a href="#/users/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
+                    <a href="#/user/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
                 </div>
             </div>
             <div class="card-block inter-block">                
@@ -21,7 +21,7 @@
             <div class="card-block">
                 <ul class="row list-item">
                     <li class="animation card-item col-xs-12 col-sm-6 col-md-6 col-lg-4" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
-                        <a href="#/users/{{user.id}}">                            
+                        <a href="#/user/{{user.id}}">                            
                             <div class="item-ico">
                                 <i data-ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-lg"></i>
                             </div>

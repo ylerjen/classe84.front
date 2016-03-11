@@ -57,38 +57,35 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
     ])
     .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
+        
         //Users routing
-        when('/users', {
+        when('/user', {
             templateUrl: PATH.userViewFolder + '/user-list.html',
             controller: 'UserListCtrl'
         }).
-/*
-        when('/users/add', {
+        when('/user/add', {
             templateUrl: PATH.userViewFolder + '/user-form.html',
             controller: 'UserDetailCtrl'
         }).
-        */
-        when('/users/:userId', {
+        when('/user/:userId', {
             templateUrl: PATH.userViewFolder + '/user-detail.html',
             controller: 'UserDetailCtrl'
         }).
-        /*
-        when('/users/:userId/edit', {
+        when('/user/:userId/edit', {
             templateUrl: PATH.userViewFolder + '/user-form.html',
             controller: 'UserDetailCtrl'
         }).
-*/
+
         //Events routing
-        when('/events', {
+        when('/event', {
             templateUrl: PATH.eventViewFolder + '/event-list.html',
             controller: 'EventListCtrl'
         }).
-        when('/events/:eventId', {
+        when('/event/:eventId', {
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventDetailCtrl'
         }).
-/*
-        when('/events/add', {
+        when('/event/add', {
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventAddCtrl'
         }).

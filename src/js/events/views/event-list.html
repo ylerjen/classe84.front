@@ -6,7 +6,7 @@
             </div>
         
             <div class="card-block action-items">
-                <a href="#/users/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
+                <a href="#/event/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
             </div>
         
             <!--form class="sub-nav simple-form list-filter row">		
@@ -17,7 +17,7 @@
             <div class="card-block">
                 <ul id="events_list" class="row list-item">                
                     <li class="animation card-item" ng-repeat="event in events | orderBy: ['-event_date']">
-                        <a href="#/events/{{event.id}}">
+                        <a href="#/event/{{event.id}}">
                             <div class="item-ico">
                                 <i data-ng-class="event.id > 3 ? 'ico-glass' : 'ico-times'" class="user-ico ico ico-lg"></i>
                             </div>
