@@ -11,10 +11,10 @@
             <div class="ribbon" data-ng-class="{inactiv : !currentUser.is_active}">{{currentUser.is_active ? "Actif" : "Inactif"}}</div>
         </div>
         <div class="actions pull-right">
-            <a href="#/users/edit/{{currentUser.id}}" class="btn btn-primary-outline">
+            <a href="#/user/{{currentUser.id}}/edit" class="btn btn-primary-outline">
                 <i class="ico ico-pencil"></i>
             </a>
-            <button class="btn btn-danger" ng-click="deleteUser( currentUser.id )">
+            <button class="btn btn-danger" ng-click="delete( currentUser.id )">
                 <i class="ico ico-trash"></i>
             </button>
         </div>

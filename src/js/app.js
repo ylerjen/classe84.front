@@ -10,7 +10,7 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
 
 
 
-(function () {  
+(function () {
     
    FaceBookService.$inject = ['$http','API_URL'];
    UserListCtrl.$inject    = ['$scope', 'UsrSrv'];//, 'notificationSrv'
