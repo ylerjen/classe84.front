@@ -1,4 +1,4 @@
-
+import { telFilter } from './commons/filters/HelperFilters.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 /*
@@ -24,29 +24,16 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         eventViewFolder: 'src/js/events/views'
     });
     
-    //angular.module('84.filters', []);
-/*
-    angular.module('84.notifications', [])
-        .service('notificationSrv', NotificationSrv);
-        
-    angular.module('84.users', ['84.config', '84.notifications', '84.filters'])
-        .controller('UserListCtrl', UserListCtrl)
-        .controller('UserDetailCtrl', UserDetailCtrl)
-        .factory('UsrSrv', UserService.UserServiceFactory)
-        .factory('fbSrv', UserService.FaceBookServiceFactory);
-        
-    angular.module('84.addresses', ['84.config'])
-        .factory('adrSrv', FaceBookService.AddressServiceFactory);
-  */
+    angular.module('84.filters', [])
+        .filter('tel', TelFilter);
   
-   angular.module('84.users', [])
+   angular.module('84.users', ['84.filters'])
         .controller('UserListCtrl', UserListCtrl)
         .controller('UserDetailCtrl', UserDetailCtrl)
         .service('UsrSrv', UserService)
         .service('FbSrv', FaceBookService);
         
-    /*
-        
+/*       
         
     angular.module('84.addresses', ['84.config'])
         .factory('adrSrv', FaceBookService.AddressServiceFactory);
@@ -56,6 +43,9 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         .controller('EventDetailCtrl', EventDetailCtrl);
         
     angular.module('84.notifications', []);  
+
+    angular.module('84.notifications', [])
+        .service('notificationSrv', NotificationSrv);
   
     angular.module('84', [
         '84.config',
@@ -63,7 +53,8 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         '84.addresses',
         'ngRoute',
         'ngAnimate'
-    ])*/
+    ])
+*/
     angular.module('84', ['ngRoute', 'ngAnimate','84.config', '84.users'])
     .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
