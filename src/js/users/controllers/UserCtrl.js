@@ -4,6 +4,7 @@
  */
 class UserListCtrl {
     constructor ($scope, UsrSrv){//, notificationSrv
+        this._UsrSrv = UsrSrv;
         this.getUsers(
             (usersList) => {
                 $scope.users = usersList;
@@ -25,7 +26,7 @@ class UserListCtrl {
         };
     }
     getUsers (successCb, errorCb) {
-        UsrSrv.getUsers()
+        this._UsrSrv.getUsers()
             .success(successCb)
             .error(errorCb);
     }
