@@ -1,14 +1,17 @@
-/*angular.module('84.events').factory('evtSrv', ['$http', 'API_URL', function ($http, API_URL) {
-	return{
-		getEvents : function(){
-			return $http.get(API_URL.api84 + '/events');
-		},
-		getEventById: function(id){
-			return $http.get(API_URL.api84 + '/events/' + id);
-		},
-		saveEvent: function(event){
-			throw 'Not Implemented Exception';
-			return $http.post(API_URL.api84 + '/')
-		}
-	};
-}]);*/
+class EventService {
+    constructor ($http, API_URL) {
+        this.$http = $http;
+        this._API_URL = API_URL;
+    }
+    getAll () {
+        return this.$http.get(this._API_URL.api84 + '/events');
+    }
+    getById (id) {
+        return this.$http.get(this._API_URL.api84 + '/events/' + id);
+    }
+    save (event) {
+        throw 'Not Implemented Exception';
+        return this.$http.post(this._API_URL.api84 + '/events/' + id);
+    }
+}
+export { EventService };

@@ -4,16 +4,19 @@ import { UserService, FaceBookService } from './users/services/UserSrv.js';
 /*
 import AddressSrv from './addresses/services/AddressSrv.js';
 import NotificationSrv from './notifications/services/NotificationsSrv.js';
-import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
 */
+import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
+import { EventService } from './events/services/EventSrv.js';
 
 
 
 (function () {  
     
    FaceBookService.$inject = ['$http','API_URL'];
-   UserListCtrl.$inject = ['$scope', 'UsrSrv'];//, 'notificationSrv'
-   UserDetailCtrl.$inject = ['$scope', '$routeParams', '$location', 'UsrSrv', 'FbSrv'];
+   UserListCtrl.$inject    = ['$scope', 'UsrSrv'];//, 'notificationSrv'
+   UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'UsrSrv', 'FbSrv'];
+   EventListCtrl.$inject   = ['$scope', '$routeParams', 'EvtSrv'];
+   EventService.$inject    = ['$http', 'API_URL'];
     
     
     angular.module('84.config', []).constant('API_URL', {
@@ -25,7 +28,7 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
     });
     
     angular.module('84.filters', [])
-        .filter('tel', TelFilter);
+        .filter('tel', telFilter);
   
    angular.module('84.users', ['84.filters'])
         .controller('UserListCtrl', UserListCtrl)
@@ -37,11 +40,12 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         
     angular.module('84.addresses', ['84.config'])
         .factory('adrSrv', FaceBookService.AddressServiceFactory);
-        
-    angular.module('84.events', ['ngSanitize','84.config'])
+       */
+    angular.module('84.events', ['ngSanitize'])
         .controller('EventListCtrl', EventListCtrl)
+        .service('EvtSrv', EventService);
+        /*
         .controller('EventDetailCtrl', EventDetailCtrl);
-        
     angular.module('84.notifications', []);  
 
     angular.module('84.notifications', [])
@@ -55,7 +59,13 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
         'ngAnimate'
     ])
 */
-    angular.module('84', ['ngRoute', 'ngAnimate','84.config', '84.users'])
+    angular.module('84', [
+        'ngRoute',
+        'ngAnimate',
+        '84.config',
+        '84.users',
+        '84.events'
+    ])
     .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
         //Users routing
@@ -78,12 +88,13 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
             templateUrl: PATH.userViewFolder + '/user-form.html',
             controller: 'UserDetailCtrl'
         }).
-
+*/
         //Events routing
         when('/events', {
             templateUrl: PATH.eventViewFolder + '/event-list.html',
             controller: 'EventListCtrl'
         }).
+/*
         when('/events/:eventId', {
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventDetailCtrl'
@@ -92,7 +103,7 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventAddCtrl'
         }).
-    /*
+/*
         when('/gallery', {
             templateUrl: PATH.userViewFolder + '/user-list.html',
             controller: 'UserListCtrl'
