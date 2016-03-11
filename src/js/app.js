@@ -79,12 +79,12 @@ import { EventService } from './events/services/EventSrv.js';
             controller: 'UserDetailCtrl'
         }).
         */
-        when('/users/show/:userId', {
+        when('/users/:userId', {
             templateUrl: PATH.userViewFolder + '/user-detail.html',
             controller: 'UserDetailCtrl'
         }).
         /*
-        when('/users/edit/:userId', {
+        when('/users/:userId/edit', {
             templateUrl: PATH.userViewFolder + '/user-form.html',
             controller: 'UserDetailCtrl'
         }).
@@ -94,11 +94,11 @@ import { EventService } from './events/services/EventSrv.js';
             templateUrl: PATH.eventViewFolder + '/event-list.html',
             controller: 'EventListCtrl'
         }).
-/*
         when('/events/:eventId', {
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventDetailCtrl'
         }).
+/*
         when('/events/add', {
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventAddCtrl'
