@@ -38,20 +38,21 @@ class EventListCtrl {
  */
 class EventDetailCtrl {
     constructor($scope, $routeParams, EvtSrv) {
-        var _self = this;
         this._$scope = $scope;
         this._routeParams = $routeParams;
         this._EvtSrv = EvtSrv;
         
-        var eventId = this._routeParams.eventId;
-        this.get(eventId);        
+        let evtId = this._routeParams.eventId;
+        this.get(evtId);        
     }
     
     get (id) {
-        this._EvtSrv.getById(eventId)
-            .success( (event) => {
-                _self.$scope.event = event;
-            });
+        var _this = this;
+        let successCb = (event) => {
+            _this._$scope.event = event;
+        };
+        this._EvtSrv.getById(id)
+            .success(successCb);
     }
 
 	save () {

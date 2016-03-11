@@ -1,12 +1,12 @@
 import { telFilter } from './commons/filters/HelperFilters.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
+import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
+import { EventService } from './events/services/EventSrv.js';
 /*
 import AddressSrv from './addresses/services/AddressSrv.js';
 import NotificationSrv from './notifications/services/NotificationsSrv.js';
 */
-import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
-import { EventService } from './events/services/EventSrv.js';
 
 
 
@@ -35,29 +35,18 @@ import { EventService } from './events/services/EventSrv.js';
         .controller('UserDetailCtrl', UserDetailCtrl)
         .service('UsrSrv', UserService)
         .service('FbSrv', FaceBookService);
-        
-/*       
-        
+/*               
     angular.module('84.addresses', ['84.config'])
         .factory('adrSrv', FaceBookService.AddressServiceFactory);
-       */
+*/
+        
     angular.module('84.events', ['ngSanitize'])
         .controller('EventListCtrl', EventListCtrl)
+        .controller('EventDetailCtrl', EventDetailCtrl)
         .service('EvtSrv', EventService);
-        /*
-        .controller('EventDetailCtrl', EventDetailCtrl);
-    angular.module('84.notifications', []);  
-
+/*
     angular.module('84.notifications', [])
         .service('notificationSrv', NotificationSrv);
-  
-    angular.module('84', [
-        '84.config',
-        '84.users',
-        '84.addresses',
-        'ngRoute',
-        'ngAnimate'
-    ])
 */
     angular.module('84', [
         'ngRoute',
