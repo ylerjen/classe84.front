@@ -15,11 +15,6 @@
     getAddress (id) {
         return this.$http.get(this.API_URL.apiUrl + '/addresses/' + id);
     }
-
-    static AddressServiceFactory($http) {
-        return new AddressSrv($http);
-    }
 }
-AddressSrv.AddressServiceFactory.$inject = ['$http'];
 
-export {AddressSrv};
+export { AddressSrv };

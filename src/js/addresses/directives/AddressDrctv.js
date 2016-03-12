@@ -1,65 +1,34 @@
-// Directives
-/*
-angular.module('84.addresses')    
-    .directive('addresses', [ () => {
-        return {
-            replace : true,
-            restrict : 'A',
-            templateUrl : '/app/addresses/views/addresses.html',
-            scope : {                
-                addresses : "=addressesAttr"
-            },
-            link : function (scope, element, attrs) {
-                scope.$watch('addressesAttr', function(newValue, oldValue) {
-                   console.log(newValue);
-                });
-            }
+
+class AddressesDrctv {
+    constructor () {
+        this.replace = true;
+        this.restrict = 'A';
+        this.templateUrl = '/src/js/addresses/views/addresses.html';
+        this.scope = {                
+            addresses : "=addressesAttr"
         };
-    }])
-    .directive('address', [ () => {
-        return {
-            restrict : 'A',
-            templateUrl : '/app/addresses/views/address.html',
-            scope : {
-                address : '=addressAttr'
-            },
-            link : function (scope, element, attrs) {
-                scope.$watch('addressAttr', function(newValue, oldValue) {
-                   console.log(newValue);
-                });
-            }
-        };
-    }]);
-    
+    }
+}
     
     
 class AddressDrctv {
-    constructor($interval) {
-        this.template = '<div>I\'m a directive!</div>';
-        this.restrict = 'E';
-        this.scope = {}
-        // etc. for the usual config options
-
-        // allows us to use the injected dependencies
-        // elsewhere in the directive (e.g. compile or link function)
-        this.$interval = $interval;
+    constructor () {
+        this.templateUrl = '/src/js/addresses/views/address.html';
+        this.restrict = 'A';
+        this.scope = {                
+            address : "=addressAttr"
+        };
     }
-
-    // optional compile function
-    compile(tElement) {
-        tElement.css('position', 'absolute');
+    controller () {
     }
-
-    // optional link function
-    link(scope, element) {
-        this.$interval(() => this.move(element), 1000);
-    }
-
-    move(element) {
-        element.css('left', (Math.random() * 500) + 'px');
-        element.css('top', (Math.random() * 500) + 'px');
+    link (scope, element, attrs) {        
+        console.debug(attrs);
+        scope.setDefault = (adrId) => {
+            console.log('yann', adrId);
+        };
+        
     }
 }
 
 
-register('app').directive('myDirective', MyDirective);*/
+export { AddressesDrctv, AddressDrctv };

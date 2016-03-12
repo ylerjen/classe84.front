@@ -3,8 +3,9 @@ import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
 import { EventService } from './events/services/EventSrv.js';
+import { AddressSrv } from './addresses/services/AddressSrv.js';
+import { AddressesDrctv, AddressDrctv } from './addresses/directives/AddressDrctv.js';
 /*
-import AddressSrv from './addresses/services/AddressSrv.js';
 import NotificationSrv from './notifications/services/NotificationsSrv.js';
 */
 
@@ -12,11 +13,13 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
 
 (function () {
     
-   FaceBookService.$inject = ['$http','API_URL'];
    UserListCtrl.$inject    = ['$scope', 'UsrSrv'];//, 'notificationSrv'
    UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'UsrSrv', 'FbSrv'];
+   FaceBookService.$inject = ['$http','API_URL'];
+   AddressSrv.$inject      = ['$http', 'API_URL'];
    EventListCtrl.$inject   = ['$scope', '$routeParams', 'EvtSrv'];
    EventService.$inject    = ['$http', 'API_URL'];
+
     
     
     angular.module('84.config', []).constant('API_URL', {
@@ -29,16 +32,18 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
     
     angular.module('84.filters', [])
         .filter('tel', telFilter);
+     
+    angular.module('84.addresses', [])
+        .directive('addresses', function(){return new AddressesDrctv();})
+        .directive('address', function(){return new AddressDrctv();})
+        .service('AdrSrv', AddressSrv);
   
    angular.module('84.users', ['84.filters'])
         .controller('UserListCtrl', UserListCtrl)
         .controller('UserDetailCtrl', UserDetailCtrl)
         .service('UsrSrv', UserService)
         .service('FbSrv', FaceBookService);
-/*               
-    angular.module('84.addresses', ['84.config'])
-        .factory('adrSrv', FaceBookService.AddressServiceFactory);
-*/
+
         
     angular.module('84.events', ['ngSanitize'])
         .controller('EventListCtrl', EventListCtrl)
@@ -53,6 +58,7 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
         'ngAnimate',
         '84.config',
         '84.users',
+        '84.addresses',
         '84.events'
     ])
     .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
