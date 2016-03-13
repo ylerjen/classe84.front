@@ -9,18 +9,14 @@ import { AddressesDrctv, AddressDrctv } from './addresses/directives/AddressDrct
 import NotificationSrv from './notifications/services/NotificationsSrv.js';
 */
 
-
-
 (function () {
     
-   UserListCtrl.$inject    = ['$scope', 'UsrSrv'];//, 'notificationSrv'
-   UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'UsrSrv', 'FbSrv'];
+   UserListCtrl.$inject    = ['$scope', 'usrSrv'];//, 'notificationSrv'
+   UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
    FaceBookService.$inject = ['$http','API_URL'];
    AddressSrv.$inject      = ['$http', 'API_URL'];
-   EventListCtrl.$inject   = ['$scope', '$routeParams', 'EvtSrv'];
+   EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv'];
    EventService.$inject    = ['$http', 'API_URL'];
-
-    
     
     angular.module('84.config', []).constant('API_URL', {
         api84: 'http://api84.loc',
@@ -34,21 +30,20 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
         .filter('tel', telFilter);
      
     angular.module('84.addresses', [])
-        .directive('addresses', function(){return new AddressesDrctv();})
-        .directive('address', function(){return new AddressDrctv();})
-        .service('AdrSrv', AddressSrv);
+        .service('adrSrv', AddressSrv)
+        .directive('addresses', () => new AddressesDrctv())
+        .directive('address', (adrSrv) => new AddressDrctv(adrSrv));
   
    angular.module('84.users', ['84.filters'])
         .controller('UserListCtrl', UserListCtrl)
         .controller('UserDetailCtrl', UserDetailCtrl)
-        .service('UsrSrv', UserService)
-        .service('FbSrv', FaceBookService);
+        .service('usrSrv', UserService)
+        .service('fbSrv', FaceBookService);
 
-        
     angular.module('84.events', ['ngSanitize'])
         .controller('EventListCtrl', EventListCtrl)
         .controller('EventDetailCtrl', EventDetailCtrl)
-        .service('EvtSrv', EventService);
+        .service('evtSrv', EventService);
 /*
     angular.module('84.notifications', [])
         .service('notificationSrv', NotificationSrv);
@@ -60,51 +55,6 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
         '84.users',
         '84.addresses',
         '84.events'
-    ])
-    .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
-        $routeProvider.
-        
-        //Users routing
-        when('/user', {
-            templateUrl: PATH.userViewFolder + '/user-list.html',
-            controller: 'UserListCtrl'
-        }).
-        when('/user/add', {
-            templateUrl: PATH.userViewFolder + '/user-form.html',
-            controller: 'UserDetailCtrl'
-        }).
-        when('/user/:userId', {
-            templateUrl: PATH.userViewFolder + '/user-detail.html',
-            controller: 'UserDetailCtrl'
-        }).
-        when('/user/:userId/edit', {
-            templateUrl: PATH.userViewFolder + '/user-form.html',
-            controller: 'UserDetailCtrl'
-        }).
-
-        //Events routing
-        when('/event', {
-            templateUrl: PATH.eventViewFolder + '/event-list.html',
-            controller: 'EventListCtrl'
-        }).
-        when('/event/:eventId', {
-            templateUrl: PATH.eventViewFolder + '/event-detail.html',
-            controller: 'EventDetailCtrl'
-        }).
-        when('/event/add', {
-            templateUrl: PATH.eventViewFolder + '/event-detail.html',
-            controller: 'EventAddCtrl'
-        }).
-/*
-        when('/gallery', {
-            templateUrl: PATH.userViewFolder + '/user-list.html',
-            controller: 'UserListCtrl'
-        }).
-        
-*/
-        otherwise({
-            redirectTo: '/'
-        });
-    }]);
+    ]);
 
 })();
