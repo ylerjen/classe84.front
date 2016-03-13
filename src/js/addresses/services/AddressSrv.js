@@ -10,10 +10,12 @@
     
     getAddressesForUser (userId) {
         return this.$http.get(this.API_URL.apiUrl + '/addresses/user/' + userId );
-    }
-    
-    getAddress (id) {
+    }    
+    get (id) {
         return this.$http.get(this.API_URL.apiUrl + '/addresses/' + id);
+    }
+    setDefault (id, userId) {        
+        return this.$http.get(this.API_URL.apiUrl + '/user/' + userId + '/addresses/' + id);
     }
 }
 

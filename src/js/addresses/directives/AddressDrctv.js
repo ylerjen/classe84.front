@@ -12,21 +12,19 @@ class AddressesDrctv {
     
     
 class AddressDrctv {
-    constructor () {
+    constructor (UsrSrv) {
+        this._usrSrv = UsrSrv;
         this.templateUrl = '/src/js/addresses/views/address.html';
         this.restrict = 'A';
         this.scope = {                
             address : "=addressAttr"
         };
     }
-    controller () {
-    }
+    
     link (scope, element, attrs) {        
-        console.debug(attrs);
         scope.setDefault = (adrId) => {
-            console.log('yann', adrId);
+            this._usrSrv.setDefault(adrId);
         };
-        
     }
 }
 
