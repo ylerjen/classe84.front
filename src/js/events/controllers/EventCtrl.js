@@ -3,14 +3,14 @@
  * @class EventListCtrl
  * @param  {object} $scope       angular scope dependancy injection
  * @param  {object} $routeParams angular routing dependancy injection
- * @param  {object} EvtSrv       event services dependancy injection
+ * @param  {object} evtSrv       event services dependancy injection
  */
 class EventListCtrl {
-    constructor($scope, $routeParams, EvtSrv) {
+    constructor($scope, $routeParams, evtSrv) {
         var _self = this;
         this.$scope = $scope;
         this.$routeParams = $routeParams;
-        this._EvtSrv = EvtSrv;
+        this._evtSrv = evtSrv;
         
         let successCb = function (events) {
             _self.$scope.events = events;
@@ -22,7 +22,7 @@ class EventListCtrl {
     }
     
     getAll (successCb, errorCb) {
-        this._EvtSrv.getAll()
+        this._evtSrv.getAll()
             .success(successCb)
             .error(errorCb); 
     }
@@ -34,13 +34,13 @@ class EventListCtrl {
  * Manage the event detail and event form for the show/edit/add functionnalities
  * @param  {object} $scope       angular scope dependancy injection
  * @param  {object} $routeParams angular routing dependancy injection
- * @param  {object} EvtSrv       event services dependancy injection
+ * @param  {object} evtSrv       event services dependancy injection
  */
 class EventDetailCtrl {
-    constructor($scope, $routeParams, EvtSrv) {
+    constructor($scope, $routeParams, evtSrv) {
         this._$scope = $scope;
         this._routeParams = $routeParams;
-        this._EvtSrv = EvtSrv;
+        this._evtSrv = evtSrv;
         
         let evtId = this._routeParams.eventId;
         this.get(evtId);        
@@ -51,7 +51,7 @@ class EventDetailCtrl {
         let successCb = (event) => {
             _this._$scope.event = event;
         };
-        this._EvtSrv.getById(id)
+        this._evtSrv.getById(id)
             .success(successCb);
     }
 
