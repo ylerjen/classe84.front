@@ -2,24 +2,27 @@
 
 // Load required Compass elements
 @import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "compass/css3/animation";
 
 
 // Custom variables
-@import 'partials/_variables';
+@import 'partials/variables';
 
 
 // Helpers
 @import 'partials/_el_helpers';
 
-
 // Elements partials
+@import 'partials/animations';
+
 
 // Containers
 @import 'partials/_el_containers';
 @import 'partials/_el_images';
 @import 'partials/_el_lists';
-/*
 @import 'partials/_el_fonts';
+/*
 @import 'partials/_el_buttons';
 @import 'partials/_el_forms';
 @import 'partials/_el_containers';
