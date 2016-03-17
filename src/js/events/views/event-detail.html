@@ -2,14 +2,24 @@
     <div class="col-md-8">
         <section class="card event-details">
             <div class="card-img-top"><img src="http://images.myswitzerland.com/n49464/images/buehne/ville_de_sion.jpg" alt="Ville de Sion" class="img-responsive"></div>
+            <nav class="module-actions">
+                <button class="btn btn-info-outline"><i class="ico ico-thumbs-up"></i></button>
+                <button class="btn btn-info-outline"><i class="ico ico-pencil"></i></button>
+                <button class="btn btn-danger-outline"><i class="ico ico-trash"></i></button>
+            </nav>
             <div class="card-block">
                 <h1 class="card-title">{{event.title}}</h1>
                 <p class="text-muted">Created by {{event.created_by}} at {{event.created_at}}</p>
             </div>
             <div class="card-block short-infos">
-                <p>{{event.event_date | date: 'dd.MM.yyyy'}}</p>
-                <p>{{event.location}} ({{event.latitude}} / {{event.longitude}})</p>
-                <p>{{event.price}}</p>
+                <dl>
+                    <dt><i class="ico ico-calendar-o"></i></dt>
+                    <dd>{{event.event_date | date: 'dd.MM.yyyy'}}</dd>
+                    <dt><i class="ico ico-map-marker"></i></dt>
+                    <dd>{{event.location}} ({{event.latitude}} / {{event.longitude}})</dd>
+                    <dt><i class="ico ico-money text-separator"></i></dt>
+                    <dd>{{event.price}}</dd>
+                </dl>
             </div>
             <div class="card-block">
                 <div ng-bind-html="event.description"></div>

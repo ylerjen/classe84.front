@@ -21,3 +21,13 @@
     display: block;
     text-align: center;
 }
+
+.module-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: $space-step;
+    
+    .btn {
+        margin-left: 4px;
+    }
+}
