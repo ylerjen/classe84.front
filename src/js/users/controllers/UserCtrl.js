@@ -4,15 +4,19 @@
  */
 class UserListCtrl {
     constructor ($scope, UsrSrv){//, notificationSrv
+        let _self = this;
         this._UsrSrv = UsrSrv;
-        this.getUsers(
-            (usersList) => {
-                $scope.users = usersList;
-            }, 
-            (err) => {
-                throw(err);
-            }
-        );    
+        this.isLoading = true;
+        
+        let successCb = (usersList) => {
+            $scope.users = usersList;
+            _self.isLoading = false;
+        }
+        let errorCb = (err) => {
+            throw(err);
+        }
+            
+        this.getUsers(successCb, errorCb);    
     
         // User search function
         $scope.userListQuery = function (item) {

@@ -38,7 +38,11 @@ class EventListCtrl {
  */
 class EventDetailCtrl {
     constructor($scope, $routeParams, evtSrv) {
-        this._$scope = $scope;
+        this._$scope = $scope;        
+        $scope.isLoading = true;
+        $scope.save = this.save;
+        $scope.delete = this.delete;
+        $scope.subscribe = this.subscribe;
         this._routeParams = $routeParams;
         this._evtSrv = evtSrv;
         
@@ -49,7 +53,9 @@ class EventDetailCtrl {
     get (id) {
         var _this = this;
         let successCb = (event) => {
+            console.debug(event);
             _this._$scope.event = event;
+            _this._$scope.isLoading = false;
         };
         this._evtSrv.getById(id)
             .success(successCb);
@@ -62,6 +68,9 @@ class EventDetailCtrl {
 	delete () {
 		throw 'Not implemented Exception';
 	}
+    subscribe (currentUserId) {
+        throw 'Not implemented Exception';
+    }
 }
 
 

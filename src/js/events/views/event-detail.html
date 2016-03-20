@@ -1,29 +1,36 @@
 <div class="row">
     <div class="col-md-8">
         <section class="card event-details">
-            <div class="card-img-top"><img src="http://images.myswitzerland.com/n49464/images/buehne/ville_de_sion.jpg" alt="Ville de Sion" class="img-responsive"></div>
-            <nav class="module-actions">
-                <button class="btn btn-info-outline"><i class="ico ico-thumbs-up"></i></button>
-                <button class="btn btn-info-outline"><i class="ico ico-pencil"></i></button>
-                <button class="btn btn-danger-outline"><i class="ico ico-trash"></i></button>
-            </nav>
-            <div class="card-block">
-                <h1 class="card-title">{{event.title}}</h1>
-                <p class="text-muted">Created by {{event.created_by}} at {{event.created_at}}</p>
+            <div class="card-img-top">
+                <img src="http://images.myswitzerland.com/n49464/images/buehne/ville_de_sion.jpg" alt="Ville de Sion" class="img-fill">
+                <h1 class="card-title module-title">{{event.title}}</h1>
             </div>
-            <div class="card-block short-infos">
-                <dl>
-                    <dt><i class="ico ico-calendar-o"></i></dt>
-                    <dd>{{event.event_date | date: 'dd.MM.yyyy'}}</dd>
-                    <dt><i class="ico ico-map-marker"></i></dt>
-                    <dd>{{event.location}} ({{event.latitude}} / {{event.longitude}})</dd>
-                    <dt><i class="ico ico-money text-separator"></i></dt>
-                    <dd>{{event.price}}</dd>
-                </dl>
+            <div class="loader-spinner" data-ng-show="isLoading">
+                <i class="ico ico-spinner ico-pulse ico-2x"></i>
             </div>
-            <div class="card-block">
-                <div ng-bind-html="event.description"></div>
-                <p>{{event.organisator}}</p>
+            <div class="content" data-ng-hide="isLoading">
+                <p class="text-muted module-meta">Created by {{event.created_by}} at {{event.created_at}}</p>
+                <nav class="module-actions">
+                    <button class="btn btn-info-outline" data-ng-click="this.subscribe(currentUser.id)"><i class="ico ico-plane"></i></button>
+                    <button class="btn btn-info-outline"><i class="ico ico-pencil"></i></button>
+                    <button class="btn btn-danger-outline" data-ng-click="this.delete()"><i class="ico ico-trash"></i></button>
+                </nav>
+                <div class="card-block short-infos">
+                    <dl class="iconified-descr">
+                        <dt>test</dt>
+                        <dd>test</dd>
+                        <dt><i class="ico ico-calendar-o ico-2x"></i></dt>
+                        <dd>{{event.event_date | date: 'dd.MM.yyyy'}}</dd>
+                        <dt><i class="ico ico-map-marker ico-2x"></i></dt>
+                        <dd>{{event.location}} ({{event.latitude}} / {{event.longitude}})</dd>
+                        <dt><i class="ico ico-money text-separator ico-2x"></i></dt>
+                        <dd>{{event.price}}</dd>
+                    </dl>
+                </div>
+                <div class="card-block">
+                    <div ng-bind-html="event.description"></div>
+                    <p>{{event.organisator}}</p>
+                </div>                
             </div>
         </section>
     </div>
