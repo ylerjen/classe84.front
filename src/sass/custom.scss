@@ -7,20 +7,20 @@
 
 
 // Custom variables
-@import 'partials/variables';
+@import 'partials/config/variables';
 
 
 // Helpers
 @import 'partials/_el_helpers';
 
 // Elements partials
-@import 'partials/animations';
+@import 'partials/config/animations';
 
 
 // Containers
-@import 'partials/_el_containers';
-@import 'partials/_el_images';
-@import 'partials/_el_lists';
+@import 'partials/elements/_el_containers';
+@import 'partials/elements/_el_images';
+@import 'partials/elements/_el_lists';
 @import 'partials/_el_fonts';
 /*
 @import 'partials/_el_buttons';

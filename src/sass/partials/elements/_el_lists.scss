@@ -63,3 +63,17 @@ $transition-duration: .2s;
     width: 90%;
   }
 }
+
+.iconified-descr {
+    > dt {
+        display: inline-block;
+        text-align: center;
+        width: 19%;
+    }
+    > dd {
+        color: red;
+        /*
+        display: inline-block;
+        width: 80%;*/
+    }
+}

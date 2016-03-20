@@ -2,10 +2,10 @@
     padding: 2rem 1rem;
     
 }
-.article-meta {
+.module-meta {
     color: $secondary-color;
-    font-size: 1rem;
-    font-style: italic;
+    font-size: 0.9rem;
+    margin: $step;  
 }
 .inter-block {
     border-width: $global-border-width 0;
@@ -19,15 +19,30 @@
 }
 .loader-spinner {
     display: block;
+    padding: 3*$step;
     text-align: center;
 }
 
 .module-actions {
     display: flex;
     justify-content: flex-end;
-    margin: $space-step;
+    margin: 2*$step;
     
     .btn {
         margin-left: 4px;
     }
+}
+.module-title {
+    position: absolute;
+    top: 150px;
+    margin: 0 2*$step;
+    text-shadow: 2px 2px 2px black;
+    color: $global-bg-color;
+}
+a.card {
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        border: 1px solid $primary-color;
+    }    
 }
