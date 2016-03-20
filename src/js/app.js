@@ -15,6 +15,7 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
    UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
    FaceBookService.$inject = ['$http','API_URL'];
    AddressSrv.$inject      = ['$http', 'API_URL'];
+   AddressDrctv.$inject    = ['adrSrv'];
    EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv'];
    EventService.$inject    = ['$http', 'API_URL'];
     
@@ -32,7 +33,7 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
     angular.module('84.addresses', [])
         .service('adrSrv', AddressSrv)
         .directive('addresses', () => new AddressesDrctv())
-        .directive('address', (adrSrv) => new AddressDrctv(adrSrv));
+        .directive('address', AddressDrctv);
   
    angular.module('84.users', ['84.filters'])
         .controller('UserListCtrl', UserListCtrl)

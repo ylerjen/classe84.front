@@ -5,28 +5,28 @@ class AddressesDrctv {
         this.restrict = 'A';
         this.templateUrl = '/src/js/addresses/views/addresses.html';
         this.scope = {                
-            addresses : "=addressesAttr"
+            addresses : "=addressesAttr",
+            userId: "@userId"
         };
     }
 }
     
     
-class AddressDrctv {
-    constructor (UsrSrv) {
-        this._usrSrv = UsrSrv;
-        this.templateUrl = '/src/js/addresses/views/address.html';
-        this.restrict = 'A';
-        this.scope = {                
-            address : "=addressAttr"
-        };
-    }
-    
-    link (scope, element, attrs) {        
-        scope.setDefault = (adrId) => {
-            this._usrSrv.setDefault(adrId);
-        };
-    }
+function AddressDrctv (adrSrv) {
+    return {
+        templateUrl : '/src/js/addresses/views/address.html',
+        restrict : 'A',
+        scope : {                
+            address : "=addressAttr",
+            userId: "@userId"
+        },
+        link: function (scope, element, attrs) {
+            var _self = this;
+            scope.setDefault = (userId, adrId) => {
+                adrSrv.setDefault(userId, adrId);
+            };
+        }  
+    };
 }
-
 
 export { AddressesDrctv, AddressDrctv };
