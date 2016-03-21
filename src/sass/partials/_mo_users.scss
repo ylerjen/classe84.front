@@ -27,8 +27,9 @@
     top: -20px;
   }
   .actions {
-    transform: translateY(-235px);
-    
+    position: absolute;
+    right: 3*$step;
+    top: 3*$step;
   }
   .ribbon-wrapper {
     width: 150px;

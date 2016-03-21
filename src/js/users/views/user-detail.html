@@ -3,23 +3,17 @@
         <img id="profileImg" ng-src="{{ imgSrc }}" alt="Photo de {{ currentUser.first_name }}" class="logo img-circle" height="140px" width="140px" />
     </figure>
     <div class="user-title">
-        <h1 class="text-center">{{currentUser.last_name}}<span ng-show="currentUser.maiden_name"> ({{currentUser.maiden_name}})</span> {{currentUser.first_name}}</h1>
-        <h2 class="text-center">{{currentUser.birthdate | date: 'dd.MM.yyyy'}}</h2>
+        <h1 class="text-xs-center">{{currentUser.last_name}}<span ng-show="currentUser.maiden_name"> ({{currentUser.maiden_name}})</span> {{currentUser.first_name}}</h1>
+        <h2 class="text-xs-center">{{currentUser.birthdate | date: 'dd.MM.yyyy'}}</h2>
     </div>
-    <div class="card-block">
-        <div class="ribbon-wrapper">
-            <div class="ribbon" data-ng-class="{inactiv : !currentUser.is_active}">{{currentUser.is_active ? "Actif" : "Inactif"}}</div>
-        </div>
-        <div class="actions pull-right">
-            <a href="#/user/{{currentUser.id}}/edit" class="btn btn-primary-outline">
-                <i class="ico ico-pencil"></i>
-            </a>
-            <button class="btn btn-danger" ng-click="delete( currentUser.id )">
-                <i class="ico ico-trash"></i>
-            </button>
-        </div>
+    <div class="ribbon-wrapper">
+        <div class="ribbon" data-ng-class="{inactiv : !currentUser.is_active}">{{currentUser.is_active ? "Actif" : "Inactif"}}</div>
     </div>
-    
+    <div class="actions">
+        <button class="btn btn-danger" ng-click="delete( currentUser.id )">
+            <i class="ico ico-trash"></i>
+        </button>
+    </div>    
     <nav>
         <ul class="nav nav-tabs">
             <li class="nav-item">
