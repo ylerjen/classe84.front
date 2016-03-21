@@ -8,6 +8,7 @@ import { AddressesDrctv, AddressDrctv } from './addresses/directives/AddressDrct
 /*
 import NotificationSrv from './notifications/services/NotificationsSrv.js';
 */
+import { NavigationDrctv } from './nav/directives/navigationDirective.js';
 
 (function () {
     
@@ -26,6 +27,9 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
         userViewFolder: 'src/js/users/views',
         eventViewFolder: 'src/js/events/views'
     });
+    
+    angular.module('84.nav', [])
+        .directive('navigation', NavigationDrctv);
     
     angular.module('84.filters', [])
         .filter('tel', telFilter);
@@ -53,6 +57,7 @@ import NotificationSrv from './notifications/services/NotificationsSrv.js';
         'ngRoute',
         'ngAnimate',
         '84.config',
+        '84.nav',
         '84.users',
         '84.addresses',
         '84.events'
