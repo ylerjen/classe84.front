@@ -1,9 +1,9 @@
-function NavigationDrctv () {
-    return {
-        templateUrl: 'src/js/nav/views/nav.html',
-        restrict: 'A',
-        scope: {},
-        link: function (scope, elem, attrs) {
+class NavigationDrctv {
+    constructor () {
+        this.templateUrl  = 'src/js/nav/views/nav.html';
+        this.restrict = 'A';
+        this.scope = {};
+        this.link = function (scope, elem, attrs) {
             elem.bind('click', function (evt) {
                 let currentEl = evt.srcElement;
                 if(currentEl.className.indexOf('nav-link')>=0) {
@@ -11,11 +11,8 @@ function NavigationDrctv () {
                     evt.srcElement.parentElement.className += ' active';
                 }
             });
-        },
-        controller: function () {
-        },
-        controllerAs: 'navCtrl'
-    };    
+        };
+    }  
 }
 
 export { NavigationDrctv };

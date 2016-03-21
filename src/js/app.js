@@ -29,7 +29,7 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
     });
     
     angular.module('84.nav', [])
-        .directive('navigation', NavigationDrctv);
+        .directive('navigation', () => new NavigationDrctv());
     
     angular.module('84.filters', [])
         .filter('tel', telFilter);
