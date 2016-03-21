@@ -5,10 +5,9 @@ import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js
 import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
 import { AddressesDrctv, AddressDrctv } from './addresses/directives/AddressDrctv.js';
-/*
-import NotificationSrv from './notifications/services/NotificationsSrv.js';
-*/
 import { NavigationDrctv } from './nav/directives/navigationDirective.js';
+import { NotificationSrv } from './notifications/services/NotificationsSrv.js';
+import { NotificationDrctv } from './notifications/directives/NotificationsDrctv.js';
 
 (function () {
     
@@ -19,6 +18,7 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
    AddressDrctv.$inject    = ['adrSrv'];
    EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv'];
    EventService.$inject    = ['$http', 'API_URL'];
+   NotificationSrv.$inject = ['$timeout'];
     
     angular.module('84.config', []).constant('API_URL', {
         api84: 'http://api84.loc',
@@ -49,18 +49,19 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
         .controller('EventListCtrl', EventListCtrl)
         .controller('EventDetailCtrl', EventDetailCtrl)
         .service('evtSrv', EventService);
-/*
+
     angular.module('84.notifications', [])
-        .service('notificationSrv', NotificationSrv);
-*/
+        .service('notificationSrv', NotificationSrv)
+        .directive('notifications', NotificationDrctv);
+
     angular.module('84', [
         'ngRoute',
         'ngAnimate',
         '84.config',
+        '84.notifications',
         '84.nav',
         '84.users',
         '84.addresses',
         '84.events'
     ]);
-
 })();

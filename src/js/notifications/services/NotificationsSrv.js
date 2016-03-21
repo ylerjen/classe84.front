@@ -1,4 +1,4 @@
-class NotificationSrv {
+export class NotificationSrv {
     constructor ($timeout) {
         this.$timeout = $timeout;        
         this.notificationsList = [];
@@ -6,13 +6,14 @@ class NotificationSrv {
     }
     
     notify (msg, msgType, delay) {
+        var _me = this;
         if(this.typeList.indexOf(msgType) <= 0) {
             // 0 inclusive to transform an error to a danger class
             msgType = 'danger';
         }
         this.notificationsList.push({msg: msg, msgType: msgType});
         
-        $timeout(function () {
+        this.$timeout(function () {
             _me.remove();
         }, (delay || 5) * 1000);
     }
@@ -23,7 +24,3 @@ class NotificationSrv {
         this.notificationsList.splice(idx,1);
     }
 }
-
-NotificationSrv.$inject = ['$timeout'];
-
-export {NotificationSrv};
