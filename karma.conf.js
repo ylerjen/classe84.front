@@ -17,14 +17,13 @@ module.exports = function(config) {
     files: [
       //'dist/**/*.js',
       
-      '/libs/angular/angular.min.js',
-      '/libs/angular-route/angular-route.min.js',
-      '/libs/angular-sanitize/angular-sanitize.min.js',
-      '/libs/angular-animate/angular-animate.min.js',
-      'app/**/*.js',
+      '/node_modules/angular/angular.min.js',
+      '/node_modules/angular-route/angular-route.min.js',
+      '/node_modules/angular-sanitize/angular-sanitize.min.js',
+      '/node_modules/angular-animate/angular-animate.min.js',
+      'src/**/*.js',
       'tests/**/*Spec.js'
     ],
-
 
     // list of files to exclude
     exclude: [
@@ -62,7 +61,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome-Canary'/*, 'Chrome', 'Safari', 'Firefox', 'Opera'*/],
+    browsers: [/*'Firefox', 'Chrome-Canary', */'Chrome', 'Safari', 'Opera'],
 
 
     // Continuous Integration mode
@@ -72,5 +71,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultanous
     concurrency: Infinity
-  })
-}
+  });
+};
