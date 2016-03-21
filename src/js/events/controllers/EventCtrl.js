@@ -62,13 +62,15 @@ class EventDetailCtrl {
     }
 
 	save () {
-		console.log('save ' + this.currentEvent.getFullName());
+		console.log('save ' + this.event.title);
 		throw 'Not implemented Exception';
 	}
 	delete () {
+		console.log('delete ' + this.event.title);
 		throw 'Not implemented Exception';
 	}
     subscribe (currentUserId) {
+		console.log('subscribe to ' + this.event.title);
         throw 'Not implemented Exception';
     }
 }
