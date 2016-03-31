@@ -46,3 +46,12 @@ a.card {
         border: 1px solid $primary-color;
     }    
 }
+.notifications-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 20px auto;
+    width: 80vw;
+    max-width: 800px;
+}
