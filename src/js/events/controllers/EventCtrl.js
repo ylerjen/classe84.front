@@ -6,11 +6,12 @@
  * @param  {object} evtSrv       event services dependancy injection
  */
 class EventListCtrl {
-    constructor($scope, $routeParams, evtSrv) {
+    constructor($scope, $routeParams, evtSrv, notifSrv) {
         var _self = this;
         this.$scope = $scope;
         this.$routeParams = $routeParams;
         this._evtSrv = evtSrv;
+        this._notifSrv = notifSrv;
         
         let successCb = function (events) {
             _self.$scope.events = events;

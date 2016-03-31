@@ -6,33 +6,23 @@ export function NotificationDrctv ($timeout) {
         scope : {
             notifications : '=notificationsAttr'
         },
-        /*
-        link: function(scope, elem, attrs) {
-            scope.$watch('notifications', function(value) {
-                alert(value);
-            });
-            scope.clearNotifications = function() {
-                scope.notificationsList = [];   
-            }
-        },
-        */
-        controller: function ($scope, notificationSrv) {
-            var counter = 0;
-            
+        controller: function ($scope, notificationSrv) {            
             $scope.notifications = notificationSrv.notificationsList;
             $scope.$watch('notificationSrv.notificationsList', function(newValue, oldValue) {
-                console.debug(oldValue);
-                console.debug(newValue);
                 $scope.notifications = notificationSrv.notificationsList;
             });
             
-            $scope.addNotification = function (msg, msgType) {
-                counter++;
-                msg += counter;
-                notificationSrv.notify(msg, msgType, 5);
+            $scope.addNotification = function (msg, msgType, delay) {
+                notificationSrv.notify(msg, msgType, delay);
             };
             
-            $scope.addNotification('This is a notification', 'info');
+            $scope.removeNotification = function (id) {
+                
+                notificationSrv.remove(id);
+                return false;
+            };
+            
+            $scope.addNotification('This is a notification', 'info', 10);
         }
     };
 }

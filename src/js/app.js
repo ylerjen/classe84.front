@@ -16,7 +16,7 @@ import { NotificationDrctv } from './notifications/directives/NotificationsDrctv
    FaceBookService.$inject = ['$http','API_URL'];
    AddressSrv.$inject      = ['$http', 'API_URL'];
    AddressDrctv.$inject    = ['adrSrv'];
-   EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv'];
+   EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv', 'notificationSrv'];
    EventService.$inject    = ['$http', 'API_URL'];
    NotificationSrv.$inject = ['$timeout'];
     
