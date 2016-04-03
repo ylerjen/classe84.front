@@ -1,6 +1,8 @@
 import { telFilter } from './commons/filters/HelperFilters.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
+import { UserListDrctv } from './users/directives/UserListDrctv.js';
+import { UserListItemDrctv } from './users/directives/UserListItemDrctv.js';
 import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
 import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
@@ -11,7 +13,7 @@ import { NotificationDrctv } from './notifications/directives/NotificationsDrctv
 
 (function () {
     
-   UserListCtrl.$inject    = ['$scope', 'usrSrv'];//, 'notificationSrv'
+   UserListCtrl.$inject    = ['$scope', 'usrSrv', 'notificationSrv'];
    UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
    FaceBookService.$inject = ['$http','API_URL'];
    AddressSrv.$inject      = ['$http', 'API_URL'];
@@ -43,7 +45,9 @@ import { NotificationDrctv } from './notifications/directives/NotificationsDrctv
         .controller('UserListCtrl', UserListCtrl)
         .controller('UserDetailCtrl', UserDetailCtrl)
         .service('usrSrv', UserService)
-        .service('fbSrv', FaceBookService);
+        .service('fbSrv', FaceBookService)
+        .directive('userList', UserListDrctv)
+        .directive('userListItem', UserListItemDrctv);
 
     angular.module('84.events', ['ngSanitize'])
         .controller('EventListCtrl', EventListCtrl)

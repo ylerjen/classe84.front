@@ -4,7 +4,7 @@ angular.module('84')
         
         //Users routing
         when('/user', {
-            templateUrl: PATH.userViewFolder + '/user-list.html',
+            templateUrl: '/src/pages/user-list-page.html',
             controller: 'UserListCtrl'
         }).
         when('/user/add', {

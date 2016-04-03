@@ -1,59 +1,34 @@
-<div class="row">
-    <div class="col-md-8">
-        <section class="card list">
-            <div class="card-block">
-                <h1 class="card-title">Membres</h1>
-                <div class="global-actions">
-                    <a href="#/user/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
-                </div>
-            </div>
-            <div class="card-block inter-block">                
-                <form>
-                    <div class="form-group">
-                        <label for="user-list-filter" class="hidden">Recherche</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="ico ico-search"></i></span>
-                            <input type="search" id="user-list-filter" class="form-control" placeholder="Recherche par Nom Prénom" ng-model="queryCriteria" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-block" ng-controller="UserListCtrl as usrCtrl">
-                <div class="loader-spinner" data-ng-show="usrCtrl.isLoading">
-                    <i class="ico ico-spinner ico-pulse ico-lg"></i>
-                </div>
-                <ul class="row list-item">
-                    <li class="animation card-item col-xs-12 col-sm-6 col-md-6 col-lg-4" ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results">
-                        <a href="#/user/{{user.id}}">                            
-                            <div class="item-ico">
-                                <i data-ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-2x"></i>
-                            </div>
-                            <div class="item-desc">
-                                <div class="user-name" data-ng-class="{inactiv: (!user.is_active)}">{{user.last_name}} {{user.first_name}}</div>
-                                <div class="user-birthdate">{{user.birthdate | date: 'dd.MM.yyyy'}}</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="animation alert-info alert radius" ng-if="results.length === 0">
-                        <div class="">Aucun résultat trouvé...</div>
-                    </li>
-                </ul>
-            </div>
-        </section>
+<section class="card list">
+    <div class="card-block">
+        <h1 class="card-title">Membres</h1>
+        <div class="global-actions">
+            <a href="#/user/add" class="btn btn-primary-outline"><i class="ico ico-user-plus"></i> New member</a>	
+        </div>
     </div>
-    <aside class="col-md-4">
-        <div class="card card-block">
-            <h4 class="card-title">Ratio H/F</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <button class="btn btn-primary-outline">Another link</button>
+    <div class="card-block inter-block">                
+        <form>
+            <div class="form-group">
+                <label for="user-list-filter" class="hidden">Recherche</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="ico ico-search"></i></span>
+                    <input type="search" id="user-list-filter" class="form-control" placeholder="Recherche par Nom Prénom" ng-model="queryCriteria" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-block" ng-controller="UserListCtrl as usrCtrl">
+        <div class="loader-spinner" data-ng-show="usrCtrl.isLoading">
+            <i class="ico ico-spinner ico-pulse ico-lg"></i>
         </div>
-        
-        <div class="card card-block">
-            <h4 class="card-title">Ratio In-/Actifs</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <button class="btn btn-primary-outline">Another link</button>
-        </div>
-    </aside>
-</div>
+        <ul class="row list-item">
+            <li user-list-item test="hello" user="user"
+                class="animation card-item col-xs-12 col-sm-6 col-lg-4"
+                ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results"
+                >
+                </li>
+            <li class="animation alert-info alert radius" ng-if="results.length === 0">
+                <div>Aucun résultat trouvé...</div>
+            </li>
+        </ul>
+    </div>
+</section>

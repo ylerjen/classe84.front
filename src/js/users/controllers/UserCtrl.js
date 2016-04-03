@@ -3,18 +3,19 @@
  * @class UserListCtrl
  */
 class UserListCtrl {
-    constructor ($scope, UsrSrv){//, notificationSrv
+    constructor ($scope, UsrSrv, notificationSrv) {
         let _self = this;
         this._UsrSrv = UsrSrv;
+        this._notifSrv = notificationSrv;
         this.isLoading = true;
         
         let successCb = (usersList) => {
             $scope.users = usersList;
             _self.isLoading = false;
-        }
+        };
         let errorCb = (err) => {
-            throw(err);
-        }
+            _self._notifSrv.notify(err, 'error');
+        };
             
         this.getUsers(successCb, errorCb);    
     
@@ -146,4 +147,4 @@ class UserDetailCtrl {
     
 }
 
-export { UserListCtrl, UserDetailCtrl }
+export { UserListCtrl, UserDetailCtrl };
