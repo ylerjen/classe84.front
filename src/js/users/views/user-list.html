@@ -8,9 +8,8 @@
     <div class="card-block inter-block">                
         <form>
             <div class="form-group">
-                <label for="user-list-filter" class="hidden">Recherche</label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="ico ico-search"></i></span>
+                    <label for="user-list-filter" class="input-group-addon"><i class="ico ico-search" aria-labelledby="search"></i></label>
                     <input type="search" id="user-list-filter" class="form-control" placeholder="Recherche par Nom Prénom" ng-model="queryCriteria" />
                 </div>
             </div>
@@ -21,11 +20,9 @@
             <i class="ico ico-spinner ico-pulse ico-lg"></i>
         </div>
         <ul class="row list-item">
-            <li user-list-item test="hello" user="user"
+            <li user-list-item user="user"
                 class="animation card-item col-xs-12 col-sm-6 col-lg-4"
-                ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results"
-                >
-                </li>
+                ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results"></li>
             <li class="animation alert-info alert radius" ng-if="results.length === 0">
                 <div>Aucun résultat trouvé...</div>
             </li>
