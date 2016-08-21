@@ -4,6 +4,7 @@
 @import "partials/_btstrp_addon";
 // Framework
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../bower_components/angular-notify/dist/angular-notify.css";
 // Bootstrap override
 @import "partials/config/_variables";
 @import "partials/_btstrp_override";
