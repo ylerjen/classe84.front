@@ -1,0 +1,26 @@
+{
+  "name": "classe84.org",
+  "version": "0.1.0",
+  "authors": [
+    "Yann Lerjen <yann.lerjen@gmail.com>"
+  ],
+  "description": "Frontend for the classe84.org website",
+  "main": "index.html",
+  "keywords": [
+    "classe84.org"
+  ],
+  "license": "MIT",
+  "homepage": "http://classe84.org",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-notify": "^2.5.0",
+    "fontawesome": "~4.3.0"
+  }
+}

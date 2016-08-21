@@ -2,6 +2,7 @@
 #===================
 libs/*
 node_modules/*
+bower_components/*
 
 # Generated files
 # ===============
