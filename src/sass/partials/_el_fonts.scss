@@ -9,8 +9,8 @@
 	font-size: 4em;
 }
 .ico-spin {
-    @include animation(ico-spin 2s infinite linear);
+    animation: ico-spin 2s infinite linear;
 }
 .ico-pulse {
-    @include animation(ico-spin 1s infinite steps(8));
+	animation: ico-spin 1s infinite steps(8);
 }

@@ -31,16 +31,18 @@ module.exports = function(grunt) {
             temp: ['tmp']                
         },
 
-        // Compass compilation
-        compass: {
+        // Sass compilation
+        sass: {
             dist: {
-                options: {
-                    sassDir: 'src/sass',
-                    cssDir: DIST_STYLE_PATH
-                }
+                files: [{
+                    expand: true,
+                    cwd: 'src/sass',
+                    src: ['*.scss'],
+                    dest: DIST_STYLE_PATH,
+                    ext: '.css'
+                }]
             }
-        },
-        
+        },        
         concat: {
             options: {
                 separator: ';',
@@ -125,9 +127,9 @@ module.exports = function(grunt) {
                 files: ['./src/js/**/*.js'],
                 tasks: ['clean:dist_js', 'babel', 'browserify']
             },
-            compass: {
+            sass: {
                 files: ['./src/sass/**/*.scss'],
-                tasks: ['clean:dist_css', 'compass']
+                tasks: ['clean:dist_css', 'sass']
             }
         }
     });
@@ -135,8 +137,8 @@ module.exports = function(grunt) {
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('tests', ['clean:dist', 'compass', 'babel', 'karma:unit:run']);
-    grunt.registerTask('build-dev',  ['clean:dist', 'babel', 'browserify', 'compass', 'clean:temp']);
-    grunt.registerTask('build-prod', ['clean:dist', 'babel', 'browserify', 'uglify', 'compass', 'clean:temp']);
+    grunt.registerTask('tests', ['clean:dist', 'sass', 'babel', 'karma:unit:run']);
+    grunt.registerTask('build-dev',  ['clean:dist', 'babel', 'browserify', 'sass', 'clean:temp']);
+    grunt.registerTask('build-prod', ['clean:dist', 'babel', 'browserify', 'uglify', 'sass', 'clean:temp']);
 
 };

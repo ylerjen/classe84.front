@@ -3,5 +3,5 @@
   position: relative;
   margin-bottom: $card-spacer-y;
   border: $card-border-width solid $card-border-color;
-  @include border-radius($card-border-radius);
+  border-radius: $card-border-radius;
 }

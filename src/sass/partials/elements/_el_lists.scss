@@ -10,7 +10,7 @@ $transition-duration: .2s;
   
   //list animations
   .animation {
-    @include transition( $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all );
+    transition: $transition-duration cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     position: relative;
     display: block;
   
@@ -71,9 +71,6 @@ $transition-duration: .2s;
         width: 19%;
     }
     > dd {
-        color: red;
-        /*
-        display: inline-block;
-        width: 80%;*/
+        color: $brand-danger;
     }
 }
