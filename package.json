@@ -7,7 +7,7 @@
     "test": "./node_modules/karma/bin/karma start",
     "build": "grunt build",
     "predev": "grunt build-dev",
-    "dev": "browser-sync start --server --files \"src/*.*\""
+    "dev": "grunt dev"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "browser-sync": "^2.14.0",
     "grunt": "^0.4.5",
     "grunt-babel": "^6.0.0",
+    "grunt-browser-sync": "^2.2.0",
     "grunt-browserify": "^4.0.1",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^1.0.0",

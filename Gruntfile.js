@@ -121,6 +121,22 @@ module.exports = function(grunt) {
             }
         },
 
+        // Browsersync server
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'src/**/*.*',
+                        './index.html'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    server: '.'
+                }
+            }
+        },
+
         // Watch task
         watch: {
             js: {
@@ -137,8 +153,10 @@ module.exports = function(grunt) {
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('dev', ['browserSync', 'watch']);
     grunt.registerTask('tests', ['clean:dist', 'sass', 'babel', 'karma:unit:run']);
     grunt.registerTask('build-dev',  ['clean:dist', 'babel', 'browserify', 'sass', 'clean:temp']);
     grunt.registerTask('build-prod', ['clean:dist', 'babel', 'browserify', 'uglify', 'sass', 'clean:temp']);
+
 
 };
