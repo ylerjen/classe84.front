@@ -1,8 +1,0 @@
-<div class="notifications-box" ng-show="notifications.length">
-    <ul class="no-bullet">
-        <li id="{{notif.id}}" ng-repeat="notif in notifications" class="alert alert-{{notif.msgType}}">
-            <span ng-bind="notif.msg"></span>
-            <button ng-click="removeNotification(notif.id)" class="close">&times;</button>
-        </li>
-    </ul>
-</div>

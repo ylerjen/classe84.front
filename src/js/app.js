@@ -8,27 +8,26 @@ import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
 import { AddressesDrctv, AddressDrctv } from './addresses/directives/AddressDrctv.js';
 import { NavigationDrctv } from './nav/directives/navigationDirective.js';
-import { NotificationSrv } from './notifications/services/NotificationsSrv.js';
-import { NotificationDrctv } from './notifications/directives/NotificationsDrctv.js';
 
 (function () {
     
-   UserListCtrl.$inject    = ['$scope', 'usrSrv', 'notificationSrv'];
+   UserListCtrl.$inject    = ['$scope', 'usrSrv', 'notify'];
    UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
    FaceBookService.$inject = ['$http','API_URL'];
    AddressSrv.$inject      = ['$http', 'API_URL'];
    AddressDrctv.$inject    = ['adrSrv'];
-   EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv', 'notificationSrv'];
+   EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv', 'notify'];
    EventService.$inject    = ['$http', 'API_URL'];
-   NotificationSrv.$inject = ['$timeout'];
     
-    angular.module('84.config', []).constant('API_URL', {
-        api84: 'http://api84.loc',
-        fbApiUrl: 'https://graph.facebook.com/'
-    }).constant('PATH', {
-        userViewFolder: 'src/js/users/views',
-        eventViewFolder: 'src/js/events/views'
-    });
+    angular.module('84.config', [])
+        .constant('API_URL', {
+            api84: 'http://api84.loc',
+            fbApiUrl: 'https://graph.facebook.com/'
+        })
+        .constant('PATH', {
+            userViewFolder: 'src/js/users/views',
+            eventViewFolder: 'src/js/events/views'
+        });
     
     angular.module('84.nav', [])
         .directive('navigation', () => new NavigationDrctv());
@@ -41,7 +40,7 @@ import { NotificationDrctv } from './notifications/directives/NotificationsDrctv
         .directive('addresses', () => new AddressesDrctv())
         .directive('address', AddressDrctv);
   
-   angular.module('84.users', ['84.filters'])
+   angular.module('84.users', ['84.filters', 'cgNotify'])
         .controller('UserListCtrl', UserListCtrl)
         .controller('UserDetailCtrl', UserDetailCtrl)
         .service('usrSrv', UserService)
@@ -49,20 +48,16 @@ import { NotificationDrctv } from './notifications/directives/NotificationsDrctv
         .directive('userList', UserListDrctv)
         .directive('userListItem', UserListItemDrctv);
 
-    angular.module('84.events', ['ngSanitize'])
+    angular.module('84.events', ['ngSanitize', 'cgNotify'])
         .controller('EventListCtrl', EventListCtrl)
         .controller('EventDetailCtrl', EventDetailCtrl)
         .service('evtSrv', EventService);
 
-    angular.module('84.notifications', [])
-        .service('notificationSrv', NotificationSrv)
-        .directive('notifications', NotificationDrctv);
-
     angular.module('84', [
         'ngRoute',
         'ngAnimate',
+        'cgNotify',
         '84.config',
-        '84.notifications',
         '84.nav',
         '84.users',
         '84.addresses',

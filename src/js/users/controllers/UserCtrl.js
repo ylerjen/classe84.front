@@ -3,21 +3,27 @@
  * @class UserListCtrl
  */
 class UserListCtrl {
-    constructor ($scope, UsrSrv, notificationSrv) {
+    constructor ($scope, UsrSrv, notifySrv) {
         let _self = this;
         this._UsrSrv = UsrSrv;
-        this._notifSrv = notificationSrv;
+        this.notify = notifySrv;
         this.isLoading = true;
         
         let successCb = (usersList) => {
             $scope.users = usersList;
             _self.isLoading = false;
         };
-        let errorCb = (err) => {
-            _self._notifSrv.notify(err, 'error');
+        let errorCb = (response) => {
+            var msg = response.statusText;
+            if( response.status === -1) {
+                msg = 'Error server not found. User-list not loaded.'
+            } else if(msg === "") {
+                msg = 'Error, user-list not loaded';
+            }
+            _self.notify({message: msg, classes: 'alert-danger'});
         };
             
-        this.getUsers(successCb, errorCb);    
+        this.getUsers(successCb, errorCb);
     
         // User search function
         $scope.userListQuery = function (item) {
@@ -32,8 +38,7 @@ class UserListCtrl {
     }
     getUsers (successCb, errorCb) {
         this._UsrSrv.getUsers()
-            .success(successCb)
-            .error(errorCb);
+            .then(successCb, errorCb);
     }
 }
 
