@@ -6,4 +6,4 @@ This SPA should use the services of the classe84.org API to manage the datas.
 ## Frameworks ##
 
 - Bootstrap 4
-- AngularJS
+- AngularJS 1.5
