@@ -7,7 +7,7 @@
     "test": "./node_modules/karma/bin/karma start",
     "build": "grunt build",
     "predev": "grunt build-dev",
-    "dev": "grunt dev"
+    "serve": "grunt dev"
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
   "dependencies": {
     "angular": "^1.5.0",
     "angular-animate": "^1.5.0",
+    "angular-jwt": "^0.1.3",
     "angular-route": "^1.5.0",
     "angular-sanitize": "^1.5.0",
     "bootstrap": "^4.0.0-alpha.3",
