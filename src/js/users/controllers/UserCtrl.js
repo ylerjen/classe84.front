@@ -10,7 +10,7 @@ class UserListCtrl {
         this.isLoading = true;
         
         let successCb = (usersList) => {
-            $scope.users = usersList;
+            $scope.users = usersList.data;
             _self.isLoading = false;
         };
         let errorCb = (response) => {
