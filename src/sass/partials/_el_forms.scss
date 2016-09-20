@@ -11,3 +11,7 @@
 input.ng-dirty.ng-invalid {
     border-color: $brand-danger;
 }
+
+.form-signin {
+	max-width: 300px;
+}
