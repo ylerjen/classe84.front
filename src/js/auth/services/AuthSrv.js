@@ -4,20 +4,20 @@ class LoginSrv {
     }
     login (username, password) {
         //TODO remove mockup
-        return this._$http.get(appSettings.apiUrl + '/events/simpleList.json');
+        return this._$http.post(appSettings.apiUrl + '/auth/login');
     }
     logout (id) {
         //TODO remove mockup
         return mockEventList[id];
-        return this._$http.get(appSettings.apiUrl + '/api/events/'+id);
+        return this._$http.get(appSettings.apiUrl + '/auth/logout');
     }
     retrievePassword (event) {
         //TODO
         throw 'Not Implemented Exception';
         return this._$http.get(appSettings.apiUrl + '/api/')
     }
-    validateAccount () {
-    }
+    validateAccount () {}
+    
     static LoginServiceFactory($http) {
         return new LoginSrv($http);
     }
