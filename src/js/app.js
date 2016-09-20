@@ -1,4 +1,5 @@
 import { telFilter } from './commons/filters/HelperFilters.js';
+import { AuthCtrl } from './auth/controllers/AuthCtrl.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 import { UserListDrctv } from './users/directives/UserListDrctv.js';
@@ -11,13 +12,14 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
 
 (function () {
     
-   UserListCtrl.$inject    = ['$scope', 'usrSrv', 'notify'];
-   UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
-   FaceBookService.$inject = ['$http','API_URL'];
-   AddressSrv.$inject      = ['$http', 'API_URL'];
-   AddressDrctv.$inject    = ['adrSrv'];
-   EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv', 'notify'];
-   EventService.$inject    = ['$http', 'API_URL'];
+    AuthCtrl.$inject        = ['$scope', 'jwtHelper'];
+    UserListCtrl.$inject    = ['$scope', 'usrSrv', 'notify'];
+    UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
+    FaceBookService.$inject = ['$http','API_URL'];
+    AddressSrv.$inject      = ['$http', 'API_URL'];
+    AddressDrctv.$inject    = ['adrSrv'];
+    EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv', 'notify'];
+    EventService.$inject    = ['$http', 'API_URL'];
     
     angular.module('84.config', [])
         .constant('API_URL', {
@@ -28,6 +30,9 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
             userViewFolder: 'src/js/users/views',
             eventViewFolder: 'src/js/events/views'
         });
+
+    angular.module('84.auth', ['angular-jwt'])
+        .controller('AuthCtrl', AuthCtrl);
     
     angular.module('84.nav', [])
         .directive('navigation', () => new NavigationDrctv());
@@ -57,6 +62,7 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
         'ngRoute',
         'ngAnimate',
         'cgNotify',
+        '84.auth',
         '84.config',
         '84.nav',
         '84.users',
