@@ -1,8 +1,14 @@
 angular.module('84')
     .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
+
+        // Login
+        when('/login', {
+            templateUrl: '/src/js/auth/views/loginFrm.html',
+            controller: 'AuthCtrl'
+        }).
         
-        //Users routing
+        // Users routing
         when('/user', {
             templateUrl: '/src/pages/user-list-page.html',
             controller: 'UserListCtrl'
@@ -20,7 +26,7 @@ angular.module('84')
             controller: 'UserDetailCtrl'
         }).
 
-        //Events routing
+        // Events routing
         when('/event', {
             templateUrl: PATH.eventViewFolder + '/event-list.html',
             controller: 'EventListCtrl'
