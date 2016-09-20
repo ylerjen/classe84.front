@@ -58,7 +58,9 @@ module.exports = function(grunt) {
                         'node_modules/angular/angular.min.js',
                         'node_modules/angular-animate/angular-animate.min.js',
                         'node_modules/angular-route/anglar-route.min.js',
-                        'node_modules/angular-sanitize/angular-sanitize.min.js'
+                        'node_modules/angular-sanitize/angular-sanitize.min.js',
+	                    'node_modules/angular-jwt/dist/angular-jwt.min.js',
+	                    'bower_components/angular-notify/dist/angular-notify.min.js'
                     ]
                 }
             }
@@ -153,7 +155,7 @@ module.exports = function(grunt) {
 
     // Grunt tasks
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('dev', ['browserSync', 'watch']);
+    grunt.registerTask('dev', ['build-dev', 'browserSync', 'watch']);
     grunt.registerTask('tests', ['clean:dist', 'sass', 'babel', 'karma:unit:run']);
     grunt.registerTask('build-dev',  ['clean:dist', 'babel', 'browserify', 'sass', 'clean:temp']);
     grunt.registerTask('build-prod', ['clean:dist', 'babel', 'browserify', 'uglify', 'sass', 'clean:temp']);
