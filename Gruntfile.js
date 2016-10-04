@@ -148,6 +148,9 @@ module.exports = function(grunt) {
             sass: {
                 files: ['./src/sass/**/*.scss'],
                 tasks: ['clean:dist_css', 'sass']
+            },
+            html: {
+                files: ['./src/**/*.html']
             }
         }
     });
