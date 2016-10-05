@@ -1,27 +1,20 @@
-class LoginSrv {
-    constructor ($http) {
+export default class AuthSrv {
+    constructor($http, API_URL, jwtHlpr) {
         this._$http = $http;
+        this.API_URL = API_URL;
+        this._jwtHlpr = jwtHlpr;
     }
-    login (username, password) {
-        //TODO remove mockup
-        return this._$http.post(appSettings.apiUrl + '/auth/login');
+    login(username, password) {
+        var data = {
+            email: username,
+            password: password
+        };
+        return this._$http.post(this.API_URL.api84 + '/login', data);
+        var isExpired = this._jwtHlpr.isTokenExpired(token);
+        console.log('token', token);
+        console.log('is token expired', isExpired);
     }
-    logout (id) {
-        //TODO remove mockup
-        return mockEventList[id];
-        return this._$http.get(appSettings.apiUrl + '/auth/logout');
-    }
-    retrievePassword (event) {
-        //TODO
-        throw 'Not Implemented Exception';
-        return this._$http.get(appSettings.apiUrl + '/api/')
-    }
-    validateAccount () {}
-    
-    static LoginServiceFactory($http) {
-        return new LoginSrv($http);
+    logout(id) {
+        return this._$http.get(this.API_URL.api84 + '/logout');
     }
 }
-LoginSrv.LoginServiceFactory.$inject = ['$http'];
-
-export {LoginSrv};

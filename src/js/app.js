@@ -1,5 +1,6 @@
 import { telFilter } from './commons/filters/HelperFilters.js';
 import { AuthCtrl } from './auth/controllers/AuthCtrl.js';
+import AuthSrv from './auth/services/AuthSrv.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 import { UserListDrctv } from './users/directives/UserListDrctv.js';
@@ -12,7 +13,8 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
 
 (function () {
     
-    AuthCtrl.$inject        = ['$scope', 'jwtHelper'];
+    AuthSrv.$inject        = ['$http', 'API_URL', 'jwtHelper'];
+    AuthCtrl.$inject        = ['$scope', 'AuthSrv', 'jwtHelper'];
     UserListCtrl.$inject    = ['$scope', 'usrSrv', 'notify'];
     UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
     FaceBookService.$inject = ['$http','API_URL'];
@@ -32,7 +34,8 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
         });
 
     angular.module('84.auth', ['angular-jwt'])
-        .controller('AuthCtrl', AuthCtrl);
+        .controller('AuthCtrl', AuthCtrl)
+        .service('AuthSrv', AuthSrv);
     
     angular.module('84.nav', [])
         .directive('navigation', () => new NavigationDrctv());
