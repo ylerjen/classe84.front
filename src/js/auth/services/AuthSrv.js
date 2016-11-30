@@ -10,6 +10,7 @@ export default class AuthSrv {
             password: password
         };
         return this._$http.post(this.API_URL.api84 + '/login', data);
+        
         var isExpired = this._jwtHlpr.isTokenExpired(token);
         console.log('token', token);
         console.log('is token expired', isExpired);
