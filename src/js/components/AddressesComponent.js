@@ -13,9 +13,9 @@ export var AddressCmpnt = {
         address : "=addressAttr",
         userId: "@userId"
     },
-    controller: function (scope, element, attrs) {
+    controller: function () {
         var _self = this;
-        scope.setDefault = (userId, adrId) => {
+        this.setDefault = (userId, adrId) => {
             adrSrv.setDefault(userId, adrId);
         };
     }  

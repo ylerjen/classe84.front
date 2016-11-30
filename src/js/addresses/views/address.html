@@ -1,20 +1,13 @@
-<div class="content address-item">
-    <div class="tools">
-        <button class="btn btn-outline-primary" ng-click="editAddress()">
-            <i class="ico ico-pencil"></i>
-        </button>
-        <button class="btn btn-outline-primary" ng-click="setDefault(address.id)">
-            <i class="ico" ng-class="(address.is_default)? 'ico-star' : 'ico-star-o'"></i>
-        </button>
+<div class="card block-card content address-item">
+    <div class="address-item__logo">
+        <i class="ico ico-map-marker ico-2x"></i>
     </div>
-    <div class="row">
-        <div class="col-sm-2">
-            <i class="ico ico-map-marker ico-2x"></i>
-        </div>
-        <div class="col-sm-10">
-            <p>{{address.street}}</p>
-            <p>{{address.npa}} {{address.city}}</p>
-            <p>{{address.state}} - {{address.country}}</p>
-        </div>
+    <div class="address-item__detail">
+        <p>{{$ctrl.address.street}}</p>
+        <p>{{$ctrl.address.npa}} {{$ctrl.address.city}}</p>
+        <p>{{$ctrl.address.state}} - {{$ctrl.address.country}}</p>
+    </div>
+    <div class="address-item__logo">
+        <i class="ico ico-star ico-2x"></i>
     </div>
 </div>
