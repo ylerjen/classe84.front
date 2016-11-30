@@ -58,6 +58,8 @@ class UserDetailCtrl {
         this.$location = $location;
         this._usrSrv = UsrSrv;
         this._fbSrv = FbSrv;
+
+        $scope.ctrl = this;
         
         var userId = $routeParams.userId;
         this.$scope.currentUser = this.getEmptyUser();
@@ -79,15 +81,15 @@ class UserDetailCtrl {
                 }
             );
         }
-        this.$scope.saveUser = function () {
-            if(this.$scope.userForm.$valid){
+        this.saveUser = function () {
+            if(this.ctrl.userForm.$valid){
                 this.save();
             } else {
                 alert('Form invalid');//TODO replace with ng-notify
             }
         };       
 
-        this.$scope.deleteUser = (id) => {
+        this.deleteUser = (id) => {
             if( confirm('Etes-vous sûr de vouloir effacer ce membre ? ') ) {                
                 this.delete(id);                
             }
