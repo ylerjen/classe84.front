@@ -22,7 +22,9 @@
 @import 'partials/_el_containers';
 */
 
+// Components
+@import 'partials/components/_address';
+
 // Specifics partials
 @import 'partials/_mo_users';
-//@import 'partials/_mo_address';
 @import 'partials/_mo_events';

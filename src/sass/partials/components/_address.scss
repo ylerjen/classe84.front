@@ -1,0 +1,23 @@
+.address-list {
+	display: flex;
+
+	.address-item {
+		width: 300px;
+		margin: $space-step;
+	}
+}
+
+.address-item {
+	display: flex;
+	flex-direction: row;
+    justify-content: space-between;
+    padding: 4 * $space-step;
+}
+
+.address-item__logo {
+	margin: 0 5%;
+}
+
+.address-item__detail {
+	flex-grow: 2;
+}
