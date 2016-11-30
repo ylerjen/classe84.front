@@ -20,9 +20,8 @@
             <i class="ico ico-spinner ico-pulse ico-lg"></i>
         </div>
         <ul class="row list-item">
-            <li user-list-item user="user"
-                class="animation card-item col-xs-12 col-sm-6 col-lg-4"
-                ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results track by user.id"></li>
+            <user-list-item user="user"
+                ng-repeat="user in users | filter: userListQuery | orderBy: ['last_name'] as results track by user.id" />
             <li class="animation alert-info alert radius" ng-if="results.length === 0">
                 <div>Aucun résultat trouvé...</div>
             </li>

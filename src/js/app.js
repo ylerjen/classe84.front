@@ -3,23 +3,22 @@ import { AuthCtrl } from './auth/controllers/AuthCtrl.js';
 import AuthSrv from './auth/services/AuthSrv.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
-import { UserListDrctv } from './users/directives/UserListDrctv.js';
-import { UserListItemDrctv } from './users/directives/UserListItemDrctv.js';
+import { UserListItemComponent, UserListComponent } from './components/UserListComponent.js';
 import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
 import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
-import { AddressesDrctv, AddressDrctv } from './addresses/directives/AddressDrctv.js';
+import { AddressesCmpnt, AddressCmpnt } from './components/AddressesComponent.js';
 import { NavigationDrctv } from './nav/directives/navigationDirective.js';
 
 (function () {
     
-    AuthSrv.$inject        = ['$http', 'API_URL', 'jwtHelper'];
+    AuthSrv.$inject         = ['$http', 'API_URL', 'jwtHelper'];
     AuthCtrl.$inject        = ['$scope', 'AuthSrv', 'jwtHelper'];
     UserListCtrl.$inject    = ['$scope', 'usrSrv', 'notify'];
     UserDetailCtrl.$inject  = ['$scope', '$routeParams', '$location', 'usrSrv', 'fbSrv'];
     FaceBookService.$inject = ['$http','API_URL'];
     AddressSrv.$inject      = ['$http', 'API_URL'];
-    AddressDrctv.$inject    = ['adrSrv'];
+    AddressCmpnt.$inject    = ['adrSrv'];
     EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv', 'notify'];
     EventService.$inject    = ['$http', 'API_URL'];
     
@@ -45,16 +44,16 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
      
     angular.module('84.addresses', [])
         .service('adrSrv', AddressSrv)
-        .directive('addresses', () => new AddressesDrctv())
-        .directive('address', AddressDrctv);
+        .component('addresses', AddressesCmpnt)
+        .component('address', AddressCmpnt);
   
    angular.module('84.users', ['84.filters', 'cgNotify'])
         .controller('UserListCtrl', UserListCtrl)
         .controller('UserDetailCtrl', UserDetailCtrl)
         .service('usrSrv', UserService)
         .service('fbSrv', FaceBookService)
-        .directive('userList', UserListDrctv)
-        .directive('userListItem', UserListItemDrctv);
+        .component('userList', UserListComponent)
+        .component('userListItem', UserListItemComponent);
 
     angular.module('84.events', ['ngSanitize', 'cgNotify'])
         .controller('EventListCtrl', EventListCtrl)
