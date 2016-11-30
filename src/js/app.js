@@ -9,6 +9,7 @@ import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
 import { AddressesCmpnt, AddressCmpnt } from './components/AddressesComponent.js';
 import { NavigationDrctv } from './nav/directives/navigationDirective.js';
+import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
 
 (function () {
     
@@ -31,6 +32,10 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
             userViewFolder: 'src/js/users/views',
             eventViewFolder: 'src/js/events/views'
         });
+
+    angular.module('84.components', [])
+        .component('tabs', TabsComponent)
+        .component('tabpane', TabPaneComponent);
 
     angular.module('84.auth', ['angular-jwt'])
         .controller('AuthCtrl', AuthCtrl)
@@ -64,6 +69,7 @@ import { NavigationDrctv } from './nav/directives/navigationDirective.js';
         'ngRoute',
         'ngAnimate',
         'cgNotify',
+        '84.components',
         '84.auth',
         '84.config',
         '84.nav',

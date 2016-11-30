@@ -1,0 +1,12 @@
+<div class="tabbable">
+    <nav>
+        <ul class="nav nav-tabs">
+            <li class="nav-item" ng-repeat="pane in $ctrl.panes">
+                <a href="" class="nav-link" ng-class="{active:pane.selected}" ng-click="$ctrl.select(pane)">
+                    <i class="ico {{pane.icon}} ico-2x"></i> {{pane.title}}
+                </a>
+            </li>
+        </ul>
+    </nav>
+  <div class="tab-content" ng-transclude></div>
+</div>
