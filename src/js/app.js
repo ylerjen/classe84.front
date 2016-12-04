@@ -63,6 +63,7 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
     angular.module('84.events', ['ngSanitize', 'cgNotify'])
         .controller('EventListCtrl', EventListCtrl)
         .controller('EventDetailCtrl', EventDetailCtrl)
+        .controller('EventAddCtrl', EventDetailCtrl)
         .service('evtSrv', EventService);
 
     angular.module('84', [

@@ -5,7 +5,7 @@
  * @param  {object} $routeParams angular routing dependancy injection
  * @param  {object} evtSrv       event services dependancy injection
  */
-class EventListCtrl {
+export class EventListCtrl {
     constructor($scope, $routeParams, evtSrv, notifSrv) {
         var _self = this;
         this.$scope = $scope;
@@ -43,7 +43,7 @@ class EventListCtrl {
  * @param  {object} $routeParams angular routing dependancy injection
  * @param  {object} evtSrv       event services dependancy injection
  */
-class EventDetailCtrl {
+export class EventDetailCtrl {
     constructor($scope, $routeParams, evtSrv) {
         this._$scope = $scope;        
         $scope.isLoading = true;
@@ -60,7 +60,6 @@ class EventDetailCtrl {
     get (id) {
         var _this = this;
         let successCb = (event) => {
-            console.debug(event);
             _this._$scope.event = event;
             _this._$scope.isLoading = false;
         };
@@ -82,5 +81,8 @@ class EventDetailCtrl {
     }
 }
 
-
-export { EventListCtrl, EventDetailCtrl };
+export class EventAddCtrl {
+    constructor() {
+        console.log('vindjou');
+    }
+}
