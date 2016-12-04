@@ -31,13 +31,13 @@ angular.module('84')
             templateUrl: PATH.eventViewFolder + '/event-list.html',
             controller: 'EventListCtrl'
         }).
+        when('/event/add', {
+            templateUrl: PATH.eventViewFolder + '/event-form.html',
+            controller: 'EventAddCtrl'
+        }).
         when('/event/:eventId', {
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
             controller: 'EventDetailCtrl'
-        }).
-        when('/event/add', {
-            templateUrl: PATH.eventViewFolder + '/event-detail.html',
-            controller: 'EventAddCtrl'
         }).
 /*
         when('/gallery', {
