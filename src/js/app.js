@@ -8,7 +8,7 @@ import { EventListController, EventDetailController, EventAddController} from '.
 import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
 import { AddressesCmpnt, AddressCmpnt } from './components/AddressesComponent.js';
-import { NavigationDrctv } from './nav/directives/navigationDirective.js';
+import NavigationComponent from './nav/directives/navigationDirective.js';
 import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
 
 (function () {
@@ -41,7 +41,7 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
         .service('AuthSrv', AuthSrv);
     
     angular.module('84.nav', [])
-        .directive('navigation', () => new NavigationDrctv());
+        .component('navigation', NavigationComponent);
     
     angular.module('84.filters', [])
         .filter('tel', telFilter);
