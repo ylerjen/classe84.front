@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="event-date">Date de l'évènement</label>
         <input id="event-date" type="date" class="form-control" name="eventDate" ng-model="eventDate" placeholder="01.07.2020" required>
-         <div ng-messages="eventForm.eventDate.$error" class="field-validation-msg">
+         <div ng-messages="eventForm.eventDate.$error" ng-if='eventForm.eventDate.$dirty' class="field-validation-msg">
             <p ng-message="required">Ce champ est obligatoire</p>
         </div>
     </div>
@@ -41,10 +41,13 @@
     </div>
     <div class="form-group">
         <label for="event-organisator">Organisateur</label>
-        <input id="event-organisator" type="text" class="form-control" name="organisator" ng-model="organisator" value="Le comité">
+        <input id="event-organisator" type="text" class="form-control" name="organisator" ng-model="organisator">
         <div ng-messages="eventForm.organisator.$error">
             <p ng-message="required" class="field-validation-msg">Ce champ est obligatoire</p>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary" ng-disabled="eventForm.$invalid">Save</button>
+    <div>
+        <button type="submit" class="btn btn-primary" ng-disabled="eventForm.$invalid">Save</button>
+        <a href="#/event" class="btn btn-default">Annuler</a>
+    </div>
 </form>

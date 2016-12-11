@@ -15,6 +15,9 @@
                         <input type="radio" name="gender" value="F" id="gender_f" ng-model="currentUser.gender"> Femme
                     </label>
                 </div>
+				<div ng-messages="userForm.gender.$error" ng-if='userForm.gender.$dirty' class="field-validation-msg">
+					<p ng-message="required">Ce champ est obligatoire</p>
+				</div>
 			</div>
 		</div>
 
@@ -22,8 +25,10 @@
 			<div class="col-md-4 col-lg-6">
 				<label for="usr-lastname">Nom de famille</label>
 			</div><div class="col-md-8 col-lg-6">
-                <span class="label alert" ng-show="userForm.lastname.$dirty && userForm.lastname.$error.required">Nom de famille obligatoire</span>
-				<input type="text" id="usr-lastname" class="form-control" name="lastname" placeholder="Muster" ng-model="currentUser.last_name" ng-required="true" />
+				<input type="text" id="usr-lastname" class="form-control" name="lastname" placeholder="Muster" ng-model="currentUser.last_name" required />
+                <div ng-messages="userForm.lastname.$error" ng-if='userForm.lastname.$dirty' class="field-validation-msg">
+					<p ng-message="required">Ce champ est obligatoire</p>
+				</div>
 			</div>
 		</div>		
 
@@ -41,6 +46,9 @@
 			</div><div class="col-md-8 col-lg-6">
                 <span  class="label alert" ng-show="userForm.firstname.$dirty && userForm.firstname.$error.required">Prénom obligatoire</span>
 				<input type="text" id="usr-firstname" class="form-control" name="firstname" placeholder="Hans" ng-model="currentUser.first_name" ng-required="true" />
+				<div ng-messages="userForm.firstname.$error" ng-if='userForm.firstname.$dirty' class="field-validation-msg">
+					<p ng-message="required">Ce champ est obligatoire</p>
+				</div>
 			</div>
 		</div>
 
@@ -48,7 +56,10 @@
 			<div class="col-md-4 col-lg-6">
 				<label for="usr-birthdate">Date de naissance</label>
 			</div><div class="col-md-8 col-lg-6">
-				<input type="text" id="usr-birthdate" class="form-control" placeholder="31.12.1984" ng-model="currentUser.birthdate" />
+				<input type="text" id="usr-birthdate" name="birthdate" class="form-control" placeholder="31.12.1984" ng-model="currentUser.birthdate" />
+				<div ng-messages="userForm.birthdate.$error" ng-if='userForm.birthdate.$dirty' class="field-validation-msg">
+					<p ng-message="required">Ce champ est obligatoire</p>
+				</div>
 			</div>
 		</div>
 
@@ -119,7 +130,7 @@
 		<div class="row">
             <div class="col-md-offset-4 col-lg-offset-6">
     			<button type="submit" class="btn btn-primary" ng-click="ctrl.saveUser()">Save</button>
-    			<a href="#/users/show/{{currentUser.id}}" class="btn btn-default">Annuler</button>
+    			<a href="#/user" class="btn btn-default">Annuler</a>
             </div>
 		</div>
 	</form>
