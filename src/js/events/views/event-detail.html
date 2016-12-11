@@ -17,8 +17,6 @@
                 </nav>
                 <div class="card-block short-infos">
                     <dl class="iconified-descr">
-                        <dt>test</dt>
-                        <dd>test</dd>
                         <dt><i class="ico ico-calendar-o ico-2x"></i></dt>
                         <dd>{{event.event_date | date: 'dd.MM.yyyy'}}</dd>
                         <dt><i class="ico ico-map-marker ico-2x"></i></dt>
@@ -29,7 +27,7 @@
                 </div>
                 <div class="card-block">
                     <div ng-bind-html="event.description"></div>
-                    <p>{{event.organisator}}</p>
+                    <p >{{event.organisator}}</p>
                 </div>                
             </div>
         </section>

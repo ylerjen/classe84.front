@@ -29,15 +29,15 @@ angular.module('84')
         // Events routing
         when('/event', {
             templateUrl: PATH.eventViewFolder + '/event-list.html',
-            controller: 'EventListCtrl'
+            controller: 'EvtListCtrl'
         }).
         when('/event/add', {
             templateUrl: PATH.eventViewFolder + '/event-form.html',
-            controller: 'EventAddCtrl'
+            controller: 'EvtAddCtrl'
         }).
         when('/event/:eventId', {
             templateUrl: PATH.eventViewFolder + '/event-detail.html',
-            controller: 'EventDetailCtrl'
+            controller: 'EvtDetailCtrl'
         }).
 /*
         when('/gallery', {

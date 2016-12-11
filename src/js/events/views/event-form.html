@@ -1,47 +1,50 @@
-<form action="">
+<form name="eventForm" ng-submit="submitForm(eventForm.$valid)" novalidate>
     <div class="form-group">
-        <label for="event-title">Titre de l'évènement</label>
-        <input id="event-title" type="text" required>
-        <div class="error-msg">Ce champ est obligatoire</div>
+        <label for="event-title">Titre de l'évènement {{title}} {{ eventForm.title.$error | json }}</label>
+        <input id="event-title" type="text" class="form-control" ng-model="title" ng-minlength="5" ng-maxlength="25" required>
+        <div ng-messages="eventForm.title.$error" class="field-validation-msg" role="alert">
+            <p ng-message="minlength">Your name is too short.</p>
+            <p ng-message="maxlength">Le titre doit être composé au maximum de 25 caractères</p>
+            <p ng-message="required">Ce champ est obligatoire</p>
+        </div>
     </div>
     <div class="form-group">
         <label for="event-date">Date de l'évènement</label>
-        <input id="event-date" type="date" required>
-        <div class="error-msg">Ce champ est obligatoire</div>
+        <input id="event-date" type="date" class="form-control" ng-model="eventDate" placeholder="01.07.2020" required>
+         <div ng-messages="eventForm.eventDate.$error">
+            <p ng-message="required" class="field-validation-msg">Ce champ est obligatoire</p>
+        </div>
     </div>
     <div class="form-group">
         <label for="event-location">Lieu</label>
-        <input id="event-location" type="text">
-        <div class="error-msg"></div>
+        <input id="event-location" type="text" class="form-control" ng-model="location" placeholder="1950 Sion">
     </div>
     <div class="form-group">
         <label for="event-lat">Latitude</label>
-        <input id="event-lat" type="text">
-        <div class="error-msg"></div>
+        <input id="event-lat" type="text" class="form-control" ng-model="lat" placeholder="46.2331778">
     </div>
     <div class="form-group">
         <label for="event-lng">Longitude</label>
-        <input id="event-lng" type="text">
-        <div class="error-msg"></div>
+        <input id="event-lng" type="text" class="form-control" ng-model="lon" placeholder="7.35946709">
     </div>
     <div class="form-group">
         <label for="event-descr">Description</label>
-        <textarea id="event-descr"></textarea>
-        <div class="error-msg"></div>
+        <textarea id="event-descr" class="form-control" ng-model="descr" placeholder="Il était une fois..."></textarea>
     </div>
     <div class="form-group">
         <label for="event-link">Lien vers une page annexe</label>
-        <input id="event-link" type="url">
-        <div class="error-msg"></div>
+        <input id="event-link" type="url" class="form-control" ng-model="link" placeholder="http://www.classe84.org">
     </div>
     <div class="form-group">
         <label for="event-price">Prix par personne</label>
-        <input id="event-price" type="text">
-        <div class="error-msg"></div>
+        <input id="event-price" type="number" class="form-control" ng-model="price" placeholder="10.50">
     </div>
     <div class="form-group">
         <label for="event-organisator">Organisateur</label>
-        <input id="event-organisator" type="text">
-        <div class="error-msg"></div>
+        <input id="event-organisator" type="text" class="form-control" ng-model="organisator" value="Le comité">
+        <div ng-messages="eventForm.organisator.$error">
+            <p ng-message="required" class="field-validation-msg">Ce champ est obligatoire</p>
+        </div>
     </div>
+    <button type="submit" class="btn btn-primary" ng-disabled="eventForm.$invalid">Save</button>
 </form>

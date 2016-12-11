@@ -4,7 +4,7 @@ import AuthSrv from './auth/services/AuthSrv.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 import { UserListItemComponent, UserListComponent } from './components/UserListComponent.js';
-import { EventListCtrl, EventDetailCtrl} from './events/controllers/EventCtrl.js';
+import { EventListController, EventDetailController, EventAddController} from './events/controllers/EventCtrl.js';
 import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
 import { AddressesCmpnt, AddressCmpnt } from './components/AddressesComponent.js';
@@ -20,7 +20,6 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
     FaceBookService.$inject = ['$http','API_URL'];
     AddressSrv.$inject      = ['$http', 'API_URL'];
     AddressCmpnt.$inject    = ['adrSrv'];
-    EventListCtrl.$inject   = ['$scope', '$routeParams', 'evtSrv', 'notify'];
     EventService.$inject    = ['$http', 'API_URL'];
     
     angular.module('84.config', [])
@@ -60,15 +59,16 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
         .component('userList', UserListComponent)
         .component('userListItem', UserListItemComponent);
 
-    angular.module('84.events', ['ngSanitize', 'cgNotify'])
-        .controller('EventListCtrl', EventListCtrl)
-        .controller('EventDetailCtrl', EventDetailCtrl)
-        .controller('EventAddCtrl', EventDetailCtrl)
+    angular.module('84.events', ['ngSanitize', 'cgNotify', 'ngMessages'])
+        .controller('EvtListCtrl', EventListController)
+        .controller('EvtDetailCtrl', EventDetailController)
+        .controller('EvtAddCtrl', EventAddController)
         .service('evtSrv', EventService);
 
     angular.module('84', [
         'ngRoute',
         'ngAnimate',
+        'ngMessages',
         'cgNotify',
         '84.components',
         '84.auth',
