@@ -59,7 +59,7 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
         .component('userList', UserListComponent)
         .component('userListItem', UserListItemComponent);
 
-    angular.module('84.events', ['ngSanitize', 'cgNotify', 'ngMessages'])
+    angular.module('84.events', ['ngSanitize', 'cgNotify'])
         .controller('EvtListCtrl', EventListController)
         .controller('EvtDetailCtrl', EventDetailController)
         .controller('EvtAddCtrl', EventAddController)

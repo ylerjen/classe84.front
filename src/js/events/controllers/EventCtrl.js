@@ -98,4 +98,4 @@ export class EventAddController {
 
     EventListController.$inject = ['$scope', '$routeParams', 'evtSrv', 'notify'];
 
-    EventAddController.$inject  = ['$scope']//, 'ngMessages'];
+    EventAddController.$inject  = ['$scope'];
