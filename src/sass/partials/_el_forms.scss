@@ -15,3 +15,17 @@ input.ng-dirty.ng-invalid {
 .form-signin {
 	max-width: 300px;
 }
+
+.field-validation-msg {
+	margin-bottom: 12px;
+
+	& > p {
+		background-color: $brand-danger-invert;
+		border: 1px solid $brand-danger;
+		border-top: 0;
+		color: $brand-danger;
+		font-size: 0.9rem;
+		padding: 4px 12px;
+		margin: 0;
+	} 
+}
