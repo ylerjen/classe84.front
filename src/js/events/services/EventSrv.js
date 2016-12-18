@@ -1,4 +1,4 @@
-class EventService {
+export default class EventService {
     constructor ($http, API_URL) {
         this.$http = $http;
         this._API_URL = API_URL;
@@ -14,4 +14,3 @@ class EventService {
         return this.$http.post(this._API_URL.api84 + '/events/' + id);
     }
 }
-export { EventService };

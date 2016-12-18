@@ -2,7 +2,7 @@
  * Manage the authentication functionalities
  * @class AuthCtrl 
  */
- class AuthCtrl {
+ export default class AuthCtrl {
 	constructor($scope, AuthSrv, jwtHlpr) {
 		this._$scope = $scope;
 		this._$scope._authSrv = AuthSrv;
@@ -30,5 +30,3 @@
 		this._authSrv.logout(this.username, this.password);
 	}
 }
-
-export { AuthCtrl };

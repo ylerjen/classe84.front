@@ -1,14 +1,14 @@
 import { telFilter } from './commons/filters/HelperFilters.js';
-import { AuthCtrl } from './auth/controllers/AuthCtrl.js';
+import AuthCtrl from './auth/controllers/AuthCtrl.js';
 import AuthSrv from './auth/services/AuthSrv.js';
+import NavigationComponent from './nav/NavigationComponent.js';
+import EventService from './events/services/EventSrv.js';
+import AddressSrv from './addresses/services/AddressSrv.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 import { UserListItemComponent, UserListComponent } from './components/UserListComponent.js';
 import { EventListController, EventDetailController, EventAddController} from './events/controllers/EventCtrl.js';
-import { EventService } from './events/services/EventSrv.js';
-import { AddressSrv } from './addresses/services/AddressSrv.js';
 import { AddressesCmpnt, AddressCmpnt } from './components/AddressesComponent.js';
-import NavigationComponent from './nav/NavigationComponent.js';
 import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
 
 (function() {

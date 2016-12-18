@@ -2,7 +2,7 @@
  * This service is used to save and retrieve addresses
  * @class AddressSrv
  */
- class AddressSrv {    
+ export default class AddressSrv {    
     constructor ($http, API_URL) {
         this.$http = $http;
         this.API_URL = API_URL;
@@ -18,5 +18,3 @@
         return this.$http.get(this.API_URL.apiUrl + '/user/' + userId + '/addresses/' + id);
     }
 }
-
-export { AddressSrv };
