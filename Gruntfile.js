@@ -28,7 +28,35 @@ module.exports = function(grunt) {
             dist_css: [DIST_STYLE_PATH],
             dist_js: [DIST_SCRIPT_PATH],
             dist: ['dist'],
-            temp: ['tmp']                
+            temp: ['tmp']
+        },
+
+        // Copy files to the dist folder
+        copy: {
+            options: {},
+            index: {
+                src: 'src/index.html',
+                dest: 'dist/index.html'
+            },
+            fonts: {
+                expand: true,
+                cwd: 'src',
+                src: 'fonts/*',
+                dest: 'dist/'
+            },
+            tpl: {
+                expand: true,
+                cwd: 'src',
+                src: 'tpl/**/*',
+                dest: 'dist/',
+            },
+            pages: {
+                expand: true,
+                cwd: 'src',
+                src: 'pages/*',
+                dest: 'dist'
+            }
+
         },
 
         // Sass compilation
@@ -56,11 +84,14 @@ module.exports = function(grunt) {
                 files: {
                     [LIB_SCRIPT_BUNDLE]: [
                         'node_modules/angular/angular.min.js',
-                        'node_modules/angular-animate/angular-animate.min.js',
-                        'node_modules/angular-route/anglar-route.min.js',
+                        'node_modules/angular-route/angular-route.min.js',
                         'node_modules/angular-sanitize/angular-sanitize.min.js',
-	                    'node_modules/angular-jwt/dist/angular-jwt.min.js',
-	                    'bower_components/angular-notify/dist/angular-notify.min.js'
+                        'node_modules/angular-animate/angular-animate.min.js',
+                        'node_modules/angular-jwt/dist/angular-jwt.min.js',
+                        'node_modules/angular-messages/angular-messages.min.js',
+                        'bower_components/angular-notify/dist/angular-notify.js',
+                        
+	                    //'bower_components/angular-notify/dist/angular-notify.min.js'
                     ]
                 }
             }
@@ -134,7 +165,7 @@ module.exports = function(grunt) {
                 },
                 options: {
                     watchTask: true,
-                    server: '.'
+                    server: './dist'
                 }
             }
         },
@@ -160,8 +191,8 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint']);
     grunt.registerTask('dev', ['build-dev', 'browserSync', 'watch']);
     grunt.registerTask('tests', ['clean:dist', 'sass', 'babel', 'karma:unit:run']);
-    grunt.registerTask('build-dev',  ['clean:dist', 'babel', 'browserify', 'sass', 'clean:temp']);
-    grunt.registerTask('build-prod', ['clean:dist', 'babel', 'browserify', 'uglify', 'sass', 'clean:temp']);
+    grunt.registerTask('build-dev',  ['clean:dist', 'babel', 'concat:libs', 'browserify', 'sass', 'copy', 'clean:temp']);
+    grunt.registerTask('build-prod', ['clean:dist', 'babel', 'concat:libs', 'browserify', 'uglify', 'sass', 'copy', 'clean:temp']);
 
 
 };

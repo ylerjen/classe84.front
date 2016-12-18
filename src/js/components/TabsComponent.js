@@ -15,7 +15,7 @@ export var TabsComponent = {
       panes.push(pane);
     };
   },
-  templateUrl: '/src/js/components/tpl/tabs.html'
+  templateUrl: '/tpl/ui/tabs.html'
 };
 
 export var TabPaneComponent = {
@@ -33,5 +33,5 @@ export var TabPaneComponent = {
       console.log(this);
     };
   },
-  templateUrl: '/src/js/components/tpl/tab-pane.html'
+  templateUrl: '/tpl/ui/tab-pane.html'
 };

@@ -4,13 +4,13 @@ angular.module('84')
 
         // Login
         when('/login', {
-            templateUrl: '/src/js/auth/views/loginFrm.html',
+            templateUrl: '/tpl/auth/login-form.html',
             controller: 'AuthCtrl'
         }).
         
         // Users routing
         when('/user', {
-            templateUrl: '/src/pages/user-list-page.html',
+            templateUrl: '/pages/user-list-page.html',
             controller: 'UserListCtrl'
         }).
         when('/user/add', {

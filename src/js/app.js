@@ -28,8 +28,8 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
             fbApiUrl: 'https://graph.facebook.com/'
         })
         .constant('PATH', {
-            userViewFolder: 'src/js/users/views',
-            eventViewFolder: 'src/js/events/views'
+            userViewFolder: 'tpl/users',
+            eventViewFolder: 'tpl/events'
         });
 
     angular.module('84.components', [])

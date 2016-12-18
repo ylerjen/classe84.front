@@ -1,6 +1,6 @@
 export var AddressesCmpnt = {
     replace: true,
-    templateUrl: '/src/js/addresses/views/addresses.html',
+    templateUrl: '/tpl/addresses/addresses.html',
     bindings: {                
         addresses : "=addressesAttr",
         userId: "@userId"
@@ -8,7 +8,7 @@ export var AddressesCmpnt = {
 };
     
 export var AddressCmpnt = {
-    templateUrl : '/src/js/addresses/views/address.html',
+    templateUrl : '/tpl/addresses/address.html',
     bindings : {                
         address : "=addressAttr",
         userId: "@userId"
