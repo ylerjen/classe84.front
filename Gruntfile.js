@@ -41,7 +41,7 @@ module.exports = function(grunt) {
             fonts: {
                 expand: true,
                 cwd: 'src',
-                src: 'fonts/*',
+                src: 'fonts/**/*',
                 dest: 'dist/'
             },
             tpl: {
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
             pages: {
                 expand: true,
                 cwd: 'src',
-                src: 'pages/*',
+                src: 'pages/**/*',
                 dest: 'dist'
             }
 

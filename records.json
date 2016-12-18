@@ -1,0 +1,15 @@
+{
+  "nextFreeModuleId": 1,
+  "modules": {
+    "byIdentifier": {
+      "src/js/app.js": 0
+    }
+  },
+  "nextFreeChunkId": 1,
+  "chunks": {
+    "byName": {
+      "main": 0
+    },
+    "byBlocks": {}
+  }
+}
