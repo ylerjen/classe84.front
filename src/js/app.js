@@ -8,10 +8,10 @@ import { EventListController, EventDetailController, EventAddController} from '.
 import { EventService } from './events/services/EventSrv.js';
 import { AddressSrv } from './addresses/services/AddressSrv.js';
 import { AddressesCmpnt, AddressCmpnt } from './components/AddressesComponent.js';
-import NavigationComponent from './nav/directives/navigationDirective.js';
+import NavigationComponent from './nav/NavigationComponent.js';
 import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
 
-(function () {
+(function() {
     
     AuthSrv.$inject         = ['$http', 'API_URL', 'jwtHelper'];
     AuthCtrl.$inject        = ['$scope', 'AuthSrv', 'jwtHelper'];
