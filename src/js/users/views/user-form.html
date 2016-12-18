@@ -1,6 +1,6 @@
 <section class="card">
 	<h1 class="card-block">{{currentUser.id ? "Modifier " + currentUser.first_name : "Nouveau membre"}}</h1>
-	<form class="card-block" name="userForm" novalidate>
+	<form class="card-block" name="userForm" onsubmit="$ctrl.saveUser()" novalidate>
 		<div class="row form-group">
 			<div class="col-md-4 col-lg-6">
 				<label>Genre</label>
@@ -15,7 +15,7 @@
                         <input type="radio" name="gender" value="F" id="gender_f" ng-model="currentUser.gender"> Femme
                     </label>
                 </div>
-				<div ng-messages="userForm.gender.$error" ng-if='userForm.gender.$dirty' class="field-validation-msg">
+				<div ng-messages="userForm.gender.$error" ng-if="userForm.gender.$dirty" class="field-validation-msg" role="alert">
 					<p ng-message="required">Ce champ est obligatoire</p>
 				</div>
 			</div>
@@ -26,7 +26,7 @@
 				<label for="usr-lastname">Nom de famille</label>
 			</div><div class="col-md-8 col-lg-6">
 				<input type="text" id="usr-lastname" class="form-control" name="lastname" placeholder="Muster" ng-model="currentUser.last_name" required />
-                <div ng-messages="userForm.lastname.$error" ng-if='userForm.lastname.$dirty' class="field-validation-msg">
+                <div ng-messages="userForm.lastname.$error" ng-if='userForm.lastname.$dirty' class="field-validation-msg" role="alert">
 					<p ng-message="required">Ce champ est obligatoire</p>
 				</div>
 			</div>
@@ -45,8 +45,8 @@
 				<label for="usr-firstname">Prénom</label>
 			</div><div class="col-md-8 col-lg-6">
                 <span  class="label alert" ng-show="userForm.firstname.$dirty && userForm.firstname.$error.required">Prénom obligatoire</span>
-				<input type="text" id="usr-firstname" class="form-control" name="firstname" placeholder="Hans" ng-model="currentUser.first_name" ng-required="true" />
-				<div ng-messages="userForm.firstname.$error" ng-if='userForm.firstname.$dirty' class="field-validation-msg">
+				<input type="text" id="usr-firstname" class="form-control" name="firstname" placeholder="Hans" ng-model="currentUser.first_name" required />
+				<div ng-messages="userForm.firstname.$error" ng-if='userForm.firstname.$dirty' class="field-validation-msg" role="alert">
 					<p ng-message="required">Ce champ est obligatoire</p>
 				</div>
 			</div>
@@ -57,7 +57,7 @@
 				<label for="usr-birthdate">Date de naissance</label>
 			</div><div class="col-md-8 col-lg-6">
 				<input type="text" id="usr-birthdate" name="birthdate" class="form-control" placeholder="31.12.1984" ng-model="currentUser.birthdate" />
-				<div ng-messages="userForm.birthdate.$error" ng-if='userForm.birthdate.$dirty' class="field-validation-msg">
+				<div ng-messages="userForm.birthdate.$error" ng-if='userForm.birthdate.$dirty' class="field-validation-msg" role="alert">
 					<p ng-message="required">Ce champ est obligatoire</p>
 				</div>
 			</div>
@@ -68,6 +68,10 @@
 				<label for="usr-email">Email</label>
 			</div><div class="col-md-8 col-lg-6">
 				<input id="usr-email" class="form-control" type="text" name="email" placeholder="name@domain.ch" ng-model="currentUser.email" />
+				<div ng-messages="userForm.email.$error" ng-if='userForm.email.$dirty' class="field-validation-msg" role="alert">
+					<p ng-message="email">Ce champs doit contenir une adresse email valide</p>
+					<p ng-message="required">Ce champ est obligatoire</p>
+				</div>
 			</div>
 		</div>
 
@@ -75,7 +79,10 @@
 			<div class="col-md-4 col-lg-6">
 				<label for="usr-mobile">Téléphone mobile</label>
 			</div><div class="col-md-8 col-lg-6">
-				<input type="text" id="usr-mobile" class="form-control" name="mobile" placeholder="079 123 45 67" ng-model="currentUser.mobile" />
+				<input type="tel" id="usr-mobile" class="form-control" name="mobile" placeholder="079 123 45 67" ng-model="currentUser.mobile" />
+				<div ng-messages="userForm.mobile.$error" ng-if='userForm.mobile.$dirty' class="field-validation-msg" role="alert">
+					<p ng-message="email">Ce champs doit contenir un numéro de téléphone valide (+4179 123.45.67 ou 079 123.45.67)</p>
+				</div>
 			</div>
 		</div>
 
@@ -83,7 +90,10 @@
 			<div class="col-md-4 col-lg-6">
 				<label for="usr-telefon">Téléphone fixe</label>
 			</div><div class="col-md-8 col-lg-6">
-				<input type="text" id="usr-telefon" class="form-control" name="telefon" placeholder="027 123 45 67" ng-model="currentUser.telefon" />
+				<input type="tel" id="usr-telefon" class="form-control" name="telefon" placeholder="027 123 45 67" ng-model="currentUser.telefon" />
+				<div ng-messages="userForm.mobile.$error" ng-if='userForm.mobile.$dirty' class="field-validation-msg" role="alert">
+					<p ng-message="email">Ce champs doit contenir un numéro de téléphone valide (+4179 123.45.67 ou 079 123.45.67)</p>
+				</div>
 			</div>
 		</div>
 
@@ -129,7 +139,7 @@
   
 		<div class="row">
             <div class="col-md-offset-4 col-lg-offset-6">
-    			<button type="submit" class="btn btn-primary" ng-click="ctrl.saveUser()">Save</button>
+    			<button type="submit" class="btn btn-primary" ng-disabled="eventForm.$invalid">Save</button>
     			<a href="#/user" class="btn btn-default">Annuler</a>
             </div>
 		</div>
