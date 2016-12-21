@@ -88,10 +88,10 @@
 
 		<div class="row form-group">
 			<div class="col-md-4 col-lg-6">
-				<label for="usr-telefon">Téléphone fixe</label>
+				<label for="usr-phone">Téléphone fixe</label>
 			</div><div class="col-md-8 col-lg-6">
-				<input type="tel" id="usr-telefon" class="form-control" name="telefon" placeholder="027 123 45 67" ng-model="currentUser.telefon" />
-				<div ng-messages="userForm.mobile.$error" ng-if='userForm.mobile.$dirty' class="field-validation-msg" role="alert">
+				<input type="tel" id="usr-phone" class="form-control" name="phone" placeholder="027 123 45 67" ng-model="currentUser.phone" />
+				<div ng-messages="userForm.phone.$error" ng-if='userForm.phone.$dirty' class="field-validation-msg" role="alert">
 					<p ng-message="email">Ce champs doit contenir un numéro de téléphone valide (+4179 123.45.67 ou 079 123.45.67)</p>
 				</div>
 			</div>

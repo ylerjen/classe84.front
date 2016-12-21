@@ -103,7 +103,7 @@ class UserDetailCtrl {
             last_name       : '', 
             birthdate       : '', 
             email           : '', 
-            telefon         : '', 
+            phone           : '', 
             mobile          : '', 
             website         : '', 
             fb_profile_name : '', 
