@@ -50,13 +50,18 @@ module.exports = function(grunt) {
                 src: 'tpl/**/*',
                 dest: 'dist/',
             },
+            assets: {
+                expand: true,
+                cwd: 'src',
+                src: 'assets/**/*',
+                dest: 'dist'
+            },
             pages: {
                 expand: true,
                 cwd: 'src',
                 src: 'pages/**/*',
                 dest: 'dist'
             }
-
         },
 
         // Sass compilation
