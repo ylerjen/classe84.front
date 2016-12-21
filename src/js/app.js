@@ -2,6 +2,7 @@ import { telFilter } from './commons/filters/HelperFilters.js';
 import AuthCtrl from './auth/controllers/AuthCtrl.js';
 import AuthSrv from './auth/services/AuthSrv.js';
 import NavigationComponent from './nav/NavigationComponent.js';
+import FooterComponent from './components/FooterComponent.js';
 import EventService from './events/services/EventSrv.js';
 import AddressSrv from './addresses/services/AddressSrv.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
@@ -23,6 +24,9 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
     EventService.$inject    = ['$http', 'API_URL'];
     
     angular.module('84.config', [])
+        .constant('version', {
+            front: '1.0.0'
+        })
         .constant('API_URL', {
             api84: 'http://api84.loc',
             fbApiUrl: 'https://graph.facebook.com/'
@@ -39,9 +43,6 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
     angular.module('84.auth', ['angular-jwt'])
         .controller('AuthCtrl', AuthCtrl)
         .service('AuthSrv', AuthSrv);
-    
-    angular.module('84.nav', [])
-        .component('navigation', NavigationComponent);
     
     angular.module('84.filters', [])
         .filter('tel', telFilter);
@@ -73,9 +74,10 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
         '84.components',
         '84.auth',
         '84.config',
-        '84.nav',
         '84.users',
         '84.addresses',
         '84.events'
-    ]);
+    ])
+    .component('navigation', NavigationComponent)
+    .component('appFooter', FooterComponent);
 })();
