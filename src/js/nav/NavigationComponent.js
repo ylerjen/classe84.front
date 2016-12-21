@@ -21,6 +21,6 @@ class NavigationController {
 }
 
 export default {
-    templateUrl: 'tpl/ui/nav.html',
+    templateUrl: 'tpl/ui/base/nav.html',
     controller: NavigationController
 }
