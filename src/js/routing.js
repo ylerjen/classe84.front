@@ -2,10 +2,25 @@ angular.module('84')
     .config(['$routeProvider', 'PATH', ($routeProvider, PATH) => {
         $routeProvider.
 
+        // Home
+        when('/', {
+            templateUrl: '/pages/home-page.html'
+        }).
+
         // Login
         when('/login', {
             templateUrl: '/tpl/auth/login-form.html',
             controller: 'AuthCtrl'
+        }).
+
+        // About
+        when('/about', {
+            templateUrl: '/pages/about-page.html'
+        }).
+
+        // Contact form
+        when('/contact', {
+            templateUrl: '/pages/contact-page.html'
         }).
         
         // Users routing
