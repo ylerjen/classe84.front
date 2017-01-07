@@ -15,7 +15,10 @@
                     <label for="contact.message">Votre message</label>
                     <textarea name="message" id="contact.message" class="form-control" cols="30" rows="10" required="required"></textarea>
                 </div>
-                <div id="robot-check" class="form-group col-xs-12"><input type="checkbox" name="check" value="human" required="required"><label for="captchaCheckbox">Cochez cette case si vous êtes un humain</label></div>
+                <div id="robot-check" class="form-group col-xs-12">
+                    <input id="captchaCheckbox" type="checkbox" name="check" value="human" required="required">
+                    <label for="captchaCheckbox">Cochez cette case si vous êtes un humain</label>
+                </div>
                 <div class="captcha">
                     <label for="username">Ne pas remplir ce champ si vous êtes humain</label>
                     <input id="username" type="text" name="username" value="">

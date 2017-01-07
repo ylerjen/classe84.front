@@ -43,8 +43,7 @@ angular.module('84')
 
         // Events routing
         when('/event', {
-            templateUrl: PATH.eventViewFolder + '/event-list.html',
-            controller: 'EvtListCtrl'
+            templateUrl: '/pages/event-list-page.html'
         }).
         when('/event/add', {
             templateUrl: PATH.eventViewFolder + '/event-form.html',
