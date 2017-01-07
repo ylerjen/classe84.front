@@ -99,6 +99,9 @@ module.exports = function(grunt) {
 	                    //'bower_components/angular-notify/dist/angular-notify.min.js'
                     ]
                 }
+            },
+            libsCss: {
+                
             }
         },
         
@@ -187,6 +190,10 @@ module.exports = function(grunt) {
             },
             html: {
                 files: ['./src/**/*.html']
+            },
+            pages: {
+                files: ['./src/pages/**/*.html'],
+                tasks: ['copy']
             }
         }
     });
