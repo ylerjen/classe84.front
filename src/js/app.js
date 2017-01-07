@@ -8,7 +8,8 @@ import AddressSrv from './addresses/services/AddressSrv.js';
 import { UserListCtrl, UserDetailCtrl} from './users/controllers/UserCtrl.js';
 import { UserService, FaceBookService } from './users/services/UserSrv.js';
 import { UserListItemComponent, UserListComponent } from './components/UserListComponent.js';
-import { EventListController, EventDetailController, EventAddController} from './events/controllers/EventCtrl.js';
+import { EventDetailController, EventAddController} from './events/controllers/EventCtrl.js';
+import EventListComponent from './events/EventListComponent.js';
 import { AddressesCmpnt, AddressCmpnt } from './components/AddressesComponent.js';
 import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
 
@@ -61,9 +62,10 @@ import { TabsComponent, TabPaneComponent } from './components/TabsComponent.js';
         .component('userListItem', UserListItemComponent);
 
     angular.module('84.events', ['ngSanitize', 'cgNotify'])
-        .controller('EvtListCtrl', EventListController)
+        //.controller('EvtListCtrl', EventListController)
         .controller('EvtDetailCtrl', EventDetailController)
         .controller('EvtAddCtrl', EventAddController)
+        .component('eventList', EventListComponent)
         .service('evtSrv', EventService);
 
     angular.module('84', [
