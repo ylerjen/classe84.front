@@ -1,19 +1,23 @@
-<header class="navbar navbar-dark bg-primary">
-    <nav class="container">
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">&#9776;</button>
-        <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-            <a class="navbar-brand" href="/">Classe 84</a>
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/users" routerLinkActive="active">Membres</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/events" routerLinkActive="active">Evènements</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" routerLink="/" >Classe 84</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/events" routerLinkActive="active">Evènements</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+  </div>
+</nav>
