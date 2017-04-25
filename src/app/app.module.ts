@@ -11,6 +11,8 @@ import { AboutPage } from './pages/about.page';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './components/panel/panel.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { PanelComponent } from './components/panel/panel.component';
     AboutPage,
     HeaderComponent,
     FooterComponent,
-    PanelComponent
+    PanelComponent,
+    UsersListComponent,
+    UserListItemComponent
   ],
   imports: [
     BrowserModule,

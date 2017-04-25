@@ -1,0 +1,31 @@
+<section class="card list">
+    <div class="card-block">
+        <h1 class="card-title">Membres</h1>
+        <div class="global-actions">
+            <a href="#/user/add" class="btn btn-outline-primary"><i class="fa fa-user-plus"></i> New member</a>	
+        </div>
+    </div>
+    <div class="card-block inter-block">                
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="user-list-filter" class="input-group-addon"><i class="fa fa-search" aria-labelledby="search"></i></label>
+                    <input type="search" id="user-list-filter" class="form-control" placeholder="Recherche par Nom Prénom" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-block">
+        <div class="loader-spinner" *ngIf="isLoading">
+            <i class="fa fa-spinner fa-pulse fa-lg"></i>
+        </div>
+        <ul class="row list-item">
+            <li *ngFor="let user of userList">{{user.id}}</li>
+            <app-user-list-item user="user" *ngFor="let user of userList"></app-user-list-item>
+            
+            <li class="animation alert-danger alert radius" *ngIf="userList.length === 0">
+                <div><i class="fa fa-times"></i> Aucun résultat trouvé...</div>
+            </li>
+        </ul>
+    </div>
+</section>
