@@ -20,8 +20,9 @@
             <i class="fa fa-spinner fa-pulse fa-lg"></i>
         </div>
         <ul class="row list-item">
-            <li *ngFor="let user of userList">{{user.id}}</li>
-            <app-user-list-item user="user" *ngFor="let user of userList"></app-user-list-item>
+            <li *ngFor="let user of userList" class="animation card-item col-xs-12 col-sm-6 col-lg-4">
+                <app-user-list-item [user]="user"></app-user-list-item>
+            </li>
             
             <li class="animation alert-danger alert radius" *ngIf="userList.length === 0">
                 <div><i class="fa fa-times"></i> Aucun résultat trouvé...</div>

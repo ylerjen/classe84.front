@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { User } from '../../models/User';
+
 
 @Component({
     selector: 'app-users-list',
@@ -8,8 +9,8 @@ import { User } from '../../models/User';
     styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent {
-    public userList: User[] = [];
-    public isLoading: boolean = true;
+    @Input() userList: User[] = [];
+    @Input() isLoading: boolean= true;
 
 
 }

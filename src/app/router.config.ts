@@ -1,13 +1,17 @@
 import { Routes } from '@angular/router';
-import { UsersPage } from './pages/users.page';
+import { HomePage } from './pages/home.page';
 import { AboutPage } from './pages/about.page';
+import { UsersPage } from './pages/users.page';
 
 export const appRoutes: Routes = [
     {
         path: '',
-        component: UsersPage
+        component: HomePage
     }, {
         path: 'users',
+        component: UsersPage
+    }, {
+        path: 'events',
         component: UsersPage
     }, {
         path: 'about',
