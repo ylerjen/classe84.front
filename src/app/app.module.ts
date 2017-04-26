@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { appRoutes } from './router.config';
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),  // for redux debug => storeDevtools instrument
     FormsModule,
     HttpModule
   ],
