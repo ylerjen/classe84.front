@@ -1,38 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { ADD_USER, DELETE_USER } from '../stores/usersReducer';
 
 import { User } from '../models/User';
-
-export interface UsersState {
-    userList: User[];
-    isLoading: boolean;
-}
+import { UsersState } from '../stores/userlistReducer';
+import { UsersService } from '../services/users.service';
 
 @Component({
     selector: 'users-page',
     templateUrl: './users.page.html',
     // styleUrls: ['./users.page.scss']
 })
-export class UsersPage {
+export class UsersPage implements OnInit {
+
     private userList$: Observable<User[]>;
     private isLoading$: Observable<boolean>;
 
-    constructor(private _store: Store<UsersState>) {
-		this.userList$ = _store.select('userList');
-		this.isLoading$ = _store.select('isLoading');
-	}
-
-    addUser() {
-        this._store.dispatch({
-            type: ADD_USER
-        });
+    constructor(private usersService: UsersService, private _store: Store<UsersState>) {
+        this.userList$ = _store.select('userList');
+        this.isLoading$ = _store.select('isLoading');
+        console.debug(this.isLoading$)
     }
 
-    deleteUser() {
-        this._store.dispatch({
-            type: DELETE_USER
-        });
+    ngOnInit(): void {
+        this.usersService.reload();
+    }
+
+    addUser(user: User) {
+        this.usersService.add(user);
+    }
+
+    deleteUser(user: User) {
+        this.usersService.delete(user);
     }
 }

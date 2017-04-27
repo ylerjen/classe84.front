@@ -7,8 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { UserModule } from './modules/user.module';
-// import { counterReducer } from './stores/counterReducer';
-import { usersReducer } from './stores/usersReducer';
+import { userlistReducer } from './stores/userlistReducer';
 import { appRoutes } from './router.config';
 import { AppComponent } from './app.component';
 import { HomePage } from './pages/home.page';
@@ -19,6 +18,8 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './components/panel/panel.component';
+
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [
@@ -35,15 +36,14 @@ import { PanelComponent } from './components/panel/panel.component';
   imports: [
     BrowserModule,
     StoreModule.provideStore({
-      // counter: counterReducer,
-      userList: usersReducer
+      userList: userlistReducer
     }),
     RouterModule.forRoot(appRoutes),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),  // for redux debug => storeDevtools instrument
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [ UsersService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
