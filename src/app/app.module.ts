@@ -18,8 +18,8 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './components/panel/panel.component';
-
 import { UsersService } from './services/users.service';
+import { UserListFilterComponent } from './components/user-list-filter/user-list-filter.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { UsersService } from './services/users.service';
     PanelComponent,
     UsersPage,
     UsersListComponent,
-    UserListItemComponent
+    UserListItemComponent,
+    UserListFilterComponent
   ],
   imports: [
     BrowserModule,

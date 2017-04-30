@@ -5,32 +5,30 @@ import { Store } from '@ngrx/store';
 
 import { environment as env } from '../../environments/environment';
 import { User } from '../models/User';
-import { UsersState, LOAD_USER, DELETE_USER, LOAD_USER_START } from '../stores/userlistReducer';
+import { IUserState } from '../stores/IUserState';
+import { ADD_USER, DELETE_USER, ASYNC_USER_START, LOAD_USER_SUCCESS, CHANGE_FILTER } from '../actions/users.actions';
 
 
-const BASE_URL = env.API_URL + 'users';
+const BASE_URL = `${env.API_URL}/users`;
 
 @Injectable()
 export class UsersService {
 
-    users: Observable<Array<User>>;
-    isLoading: Observable<boolean>;
+    usersStore$: Observable<IUserState>;
 
-    constructor(private http: Http, private store: Store<UsersState>) {
-        this.users = store.select('users');
-        this.isLoading = store.select('isLoading');
+    constructor(private _http: Http, private _store: Store<IUserState>) {
+        this.usersStore$ = _store.select('usersList');
     }
 
     reload() {
-        this.store.dispatch( { type: LOAD_USER_START});
-        this.http.get(BASE_URL)
+        this._store.dispatch( { type: ASYNC_USER_START});
+        this._http.get(BASE_URL)
             .map(res => res.json())
-            .map(payload => ({ type: LOAD_USER, payload }))
+            .map(payload => ({ type: LOAD_USER_SUCCESS, payload }))
             .subscribe(action => {
-                setTimeout(()=>{
-                    this.store.dispatch({ type: 'LOAD_USER_SUCCESS' });
-                    this.store.dispatch(action);
-                });
+                setTimeout(() => {
+                    this._store.dispatch(action);
+                }, 500);
             });
     }
 
@@ -40,9 +38,12 @@ export class UsersService {
 
     delete(user: User) {
         console.log(DELETE_USER + ' from service');
-        this.store.dispatch({ type: DELETE_USER, payload: user });
+        this._store.dispatch({ type: DELETE_USER, payload: user });
     }
 
+    updateFilter(filter: string) {
+        this._store.dispatch({ type: CHANGE_FILTER });
+    }
 
     // EXAMPLE METHODS
 
@@ -51,19 +52,19 @@ export class UsersService {
     }
 
     createItem(item: User) {
-        this.http.post(`${BASE_URL}`, JSON.stringify(item))
+        this._http.post(`${BASE_URL}`, JSON.stringify(item))
             .map(res => res.json())
-            .map(payload => ({ type: 'CREATE_ITEM', payload }))
-            .subscribe(action => this.store.dispatch(action));
+            .map(payload => ({ type: ADD_USER, payload }))
+            .subscribe(action => this._store.dispatch(action));
     }
 
     updateItem(item: User) {
-        this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item))
-            .subscribe(action => this.store.dispatch({ type: 'UPDATE_ITEM', payload: item }));
+        this._http.put(`${BASE_URL}${item.id}`, JSON.stringify(item))
+            .subscribe(action => this._store.dispatch({ type: 'UPDATE_ITEM', payload: item }));
     }
 
     deleteItem(item: User) {
-        this.http.delete(`${BASE_URL}${item.id}`)
-            .subscribe(action => this.store.dispatch({ type: 'DELETE_ITEM', payload: item }));
+        this._http.delete(`${BASE_URL}${item.id}`)
+            .subscribe(action => this._store.dispatch({ type: DELETE_USER, payload: item }));
     }
 }

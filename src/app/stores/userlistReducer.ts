@@ -1,36 +1,48 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { User, EGender } from '../models/User';
+import { IUserState } from './IUserState';
+import { ASYNC_USER_START, LOAD_USER_SUCCESS, ADD_USER, DELETE_USER, EMPTY } from '../actions/users.actions';
 
 
-export const LOAD_USER_START = 'LOAD_USER_START';
-export const LOAD_USER = 'LOAD_USER';
-export const ADD_USER = 'ADD_USER';
-export const DELETE_USER = 'DELETE_USER';
-export const RESET = 'RESET';
-export const EMPTY = 'EMPTY';
-
-export interface UsersState {
-    userList: User[];
-    isLoading: boolean;
+export const initialState: IUserState = {
+    userList: [],
+    isLoading: false,
+    userFilter: ''
 }
 
-export function userlistReducer(state: User[] = [], action: Action) {
+export function userlistReducer(state: IUserState = initialState, action: Action): IUserState {
     switch (action.type) {
-        case LOAD_USER:
-            return action.payload.slice();
+        case ASYNC_USER_START:
+            return Object.assign({}, state, {
+                isLoading: true
+            });
+
+        case LOAD_USER_SUCCESS:
+            return Object.assign({}, state, {
+                isLoading: false,
+                userList: action.payload.slice()
+            });
 
         case ADD_USER:
-            return [
-                ...state,
-                action.payload
-            ];
+            return Object.assign({}, state, {
+                isLoading: false,
+                userList: [
+                    ...state.userList,
+                    action.payload
+                ]
+            });
 
         case DELETE_USER:
-            return state;
+            return Object.assign({}, state, {
+                isLoading: false
+            });
 
         case EMPTY:
-            return [];
+            return Object.assign({}, state, {
+                isLoading: false,
+                userList: []
+            });
 
         default:
             return state;
