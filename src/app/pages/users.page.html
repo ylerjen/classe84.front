@@ -1,7 +1,13 @@
 <div class="row">
-    <div class="col-md-8">
-        <app-users-list></app-users-list>
-    </div>
+    <section class="card col-md-8">
+        <div class="card-block">
+            <h1 class="card-title">Membres</h1>
+            <div class="global-actions">
+                <a href="#/user/add" class="btn btn-outline-primary"><i class="fa fa-user-plus"></i> New member</a>	
+            </div>
+        </div>
+        <app-user-list-wrapper></app-user-list-wrapper>
+    </section>
     <aside class="col-md-4">
         <app-panel></app-panel>        
         <app-panel></app-panel>

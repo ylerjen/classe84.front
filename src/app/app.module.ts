@@ -20,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { UsersService } from './services/users.service';
 import { UserListFilterComponent } from './components/user-list-filter/user-list-filter.component';
+import { UserListWrapperComponent } from './components/user-list-wrapper/user-list-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { UserListFilterComponent } from './components/user-list-filter/user-list
     UsersPage,
     UsersListComponent,
     UserListItemComponent,
-    UserListFilterComponent
+    UserListFilterComponent,
+    UserListWrapperComponent
   ],
   imports: [
     BrowserModule,
