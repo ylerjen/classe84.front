@@ -1,5 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+export interface IUserListFilter {
+    name: string;
+    activeOnly: boolean;
+}
+
 @Component({
     selector: 'app-user-list-filter',
     templateUrl: './user-list-filter.component.html',
@@ -8,10 +13,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class UserListFilterComponent {
 
     @Input()
-    filter: string;
+    filter: IUserListFilter = {
+        name: '',
+        activeOnly: false
+    };
 
     @Output()
-    change: EventEmitter<string> = new EventEmitter<string>();
+    update: EventEmitter<IUserListFilter> = new EventEmitter<IUserListFilter>();
 
     constructor() { }
 }

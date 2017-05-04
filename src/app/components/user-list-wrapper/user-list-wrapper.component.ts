@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { User } from '../../models/User';
 import { IUserState } from '../../stores/IUserState';
+import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -10,15 +11,20 @@ import { UsersService } from '../../services/users.service';
     templateUrl: './user-list-wrapper.component.html',
     styleUrls: ['./user-list-wrapper.component.scss']
 })
-export class UserListWrapperComponent {
+export class UserListWrapperComponent implements OnInit {
 
-    private filter = '';
+    private filter: IUserListFilter = {
+        name: '',
+        activeOnly: false
+    };
     private isLoading = false;
     private usersList: User[] = [];
     private filteredList: User[] = [];
 
-    constructor(private usersService: UsersService, private _store: Store<IUserState>) {
-        _store.select('userList')
+    constructor(private usersService: UsersService, private _store: Store<IUserState>) { }
+
+    ngOnInit(): void {
+        this._store.select('userList')
             .subscribe( (uState: IUserState) => {
                 if (uState) {
                     this.usersList = uState.userList;
@@ -29,11 +35,14 @@ export class UserListWrapperComponent {
     }
 
     filterList(filter) {
-        const lcFilter = filter.toLowerCase();
         this.filteredList = this.usersList.filter(user => {
-            return (user.first_name.toLowerCase().includes(lcFilter) ||
-                user.last_name.toLowerCase().includes(lcFilter) ||
-                (user.maiden_name && user.maiden_name.toLowerCase().includes(lcFilter)) );
+            const nameFilter = (filter.name) ? filter.name.toLowerCase() : '';
+            const checkNameSearch = user.first_name.toLowerCase().includes(nameFilter) ||
+                user.last_name.toLowerCase().includes(nameFilter) ||
+                (user.maiden_name && user.maiden_name.toLowerCase().includes(nameFilter) );
+            const checkActiveOnly = !filter.activeOnly || (filter.activeOnly && user.is_active);
+
+            return checkNameSearch && checkActiveOnly;
         });
     }
 
@@ -41,8 +50,7 @@ export class UserListWrapperComponent {
         this.usersService.reload();
     }
 
-    filterChange(evt) {
-        const filterStr = evt.target.value;
-        this.filterList(filterStr);
+    filterChange(filter) {
+        this.filterList(filter);
     }
 }
