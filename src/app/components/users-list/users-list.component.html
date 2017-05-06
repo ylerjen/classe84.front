@@ -7,9 +7,5 @@
         <li *ngFor="let user of usersList" class="animation card-item col-xs-12 col-sm-6 col-lg-4">
             <app-user-list-item [user]="user"></app-user-list-item>
         </li>
-        
-        <li class="animation alert-danger alert radius" *ngIf="!usersList.length && !isLoading">
-            <div><i class="fa fa-times"></i> Aucun résultat trouvé...</div>
-        </li>
     </ul>
 </section>

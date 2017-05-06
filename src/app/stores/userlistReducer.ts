@@ -1,24 +1,24 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { User, EGender } from '../models/User';
-import { IUserState } from './IUserState';
-import { ASYNC_USER_START, LOAD_USER_SUCCESS, ADD_USER, DELETE_USER, EMPTY } from '../actions/users.actions';
+import { IUserListState } from './IUserState';
+import { ASYNC_USERLIST_START, ASYNC_USERLIST_SUCCESS, ADD_USER, DELETE_USER, EMPTY } from '../actions/users.actions';
 
 
-export const initialState: IUserState = {
+export const initialState: IUserListState = {
     userList: [],
     isLoading: false,
     userFilter: ''
-}
+};
 
-export function userlistReducer(state: IUserState = initialState, action: Action): IUserState {
+export function userlistReducer(state: IUserListState = initialState, action: Action): IUserListState {
     switch (action.type) {
-        case ASYNC_USER_START:
+        case ASYNC_USERLIST_START:
             return Object.assign({}, state, {
                 isLoading: true
             });
 
-        case LOAD_USER_SUCCESS:
+        case ASYNC_USERLIST_SUCCESS:
             return Object.assign({}, state, {
                 isLoading: false,
                 userList: action.payload.slice()

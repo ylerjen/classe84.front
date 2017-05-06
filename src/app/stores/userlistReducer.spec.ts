@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Action } from '@ngrx/store';
 
-import { userlistReducer, initialState, LOAD_USER_SUCCESS } from './userlistReducer';
+import { userlistReducer, initialState } from './userlistReducer';
 
 describe('userlistReducer', () => {
 

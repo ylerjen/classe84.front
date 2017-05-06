@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { User } from '../../models/User';
-import { IUserState } from '../../stores/IUserState';
+import { IUserListState } from '../../stores/IUserState';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { UsersService } from '../../services/users.service';
 
@@ -21,11 +21,11 @@ export class UserListWrapperComponent implements OnInit {
     private usersList: User[] = [];
     private filteredList: User[] = [];
 
-    constructor(private usersService: UsersService, private _store: Store<IUserState>) { }
+    constructor(private usersService: UsersService, private _store: Store<IUserListState>) { }
 
     ngOnInit(): void {
         this._store.select('userList')
-            .subscribe( (uState: IUserState) => {
+            .subscribe( (uState: IUserListState) => {
                 if (uState) {
                     this.usersList = uState.userList;
                     this.filteredList = uState.userList;

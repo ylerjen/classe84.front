@@ -1,5 +1,8 @@
+export const ASYNC_USERLIST_START = 'ASYNC_USERLIST_START';
+export const ASYNC_USERLIST_SUCCESS = 'ASYNC_USER_SUCCESS';
 export const ASYNC_USER_START = 'ASYNC_USER_START';
-export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const ASYNC_USER_SUCCESS = 'ASYNC_USER_SUCCESS';
+export const GET_USER = 'GET_USER';
 export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const RESET = 'RESET';
