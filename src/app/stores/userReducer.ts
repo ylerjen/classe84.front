@@ -1,7 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { User, EGender } from '../models/User';
-import { IUserState } from './IUserState';
+import { IUserState } from './IState';
 import { GET_USER, ASYNC_USER_START, ASYNC_USER_SUCCESS } from '../actions/users.actions';
 
 const initialState: IUserState = {
@@ -19,6 +19,5 @@ export function userReducer(state: IUserState = initialState, action: Action): I
 
         case ASYNC_USER_SUCCESS:
             return Object.assign({}, state, { user: action.payload, isLoading: false });
-
     }
 }

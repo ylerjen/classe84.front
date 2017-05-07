@@ -4,8 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { environment as env } from '../../environments/environment';
+import { IAppState } from '../stores/appState';
 import { User } from '../models/User';
-import { IUserListState } from '../stores/IUserState';
+import { Notification, ENotificationType } from '../models/Notification';
+import { IUserListState } from '../stores/IState';
+import { addNotif, deleteNotif } from '../actions/notifications.actions';
 import { GET_USER,
     ADD_USER,
     DELETE_USER,
@@ -23,7 +26,7 @@ export class UsersService {
 
     usersStore$: Observable<IUserListState>;
 
-    constructor(private _http: Http, private _store: Store<IUserListState>) {
+    constructor(private _http: Http, private _store: Store<IAppState>) {
         this.usersStore$ = _store.select('usersList');
     }
 
@@ -40,7 +43,14 @@ export class UsersService {
         this._http.get(`${BASE_URL}/${id}`)
             .map(res => res.json())
             .map(payload => ({ type: ASYNC_USER_SUCCESS, payload }))
-            .subscribe(action => this._store.dispatch(action));
+            .subscribe(
+                action => this._store.dispatch(action),
+                err => {
+                    const u = new Notification(err._body, ENotificationType.ERROR);
+                    this._store.dispatch(addNotif(u));
+                    setTimeout(() => this._store.dispatch(deleteNotif(u)), 15000);
+                }
+            );
     }
 
     add(user: User) {
@@ -55,28 +65,4 @@ export class UsersService {
     updateFilter(filter: string) {
         this._store.dispatch({ type: CHANGE_FILTER });
     }
-
-    // EXAMPLE METHODS
-/*
-    saveItem(item: User) {
-        (item.id) ? this.updateItem(item) : this.createItem(item);
-    }
-
-    createItem(item: User) {
-        this._http.post(`${BASE_URL}`, JSON.stringify(item))
-            .map(res => res.json())
-            .map(payload => ({ type: ADD_USER, payload }))
-            .subscribe(action => this._store.dispatch(action));
-    }
-
-    updateItem(item: User) {
-        this._http.put(`${BASE_URL}${item.id}`, JSON.stringify(item))
-            .subscribe(action => this._store.dispatch({ type: 'UPDATE_ITEM', payload: item }));
-    }
-
-    deleteItem(item: User) {
-        this._http.delete(`${BASE_URL}${item.id}`)
-            .subscribe(action => this._store.dispatch({ type: DELETE_USER, payload: item }));
-    }
-    */
 }

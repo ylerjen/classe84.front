@@ -7,18 +7,15 @@ import { User } from '../../models/User';
   templateUrl: './user-view.component.html',
   styleUrls: ['./user-view.component.scss']
 })
-export class UserViewComponent implements OnInit {
+export class UserViewComponent {
 
-    @Input()
-    private isLoading = true;
+  @Input()
+  private isLoading = true;
 
-    @Input()
-    private user: User;
+  @Input()
+  private user: User;
 
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

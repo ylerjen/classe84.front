@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { IAppState, appState } from './stores/appState';
 import { UserModule } from './modules/user.module';
-import { userlistReducer } from './stores/userlistReducer';
 import { appRoutes } from './config/router.config';
 import { AppComponent } from './app.component';
 import { HomePage } from './pages/home-page/home.page';
@@ -25,36 +25,38 @@ import { UserListWrapperComponent } from './components/user-list-wrapper/user-li
 import { UserViewComponent } from './components/user-view/user-view.component';
 import { AddressListComponent } from './components/address-list/address-list.component';
 import { AddressComponent } from './components/address/address.component';
+import { NotifierComponent } from './components/notifier/notifier.component';
+
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePage,
-    AboutPage,
-    HeaderComponent,
-    FooterComponent,
-    PanelComponent,
-    UsersPage,
-    UserPage,
-    UsersListComponent,
-    UserListItemComponent,
-    UserListFilterComponent,
-    UserListWrapperComponent,
-    UserViewComponent,
-    AddressListComponent,
-    AddressComponent,
-  ],
-  imports: [
-    BrowserModule,
-    StoreModule.provideStore({
-      userList: userlistReducer
-    }),
-    RouterModule.forRoot(appRoutes),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),  // for redux debug => storeDevtools instrument
-    FormsModule,
-    HttpModule
-  ],
-  providers: [ UsersService ],
-  bootstrap: [ AppComponent ]
+    declarations: [
+        AppComponent,
+        HomePage,
+        AboutPage,
+        HeaderComponent,
+        FooterComponent,
+        PanelComponent,
+        UsersPage,
+        UserPage,
+        UsersListComponent,
+        UserListItemComponent,
+        UserListFilterComponent,
+        UserListWrapperComponent,
+        UserViewComponent,
+        AddressListComponent,
+        AddressComponent,
+        NotifierComponent,
+    ],
+    imports: [
+        BrowserModule,
+        StoreModule.provideStore(appState),
+        RouterModule.forRoot(appRoutes),
+        StoreDevtoolsModule.instrumentOnlyWithExtension(),  // for redux debug => storeDevtools instrument
+        FormsModule,
+        HttpModule
+    ],
+    providers: [UsersService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
