@@ -1,6 +1,6 @@
 <div class="row">
     <section class="card col-md-8">
-        <app-user-view></app-user-view>
+        <app-user-view [user]="_user$ | async"></app-user-view>
     </section>
     <aside class="col-md-4">
         <app-panel></app-panel>        

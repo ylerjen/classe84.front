@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { AuthHttp } from 'angular2-jwt';
 
 import { environment as env } from '../../environments/environment';
 import { IAppState } from '../stores/appState';
@@ -24,11 +25,7 @@ const BASE_URL = `${env.API_URL}/users`;
 @Injectable()
 export class UsersService {
 
-    usersStore$: Observable<IUserListState>;
-
-    constructor(private _http: Http, private _store: Store<IAppState>) {
-        this.usersStore$ = _store.select('usersList');
-    }
+    constructor(private _http: Http, private _store: Store<IAppState>, private _authHttp: AuthHttp) {}
 
     reload() {
         this._store.dispatch( { type: ASYNC_USERLIST_START});
@@ -39,14 +36,24 @@ export class UsersService {
     }
 
     get(id: number) {
+        let endpoint = `${BASE_URL}/${id}`;
+        this._authHttp.get(endpoint)
+        .subscribe(
+            data => console.info(data),
+            err => console.log(endpoint, err),
+            () => console.log('Request Complete')
+        );
+        console.debug('get user', id);
         this._store.dispatch( { type: ASYNC_USER_START});
-        this._http.get(`${BASE_URL}/${id}`)
+        this._authHttp.get(endpoint)
             .map(res => res.json())
             .map(payload => ({ type: ASYNC_USER_SUCCESS, payload }))
             .subscribe(
-                action => this._store.dispatch(action),
+                action => {
+                    this._store.dispatch(action);
+                },
                 err => {
-                    const u = new Notification(err._body, ENotificationType.ERROR);
+                    const u = new Notification(err._body || err.message, ENotificationType.ERROR);
                     this._store.dispatch(addNotif(u));
                     setTimeout(() => this._store.dispatch(deleteNotif(u)), 15000);
                 }

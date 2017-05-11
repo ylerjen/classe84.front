@@ -5,7 +5,7 @@
   </button>
     <a class="navbar-brand" routerLink="/">Classe 84</a>
 
-    <div class="collapse navbar-collapse" [ngClass]="{'show': isCollapsed}" id="navbarToggler">
+    <div class="collapse navbar-collapse" [ngClass]="{'show': !isCollapsed}" id="navbarToggler">
         <ul class="navbar-nav mr-auto mt-2 mt-md-0">
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>

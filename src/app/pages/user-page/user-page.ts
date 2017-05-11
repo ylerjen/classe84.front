@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
+import { IUserState } from '../../stores/IState';
 import { UsersService } from '../../services/users.service';
 
 @Component({
-  selector: 'user-page',
-  templateUrl: './user-page.html',
-  styleUrls: ['./user-page.scss']
+    selector: 'user-page',
+    templateUrl: './user-page.html',
+    styleUrls: ['./user-page.scss']
 })
 export class UserPage implements OnInit {
 
-  constructor(private usersService: UsersService) { }
+    private _user$;
+
+    constructor(private _usersService: UsersService, private _store: Store<IUserState>) { }
 
     ngOnInit(): void {
-        this.usersService.get(5);
+        this._user$ = this._store.select('userlistState');
+        this._usersService.get(5);
     }
 
 }

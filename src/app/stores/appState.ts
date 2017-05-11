@@ -10,7 +10,6 @@ export interface IAppState {
     userState: IUserState;
 }
 
-
 export const appState = {
     notificationState: notificationReducer,
     userlistState: userlistReducer,
