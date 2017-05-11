@@ -1,6 +1,6 @@
 <div class="notifier">
     <div class="notifier__item" *ngFor="let notif of _notifStore$ | async">
         <span class="nottifier__item-msg">{{notif.msg}}</span>
-        <button class="notifier__item-close">&times;</button>
+        <button class="notifier__item-close" (click)="removeNotif($event, notif)">&times;</button>
     </div>
 </div>
