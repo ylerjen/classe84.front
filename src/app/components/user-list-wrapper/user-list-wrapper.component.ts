@@ -24,7 +24,7 @@ export class UserListWrapperComponent implements OnInit {
     constructor(private usersService: UsersService, private _store: Store<IUserListState>) { }
 
     ngOnInit(): void {
-        this._store.select('userList')
+        this._store.select('userlistState')
             .subscribe( (uState: IUserListState) => {
                 if (uState) {
                     this.usersList = uState.userList;
