@@ -1,8 +1,12 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { User, EGender } from '../models/User';
-import { IUserState } from './IState';
-import { GET_USER, ASYNC_USER_START, ASYNC_USER_SUCCESS } from '../actions/users.actions';
+import { User, EGender } from '../../models/User';
+import { GET_USER, ASYNC_USER_START, ASYNC_USER_SUCCESS } from '../../actions/users.actions';
+
+export interface IUserState {
+    user: User;
+    isLoading: boolean;
+}
 
 const initialState: IUserState = {
     user: new User(),

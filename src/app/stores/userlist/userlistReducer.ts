@@ -1,9 +1,13 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { User, EGender } from '../models/User';
-import { IUserListState } from './IState';
-import { ASYNC_USERLIST_START, ASYNC_USERLIST_SUCCESS, ADD_USER, DELETE_USER, EMPTY } from '../actions/users.actions';
+import { User, EGender } from '../../models/User';
+import { ASYNC_USERLIST_START, ASYNC_USERLIST_SUCCESS, ADD_USER, DELETE_USER, EMPTY } from '../../actions/users.actions';
 
+export interface IUserListState {
+    userList: User[];
+    isLoading: boolean;
+    userFilter: string;
+}
 
 export const initialState: IUserListState = {
     userList: [],

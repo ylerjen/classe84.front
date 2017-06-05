@@ -1,9 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { Notification, ENotificationType } from '../models/Notification';
-import { ADD_NOTIF, DELETE_NOTIF, CLEAR_NOTIF } from '../actions/notifications.actions';
-
-let u = new Notification('lorem20', ENotificationType.INFO);
+import { Notification, ENotificationType } from '../../models/Notification';
+import { ADD_NOTIF, DELETE_NOTIF, CLEAR_NOTIF } from '../../actions/notifications.actions';
 
 export const initialState: Array<Notification> = [];
 

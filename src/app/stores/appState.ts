@@ -1,8 +1,8 @@
-import { IUserListState, IUserState } from './IState';
 import { Notification } from '../models/Notification';
-import { notificationReducer } from './notificationReducer';
-import { userlistReducer,  } from './userlistReducer';
-import { userReducer } from './userReducer';
+import { notificationReducer } from './notifications/notifications.reducer';
+import { sessionReducer  } from './session/session.reducer';
+import { IUserListState, userlistReducer } from './userlist/userlistReducer';
+import { IUserState, userReducer } from './user/userReducer';
 
 export interface IAppState {
     notificationState;
@@ -13,5 +13,6 @@ export interface IAppState {
 export const appState = {
     notificationState: notificationReducer,
     userlistState: userlistReducer,
-    userState: userReducer
+    userState: userReducer,
+    sessionState: sessionReducer,
 };

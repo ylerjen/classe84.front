@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { User } from '../../models/User';
-import { IUserListState } from '../../stores/IState';
+import { IUserListState } from '../../stores/userlist/userlistReducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
-import { UsersService } from '../../services/users.service';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
     selector: 'app-user-list-wrapper',

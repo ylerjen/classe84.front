@@ -17,8 +17,16 @@
                 <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a href="#" class="nav-link disabled">Disabled</a>
             </li>
         </ul>
+        <span>
+            <a *ngIf="!isLoggedIn" href="#" class="btn btn-primary" (click)="requestSignIn($event)">
+                <i class="fa fa-sign-in"></i> Login
+            </a>
+            <a *ngIf="isLoggedIn" href="#" class="btn btn-primary" (click)="requestSignIn($event)">
+                <i class="fa fa-user"></i> Nom Prénom
+            </a>
+        </span>
     </div>
 </nav>

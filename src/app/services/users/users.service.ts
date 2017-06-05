@@ -4,12 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
 
-import { environment as env } from '../../environments/environment';
-import { IAppState } from '../stores/appState';
-import { User } from '../models/User';
-import { Notification, ENotificationType } from '../models/Notification';
-import { IUserListState } from '../stores/IState';
-import { addNotif, deleteNotif } from '../actions/notifications.actions';
+import { environment as env } from '../../../environments/environment';
+import { IAppState } from '../../stores/appState';
+import { User } from '../../models/User';
+import { Notification, ENotificationType } from '../../models/Notification';
+import { IUserListState } from '../../stores/userlist/userlistReducer';
+import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import { GET_USER,
     ADD_USER,
     DELETE_USER,
@@ -17,7 +17,7 @@ import { GET_USER,
     ASYNC_USER_SUCCESS,
     ASYNC_USERLIST_START,
     ASYNC_USERLIST_SUCCESS,
-    CHANGE_FILTER } from '../actions/users.actions';
+    CHANGE_FILTER } from '../../actions/users.actions';
 
 
 const BASE_URL = `${env.API_URL}/users`;
@@ -36,14 +36,14 @@ export class UsersService {
     }
 
     get(id: number) {
-        let endpoint = `${BASE_URL}/${id}`;
+        const endpoint = `${BASE_URL}/${id}`;
         this._authHttp.get(endpoint)
         .subscribe(
-            data => console.info(data),
+            data => console.log(data),
             err => console.log(endpoint, err),
             () => console.log('Request Complete')
         );
-        console.debug('get user', id);
+        console.log('get user', id);
         this._store.dispatch( { type: ASYNC_USER_START});
         this._authHttp.get(endpoint)
             .map(res => res.json())

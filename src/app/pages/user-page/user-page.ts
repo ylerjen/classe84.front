@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { IUserState } from '../../stores/IState';
-import { UsersService } from '../../services/users.service';
+import { IUserState } from '../../stores/user/userReducer';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
     selector: 'user-page',

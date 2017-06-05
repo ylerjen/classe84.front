@@ -5,6 +5,8 @@ export enum ENotificationType {
     ERROR,
 };
 
+export const DEFAULT_NOTIF_DURATION = 15000;
+
 export class Notification {
     id: number;
     msg: string;

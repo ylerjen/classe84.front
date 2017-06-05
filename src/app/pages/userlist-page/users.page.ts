@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { User } from '../../models/User';
-import { IUserState } from '../../stores/IState';
-import { UsersService } from '../../services/users.service';
+import { IUserState } from '../../stores/user/userReducer';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
     selector: 'users-page',

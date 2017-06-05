@@ -1,0 +1,29 @@
+<div class="modal fade" [ngClass]="{'show': isDisplayed}" [style.display]="(isDisplayed)? 'block': 'none'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Log you in</h5>
+        <button type="button" class="close" (click)="close()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginForm" novalidate>
+          <div class="form-group">
+            <label class="center-block">Email :</label>
+            <input type="text" class="form-control" formControlName="email" />    
+          </div>
+          <div class="form-group">
+            <label class="center-block">Password:</label>
+            <input type="password" class="form-control" formControlName="password" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="login()">Log me in</button>
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade" [ngClass]="{'show': isDisplayed}" [style.display]="(isDisplayed)? 'block': 'none'"></div>
