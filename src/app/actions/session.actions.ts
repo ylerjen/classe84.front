@@ -11,7 +11,3 @@ export function login(payload: string): Action {
 export function logout(payload: any): Action {
     return { type: LOGOUT, payload };
 }
-
-export function requestSignIn(isRequested: boolean) {
-    return { type: REQUEST_SIGNIN, payload: isRequested };
-}

@@ -37,12 +37,6 @@ export class UsersService {
 
     get(id: number) {
         const endpoint = `${BASE_URL}/${id}`;
-        this._authHttp.get(endpoint)
-        .subscribe(
-            data => console.log(data),
-            err => console.log(endpoint, err),
-            () => console.log('Request Complete')
-        );
         console.log('get user', id);
         this._store.dispatch( { type: ASYNC_USER_START});
         this._authHttp.get(endpoint)

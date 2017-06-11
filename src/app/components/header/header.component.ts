@@ -32,9 +32,4 @@ export class HeaderComponent implements OnInit {
     toggleCollapse(): void {
         this.isCollapsed = !this.isCollapsed;
     }
-
-    requestSignIn($event: MouseEvent): void {
-        $event.preventDefault();
-        this._loginSrv.requestSignIn(true);
-    }
 }

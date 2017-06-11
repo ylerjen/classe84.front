@@ -10,14 +10,12 @@ export interface ISessionUser {
 }
 
 export interface ISessionState {
-    requestSignIn: boolean;
     isLoggedIn: boolean;
     loggedUser: ISessionUser;
     token: string;
 }
 
 export const initialState: ISessionState = {
-    requestSignIn: false,
     isLoggedIn: false,
     loggedUser: null,
     token: ''
@@ -27,7 +25,6 @@ export function sessionReducer(state = initialState, action: Action): ISessionSt
     switch (action.type) {
         case LOGIN:
             return Object.assign({}, state, {
-                requestSignIn: true,
                 isLoggedIn: true,
                 loggedUser: action.payload.loggedUser,
                 token: action.payload.token
@@ -35,9 +32,6 @@ export function sessionReducer(state = initialState, action: Action): ISessionSt
 
         case LOGOUT:
             return initialState;
-
-        case REQUEST_SIGNIN:
-            return Object.assign({}, state, { requestSignIn: action.payload });
 
         default:
             return state;

@@ -24,7 +24,7 @@
             <a *ngIf="!isLoggedIn" class="btn btn-primary" routerLink="/login" routerLinkActive="active">
                 <i class="fa fa-sign-in"></i> Login
             </a>
-            <a *ngIf="isLoggedIn" href="#" class="btn btn-primary" (click)="requestSignIn($event)">
+            <a *ngIf="isLoggedIn" href="#" class="btn btn-primary" routerLink="/logout">
                 <i class="fa fa-user"></i> Nom Prénom
             </a>
         </span>
