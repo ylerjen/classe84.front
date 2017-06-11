@@ -1,13 +1,14 @@
 import { Notification } from '../models/Notification';
 import { notificationReducer } from './notifications/notifications.reducer';
-import { sessionReducer  } from './session/session.reducer';
+import { ISessionState, sessionReducer  } from './session/session.reducer';
 import { IUserListState, userlistReducer } from './userlist/userlistReducer';
 import { IUserState, userReducer } from './user/userReducer';
 
 export interface IAppState {
-    notificationState;
+    notificationState: Array<Notification>;
     userlistState: IUserListState;
     userState: IUserState;
+    sessionState: ISessionState;
 }
 
 export const appState = {
