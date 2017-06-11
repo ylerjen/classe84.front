@@ -14,7 +14,8 @@ import { AppComponent } from './app.component';
 import { HomePage } from './pages/home-page/home.page';
 import { AboutPage } from './pages/about-page/about.page';
 import { UsersPage } from './pages/userlist-page/users.page';
-import { UserPage } from './pages/user-page/user-page';
+import { UserPage } from './pages/user-page/user.page';
+import { LoginPage } from './pages/login-page/login.page';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -42,6 +43,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
         PanelComponent,
         UsersPage,
         UserPage,
+        LoginPage,
         UsersListComponent,
         UserListItemComponent,
         UserListFilterComponent,

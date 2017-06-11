@@ -11,7 +11,7 @@
                 <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/events" routerLinkActive="active">Evènements</a>
+                <a class="nav-link" routerLink="/events" routerLinkActive="active">Events</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
@@ -21,7 +21,7 @@
             </li>
         </ul>
         <span>
-            <a *ngIf="!isLoggedIn" href="#" class="btn btn-primary" (click)="requestSignIn($event)">
+            <a *ngIf="!isLoggedIn" class="btn btn-primary" routerLink="/login" routerLinkActive="active">
                 <i class="fa fa-sign-in"></i> Login
             </a>
             <a *ngIf="isLoggedIn" href="#" class="btn btn-primary" (click)="requestSignIn($event)">

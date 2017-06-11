@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 
@@ -11,6 +12,8 @@ import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../m
 import { login, logout, requestSignIn } from '../../actions/session.actions';
 import { ASYNC_USER_SUCCESS } from '../../actions/users.actions';
 
+
+const LS_KEY = 'app84LoginCreds';
 
 @Injectable()
 export class LoginService {
@@ -28,13 +31,18 @@ export class LoginService {
         this._store.dispatch(requestSignIn(state));
     }
 
-    login(creds: ICredentials): void {
+    login(creds: ICredentials, successCallback?): void {
         const endpoint = `${env.API_URL}/login`;
         this._http.post(endpoint, creds)
             .map(res => res.json())
-            .map(payload => login(payload))
+            .map(payload => {
+                const token: string = payload.token;
+                localStorage.setItem('token', token);
+                this._store.dispatch(login(payload.token));
+                return payload;
+            })
             .subscribe(
-                loginAction => this._store.dispatch(loginAction),
+                successCallback,
                 err => {
                     console.log(err);
                     const u = new Notification(err._body || err.message, ENotificationType.ERROR);
@@ -61,6 +69,17 @@ export class LoginService {
                 () => console.log('Request Complete')
             );
 
+    }
+
+    getRememberedCreds(): ICredentials {
+        const str = localStorage.getItem(LS_KEY);
+        if (typeof str === 'string') {
+            return JSON.parse(str);
+        }
+    }
+    setRememberedCreds(creds: ICredentials): void {
+        const str = JSON.stringify(creds);
+        localStorage.setItem(LS_KEY, str);
     }
 
     /**

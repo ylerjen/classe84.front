@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { IAppState } from '../../stores/appState';
@@ -14,31 +15,29 @@ import { LoginService } from '../../services/login/login.service';
 })
 export class LoginFormComponent implements OnInit {
 
-    private loginForm: FormGroup;
-
-    private isDisplayed = false;
+    public loginForm: FormGroup;
 
     constructor(
-        private fb: FormBuilder,
+        private _fb: FormBuilder,
         private _loginSrv: LoginService,
-        private _store: Store<IAppState>
+        private _route: ActivatedRoute,
+        private _router: Router,
     ) {
         this.createForm();
     }
 
     ngOnInit(): void {
-        this._store.select('sessionState')
-            .subscribe((sState: ISessionState) => {
-                if (sState) {
-                    this.isDisplayed = (sState.requestSignIn && !sState.isLoggedIn);
-                }
-            });
+        const creds = this._loginSrv.getRememberedCreds();
+        if (creds) {
+            this.loginForm.setValue(creds);
+        }
     }
 
     createForm() {
-        this.loginForm = this.fb.group({
-            email: 'yann@example.org',
-            password: 'password'
+        this.loginForm = this._fb.group({
+            email: ['', Validators.required],
+            password: ['', Validators.required],
+            remember: false
         });
     }
 
@@ -47,23 +46,21 @@ export class LoginFormComponent implements OnInit {
     }
 
     login() {
+        const cb = () => {
+            this._route.params
+                .subscribe( (data: Params) => {
+                    if (data.redirect) {
+                        this._router.navigate([data.redirect]);
+                    }
+                    console.log(data);
+
+                });
+        };
         const creds: ICredentials = this.loginForm.value;
-        this._loginSrv.login(creds);
-    }
-
-    toggleDisplay(shouldDisplay) {
-        let newDisplayState = !this.isDisplayed;
-        if (typeof shouldDisplay !== 'boolean') {
-            newDisplayState = shouldDisplay;
+        if (creds.remember) {
+            this._loginSrv.setRememberedCreds(creds);
         }
-        this.isDisplayed = !this.isDisplayed;
-        console.log(this.isDisplayed);
+        this._loginSrv.login(creds, cb);
     }
-
-    close() {
-        this.resetForm();
-        this._loginSrv.requestSignIn(false);
-    }
-
 
 }
