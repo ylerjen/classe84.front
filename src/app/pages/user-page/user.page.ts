@@ -6,8 +6,8 @@ import { UsersService } from '../../services/users/users.service';
 
 @Component({
     selector: 'user-page',
-    templateUrl: './user-page.html',
-    styleUrls: ['./user-page.scss']
+    templateUrl: './user.page.html',
+    styleUrls: ['./user.page.scss']
 })
 export class UserPage implements OnInit {
 
@@ -17,7 +17,12 @@ export class UserPage implements OnInit {
 
     ngOnInit(): void {
         this._user$ = this._store.select('userlistState');
-        this._usersService.get(5);
+        this._store.select('sessionState');
+        this.fetchUser(6);
+    }
+
+    fetchUser(id: number) {
+        this._usersService.get(id);
     }
 
 }
