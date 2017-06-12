@@ -18,7 +18,6 @@ export class UserPage implements OnInit {
     ngOnInit(): void {
         this._user$ = this._store.select('userlistState');
         this._store.select('sessionState');
-        this.fetchUser(6);
     }
 
     fetchUser(id: number) {
