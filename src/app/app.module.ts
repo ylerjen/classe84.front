@@ -10,6 +10,8 @@ import { IAppState, appState } from './stores/appState';
 import { UserModule } from './modules/user.module';
 import { AuthModule } from './modules/auth.module';
 import { appRoutes } from './config/router.config';
+import { UsersService } from './services/users/users.service';
+import { LoginService } from './services/login/login.service';
 import { NotificationService } from './services/notification/notification.service';
 import { AppComponent } from './app.component';
 import { HomePage } from './pages/home-page/home.page';
@@ -22,8 +24,6 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { UsersService } from './services/users/users.service';
-import { LoginService } from './services/login/login.service';
 import { UserListFilterComponent } from './components/user-list-filter/user-list-filter.component';
 import { UserListWrapperComponent } from './components/user-list-wrapper/user-list-wrapper.component';
 import { UserViewComponent } from './components/user-view/user-view.component';
