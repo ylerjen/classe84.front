@@ -1,6 +1,6 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { User, EGender } from '../../models/User';
+import { User } from '../../models/User';
 import { GET_USER, ASYNC_USER_START, ASYNC_USER_SUCCESS } from '../../actions/users.actions';
 
 export interface IUserState {
