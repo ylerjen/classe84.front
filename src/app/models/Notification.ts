@@ -21,3 +21,4 @@ export class Notification {
         this.createdAt = now;
     }
 }
+ 

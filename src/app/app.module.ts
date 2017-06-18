@@ -10,6 +10,7 @@ import { IAppState, appState } from './stores/appState';
 import { UserModule } from './modules/user.module';
 import { AuthModule } from './modules/auth.module';
 import { appRoutes } from './config/router.config';
+import { NotificationService } from './services/notification/notification.service';
 import { AppComponent } from './app.component';
 import { HomePage } from './pages/home-page/home.page';
 import { AboutPage } from './pages/about-page/about.page';

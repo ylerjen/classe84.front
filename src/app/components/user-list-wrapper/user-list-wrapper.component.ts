@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
 
 import { User } from '../../models/User';
 import { IUserListState } from '../../stores/userlist/userlistReducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { UsersService } from '../../services/users/users.service';
+import { NotificationService } from '../../services/notification/notification.service';
 
 @Component({
     selector: 'app-user-list-wrapper',
@@ -21,7 +24,11 @@ export class UserListWrapperComponent implements OnInit {
     private usersList: User[] = [];
     private filteredList: User[] = [];
 
-    constructor(private usersService: UsersService, private _store: Store<IUserListState>) { }
+    constructor(
+        private _usersService: UsersService,
+        private _store: Store<IUserListState>,
+        private _notifSrvc: NotificationService
+    ) { }
 
     ngOnInit(): void {
         this._store.select('userlistState')
@@ -32,6 +39,7 @@ export class UserListWrapperComponent implements OnInit {
                     this.isLoading = uState.isLoading;
                 }
             });
+            this.reloadAll();
     }
 
     filterList(filter) {
@@ -47,7 +55,18 @@ export class UserListWrapperComponent implements OnInit {
     }
 
     reloadAll() {
-        this.usersService.reload();
+        this._usersService.reload()
+            .catch( (error: Response) => {
+                let msg;
+                if (error.status === 0) {
+                    msg = 'API unreachable. Please contact the administrator.';
+                } else {
+                    msg = error.body || error.statusText;
+                }
+                this._notifSrvc.notifyError(msg);
+                return Observable.throw(error.body);
+            })
+            .subscribe(action => this._store.dispatch(action));
     }
 
     filterChange(filter) {

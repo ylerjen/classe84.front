@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
 
 import { environment as env } from '../../../environments/environment';
@@ -25,33 +25,25 @@ const BASE_URL = `${env.API_URL}/users`;
 @Injectable()
 export class UsersService {
 
-    constructor(private _http: Http, private _store: Store<IAppState>, private _authHttp: AuthHttp) {}
+    constructor(
+        private _http: Http,
+        private _store: Store<IAppState>,
+        private _authHttp: AuthHttp
+    ) { }
 
-    reload() {
+    reload(): Observable<Action> {
         this._store.dispatch( { type: ASYNC_USERLIST_START});
-        this._http.get(BASE_URL)
+        return this._http.get(BASE_URL)
             .map(res => res.json())
-            .map(payload => ({ type: ASYNC_USERLIST_SUCCESS, payload }))
-            .subscribe(action => this._store.dispatch(action));
+            .map(payload => ({ type: ASYNC_USERLIST_SUCCESS, payload }));
     }
 
-    get(id: number) {
+    get(id: number): Observable<Action> {
         const endpoint = `${BASE_URL}/${id}`;
         console.log('get user', id);
         this._store.dispatch( { type: ASYNC_USER_START});
-        this._authHttp.get(endpoint)
-            .map(res => res.json())
-            .map(payload => ({ type: ASYNC_USER_SUCCESS, payload }))
-            .subscribe(
-                action => {
-                    this._store.dispatch(action);
-                },
-                err => {
-                    const u = new Notification(err._body || err.message, ENotificationType.ERROR);
-                    this._store.dispatch(addNotif(u));
-                    setTimeout(() => this._store.dispatch(deleteNotif(u)), 15000);
-                }
-            );
+        return this._authHttp.get(endpoint)
+            .map(res => res.json());
     }
 
     add(user: User) {
