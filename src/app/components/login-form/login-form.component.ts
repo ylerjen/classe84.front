@@ -49,10 +49,10 @@ export class LoginFormComponent implements OnInit {
         const cb = () => {
             this._route.params
                 .subscribe( (data: Params) => {
-                    if (data.redirect) {
-                        this._router.navigate([data.redirect]);
-                    }
                     console.log(data);
+                    if (data.redirectTo) {
+                        this._router.navigate([data.redirectTo]);
+                    }
 
                 });
         };

@@ -10,6 +10,7 @@ import { IAppState, appState } from './stores/appState';
 import { UserModule } from './modules/user.module';
 import { AuthModule } from './modules/auth.module';
 import { appRoutes } from './config/router.config';
+import { AuthService } from './services/auth/auth.service';
 import { UsersService } from './services/users/users.service';
 import { LoginService } from './services/login/login.service';
 import { NotificationService } from './services/notification/notification.service';
@@ -65,7 +66,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
         HttpModule,
         AuthModule
     ],
-    providers: [UsersService, LoginService],
+    providers: [UsersService, LoginService, NotificationService, AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { AuthService } from '../services/auth/auth.service';
 import { HomePage } from '../pages/home-page/home.page';
 import { AboutPage } from '../pages/about-page/about.page';
 import { UsersPage } from '../pages/userlist-page/users.page';
@@ -11,6 +12,7 @@ export const ROUTE_URL: { [key: string]: string } = {
     about: 'about',
     login: 'login',
     events: 'events',
+    eventById: 'events/:id',
     users: 'users',
     userById: 'users/:id'
 };
@@ -21,7 +23,8 @@ export const appRoutes: Routes = [
         component: HomePage
     }, {
         path: ROUTE_URL.userById,
-        component: UserPage
+        component: UserPage,
+        canActivate: [ AuthService ],
     }, {
         path: ROUTE_URL.users,
         component: UsersPage
