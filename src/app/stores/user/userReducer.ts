@@ -9,7 +9,7 @@ export interface IUserState {
 }
 
 const initialState: IUserState = {
-    user: new User(),
+    user: undefined,
     isLoading: false
 };
 
@@ -23,5 +23,8 @@ export function userReducer(state: IUserState = initialState, action: Action): I
 
         case ASYNC_USER_SUCCESS:
             return Object.assign({}, state, { user: action.payload, isLoading: false });
+
+        default:
+            return initialState;
     }
 }
