@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 
 import { notificationReducer, initialState } from './notifications.reducer';
 
-describe('userlistReducer', () => {
+describe('notificationReducer', () => {
 
     it('should return the default state on init', () => {
         const action = {} as any;
