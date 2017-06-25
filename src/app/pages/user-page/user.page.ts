@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 
+import 'rxjs/add/operator/switchMap';
+
 import { ROUTE_URL } from '../../config/router.config';
 import { User } from '../../models/User';
 import { IAppState } from '../../stores/appState';
@@ -30,7 +32,13 @@ export class UserPage implements OnInit {
         private _router: Router,
         private _userSrv: UsersService,
         private _loginService: LoginService,
-    ) { }
+    ) {
+        this._store.select('userState')
+            .subscribe( (userState: IUserState) => {
+                this.user = userState.user;
+                console.log(this.user);
+            });
+    }
 
     ngOnInit(): void {
         this._route.params
@@ -39,18 +47,22 @@ export class UserPage implements OnInit {
                 return this._store.select('sessionState');
             })
             .subscribe( (sessionState: ISessionState) => {
-                if (sessionState.isLoggedIn) {
+                // if (sessionState.isLoggedIn) {
                     this.fetchUser(this._id)
                         .map(payload => ({ type: ASYNC_USER_SUCCESS, payload }))
                         .subscribe(action => this._store.dispatch(action));
-                } else {
-                    console.log('NOT LOGGED IN => ADD REDIRECT');
-                }
+                // } else {
+                //     console.log('NOT LOGGED IN => ADD REDIRECT');
+                // }
             });
     }
 
     fetchUser(id: number): Observable<Action> {
         return this._userSrv.get(id);
+    }
+
+    deleteRequest(userId: number): void {
+        throw new Error('Not implemented yet');
     }
 
 }
