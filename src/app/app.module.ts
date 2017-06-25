@@ -27,11 +27,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { UserListFilterComponent } from './components/user-list-filter/user-list-filter.component';
 import { UserListWrapperComponent } from './components/user-list-wrapper/user-list-wrapper.component';
-import { UserViewComponent } from './components/user-view/user-view.component';
 import { AddressListComponent } from './components/address-list/address-list.component';
 import { AddressComponent } from './components/address/address.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UserDetailViewerComponent } from './components/user-detail-viewer/user-detail-viewer.component';
+import { UserFormViewerComponent } from './components/user-form-viewer/user-form-viewer.component';
 
 
 
@@ -50,11 +54,15 @@ import { LoginFormComponent } from './components/login-form/login-form.component
         UserListItemComponent,
         UserListFilterComponent,
         UserListWrapperComponent,
-        UserViewComponent,
         AddressListComponent,
         AddressComponent,
         NotifierComponent,
         LoginFormComponent,
+        UserFormComponent,
+        ValidationErrorComponent,
+        UserDetailComponent,
+        UserDetailViewerComponent,
+        UserFormViewerComponent,
     ],
     imports: [
         BrowserModule,
