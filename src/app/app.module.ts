@@ -1,5 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -66,6 +68,7 @@ import { UserFormViewerComponent } from './components/user-form-viewer/user-form
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         StoreModule.provideStore(appState),
         RouterModule.forRoot(appRoutes),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),  // for redux debug => storeDevtools instrument
