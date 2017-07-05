@@ -10,7 +10,15 @@ export class NotificationService {
     constructor(private _store: Store<Array<Notification>>) { }
 
     notifyError(msg: string): void {
-        const n = new Notification(msg, ENotificationType.ERROR);
+        this.notify(msg, ENotificationType.ERROR);
+    }
+
+    notifySuccess(msg: string): void {
+        this.notify(msg, ENotificationType.SUCCESS);
+    }
+
+    notify(msg: string, type: ENotificationType): void {
+        const n = new Notification(msg, type);
         this._store.dispatch(addNotif(n));
         setTimeout(() => this._store.dispatch(deleteNotif(n)), 15000);
     }
