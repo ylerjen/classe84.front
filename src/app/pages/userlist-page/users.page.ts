@@ -7,10 +7,12 @@ import { IUserState } from '../../stores/user/userReducer';
 import { UsersService } from '../../services/users/users.service';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'users-page',
     templateUrl: './users.page.html',
     // styleUrls: ['./users.page.scss']
 })
+// tslint:disable-next-line:component-class-suffix
 export class UsersPage implements OnInit {
 
     constructor(private usersService: UsersService) {}
@@ -20,7 +22,7 @@ export class UsersPage implements OnInit {
     }
 
     addUser(user: User) {
-        this.usersService.add(user);
+        this.usersService.create(user);
     }
 
     deleteUser(user: User) {

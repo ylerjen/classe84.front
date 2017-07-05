@@ -1,5 +1,5 @@
 <form class="card-block" [formGroup]="userForm" (ngSubmit)="onSubmit($event)" novalidate>
-    
+    <input type="hidden" formControlName="id" />
     <div class="form-group">
         <label>Gender</label>
         <div class="form-check">
@@ -149,7 +149,7 @@
     <div class="row">
         <div class="col-md-offset-4 col-lg-offset-6">
             <button type="submit" [disabled]="userForm.status !== 'VALID'" class="btn btn-primary">Save</button>
-            <a routerLink="/users" routerLinkActive="active" class="btn btn-default">Cancel</a>
+            <button (click)="onCancel($event)" class="btn btn-link">Cancel</button>
         </div>
     </div>
 </form>

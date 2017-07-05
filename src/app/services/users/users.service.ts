@@ -11,8 +11,10 @@ import { Notification, ENotificationType } from '../../models/Notification';
 import { IUserListState } from '../../stores/userlist/userlistReducer';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import { GET_USER,
-    ADD_USER,
-    DELETE_USER,
+    addUser,
+    updateUser,
+    deleteUser,
+    changeFilter,
     ASYNC_USER_START,
     ASYNC_USER_SUCCESS,
     ASYNC_USERLIST_START,
@@ -38,24 +40,42 @@ export class UsersService {
             .map(payload => ({ type: ASYNC_USERLIST_SUCCESS, payload }));
     }
 
-    get(id: number): Observable<Action> {
+    get(id: number): Observable<Response> {
         const endpoint = `${BASE_URL}/${id}`;
-        console.log('get user', id);
         this._store.dispatch( { type: ASYNC_USER_START});
         return this._authHttp.get(endpoint)
             .map(res => res.json());
     }
 
-    add(user: User) {
+    create(user: User): Observable<Response> {
         console.log('add user from service');
+        this._store.dispatch(addUser(user));
+        return this._authHttp.post(BASE_URL, user)
+            .map(res => res.json());
+    }
+
+    update(user: User): Observable<Response> {
+        const endpoint = `${BASE_URL}/${user.id}`;
+        this._store.dispatch(updateUser(user));
+        console.log('add user from service');
+        return this._authHttp.put(endpoint, user)
+            .map(res => res.json());
+    }
+
+    save(user: User): Observable<Response>  {
+        if (user.id) {
+            return this.update(user);
+        } else {
+            return this.create(user);
+        }
     }
 
     delete(user: User) {
-        console.log(DELETE_USER + ' from service');
-        this._store.dispatch({ type: DELETE_USER, payload: user });
+        console.log('delete from service');
+        this._store.dispatch(deleteUser(user));
     }
 
     updateFilter(filter: string) {
-        this._store.dispatch({ type: CHANGE_FILTER });
+        this._store.dispatch(changeFilter(filter));
     }
 }

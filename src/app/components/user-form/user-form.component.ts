@@ -14,10 +14,10 @@ export class UserFormComponent implements OnInit {
     user: User = new User();
 
     @Output()
-    saveEvent: EventEmitter<User> = new EventEmitter<User>();
+    saveEvent = new EventEmitter<User>();
 
     @Output()
-    cancelEvent = new EventEmitter();
+    cancelEvent = new EventEmitter<number>();
 
     public userForm: FormGroup;
 
@@ -29,6 +29,7 @@ export class UserFormComponent implements OnInit {
 
     createForm() {
         this.userForm = this.fb.group({
+            id: [this.user.id || ''],
             gender: [this.user.gender || '', Validators.required ],
             last_name: [this.user.last_name || '', Validators.required ],
             maiden_name: [this.user.maiden_name || '' ],
@@ -49,8 +50,9 @@ export class UserFormComponent implements OnInit {
       this.saveEvent.emit(this.userForm.value);
   }
 
-  onCancel(event: Event) {
+  onCancel(event: MouseEvent) {
       event.preventDefault();
-      this.cancelEvent.emit();
+      console.log('cancel', event);
+      this.cancelEvent.emit(this.user.id);
   }
 }
