@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "sass/externals.scss",
-        "sass/custom.scss"
+        "sass/custom.scss",
+        "../node_modules/font-awesome/css/font-awesome.min.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
