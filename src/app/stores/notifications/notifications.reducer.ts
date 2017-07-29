@@ -5,7 +5,7 @@ import { ADD_NOTIF, DELETE_NOTIF, CLEAR_NOTIF } from '../../actions/notification
 
 export const initialState: Array<Notification> = [];
 
-export function notificationReducer(state = initialState, action: Action) {
+export function notificationReducer(state: Array<Notification> = initialState, action: Action): Array<Notification> {
     switch (action.type) {
         case ADD_NOTIF:
             return [
