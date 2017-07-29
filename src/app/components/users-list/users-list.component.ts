@@ -30,8 +30,8 @@ import { User } from '../../models/User';
 export class UsersListComponent {
 
     @Input()
-    private isLoading = true;
+    public isLoading = true;
 
     @Input()
-    private usersList: User[] = [];
+    public usersList: User[] = [];
 }
