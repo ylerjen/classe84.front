@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { IAppState } from '../../stores/appState';
+import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { LoginService } from '../../services/login/login.service';
 
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
     constructor(
         private _loginSrv: LoginService,
-        private _store: Store<IAppState>,
+        private _store: Store<IGlobalState>,
     ) { }
 
     ngOnInit(): void {

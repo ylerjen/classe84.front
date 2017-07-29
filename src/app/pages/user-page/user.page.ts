@@ -7,7 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { ROUTE_URL } from '../../config/router.config';
 import { User } from '../../models/User';
-import { IAppState } from '../../stores/appState';
+import { IGlobalState } from '../../stores/globalState';
 import { IUserState } from '../../stores/user/userReducer';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { ASYNC_USER_SUCCESS } from '../../actions/users.actions';
@@ -27,7 +27,7 @@ export class UserPage implements OnInit {
     private _id: number;
 
     constructor(
-        private _store: Store<IAppState>,
+        private _store: Store<IGlobalState>,
         private _route: ActivatedRoute,
         private _router: Router,
         private _userSrv: UsersService,

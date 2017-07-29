@@ -5,7 +5,7 @@ import { Store, Action } from '@ngrx/store';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { ROUTE_URL } from '../../config/router.config';
-import { IAppState } from '../../stores/appState';
+import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
 
 export const LS_TOKEN_KEY = 'jwt-token';
@@ -15,7 +15,7 @@ export class AuthService implements CanActivate {
     private _isLoggedIn = false;
 
     constructor(
-        private _store: Store<IAppState>,
+        private _store: Store<IGlobalState>,
         private _router: Router,
     ) {
         console.log('AuthService#ctor called', this._isLoggedIn);
@@ -41,7 +41,7 @@ export class AuthService implements CanActivate {
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     const config = new AuthConfig({
         tokenName: LS_TOKEN_KEY,
-        tokenGetter: (() => sessionStorage.getItem(LS_TOKEN_KEY)),
+        tokenGetter: (() => localStorage.getItem(LS_TOKEN_KEY)),
         globalHeaders: [{ 'Content-Type': 'application/json' }],
         // noJwtError: true, // true = if jwt is missing fallback to simple http
     });

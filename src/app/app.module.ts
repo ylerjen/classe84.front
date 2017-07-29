@@ -8,10 +8,11 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { IAppState, appState } from './stores/appState';
+import { IGlobalState, globalState } from './stores/globalState';
 import { UserModule } from './modules/user.module';
 import { AuthModule } from './modules/auth.module';
 import { appRoutes } from './config/router.config';
+import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { UsersService } from './services/users/users.service';
 import { LoginService } from './services/login/login.service';
@@ -69,7 +70,7 @@ import { UserFormViewerComponent } from './components/user-form-viewer/user-form
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.provideStore(appState),
+        StoreModule.provideStore(globalState),
         RouterModule.forRoot(appRoutes),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),  // for redux debug => storeDevtools instrument
         FormsModule,
@@ -77,7 +78,13 @@ import { UserFormViewerComponent } from './components/user-form-viewer/user-form
         HttpModule,
         AuthModule
     ],
-    providers: [UsersService, LoginService, NotificationService, AuthService],
+    providers: [
+        AppService,
+        AuthService,
+        LoginService,
+        NotificationService,
+        UsersService,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

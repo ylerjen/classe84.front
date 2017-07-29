@@ -5,7 +5,7 @@ import { Store, Action } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
 
 import { environment as env } from '../../../environments/environment';
-import { IAppState } from '../../stores/appState';
+import { IGlobalState } from '../../stores/globalState';
 import { User } from '../../models/User';
 import { Notification, ENotificationType } from '../../models/Notification';
 import { IUserListState } from '../../stores/userlist/userlistReducer';
@@ -29,7 +29,7 @@ export class UsersService {
 
     constructor(
         private _http: Http,
-        private _store: Store<IAppState>,
+        private _store: Store<IGlobalState>,
         private _authHttp: AuthHttp
     ) { }
 

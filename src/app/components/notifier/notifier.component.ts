@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { IAppState } from '../../stores/appState';
+import { IGlobalState } from '../../stores/globalState';
 import { Notification } from '../../models/Notification';
 import { DELETE_NOTIF } from '../../actions/notifications.actions';
 
@@ -15,7 +15,7 @@ export class NotifierComponent {
 
     private _notifStore$: Observable<Array<Notification>>;
 
-    constructor(private _store: Store<IAppState>) {
+    constructor(private _store: Store<IGlobalState>) {
         this._notifStore$ = this._store.select('notificationState');
     }
 

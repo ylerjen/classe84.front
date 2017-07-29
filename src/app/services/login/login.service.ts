@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 
 import { environment as env } from '../../../environments/environment';
-import { IAppState } from '../../stores/appState';
+import { IGlobalState } from '../../stores/globalState';
 import { ICredentials } from '../../models/Login';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../models/Notification';
@@ -22,7 +22,7 @@ export class LoginService {
     constructor(
         private _http: Http,
         // private _http: AuthHttp,
-        private _store: Store<IAppState>
+        private _store: Store<IGlobalState>
     ) { }
 
     login(creds: ICredentials, successCallback?): void {
@@ -31,7 +31,7 @@ export class LoginService {
             .map(res => res.json())
             .map(payload => {
                 const token: string = payload.token;
-                sessionStorage.setItem(LS_TOKEN_KEY, token);
+                localStorage.setItem(LS_TOKEN_KEY, token);
                 this._store.dispatch(login(payload.token));
                 return payload;
             })
@@ -54,11 +54,14 @@ export class LoginService {
             .subscribe(
                 logoutAction => {
                     this._store.dispatch(logoutAction);
-                    sessionStorage.removeItem(LS_TOKEN_KEY);
+                    localStorage.removeItem(LS_TOKEN_KEY);
                 },
                 err => {
                     console.log(err);
-                    const u = new Notification(err._body || err.message, ENotificationType.ERROR);
+                    if (err.status === 0) {
+                        err.statusText = 'API not reachable';
+                    }
+                    const u = new Notification(`Error : ${err.statusText}`, ENotificationType.ERROR);
                     this._store.dispatch(addNotif(u));
                     setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
                 }
@@ -67,14 +70,14 @@ export class LoginService {
     }
 
     getRememberedCreds(): ICredentials {
-        const str = sessionStorage.getItem(LS_CRED_KEY);
+        const str = localStorage.getItem(LS_CRED_KEY);
         if (typeof str === 'string') {
             return JSON.parse(str);
         }
     }
     setRememberedCreds(creds: ICredentials): void {
         const str = JSON.stringify(creds);
-        sessionStorage.setItem(LS_CRED_KEY, str);
+        localStorage.setItem(LS_CRED_KEY, str);
     }
 
     /**

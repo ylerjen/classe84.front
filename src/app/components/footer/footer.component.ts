@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Component, Input } from '@angular/core';
+
 
 @Component({
     selector: 'app-footer',
@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-    public frontVersion: string = environment.version;
-    public apiVersion: string = 'x.x.x';
+
+    @Input()
+    public version: { [any: string]: any };
 }
