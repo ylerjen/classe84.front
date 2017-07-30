@@ -31,8 +31,8 @@ export class LoginService {
             .map(res => res.json())
             .map(payload => {
                 const token: string = payload.token;
-                localStorage.setItem(LS_TOKEN_KEY, token);
-                this._store.dispatch(login(payload.token));
+                this.setTokenToStorage(token);
+                this._store.dispatch(login(token));
                 return payload;
             })
             .subscribe(
@@ -67,6 +67,14 @@ export class LoginService {
                 }
             );
 
+    }
+
+    getTokenFromStorage(): string {
+        return localStorage.getItem(LS_TOKEN_KEY);
+    }
+
+    setTokenToStorage(token: string): void {
+        localStorage.setItem(LS_TOKEN_KEY, token);
     }
 
     getRememberedCreds(): ICredentials {
