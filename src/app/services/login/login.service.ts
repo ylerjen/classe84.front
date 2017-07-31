@@ -54,7 +54,7 @@ export class LoginService {
             .subscribe(
                 logoutAction => {
                     this._store.dispatch(logoutAction);
-                    localStorage.removeItem(LS_TOKEN_KEY);
+                    this.deleteTokenInStorage();
                 },
                 err => {
                     console.log(err);
@@ -70,11 +70,15 @@ export class LoginService {
     }
 
     getTokenFromStorage(): string {
-        return localStorage.getItem(LS_TOKEN_KEY);
+        return sessionStorage.getItem(LS_TOKEN_KEY);
     }
 
     setTokenToStorage(token: string): void {
-        localStorage.setItem(LS_TOKEN_KEY, token);
+        sessionStorage.setItem(LS_TOKEN_KEY, token);
+    }
+
+    deleteTokenInStorage(): void {
+        sessionStorage.removeItem(LS_TOKEN_KEY);
     }
 
     getRememberedCreds(): ICredentials {

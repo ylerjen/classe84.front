@@ -15,17 +15,22 @@ import { UsersService } from '../../services/users/users.service';
 // tslint:disable-next-line:component-class-suffix
 export class UsersPage implements OnInit {
 
-    constructor(private usersService: UsersService) {}
+    public nextBirthdayUsers: Array<User> = [];
+
+    constructor(private _userSrvc: UsersService) {}
 
     ngOnInit(): void {
-        this.usersService.reload();
+        this._userSrvc.reload();
+        console.log('fetch next birthday');
+        this._userSrvc.fetchNextBirthday()
+            .subscribe( (userList: Array<User>) => this.nextBirthdayUsers = userList);
     }
 
     addUser(user: User) {
-        this.usersService.create(user);
+        this._userSrvc.create(user);
     }
 
     deleteUser(user: User) {
-        this.usersService.delete(user);
+        this._userSrvc.delete(user);
     }
 }

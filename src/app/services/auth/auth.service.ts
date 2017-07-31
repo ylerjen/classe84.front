@@ -18,7 +18,6 @@ export class AuthService implements CanActivate {
         private _store: Store<IGlobalState>,
         private _router: Router,
     ) {
-        console.log('AuthService#ctor called', this._isLoggedIn);
         this._store.select('sessionState')
             .subscribe((sessionState: ISessionState) => {
                 this._isLoggedIn = sessionState.isLoggedIn;
@@ -26,7 +25,6 @@ export class AuthService implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        console.log('AuthService#canActivate called and return', this._isLoggedIn);
         if (this._isLoggedIn) {
             return true;
         } else {
@@ -41,7 +39,7 @@ export class AuthService implements CanActivate {
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     const config = new AuthConfig({
         tokenName: LS_TOKEN_KEY,
-        tokenGetter: (() => localStorage.getItem(LS_TOKEN_KEY)),
+        tokenGetter: (() => sessionStorage.getItem(LS_TOKEN_KEY)),
         globalHeaders: [{ 'Content-Type': 'application/json' }],
         // noJwtError: true, // true = if jwt is missing fallback to simple http
     });

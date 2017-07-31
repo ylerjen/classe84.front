@@ -9,7 +9,13 @@
         <app-user-list-wrapper></app-user-list-wrapper>
     </section>
     <aside class="col-md-4">
-        <app-panel></app-panel>        
+        <app-panel>
+            <span class="title">Next birthday</span>
+            <span class="text" *ngIf="nextBirthdayUsers.length > 0">The next birthday is
+                <a routerLink="/users/{{person.id}}" *ngFor="let person of nextBirthdayUsers; ">{{person.first_name}} {{person.last_name}}</a>
+                on {{nextBirthdayUsers[0].birthdate | date: "dd-MM-yyyy"}}
+            </span>
+        </app-panel>        
         <app-panel></app-panel>
     </aside>
 </div>

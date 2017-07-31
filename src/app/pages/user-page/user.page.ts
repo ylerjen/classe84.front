@@ -57,7 +57,7 @@ export class UserPage implements OnInit {
             });
     }
 
-    fetchUser(id: number): Observable<Action> {
+    fetchUser(id: number): Observable<User> {
         return this._userSrv.get(id);
     }
 

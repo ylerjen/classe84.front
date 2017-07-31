@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
@@ -40,18 +40,18 @@ export class UsersService {
             .map(payload => ({ type: ASYNC_USERLIST_SUCCESS, payload }));
     }
 
-    get(id: number): Observable<Response> {
+    get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
         this._store.dispatch( { type: ASYNC_USER_START});
         return this._authHttp.get(endpoint)
-            .map(res => res.json());
+            .map( (resp: Response): User => resp.json());
     }
 
     create(user: User): Observable<Response> {
         console.log('add user from service');
         this._store.dispatch(addUser(user));
         return this._authHttp.post(BASE_URL, user)
-            .map(res => res.json());
+            .map( (resp: Response) => resp.json());
     }
 
     update(user: User): Observable<Response> {
@@ -59,7 +59,7 @@ export class UsersService {
         this._store.dispatch(updateUser(user));
         console.log('add user from service');
         return this._authHttp.put(endpoint, user)
-            .map(res => res.json());
+            .map( (resp: Response) => resp.json());
     }
 
     save(user: User): Observable<Response>  {
@@ -77,5 +77,10 @@ export class UsersService {
 
     updateFilter(filter: string) {
         this._store.dispatch(changeFilter(filter));
+    }
+
+    fetchNextBirthday(): Observable<Array<User>> {
+        return this._http.get(`${BASE_URL}/next-birthday`)
+            .map((resp: Response): Array<User> => resp.json());
     }
 }

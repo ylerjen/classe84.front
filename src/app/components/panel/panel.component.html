@@ -1,4 +1,8 @@
 <section class="card card-block">
-    <h4 class="card-title">Panel Title</h4>
-    <p class="card-text">Panel Content<br>Le prochain anniversaire de la classe est John Doh le 23.12.1984.</p>
+    <h4 class="card-title">
+        <ng-content select=".title"></ng-content>
+    </h4>
+    <p class="card-text">
+        <ng-content select=".text"></ng-content>
+    </p>
 </section>
