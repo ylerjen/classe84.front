@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 
 import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
-import { LoginService } from '../../services/login/login.service';
 
 @Component({
     selector: 'app-header',
@@ -17,7 +16,6 @@ export class HeaderComponent implements OnInit {
     public isLoggedIn = false;
 
     constructor(
-        private _loginSrv: LoginService,
         private _store: Store<IGlobalState>,
     ) { }
 

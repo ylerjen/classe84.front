@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { AppState, AppVersion } from './stores/app/appReducer';
 import { storeFrontVersion, storeApiVersion } from './actions/app.actions';
 import { AppService } from './services/app/app.service';
-import { LoginService } from './services/login/login.service';
+import { AuthService } from './services/auth/auth.service';
 import { login } from './actions/session.actions';
 
 @Component({
@@ -21,9 +21,9 @@ export class AppComponent implements OnInit {
     get version() { return this._version; }
 
     constructor(
-        private _appSrvc: AppService,
         private _store: Store<AppState>,
-        private _loginSrvc: LoginService
+        private _appSrvc: AppService,
+        private _authSrvc: AuthService
     ) {
         this._store.select('appState')
             .subscribe(
@@ -31,16 +31,16 @@ export class AppComponent implements OnInit {
                 (err) => console.error(err),
                 () => console.log('on finish')
             );
-        }
+    }
 
-        ngOnInit(): void {
-            this._store.dispatch(storeFrontVersion(environment.version));
-            this._appSrvc.getApiVersion().subscribe(
-                (resp) => this._store.dispatch(storeApiVersion(resp))
-            );
-            const token = this._loginSrvc.getTokenFromStorage();
-            if (token) {
-                this._store.dispatch(login(token));
-            }
+    ngOnInit(): void {
+        this._store.dispatch(storeFrontVersion(environment.version));
+        this._appSrvc.getApiVersion().subscribe(
+            (resp) => this._store.dispatch(storeApiVersion(resp))
+        );
+        const token = this._authSrvc.getTokenFromStorage();
+        if (token) {
+            this._store.dispatch(login(token));
+        }
     }
 }

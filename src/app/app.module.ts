@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -15,7 +15,6 @@ import { appRoutes } from './config/router.config';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { UsersService } from './services/users/users.service';
-import { LoginService } from './services/login/login.service';
 import { NotificationService } from './services/notification/notification.service';
 import { AppComponent } from './app.component';
 import { HomePage } from './pages/home-page/home.page';
@@ -39,6 +38,7 @@ import { ValidationErrorComponent } from './components/validation-error/validati
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserDetailViewerComponent } from './components/user-detail-viewer/user-detail-viewer.component';
 import { UserFormViewerComponent } from './components/user-form-viewer/user-form-viewer.component';
+import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 
 
 
@@ -66,6 +66,7 @@ import { UserFormViewerComponent } from './components/user-form-viewer/user-form
         UserDetailComponent,
         UserDetailViewerComponent,
         UserFormViewerComponent,
+        UnauthorizedPage,
     ],
     imports: [
         BrowserModule,
@@ -81,7 +82,6 @@ import { UserFormViewerComponent } from './components/user-form-viewer/user-form
     providers: [
         AppService,
         AuthService,
-        LoginService,
         NotificationService,
         UsersService,
     ],

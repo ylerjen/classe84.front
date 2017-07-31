@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { ICredentials } from '../../models/Login';
-import { LoginService } from '../../services/login/login.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
     selector: 'app-login-form',
@@ -19,7 +19,7 @@ export class LoginFormComponent implements OnInit {
 
     constructor(
         private _fb: FormBuilder,
-        private _loginSrv: LoginService,
+        private _authSrvc: AuthService,
         private _route: ActivatedRoute,
         private _router: Router,
     ) {
@@ -27,7 +27,7 @@ export class LoginFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const creds = this._loginSrv.getRememberedCreds();
+        const creds = this._authSrvc.getRememberedCreds();
         if (creds) {
             this.loginForm.setValue(creds);
         }
@@ -58,9 +58,9 @@ export class LoginFormComponent implements OnInit {
         };
         const creds: ICredentials = this.loginForm.value;
         if (creds.remember) {
-            this._loginSrv.setRememberedCreds(creds);
+            this._authSrvc.setRememberedCreds(creds);
         }
-        this._loginSrv.login(creds, cb);
+        this._authSrvc.login(creds, cb);
     }
 
 }

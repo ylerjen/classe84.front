@@ -17,6 +17,15 @@
             <i class="fa fa-trash"></i>
         </button>
     </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active"><i class="fa fa-phone"></i> Contact</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="/address" routerLinkActive="active"><i class="fa fa-address-book"></i> Addresses</a>
+        </li>
+    </ul>
+    <router-outlet></router-outlet>
     <!--<tabs>
         <tabpane title="Infos" icon="ico-phone">
             <div class="card-block">        

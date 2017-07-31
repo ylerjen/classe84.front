@@ -12,7 +12,6 @@ import { IUserState } from '../../stores/user/userReducer';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { ASYNC_USER_SUCCESS } from '../../actions/users.actions';
 import { UsersService } from '../../services/users/users.service';
-import { LoginService } from '../../services/login/login.service';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -31,7 +30,6 @@ export class UserPage implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private _userSrv: UsersService,
-        private _loginService: LoginService,
     ) {
         this._store.select('userState')
             .subscribe( (userState: IUserState) => {
@@ -49,8 +47,11 @@ export class UserPage implements OnInit {
             .subscribe( (sessionState: ISessionState) => {
                 // if (sessionState.isLoggedIn) {
                     this.fetchUser(this._id)
-                        .map(payload => ({ type: ASYNC_USER_SUCCESS, payload }))
-                        .subscribe(action => this._store.dispatch(action));
+                        .map( (payload: User): Action => ({ type: ASYNC_USER_SUCCESS, payload }))
+                        .subscribe(
+                            (action: Action) => this._store.dispatch(action),
+                            (error: any) => this._router.navigate(['unauthorized'])
+                        );
                 // } else {
                 //     console.log('NOT LOGGED IN => ADD REDIRECT');
                 // }

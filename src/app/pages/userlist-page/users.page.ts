@@ -21,7 +21,6 @@ export class UsersPage implements OnInit {
 
     ngOnInit(): void {
         this._userSrvc.reload();
-        console.log('fetch next birthday');
         this._userSrvc.fetchNextBirthday()
             .subscribe( (userList: Array<User>) => this.nextBirthdayUsers = userList);
     }
