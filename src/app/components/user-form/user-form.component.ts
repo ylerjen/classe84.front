@@ -8,10 +8,18 @@ import { User } from '../../models/User';
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent {
+
+    private _user: User;
 
     @Input()
-    user: User = new User();
+    set user(val: User) {
+        this._user = val;
+        this.createForm();
+    }
+    get user(): User {
+        return this._user;
+    }
 
     @Output()
     saveEvent = new EventEmitter<User>();
@@ -23,11 +31,10 @@ export class UserFormComponent implements OnInit {
 
     constructor(private fb: FormBuilder) { }
 
-    ngOnInit(): void {
-        this.createForm();
-    }
-
     createForm() {
+        if (!this.user) {
+            return;
+        }
         this.userForm = this.fb.group({
             id: [this.user.id || ''],
             gender: [this.user.gender || '', Validators.required ],
