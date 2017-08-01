@@ -17,41 +17,44 @@
             <i class="fa fa-trash"></i>
         </button>
     </div>
+    <div class="card-block">
+        <div class="text-muted">Member since {{user.created_at | date}}</div>
+        <div class="user-card">            
+            <p ng-show="user.mobile">
+                <span class="text-separator"><i class="fa fa-mobile"></i></span>
+                <span *ngIf="user.mobile"><a href="tel:{{user.mobile}}">{{user.mobile | phoneNb}}</a></span>
+                <span *ngIf="!user.mobile"><i>Not fullfilled</i></span>
+            </p>
+            <p ng-show="user.phone">
+                <span class="text-separator"><i class="fa fa-phone"></i></span>
+                <span><a href="tel:{{user.phone}}">{{user.phone | phoneNb}}</a></span>
+            </p>
+            <p ng-show="user.email">
+                <span class="text-separator"><i class="fa fa-at"></i></span>
+                <span><a href="mailto:{{user.email}}">{{user.email}}</a></span>
+            </p>
+            <p ng-show="user.fb_profile_name">
+                <span class="text-separator"><i class="fa fa-facebook-official"></i></span>
+                <span><a href="http://www.facebook.com/{{user.fb_profile_name}}">http://www.facebook.com/{{user.fb_profile_name}}</a></span>
+            </p>
+            <p ng-show="user.website">
+                <span class="text-separator"><i class="fa fa-globe"></i></span>
+                <span><a href="http://{{user.website}}" target="_blank">{{user.website}}</a></span>
+            </p>
+        </div>
+    </div>
     <ul class="nav nav-tabs">
         <li class="nav-item active">
-            <a class="nav-link" routerLink="/contact" routerLinkActive="active"><i class="fa fa-phone"></i> Contact</a>
+            <a class="nav-link" routerLink="contact" routerLinkActive="active"><i class="fa fa-phone"></i> Contact</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" routerLink="/address" routerLinkActive="active"><i class="fa fa-address-book"></i> Addresses</a>
+            <a class="nav-link" routerLink="address" routerLinkActive="active"><i class="fa fa-address-book"></i> Addresses</a>
         </li>
     </ul>
     <router-outlet></router-outlet>
     <!--<tabs>
         <tabpane title="Infos" icon="ico-phone">
-            <div class="card-block">        
-                <div class="user-card">            
-                    <p ng-show="user.mobile">
-                        <span class="text-separator"><i class="ico ico-phone"></i></span>
-                        <span><a href="tel:{{user.mobile}}">{{user.mobile | tel}}</a></span>
-                    </p>
-                    <p ng-show="user.phone">
-                        <span class="text-separator"><i class="ico ico-phone"></i></span>
-                        <span><a href="tel:{{user.phone}}">{{user.phone | tel}}</a></span>
-                    </p>
-                    <p ng-show="user.email">
-                        <span class="text-separator"><i class="ico ico-at"></i></span>
-                        <span><a href="mailto:{{user.email}}">{{user.email}}</a></span>
-                    </p>
-                    <p ng-show="user.fb_profile_name">
-                        <span class="text-separator"><i class="ico ico-facebook-official"></i></span>
-                        <span><a href="http://www.facebook.com/{{user.fb_profile_name}}">http://www.facebook.com/{{user.fb_profile_name}}</a></span>
-                    </p>
-                    <p ng-show="user.website">
-                        <span class="text-separator"><i class="ico ico-bookmark"></i></span>
-                        <span><a href="http://{{user.website}}" target="_blank">{{user.website}}</a></span>
-                    </p>
-                </div>
-            </div>
+            
         </tabpane>
         <tabpane title="Adresses" icon="ico-map-marker">            
             <addresses class="row card-block" addresses-attr="user.addresses" userid-attr="user.id"/>
