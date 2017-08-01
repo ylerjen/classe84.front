@@ -39,6 +39,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { UserDetailViewerComponent } from './components/user-detail-viewer/user-detail-viewer.component';
 import { UserFormViewerComponent } from './components/user-form-viewer/user-form-viewer.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
+import { NotFoundPage } from './pages/not-found/not-found.page';
 
 
 
@@ -67,6 +68,7 @@ import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
         UserDetailViewerComponent,
         UserFormViewerComponent,
         UnauthorizedPage,
+        NotFoundPage,
     ],
     imports: [
         BrowserModule,
