@@ -40,6 +40,7 @@ import { UserDetailViewerComponent } from './components/user-detail-viewer/user-
 import { UserFormViewerComponent } from './components/user-form-viewer/user-form-viewer.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
+import { PhoneNbPipe } from './pipes/phone-nb.pipe';
 
 
 
@@ -69,6 +70,7 @@ import { NotFoundPage } from './pages/not-found/not-found.page';
         UserFormViewerComponent,
         UnauthorizedPage,
         NotFoundPage,
+        PhoneNbPipe,
     ],
     imports: [
         BrowserModule,
