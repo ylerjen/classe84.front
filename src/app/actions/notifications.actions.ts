@@ -11,3 +11,6 @@ export function addNotif(payload: Notification): Action {
 export function deleteNotif(payload: Notification): Action {
     return { type: DELETE_NOTIF, payload };
 }
+export function clearNotif(): Action {
+    return { type: CLEAR_NOTIF };
+}
