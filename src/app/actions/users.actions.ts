@@ -2,17 +2,17 @@ import { Action } from '@ngrx/store';
 
 import { User } from '../models/User';
 
-export const ASYNC_USERLIST_START = 'ASYNC_USERLIST_START';
-export const ASYNC_USERLIST_SUCCESS = 'ASYNC_USERLIST_SUCCESS';
-export const ASYNC_USER_START = 'ASYNC_USER_START';
-export const ASYNC_USER_SUCCESS = 'ASYNC_USER_SUCCESS';
-export const GET_USER = 'GET_USER';
-export const ADD_USER = 'ADD_USER';
-export const UPDATE_USER = 'UPDATE_USER';
-export const DELETE_USER = 'DELETE_USER';
-export const RESET = 'RESET';
-export const EMPTY = 'EMPTY';
-export const CHANGE_FILTER = 'CHANGE_FILTER';
+export const ASYNC_USERLIST_START = 'USERLIST_ASYNC_START';
+export const ASYNC_USERLIST_SUCCESS = 'USERLIST_ASYNC_SUCCESS';
+export const ASYNC_USER_START = 'USER_ASYNC_START';
+export const ASYNC_USER_SUCCESS = 'USER_ASYNC_SUCCESS';
+export const GET_USER = 'USER_GET';
+export const ADD_USER = 'USER_ADD';
+export const UPDATE_USER = 'USER_UPDATE';
+export const DELETE_USER = 'USER_DELETE';
+export const RESET = 'USERLIST_RESET';
+export const EMPTY = 'USERLIST_EMPTY';
+export const CHANGE_FILTER = 'USERLIST_CHANGE_FILTER';
 
 
 export function addUser(payload: User): Action {
@@ -21,12 +21,14 @@ export function addUser(payload: User): Action {
         payload
     };
 }
+
 export function updateUser(payload: User): Action {
     return {
         type: UPDATE_USER,
         payload
     };
 }
+
 export function deleteUser(payload: User): Action {
     return {
         type: DELETE_USER,
