@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Response } from '@angular/http';
 
 import { environment } from '../environments/environment';
 import { AppState, AppVersion } from './stores/app/appReducer';
 import { storeFrontVersion, storeApiVersion } from './actions/app.actions';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
+import { NotificationService } from './services/notification/notification.service';
 import { login } from './actions/session.actions';
 
 @Component({
@@ -23,7 +25,8 @@ export class AppComponent implements OnInit {
     constructor(
         private _store: Store<AppState>,
         private _appSrvc: AppService,
-        private _authSrvc: AuthService
+        private _authSrvc: AuthService,
+        private _notifSrvc: NotificationService,
     ) {
         this._store.select('appState')
             .subscribe(
@@ -36,7 +39,10 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         this._store.dispatch(storeFrontVersion(environment.version));
         this._appSrvc.getApiVersion().subscribe(
-            (resp) => this._store.dispatch(storeApiVersion(resp))
+            (resp: string): void => this._store.dispatch(storeApiVersion(resp)),
+            (err: any): void => {
+                this._notifSrvc.notifyError(JSON.stringify(err));
+            }
         );
         const token = this._authSrvc.getTokenFromStorage();
         if (token) {
