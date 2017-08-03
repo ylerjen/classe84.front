@@ -1,3 +1,6 @@
+<div *ngIf="!(user && userForm)" class="mb-5 mt-5 text-center">
+    <i class="fa fa-2x fa-spinner fa-spin"></i>
+</div>
 <form 
     *ngIf="user && userForm"
     class="card-block" 
@@ -123,9 +126,9 @@
                 type="text"
                 id="usr-fb-profile"
                 class="form-control"
-                formControlName="facebook"
+                formControlName="fb_profile_name"
                 placeholder="hans.muster.2" />
-            <app-validation-error [errors]="userForm.get('facebook').errors"></app-validation-error>
+            <app-validation-error [errors]="userForm.get('fb_profile_name').errors"></app-validation-error>
         </div>
     </div>
     <div class="form-group">
@@ -134,9 +137,9 @@
             type="text"
             id="usr-fb-id"
             class="form-control"
-            formControlName="facebookId"
+            formControlName="fb_user_id"
             placeholder="2341230958" />
-        <app-validation-error [errors]="userForm.get('facebookId').errors"></app-validation-error>
+        <app-validation-error [errors]="userForm.get('fb_user_id').errors"></app-validation-error>
     </div>
     <div class="form-group">
         <div class="checkbox">
@@ -144,7 +147,7 @@
                 <input
                     type="checkbox"
                     id="user-is-activ"
-                    formControlName="isActive" />
+                    formControlName="is_active" />
                 Est membre actif de la classe</label>
         </div>
     </div>
