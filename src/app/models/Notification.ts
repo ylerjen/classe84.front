@@ -13,7 +13,7 @@ export class Notification {
     createdAt: Date;
     type: ENotificationType;
 
-    constructor(msg: string, type: ENotificationType) {
+    constructor(msg: string, type: ENotificationType = ENotificationType.ERROR) {
         const now = new Date();
         this.id = +now;
         this.msg = msg;
