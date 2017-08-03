@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { IUserState } from '../../stores/user/userReducer';
 import { User } from '../../models/User';
+import { updateUser } from '../../actions/users.actions';
 import { UsersService } from '../../services/users/users.service';
 import { NotificationService } from '../../services/notification/notification.service';
 
@@ -30,12 +31,16 @@ export class UserFormViewerComponent {
         console.log(user);
         this._userSrvc.save(user)
             .subscribe(
-                (resp) => this._notifSrvc.notifySuccess('User saved'),
-                (resp) => this._notifSrvc.notifyError(`Fail ${JSON.stringify(resp)}`)
+                (resp) => {
+                    this._store.dispatch(updateUser(user));
+                    this._notifSrvc.notifySuccess('User saved');
+                    this.goToDetails(user.id);
+                },
+                (err) => this._notifSrvc.notifyError(`Fail ${JSON.stringify(err)}`)
             );
     }
 
     goToDetails(userId: number) {
-        this._router.navigate(['/users/' + userId]);
+        this._router.navigate([`/users/${userId}`]);
     }
 }
