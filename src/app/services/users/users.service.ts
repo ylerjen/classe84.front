@@ -7,6 +7,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { environment as env } from '../../../environments/environment';
 import { IGlobalState } from '../../stores/globalState';
 import { User } from '../../models/User';
+import { Event } from '../../models/Event';
 import { Notification, ENotificationType } from '../../models/Notification';
 import { IUserListState } from '../../stores/userlist/userlistReducer';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
@@ -57,7 +58,7 @@ export class UsersService {
     update(user: User): Observable<Response> {
         const endpoint = `${BASE_URL}/${user.id}`;
         this._store.dispatch(updateUser(user));
-        console.log('add user from service');
+        console.log('add user from service => not finished: request create api');
         return this._authHttp.put(endpoint, user)
             .map( (resp: Response) => resp.json());
     }
@@ -71,7 +72,7 @@ export class UsersService {
     }
 
     delete(user: User) {
-        console.log('delete from service');
+        console.log('delete from service => not finished: request delete api');
         this._store.dispatch(deleteUser(user));
     }
 
@@ -82,5 +83,11 @@ export class UsersService {
     fetchNextBirthday(): Observable<Array<User>> {
         return this._http.get(`${BASE_URL}/next-birthday`)
             .map((resp: Response): Array<User> => resp.json());
+    }
+
+    getSubscriptions(id: number): Observable<Array<Event>> {
+        return this._authHttp.get(`${BASE_URL}/${id}/events`)
+            .map( (resp: Response): Array<Event> => resp.json());
+
     }
 }

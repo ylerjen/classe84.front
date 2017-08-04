@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { ROUTE_URL } from '../../config/router.config';
 import { User } from '../../models/User';
+import { Event } from '../../models/Event';
 import { IGlobalState } from '../../stores/globalState';
 import { IUserState } from '../../stores/user/userReducer';
 import { ISessionState } from '../../stores/session/session.reducer';
@@ -24,6 +25,7 @@ export class UserPage implements OnInit {
 
     public user: User;
     private _id: number;
+    public eventsSubscriptions: Array<Event> = [];
 
     constructor(
         private _store: Store<IGlobalState>,
@@ -52,14 +54,23 @@ export class UserPage implements OnInit {
                             (action: Action) => this._store.dispatch(action),
                             (error: any) => this._router.navigate(['unauthorized'])
                         );
+
+                        this.fetchUserSubscriptions(this._id).subscribe(
+                            (eventList: Array<Event>) => this.eventsSubscriptions = eventList
+                        );
                 // } else {
                 //     console.log('NOT LOGGED IN => ADD REDIRECT');
                 // }
             });
+
     }
 
     fetchUser(id: number): Observable<User> {
         return this._userSrv.get(id);
+    }
+
+    fetchUserSubscriptions(id: number): Observable<Array<Event>> {
+        return this._userSrv.getSubscriptions(this._id);
     }
 
     deleteRequest(userId: number): void {

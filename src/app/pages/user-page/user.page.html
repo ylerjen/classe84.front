@@ -5,7 +5,14 @@
     <aside class="col-md-4">
         <app-panel>
             <span class="title">Participation</span>
-            <span class="text">This user participated to n events</span>
+            <span class="text">
+                <div>
+                    This user participated to {{eventsSubscriptions.length}} events.
+                </div>
+                <div>
+                    <a href="" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
+                </div>
+            </span>
         </app-panel>        
         <app-panel>
             <span class="title">Participation</span>
