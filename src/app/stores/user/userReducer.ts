@@ -28,6 +28,6 @@ export function userReducer(state: IUserState = initialState, action: Action): I
             return Object.assign({}, state, { user: action.payload });
 
         default:
-            return initialState;
+            return state;
     }
 }
