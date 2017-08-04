@@ -39,7 +39,8 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
 
         case DELETE_USER:
             return Object.assign({}, state, {
-                isLoading: false
+                isLoading: false,
+                userList: state.userList.filter(user => user.id !== action.payload.id)
             });
 
         case EMPTY:

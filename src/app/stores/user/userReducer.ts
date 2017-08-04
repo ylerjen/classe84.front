@@ -1,7 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { User } from '../../models/User';
-import { GET_USER, ASYNC_USER_START, ASYNC_USER_SUCCESS, UPDATE_USER } from '../../actions/users.actions';
+import { GET_USER, ASYNC_USER_START, ASYNC_USER_SUCCESS, UPDATE_USER, DELETE_USER } from '../../actions/users.actions';
 
 export interface IUserState {
     user: User;
@@ -26,6 +26,9 @@ export function userReducer(state: IUserState = initialState, action: Action): I
 
         case UPDATE_USER:
             return Object.assign({}, state, { user: action.payload });
+
+        case DELETE_USER:
+            return Object.assign({}, state, { user: undefined });
 
         default:
             return state;
