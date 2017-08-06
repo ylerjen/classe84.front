@@ -5,23 +5,21 @@ import { Store, Action } from '@ngrx/store';
 
 import 'rxjs/add/operator/switchMap';
 
-import { ROUTE_URL } from '../../config/router.config';
-import { User } from '../../models/User';
-import { Event } from '../../models/Event';
-import { IGlobalState } from '../../stores/globalState';
-import { IUserState } from '../../stores/user/userReducer';
-import { ISessionState } from '../../stores/session/session.reducer';
-import { ASYNC_USER_SUCCESS } from '../../actions/users.actions';
-import { UsersService } from '../../services/users/users.service';
+import { ROUTE_URL } from '../../../config/router.config';
+import { User } from '../../../models/User';
+import { Event } from '../../../models/Event';
+import { IGlobalState } from '../../../stores/globalState';
+import { IUserState } from '../../../stores/user/userReducer';
+import { ISessionState } from '../../../stores/session/session.reducer';
+import { ASYNC_USER_SUCCESS } from '../../../actions/users.actions';
+import { UsersService } from '../../../services/users/users.service';
 
 @Component({
-    // tslint:disable-next-line:component-selector
     selector: 'user-page',
-    templateUrl: './user.page.html',
-    styleUrls: ['./user.page.scss']
+    templateUrl: './user-page.component.html',
+    styleUrls: [ './user-page.component.scss' ]
 })
-// tslint:disable-next-line:component-class-suffix
-export class UserPage implements OnInit {
+export class UserPageComponent implements OnInit {
 
     public user: User;
     private _id: number;

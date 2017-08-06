@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { User } from '../../models/User';
-import { IUserState } from '../../stores/user/userReducer';
-import { UsersService } from '../../services/users/users.service';
+import { User } from '../../../models/User';
+import { IUserState } from '../../../stores/user/userReducer';
+import { UsersService } from '../../../services/users/users.service';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector: 'users-page',
-    templateUrl: './users.page.html',
+    selector: 'user-list-page',
+    templateUrl: './user-list-page.component.html',
     // styleUrls: ['./users.page.scss']
 })
-// tslint:disable-next-line:component-class-suffix
-export class UsersPage implements OnInit {
+export class UserListPageComponent implements OnInit {
 
     public nextBirthdayUsers: Array<User> = [];
 

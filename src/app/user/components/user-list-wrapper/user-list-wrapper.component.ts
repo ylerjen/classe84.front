@@ -3,11 +3,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
-import { User } from '../../models/User';
-import { IUserListState } from '../../stores/userlist/userlistReducer';
+import { User } from '../../../models/User';
+import { IUserListState } from '../../../stores/userlist/userlistReducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
-import { UsersService } from '../../services/users/users.service';
-import { NotificationService } from '../../services/notification/notification.service';
+import { UsersService } from '../../../services/users/users.service';
+import { NotificationService } from '../../../services/notification/notification.service';
 
 @Component({
     selector: 'app-user-list-wrapper',

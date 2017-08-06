@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IUserState } from '../../stores/user/userReducer';
-import { User } from '../../models/User';
-import { ROUTE_URL } from '../../config/router.config';
+import { IUserState } from '../../../stores/user/userReducer';
+import { User } from '../../../models/User';
+import { ROUTE_URL } from '../../../config/router.config';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -39,8 +39,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     goToEdit(id: number): void {
         console.log('goToEdit', id);
         if (typeof id === 'undefined') { return; }
-        let url = ROUTE_URL.userById.replace(':id', id.toString());
-        url += '/edit';
+        const url = `${ROUTE_URL.users}/${id.toString()}/edit`;
         this._router.navigate([url]);
     }
     delete(id: number): void {

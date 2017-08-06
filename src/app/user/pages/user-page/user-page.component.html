@@ -1,16 +1,16 @@
 <div class="row">
     <section class="card col-md-8">
-        <router-outlet></router-outlet>
+         <router-outlet></router-outlet> 
     </section>
     <aside class="col-md-4">
-        <app-panel>
+        <app-panel *ngIf="user">
             <span class="title">Participation</span>
             <span class="text">
                 <div>
                     This user participated to {{eventsSubscriptions.length}} events.
                 </div>
                 <div>
-                    <a href="" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
+                    <a routerLink="/users/{{user.id}}/subscriptions" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
                 </div>
             </span>
         </app-panel>        
