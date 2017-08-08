@@ -36,21 +36,19 @@ export class User {
     }
 
     constructor(props: { [key: string]: any } = {}) {
-        if (props) {
-            this.id = props.id;
-            this.last_name = props.last_name;
-            this.maiden_name = props.maiden_name;
-            this.first_name = props.first_name;
-            this.gender = props.gender;
-            this.birthdate = props.birthdate;
-            this.is_active = props.is_active;
-            this.email = props.email;
-            this.phone = props.phone;
-            this.mobile = props.mobile;
-            this.fb_user_id = props.fb_user_id;
-            this.fb_profile_name = props.fb_profile_name;
-            this.website = props.website;
-        }
+        this.id = props.id;
+        this.last_name = props.last_name;
+        this.maiden_name = props.maiden_name;
+        this.first_name = props.first_name;
+        this.gender = props.gender;
+        this.birthdate = props.birthdate;
+        this.is_active = props.is_active;
+        this.email = props.email;
+        this.phone = props.phone;
+        this.mobile = props.mobile;
+        this.fb_user_id = props.fb_user_id;
+        this.fb_profile_name = props.fb_profile_name;
+        this.website = props.website;
     }
 
     /**
