@@ -1,4 +1,4 @@
-<section class="col-md-8 card user-profile" *ngIf="user">
+<section class="col-md-12 card user-profile" *ngIf="user">
     <figure class="user-image-holder">
         <img id="profileImg" src="http://findicons.com/files/icons/175/halloween_avatar/300/mike.png" class="png" alt="Photo de {{ user.first_name }}" class="logo img-circle" height="140px" width="140px" />
     </figure>
@@ -48,7 +48,7 @@
             <a class="nav-link" routerLink="contact" routerLinkActive="active"><i class="fa fa-phone"></i> Contact</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" routerLink="address" routerLinkActive="active"><i class="fa fa-address-book"></i> Addresses</a>
+            <a class="nav-link" routerLink="addresses" routerLinkActive="active"><i class="fa fa-address-book"></i> Addresses</a>
         </li>
     </ul>
     <router-outlet></router-outlet>
