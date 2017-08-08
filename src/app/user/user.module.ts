@@ -28,12 +28,12 @@ const userRoutes = [
         children: [
             {
                 path: '',
-                pathMatch: 'full',
                 component: UserDetailViewerComponent,
-                // children: [
-                //     { path: 'addresses', component: LoginPage },
-                //     { path: 'contact', component: AboutPage },
-                // ]
+                children: [
+                    { path: '', redirectTo: 'contact', pathMatch: 'full' },
+                    { path: 'contact', component: AddressListComponent },
+                    { path: 'addresses', component: AddressListComponent },
+                ]
             },
             { path: 'edit', component: UserFormViewerComponent },
         ]
