@@ -24,7 +24,11 @@ export class UserFormViewerComponent {
         private _router: Router
     ) {
         this._store.select('userState')
-            .subscribe((userState: IUserState) => this.user = userState.user);
+            .subscribe((userState: IUserState) => {
+                if (userState.user) {
+                    this.user = new User(userState.user);
+                }
+            });
     }
 
     saveUser(user: User) {
