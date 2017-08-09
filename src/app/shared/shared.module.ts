@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { LoadersCssModule } from 'angular2-loaders-css';
+
 import { ValidationErrorComponent } from './validation-error/validation-error.component';
 import { PanelComponent } from './panel/panel.component';
 import { PhoneNbPipe } from './pipes/phone-nb.pipe';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        LoadersCssModule,
     ],
     declarations: [
         PanelComponent,
@@ -16,6 +19,7 @@ import { PhoneNbPipe } from './pipes/phone-nb.pipe';
     ],
     exports: [
         CommonModule,
+        LoadersCssModule,
         PanelComponent,
         PhoneNbPipe,
         ValidationErrorComponent,
