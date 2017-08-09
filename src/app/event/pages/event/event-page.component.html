@@ -1,6 +1,8 @@
 <div class="row">
-    <section class="card col-md-8">
-        <!-- <router-outlet></router-outlet> -->
+    <section class="col-md-8">
+        <app-event-detail
+            [event]="event"
+            [isLoading]="isLoading"></app-event-detail>
     </section>
     <aside class="col-md-4">
         <app-panel>
@@ -9,7 +11,14 @@
         </app-panel>        
         <app-panel>
             <span class="title">Participation</span>
-            <span class="text">This user participated to n events</span>
+            <span class="text" *ngIf="participation">
+                <span>{{participation.length}} user participated to this event.</span>
+                <ul>
+                    <li *ngFor="let user of participation">
+                        <a href="/users/{{user.id}}">{{user.fullname}}</a>
+                    </li>
+                </ul>
+            </span>
         </app-panel>
     </aside>
 </div>

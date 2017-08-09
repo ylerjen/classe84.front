@@ -113,7 +113,7 @@ export class AuthService implements CanActivate {
         }
 
         const redirectTo = state.url;
-         // FIXME ROUTE_URL POSE PROBLEME LORSQU'IL EST UTILISE ICI => ERROR: Token is not defined!
+         // FIXME ROUTE_URL POSE PROBLEME LORSQU'IL EST UTILISE ICI. ERROR => Token is not defined!
          // this._router.navigate([ROUTE_URL.login, { redirectTo }]);
          this._router.navigate(['login', { redirectTo }]);
         return false;
@@ -125,7 +125,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         tokenName: LS_TOKEN_KEY,
         tokenGetter: (() => sessionStorage.getItem(LS_TOKEN_KEY)),
         globalHeaders: [{ 'Content-Type': 'application/json' }],
-        // noJwtError: true, // true = if jwt is missing fallback to simple http
+        // noJwtError: true, // true = if jwt is missing, then fallback to simple http
     });
     return new AuthHttp(config, http, options);
 }

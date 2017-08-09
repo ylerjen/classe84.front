@@ -1,18 +1,16 @@
 <div>
-    <div class="loader-spinner" *ngIf="isLoading">
-        <i class="ico ico-spinner ico-pulse ico-lg"></i>
-    </div>
+    <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
     <ul id="events_list" class="row list-item" *ngIf="!isLoading">                
-        <li class="animation" *ngFor="let event of eventList">
+        <li *ngFor="let event of eventList" class="col-md-12 col-lg-6">
             <a href="/events/{{event.id}}" class="card">
                 <div class="card-header">
                     <h2>{{event.title}}</h2>
                 </div>
                 <div class="card-block">
-                    <p class="date"><i class="ico ico-calendar text-separator"></i> {{event.event_date}}</p>
-                    <p class="organisator"><i class="ico ico-bullhorn"></i> {{event.organisator}}</p>
-                    <p class="Lieu"><i class="ico ico-map-marker"></i> {{event.location}}</p>
-                    <p><i class="ico ico-users"></i> 18 participants</p>
+                    <p class="date"><i class="fa fa-calendar text-separator"></i> {{ event.event_date | date: 'MM.dd.yyyy' }}</p>
+                    <p class="organisator"><i class="fa fa-bullhorn"></i> {{ event.organisator }}</p>
+                    <p class="lieu"><i class="fa fa-map-marker"></i> {{ event.location }}</p>
+                    <p><i class="fa fa-users"></i> 18 participants</p>
                 </div>
             </a>
         </li>

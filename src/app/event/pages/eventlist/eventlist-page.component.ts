@@ -10,14 +10,19 @@ import { EventsService } from '../../services/events.service';
 })
 export class EventlistPageComponent implements OnInit {
 
+    public isLoading: boolean;
+
     public eventList = [];
 
     constructor(private _evtSrvc: EventsService) { }
 
     ngOnInit() {
+        this.isLoading = true;
         this._evtSrvc.fetchAll()
             .subscribe(
-                (resp) => this.eventList = resp
+                (resp) => this.eventList = resp,
+                (err) => { throw new Error(JSON.stringify(err)); },
+                () => this.isLoading = false
             );
     }
 

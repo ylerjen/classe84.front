@@ -1,6 +1,7 @@
 <div class="row">
     <section class="card col-md-8">
-        <app-event-list [eventList]="eventList"></app-event-list>
+        <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
+        <app-event-list-wrapper *ngIf="!isLoading" [eventList]="eventList"></app-event-list-wrapper>
     </section>
     <aside class="col-md-4">
         <app-panel>

@@ -28,7 +28,6 @@ import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
 
 
-
 @NgModule({
     declarations: [
         AppComponent,
