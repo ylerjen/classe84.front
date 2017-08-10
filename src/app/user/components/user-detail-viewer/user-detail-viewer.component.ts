@@ -29,7 +29,15 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.sub = this.store$.subscribe((userState: IUserState) => this.user = userState.user);
+        this.sub = this.store$
+            .subscribe(
+                (userState: IUserState) => {
+                    if (userState.user) {
+                        const curUser = new User(userState.user);
+                        this.user = curUser;
+                    }
+                }
+            );
     }
 
     ngOnDestroy(): void {
