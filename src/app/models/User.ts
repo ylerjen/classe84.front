@@ -1,3 +1,5 @@
+import { Address } from './Address';
+
 export enum EGender {
     Male,
     Female
@@ -20,6 +22,9 @@ export class User {
     public fb_user_id: string;
     public fb_profile_name: string;
     public website: string;
+    public addresses: Array<Address>;
+    public created_at: string;
+    public updated_at: string;
 
     get fullname(): string {
         let name = '';
@@ -49,6 +54,17 @@ export class User {
         this.fb_user_id = props.fb_user_id;
         this.fb_profile_name = props.fb_profile_name;
         this.website = props.website;
+        this.created_at = props.created_at;
+        this.updated_at = props.updated_at;
+        if (Array.isArray(props.addresses)) {
+            this.addresses = props.addresses.map(adr => {
+                adr = Object.assign(adr, adr.pivot);
+                delete adr.pivot;
+                return new Address(adr);
+            });
+        } else {
+            this.addresses = [];
+        }
     }
 
     /**
