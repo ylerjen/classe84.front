@@ -6,11 +6,14 @@
         <app-panel *ngIf="user">
             <span class="title">Participation</span>
             <span class="text">
+                <p>This user participated to {{eventsSubscriptions.length}} events.</p>
+                <ul>
+                    <li *ngFor="let subscr of eventsSubscriptions">
+                        <a routerLink="/events/{{subscr.id}}">{{subscr.title}}</a>
+                    </li>
+                </ul>
                 <div>
-                    This user participated to {{eventsSubscriptions.length}} events.
-                </div>
-                <div>
-                    <a routerLink="/users/{{user.id}}/subscriptions" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
+                    <a routerLink="/events/{{user.id}}/subscriptions" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
                 </div>
             </span>
         </app-panel>        
