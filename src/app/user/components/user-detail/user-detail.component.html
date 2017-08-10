@@ -2,10 +2,9 @@
     <figure class="user-image-holder">
         <img id="profileImg" src="http://findicons.com/files/icons/175/halloween_avatar/300/mike.png" class="png" alt="Photo de {{ user.first_name }}" class="logo img-circle" height="140px" width="140px" />
     </figure>
-    <div class="user-title">
-        <i [ngClass]="{'fa fa-mars fa-2x' : user.gender==='M', 'fa fa-venus fa-2x' : user.gender==='F'}"></i>
-        <h1 class="text-xs-center">{{user.last_name}} <span *ngIf="user?.maiden_name">({{user.maiden_name}})</span> {{user.first_name}}</h1>
-        <h2 class="text-xs-center">{{user.birthdate | date: 'dd.MM.yyyy'}}</h2>
+    <div class="user-title text-center">
+        <h1>{{user.fullname}}</h1>
+        <p>{{user.birthdate | date: 'dd.MM.yyyy'}}</p>
     </div>
     <div class="ribbon-wrapper">
         <div class="ribbon" [ngClass]="{inactiv : !user.is_active}">{{user.is_active ? "Actif" : "Inactif"}}</div>
@@ -18,7 +17,8 @@
             <i class="fa fa-trash"></i>
         </button>
     </div>
-    <div class="card-block">
+    <section class="card-block">
+        <h2><i class="fa fa-address-book"></i> Infos</h2>
         <div class="text-muted">Member since {{user.created_at | date}}</div>
         <div class="user-card">            
             <p ng-show="user.mobile">
@@ -47,28 +47,9 @@
                 <span *ngIf="!user.website"><i>Not fullfilled</i></span>
             </p>
         </div>
-    </div>
-    <ul class="nav nav-tabs">
-        <li class="nav-item active">
-            <a class="nav-link" routerLink="contact" routerLinkActive="active"><i class="fa fa-phone"></i> Contact</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" routerLink="addresses" routerLinkActive="active"><i class="fa fa-address-book"></i> Addresses</a>
-        </li>
-    </ul>
-    <router-outlet></router-outlet>
-    <!--<tabs>
-        <tabpane title="Infos" icon="ico-phone">
-            
-        </tabpane>
-        <tabpane title="Adresses" icon="ico-map-marker">            
-            <addresses class="row card-block" addresses-attr="user.addresses" userid-attr="user.id"/>
-        </tabpane>
-        <tabpane title="Cotisation" icon="ico-credit-card">
-            <h2>TODO cotisations</h2>
-            <cotisations/>
-        </tabpane>
-    </tabs>-->
-    
-    
+    </section>
+    <section>
+        <h2><i class="fa fa-map-marker"></i> Addresses</h2>
+        <app-address-list [addressList]="user.addresses"></app-address-list>
+    </section>
 </section>

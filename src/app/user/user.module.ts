@@ -26,15 +26,7 @@ const userRoutes = [
         component: UserPageComponent,
         canActivate: [ AuthService ],
         children: [
-            {
-                path: '',
-                component: UserDetailViewerComponent,
-                children: [
-                    { path: '', redirectTo: 'contact', pathMatch: 'full' },
-                    { path: 'contact', component: AddressListComponent },
-                    { path: 'addresses', component: AddressListComponent },
-                ]
-            },
+            { path: '', component: UserDetailViewerComponent },
             { path: 'edit', component: UserFormViewerComponent },
         ]
     }
