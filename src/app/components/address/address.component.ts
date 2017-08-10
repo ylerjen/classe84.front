@@ -10,7 +10,7 @@ import { Address } from '../../models/Address';
 export class AddressComponent implements OnInit {
 
   @Input()
-  private address: Address;
+  public address: Address;
 
   constructor() { }
 

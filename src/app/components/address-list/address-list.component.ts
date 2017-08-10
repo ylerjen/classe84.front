@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Address } from '../../models/Address';
 
@@ -7,13 +7,9 @@ import { Address } from '../../models/Address';
   templateUrl: './address-list.component.html',
   styleUrls: ['./address-list.component.scss']
 })
-export class AddressListComponent implements OnInit {
+export class AddressListComponent {
 
-  private addressList: Address[] = [];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Input()
+  public addressList: Address[] = [];
 
 }

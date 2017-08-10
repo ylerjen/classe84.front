@@ -1,3 +1,15 @@
-<p>
-  Here comes an address !!
-</p>
+<div class="card block-card content address-item">
+    <div class="address-item__logo">
+        <i class="fa fa-map-marker fa-2x"></i>
+    </div>
+    <div class="address-item__detail">
+        <p>{{ address.street }}</p>
+        <p *ngIf="address.street2">{{ address.street2 }}</p>
+        <p>{{ address.npa }} {{ address.city }}</p>
+        <p>{{ address.state }} - {{ address.country }}</p>
+    </div>
+    <div class="address-item__logo">
+        <i class="fa fa-2x" [ngClass]="{'fa-star-o': !address.is_default, 'fa-star': address.is_default}"
+          [title]="!address.is_default ? 'set as default' : 'is default'"></i>
+    </div>
+</div>
