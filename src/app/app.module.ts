@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { AuthModule } from './modules/auth.module';
+import { ContactModule } from './contact/contact.module';
 import { UserModule } from './user/user.module';
 import { EventModule } from './event/event.module';
 import { AppComponent } from './app.component';
