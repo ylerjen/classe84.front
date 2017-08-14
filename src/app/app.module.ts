@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { AuthModule } from './auth/auth.module';
 import { ContactModule } from './contact/contact.module';
 import { UserModule } from './user/user.module';
 import { EventModule } from './event/event.module';
@@ -53,6 +54,7 @@ import { NotFoundPage } from './pages/not-found/not-found.page';
         AuthModule,
         EventModule,
         UserModule,
+        ContactModule,
     ],
     providers: [
         AppService,
