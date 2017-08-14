@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { LoginPage } from '../pages/login-page/login.page';
 import { HomePage } from '../pages/home-page/home.page';
 import { AboutPage } from '../pages/about-page/about.page';
+import { ContactPageComponent } from '../contact/contact-page/contact-page.component';
 import { EventlistPageComponent } from '../event/pages/eventlist/eventlist-page.component';
 import { EventPageComponent } from '../event/pages/event/event-page.component';
 import { NotFoundPage } from '../pages/not-found/not-found.page';
@@ -34,6 +35,10 @@ export const appRoutes: Routes = [
     {
         path: ROUTE_URL.about,
         component: AboutPage
+    },
+    {
+        path: ROUTE_URL.contact,
+        component: ContactPageComponent
     },
     {
         path: ROUTE_URL.login,
