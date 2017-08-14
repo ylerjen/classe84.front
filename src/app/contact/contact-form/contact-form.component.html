@@ -1,0 +1,27 @@
+<form name="contact" (onSubmit)="onSubmit($event)" class="row" *ngIf="recaptchaKey">
+    <div class="form-group col-sm-6 col-12">
+        <label for="contact.name">Your first/lastname</label>
+        <input type="text" name="name" id="contact.name" class="form-control" placeholder="Votre nom" required="required">
+    </div>
+    <div class="form-group col-sm-6 col-12">
+        <label for="contact.email">Your email address</label>
+        <input type="email" name="email" id="contact.email" class="form-control" placeholder="nom@domain.ch" required="required">
+    </div>
+    <div class="form-group col-12">
+        <label for="contact.message">Your message</label>
+        <textarea name="message" id="contact.message" class="form-control" cols="30" rows="10" required="required"></textarea>
+    </div>
+    <div class="form-group col-12">
+        <re-captcha
+            site_key="{{recaptchaKey}}"
+            (captchaResponse)="handleCorrectCaptcha($event)"></re-captcha>
+    </div>
+    <div class="form-group col-12">
+        <input
+            type="submit"
+            name="submit"
+            value="Send your message"
+            class="btn btn-primary"
+            (click)="onSubmit($event)">
+    </div>
+</form>
