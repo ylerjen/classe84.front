@@ -23,6 +23,7 @@ export class AuthService implements CanActivate {
 
     constructor(
         private _http: Http,
+        private _authHttp: AuthHttp,
         private _store: Store<IGlobalState>,
         private _router: Router,
     ) {
@@ -53,26 +54,31 @@ export class AuthService implements CanActivate {
             );
     }
 
-    logout(): void {
-        const endpoint = `${env.API_URL}/logout`;
-        this._http.post(endpoint, {})
-            .map(res => res.json())
-            .map(payload => logoutAction(payload))
-            .subscribe(
-                logoutAction => {
-                    this._store.dispatch(logoutAction);
-                    this.deleteTokenInStorage();
-                },
-                err => {
-                    console.log(err);
-                    if (err.status === 0) {
-                        err.statusText = 'API not reachable';
-                    }
-                    const u = new Notification(`Error : ${err.statusText}`, ENotificationType.ERROR);
-                    this._store.dispatch(addNotif(u));
-                    setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
-                }
-            );
+    logout(successCb: () => void): void {
+        this._store.dispatch(logoutAction(null));
+        this.deleteTokenInStorage();
+        successCb();
+
+        // const endpoint = `${env.API_URL}/logout`;
+        // this._authHttp.post(endpoint, {})
+        //     .map(res => res.json())
+        //     .map(payload => logoutAction(payload))
+        //     .subscribe(
+        //         logoutAction => {
+        //             this._store.dispatch(logoutAction);
+        //             this.deleteTokenInStorage();
+        //             successCb();
+        //         },
+        //         err => {
+        //             console.log(err);
+        //             if (err.status === 0) {
+        //                 err.statusText = 'API not reachable';
+        //             }
+        //             const u = new Notification(`Error : ${err.statusText}`, ENotificationType.ERROR);
+        //             this._store.dispatch(addNotif(u));
+        //             setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
+        //         }
+        //     );
 
     }
 
