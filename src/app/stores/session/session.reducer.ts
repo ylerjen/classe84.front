@@ -1,6 +1,6 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { LOGIN, LOGOUT, REQUEST_SIGNIN } from '../../actions/session.actions';
+import { LOGIN, LOGOUT } from '../../actions/session.actions';
 
 export interface ISessionUser {
     firstname: string;
