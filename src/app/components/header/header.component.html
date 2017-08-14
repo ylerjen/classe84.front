@@ -11,22 +11,25 @@
                 <a class="nav-link" routerLink="/users" routerLinkActive="active"><i class="fa fa-group"></i> Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/events" routerLinkActive="active"><i class="fa fa-plane"></i> Events</a>
+                <a class="nav-link" routerLink="/events" routerLinkActive="active"><i class="fa fa-calendar"></i> Events</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/about" routerLinkActive="active"><i class="fa fa-info-circle"></i> About</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link disabled">Disabled</a>
+                <a class="nav-link" routerLink="/contact" routerLinkActive="active"><i class="fa fa-envelope"></i> Contact</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link disabled"><i class="fa fa-suitcase"></i> Administration</a>
             </li>
         </ul>
         <span>
             <a *ngIf="!isLoggedIn" class="btn btn-primary" routerLink="/login" routerLinkActive="active">
                 <i class="fa fa-sign-in"></i> Login
             </a>
-            <a *ngIf="isLoggedIn" href="#" class="btn btn-primary" routerLink="/logout">
+            <button *ngIf="isLoggedIn" (click)="onLogout($event)" class="btn btn-primary">
                 <i class="fa fa-sign-out"></i> logout
-            </a>
+            </button>
         </span>
     </div>
 </nav>
