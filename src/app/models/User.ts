@@ -1,8 +1,8 @@
 import { Address } from './Address';
 
 export enum EGender {
-    Male,
-    Female
+    Male = 'M',
+    Female = 'F'
 }
 
 /**
