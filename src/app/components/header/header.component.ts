@@ -1,8 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -21,6 +23,8 @@ export class HeaderComponent implements OnInit {
     constructor(
         private _elRef: ElementRef,
         private _store: Store<IGlobalState>,
+        private _authSrvc: AuthService,
+        private _router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -43,5 +47,12 @@ export class HeaderComponent implements OnInit {
             event.stopPropagation();
             this.toggleCollapse(true);
         }
+    }
+
+    onLogout(event: Event): void {
+        event.preventDefault();
+        this._authSrvc.logout( () => {
+            this._router.navigate(['login']);
+        });
     }
 }
