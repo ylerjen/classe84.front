@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Contact } from '../models/Contact';
 
 @Component({
     selector: 'app-contact-form',
@@ -10,6 +12,11 @@ export class ContactFormComponent {
 
     @Input()
     public recaptchaKey: string;
+
+    @Output()
+    public onSubmitEvent: EventEmitter<Contact>;
+
+    public isCaptchaValid = false;
 
     public contactForm: FormGroup;
 
@@ -23,6 +30,15 @@ export class ContactFormComponent {
             email: ['', Validators.required, Validators.email, Validators.maxLength(12) ],
             message: ['', Validators.required, Validators.maxLength(12) ]
         });
+    }
+
+    handleCorrectCaptcha($event) {
+        this.isCaptchaValid = true;
+    }
+
+    onSubmit(event: Event) {
+        event.preventDefault();
+        this.onSubmitEvent.emit(this.contactForm.value);
     }
 
 }

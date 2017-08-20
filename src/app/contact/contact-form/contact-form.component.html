@@ -22,6 +22,7 @@
             name="submit"
             value="Send your message"
             class="btn btn-primary"
-            (click)="onSubmit($event)">
+            (click)="onSubmit($event)"
+            [disabled]="!(contactForm.valid && isCaptchaValid)">
     </div>
 </form>
