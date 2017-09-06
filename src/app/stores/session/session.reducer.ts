@@ -1,17 +1,11 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { LOGIN, LOGOUT } from '../../actions/session.actions';
-
-export interface ISessionUser {
-    firstname: string;
-    lastname: string;
-    email: string;
-    loginTime: Date;
-}
+import { SessionUser } from '../../models/SessionUser';
+import { LOGIN, LOGOUT, SET_USER } from '../../actions/session.actions';
 
 export interface ISessionState {
     isLoggedIn: boolean;
-    loggedUser: ISessionUser;
+    loggedUser: SessionUser;
     token: string;
 }
 
@@ -32,6 +26,11 @@ export function sessionReducer(state = initialState, action: Action): ISessionSt
 
         case LOGOUT:
             return initialState;
+
+        case SET_USER:
+            return Object.assign({}, state, {
+                loggedUser: action.payload
+            });
 
         default:
             return state;

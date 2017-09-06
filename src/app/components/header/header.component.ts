@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import { User } from '../../models/User';
 import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { AuthService } from '../../services/auth/auth.service';
@@ -20,6 +21,8 @@ export class HeaderComponent implements OnInit {
 
     public isLoggedIn = false;
 
+    public loggedUser: User;
+
     constructor(
         private _elRef: ElementRef,
         private _store: Store<IGlobalState>,
@@ -30,7 +33,10 @@ export class HeaderComponent implements OnInit {
     ngOnInit(): void {
         this._store.select('sessionState')
             .subscribe(
-                (sState: ISessionState) => this.isLoggedIn = sState.isLoggedIn,
+                (sState: ISessionState) => {
+                    this.isLoggedIn = sState.isLoggedIn;
+                    this.loggedUser = sState.loggedUser;
+                },
                 (err) => console.log('error', err)
             );
     }

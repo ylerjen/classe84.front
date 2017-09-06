@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions } from '@angular/http';
+import { Http, RequestOptions, Response } from '@angular/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store, Action } from '@ngrx/store';
 import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
+import { Observable } from 'rxjs/Observable';
 
 import { environment as env } from '../../../environments/environment';
+import { User } from '../../models/User';
 import { ROUTE_URL } from '../../config/router.config';
 import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { ICredentials } from '../../models/Login';
-import { login as loginAction, logout as logoutAction } from '../../actions/session.actions';
+import { logout as logoutAction } from '../../actions/session.actions';
 import { ASYNC_USER_SUCCESS } from '../../actions/users.actions';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../models/Notification';
@@ -33,25 +35,21 @@ export class AuthService implements CanActivate {
             });
     }
 
-    login(creds: ICredentials, successCallback?): void {
+    /**
+     * Log the user by calling the login service
+     * @param creds - the credentials used to login the user
+     * @param successCb - the callback to call on success
+     * @param errorCb - the callback to call on success
+     */
+    login(creds: ICredentials, successCb?, errorCb?): Observable<string> {
         const endpoint = `${env.API_URL}/login`;
-        this._http.post(endpoint, creds)
+        return this._http.post(endpoint, creds)
             .map(res => res.json())
             .map(payload => {
                 const token: string = payload.token;
                 this.setTokenToStorage(token);
-                this._store.dispatch(loginAction(token));
-                return payload;
-            })
-            .subscribe(
-                successCallback,
-                err => {
-                    console.log(err);
-                    const u = new Notification(err._body || err.message, ENotificationType.ERROR);
-                    this._store.dispatch(addNotif(u));
-                    setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
-                }
-            );
+                return token;
+            });
     }
 
     logout(successCb: () => void): void {
@@ -80,6 +78,17 @@ export class AuthService implements CanActivate {
         //         }
         //     );
 
+    }
+
+    getAuthUser(): Observable<User> {
+        const endpoint = `${env.API_URL}/auth-user`;
+        return this._authHttp.get(endpoint)
+            .map( resp => new User(resp.json().user));
+    }
+
+    isRecoveryTokenValid(token: string): Observable<Response> {
+        const endpoint = `${env.API_URL}/check-recovery-token-validity`;
+        return this._http.post(endpoint, { token });
     }
 
     getTokenFromStorage(): string {
