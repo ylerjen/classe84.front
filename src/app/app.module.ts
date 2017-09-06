@@ -24,7 +24,6 @@ import { AboutPage } from './pages/about-page/about.page';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
-import { LoginFormComponent } from './auth/login-form/login-form.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
 
@@ -38,7 +37,6 @@ import { NotFoundPage } from './pages/not-found/not-found.page';
         FooterComponent,
         LoginPage,
         NotifierComponent,
-        LoginFormComponent,
         UnauthorizedPage,
         NotFoundPage,
     ],
