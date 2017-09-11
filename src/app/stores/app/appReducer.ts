@@ -1,18 +1,14 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { STORE_API_VERSION, STORE_FRNT_VERSION } from '../../actions/app.actions';
+import { Version } from '../../models/Version';
 
 
 const initialVersion = 'x.x.x';
 
 export interface AppVersion {
-    front: string;
-    api: {
-        full: string,
-        major: string,
-        minor: string,
-        patch: string
-    };
+    front: Version;
+    api: Version;
 }
 
 export interface AppState {
@@ -21,8 +17,8 @@ export interface AppState {
 
 export const initialState: AppState = {
     version: {
-        api: { full: initialVersion, minor: 'x', major: 'x', patch: 'x' },
-        front: initialVersion
+        api: new Version(initialVersion),
+        front: new Version(initialVersion)
     }
 };
 

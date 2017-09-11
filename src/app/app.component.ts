@@ -5,6 +5,7 @@ import { Response } from '@angular/http';
 import { environment } from '../environments/environment';
 import { AppState, AppVersion } from './stores/app/appReducer';
 import { storeFrontVersion, storeApiVersion } from './actions/app.actions';
+import { Version } from './models/Version';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { NotificationService } from './services/notification/notification.service';
@@ -31,7 +32,7 @@ export class AppComponent implements OnInit {
         this._store.select('appState')
             .subscribe(
                 (resp: AppState) => this.version = resp.version,
-                (err) => console.error(err),
+                err => console.error(err),
                 () => console.log('on finish')
             );
     }
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         this._store.dispatch(storeFrontVersion(environment.version));
         this._appSrvc.getApiVersion().subscribe(
-            (resp: string): void => this._store.dispatch(storeApiVersion(resp)),
+            (resp: Version): void => this._store.dispatch(storeApiVersion(resp)),
             (err: any): void => {
                 this._notifSrvc.notifyError(JSON.stringify(err));
             }
