@@ -49,8 +49,8 @@ export const appRoutes: Routes = [
     //     redirectTo: '/',
     //     pathMatch: 'full'
     // },
-    // {
-    //     path: '**',
-    //     component: NotFoundPage
-    // }
+    {
+        path: '**',
+        component: NotFoundPage
+    }
 ];

@@ -6,6 +6,7 @@ import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 
 import { environment as env } from '../../../environments/environment';
+import { ROUTE, RECOVERY_TOKEN_PARAM_NAME, RECOVERY_TOKEN_VAR_NAME } from '../../auth/auth.module';
 import { User } from '../../models/User';
 import { ROUTE_URL } from '../../config/router.config';
 import { IGlobalState } from '../../stores/globalState';
@@ -18,6 +19,7 @@ import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../m
 
 const LS_TOKEN_KEY = 'jwt-token';
 const LS_CRED_KEY = 'app84LoginCreds';
+const TOKEN_VAR_NAME = '${token}';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -80,18 +82,39 @@ export class AuthService implements CanActivate {
 
     }
 
+    /**
+     * Get the authenticated user info according to the jwt-token
+     */
     getAuthUser(): Observable<User> {
         const endpoint = `${env.API_URL}/auth-user`;
         return this._authHttp.get(endpoint)
             .map( resp => new User(resp.json().user));
     }
 
+    /**
+     * Recover an account password by sending an email to the user which own the email
+     * @param email - is the email of the related user
+     */
+    recoverPassword(email): Observable<Response> {
+        const endpoint = `${env.API_URL}/reset-password`;
+        const recoveryRoute = `${window.location.origin}/${ROUTE.restorePassword};${RECOVERY_TOKEN_PARAM_NAME}=${RECOVERY_TOKEN_VAR_NAME}`;
+        return this._http.post(endpoint, {email, frontUrl: recoveryRoute, tokenPlaceholder: RECOVERY_TOKEN_VAR_NAME });
+    }
+
+    /**
+     * Check if the recovery token is valid
+     * @param recoveryToken - The recovery token to check
+     */
     isRecoveryTokenValid(recoveryToken: string): Observable<Response> {
         const endpoint = `${env.API_URL}/check-recovery-token-validity`;
         return this._http.post(endpoint, { recoveryToken });
     }
 
-    changePasswordFromRecovery(info: {}): Observable<Response> {
+    /**
+     * Change the password of a user with a recovery token
+     * @param info - are the infos that are needed for the password change request
+     */
+    changePasswordFromRecovery(info: { email, recoveryToken, password }): Observable<Response> {
         const endpoint = `${env.API_URL}/change-password-from-recovery`;
         return this._http.post(endpoint, info);
     }

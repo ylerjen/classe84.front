@@ -5,10 +5,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/finally';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { NotificationService } from '../../services/notification/notification.service';
+import { CustomValidators } from '../../shared/validators/CustomValidators';
 
+/**
+ * This component is used to ask for a token to recover the account of the passed email
+ */
 @Component({
     selector: 'app-password-recovery',
     templateUrl: './password-recovery.component.html',
@@ -18,7 +23,11 @@ export class PasswordRecoveryComponent implements OnInit {
 
     public isTokenValid: boolean;
 
-    public restoreForm: FormGroup;
+    public isLoading = true;
+
+    public recoveryToken: string;
+
+    public recoveryForm: FormGroup;
 
     constructor(
         private _fb: FormBuilder,
@@ -28,29 +37,18 @@ export class PasswordRecoveryComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.restoreForm = this._fb.group({
-            email: ['', Validators.required],
-            password: ['', Validators.required],
-            confirmPassword:  ['', Validators.required]
-        });
-        this._route.params
-        .switchMap( (routeData: Params): Observable<Response> => {
-            if (!routeData.token) {
-                throw new Error('no route param "token" found');
+        this.recoveryForm = this._fb.group(
+            {
+                email: ['', Validators.compose([Validators.required, Validators.email])]
             }
-            return this._authSrvc.isRecoveryTokenValid(routeData.token);
-        })
-        .catch((error: any) => {
-            console.log(error);
-            if (error.status === 402) {
-                this._notifSrvc.notifyError("token has expired");
-            } else if (error.status < 400 ||  error.status === 500) {
-                return Observable.throw(new Error(error.status));
-            }
-        })
-        .subscribe(
-            (val) => this.isTokenValid = true
         );
     }
 
+    recover($event: Event): void {
+        const formValues = this.recoveryForm.value;
+        this._authSrvc.recoverPassword(formValues.email)
+            .subscribe(
+                resp => console.log('yes changed')
+            );
+    }
 }

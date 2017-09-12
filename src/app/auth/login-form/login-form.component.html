@@ -6,7 +6,7 @@
         <div *ngIf="isLoggingIn" class="text-center"><i class="fa fa-spinner fa-spin fa-2x"></i></div>
         <div *ngIf="loggedUser">
             <p>Hello {{loggedUser.fullname}} you're logged in. Would you like to go to your profile page ?</p>
-            <p class="text-muted">Not {{loggedUser.first_name}} ? Please <a routerLink="/logout">logout</a>.</p>
+            <p class="text-muted">Not {{loggedUser.first_name}} ? Please <a routerLink="/logout">log into your account</a>.</p>
         </div>
         <div *ngIf="loginForm && !isLoggingIn && !loggedUser">
             <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
@@ -40,7 +40,9 @@
             </form>
             <footer>
                 <button type="button" class="btn btn-primary" (click)="login()">Log me in</button>
-                <br>{{loginForm.value | json}}
+                <a routerLink="/password-recovery" class="btn btn-link">Password forgotten ?</a>
+                <br>
+                <pre>{{loginForm.value | json}}</pre>
             </footer>
         </div>
     </div>
