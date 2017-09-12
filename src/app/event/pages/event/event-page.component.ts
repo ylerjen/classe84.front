@@ -31,9 +31,9 @@ export class EventPageComponent implements OnInit {
             .switchMap( (routeData: Params): Observable<Event> => {
                 this._id = routeData.id;
                 this._evtSrvc.getParticipants(this._id)
-                    .subscribe( (resp: Array<User>) => {
-                        this.participation = resp.map(usr => new User(usr));
-                    });
+                    .subscribe(
+                        (resp: Array<User>) => this.participation = resp.map(usr => new User(usr))
+                    );
                 return this._evtSrvc.get(this._id);
             })
             .subscribe(
