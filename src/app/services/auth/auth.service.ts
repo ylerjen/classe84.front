@@ -86,9 +86,14 @@ export class AuthService implements CanActivate {
             .map( resp => new User(resp.json().user));
     }
 
-    isRecoveryTokenValid(token: string): Observable<Response> {
+    isRecoveryTokenValid(recoveryToken: string): Observable<Response> {
         const endpoint = `${env.API_URL}/check-recovery-token-validity`;
-        return this._http.post(endpoint, { token });
+        return this._http.post(endpoint, { recoveryToken });
+    }
+
+    changePasswordFromRecovery(info: {}): Observable<Response> {
+        const endpoint = `${env.API_URL}/change-password-from-recovery`;
+        return this._http.post(endpoint, info);
     }
 
     getTokenFromStorage(): string {
