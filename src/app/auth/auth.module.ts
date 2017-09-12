@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Http, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
+import { SharedModule } from '../shared/shared.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { authHttpServiceFactory } from '../services/auth/auth.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
@@ -18,7 +19,8 @@ const authRoutes: Routes = [
         RouterModule.forChild(authRoutes),
         FormsModule,
         ReactiveFormsModule,
-        BrowserModule
+        BrowserModule,
+        SharedModule,
     ],
     providers: [
         {
