@@ -22,9 +22,9 @@ import { CustomValidators } from '../../shared/validators/CustomValidators';
 })
 export class RestorePasswordComponent implements OnInit {
 
-    public isTokenValid: boolean;
-
     public isLoading = true;
+
+    public isTokenValid: boolean;
 
     public recoveryToken: string;
 
@@ -55,6 +55,7 @@ export class RestorePasswordComponent implements OnInit {
                     throw new Error(`no route param '${RECOVERY_TOKEN_PARAM_NAME}' found`);
                 }
                 this.recoveryToken = routeData[RECOVERY_TOKEN_PARAM_NAME];
+                console.log('switchmap');
                 return this._authSrvc.isRecoveryTokenValid(this.recoveryToken);
             })
             .finally(() => {
@@ -70,9 +71,13 @@ export class RestorePasswordComponent implements OnInit {
                     return Observable.throw(new Error(error.status));
                 }
             })
+            // .subscribe(() => console.log('next'), null, () => console.log('comlete'));
             .subscribe(
-                (val) => this.isTokenValid = true,
-                (err) => console.log(err),
+                val => {
+                    this.isTokenValid = true;
+                    console.log('subscribe result');
+                },
+                err => console.log(err)
             );
     }
 
