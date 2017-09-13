@@ -98,7 +98,12 @@ export class AuthService implements CanActivate {
     recoverPassword(email): Observable<Response> {
         const endpoint = `${env.API_URL}/reset-password`;
         const recoveryRoute = `${window.location.origin}/${ROUTE.restorePassword};${RECOVERY_TOKEN_PARAM_NAME}=${RECOVERY_TOKEN_VAR_NAME}`;
-        return this._http.post(endpoint, {email, frontUrl: recoveryRoute, tokenPlaceholder: RECOVERY_TOKEN_VAR_NAME });
+        const param = {
+            email,
+            frontUrl: recoveryRoute,
+            tokenPlaceholder: RECOVERY_TOKEN_VAR_NAME
+        };
+        return this._http.post(endpoint, param);
     }
 
     /**
