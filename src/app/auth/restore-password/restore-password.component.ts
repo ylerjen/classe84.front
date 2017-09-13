@@ -24,6 +24,8 @@ export class RestorePasswordComponent implements OnInit {
 
     public isLoading = true;
 
+    public isProcessing: boolean;
+
     public isTokenValid: boolean;
 
     public recoveryToken: string;
@@ -55,37 +57,46 @@ export class RestorePasswordComponent implements OnInit {
                     throw new Error(`no route param '${RECOVERY_TOKEN_PARAM_NAME}' found`);
                 }
                 this.recoveryToken = routeData[RECOVERY_TOKEN_PARAM_NAME];
-                console.log('switchmap');
                 return this._authSrvc.isRecoveryTokenValid(this.recoveryToken);
             })
-            .finally(() => {
-                console.log('finally');
+            .catch((error: any) => {
+                if (error instanceof Error) {
+                    this._notifSrvc.notifyError(error.message);
+                } else {
+                    console.log(error);
+                    if (error.status === 402) {
+                        this._notifSrvc.notifyError('The token has expired');
+                        // TODO redirect to password recovery request page
+                    } else if (error.status < 400 ||  error.status === 500) {
+                        return Observable.throw(new Error(error.status));
+                    }
+                }
                 this.isLoading = false;
             })
-            .catch((error: any) => {
-                console.log(error);
-                if (error.status === 402) {
-                    this._notifSrvc.notifyError('token has expired');
-                    // TODO redirect to password recovery request page
-                } else if (error.status < 400 ||  error.status === 500) {
-                    return Observable.throw(new Error(error.status));
-                }
-            })
-            // .subscribe(() => console.log('next'), null, () => console.log('comlete'));
+            .finally(() => {console.log('putain'); this.isLoading = false; })
             .subscribe(
                 val => {
                     this.isTokenValid = true;
-                    console.log('subscribe result');
+                    this.isLoading = false;
                 },
                 err => console.log(err)
             );
     }
 
     changePassword($event: Event): void {
+        this.isProcessing = true;
         const values = this.restoreForm.value;
         this._authSrvc.changePasswordFromRecovery(values)
+            .finally( () => this.isProcessing = false)
             .subscribe(
-                resp => console.log('yes changed')
+                resp => {
+                    this._notifSrvc.notifySuccess('Your new password was successfully setted');
+                    // TODO redirect to login
+                },
+                err => {
+                    console.log(err);
+                    this._notifSrvc.notifyError('Error, see console');
+                }
             );
     }
 }
