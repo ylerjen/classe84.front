@@ -21,11 +21,9 @@ import { CustomValidators } from '../../shared/validators/CustomValidators';
 })
 export class PasswordRecoveryComponent implements OnInit {
 
-    public isTokenValid: boolean;
+    public isSending: boolean;
 
-    public isLoading = true;
-
-    public recoveryToken: string;
+    public isSuccessful: boolean;
 
     public recoveryForm: FormGroup;
 
@@ -38,17 +36,22 @@ export class PasswordRecoveryComponent implements OnInit {
 
     ngOnInit() {
         this.recoveryForm = this._fb.group(
-            {
-                email: ['', Validators.compose([Validators.required, Validators.email])]
-            }
+            { email: ['', Validators.compose([Validators.required, Validators.email])] }
         );
     }
 
     recover($event: Event): void {
+        this.isSending = true;
         const formValues = this.recoveryForm.value;
         this._authSrvc.recoverPassword(formValues.email)
+            .finally(() => this.isSending = false)
             .subscribe(
-                resp => console.log('yes changed')
+                resp => this.isSuccessful = true,
+                err => {
+                    if (err.status === 404) {
+                        this._notifSrvc.notifyError(`The email '${formValues.email}' is not registered for any member`);
+                    }
+                }
             );
     }
 }
