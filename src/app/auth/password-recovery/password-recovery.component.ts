@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/finally';
 
 import { AuthService } from '../../services/auth/auth.service';
@@ -46,7 +45,7 @@ export class PasswordRecoveryComponent implements OnInit {
         this._authSrvc.recoverPassword(formValues.email)
             .finally(() => this.isSending = false)
             .subscribe(
-                resp => this.isSuccessful = true,
+                (resp: Response) => this.isSuccessful = true,
                 err => {
                     if (err.status === 404) {
                         this._notifSrvc.notifyError(`The email '${formValues.email}' is not registered for any member`);
