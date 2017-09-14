@@ -33,10 +33,10 @@ export class ContactPageComponent {
 
     sendContactMail(contact: Contact) {
         this._contactSrvc.sendMail(contact)
-            // .subscribe((resp: Response) => {
-            //     if (resp.status === 200) {
-            //         this._notifSrvc.notifySuccess('Contact email sent');
-            //     }
-            // });
+            .subscribe((resp: Response) => {
+                if (resp.status === 200) {
+                    this._notifSrvc.notifySuccess('Contact email sent');
+                }
+            });
     }
 }
