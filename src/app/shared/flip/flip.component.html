@@ -1,0 +1,10 @@
+<div class="tp-wrapper">
+    <div class="tp-box" (click)="toggleFlip()" [@flipState]="flip">
+      <div class="tp-box__side tp-box__front">
+          <ng-content select=".flip-front"></ng-content>
+      </div>
+      <div class="tp-box__side tp-box__back">
+          <ng-content select=".flip-back"></ng-content>
+      </div>
+    </div>
+  </div>

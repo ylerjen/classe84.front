@@ -6,6 +6,7 @@ import { LoadersCssModule } from 'angular2-loaders-css';
 import { ValidationErrorComponent } from './validation-error/validation-error.component';
 import { PanelComponent } from './panel/panel.component';
 import { PhoneNbPipe } from './pipes/phone-nb.pipe';
+import { FlipComponent } from './flip/flip.component';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { PhoneNbPipe } from './pipes/phone-nb.pipe';
         PanelComponent,
         PhoneNbPipe,
         ValidationErrorComponent,
+        FlipComponent,
     ],
     exports: [
         CommonModule,
@@ -23,6 +25,7 @@ import { PhoneNbPipe } from './pipes/phone-nb.pipe';
         PanelComponent,
         PhoneNbPipe,
         ValidationErrorComponent,
+        FlipComponent,
     ],
 })
 export class SharedModule { }
