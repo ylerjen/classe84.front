@@ -1,22 +1,22 @@
-.tp-wrapper {
+.flip-wrapper {
     perspective: 800px;
 }
 
-.tp-box {
+.flip-box {
     position: relative;
     margin: 3rem auto;
     transform-style: preserve-3d;
     transition: transform 1s;
 }
-.tp-box__side {
+.flip-box__side {
     width: 100%;
     height: 100%;
     position: absolute;
     backface-visibility: hidden;
 }
-.tp-box__front {
+.flip-box__recto {
     background-color: #f5f8fa;
 }
-.tp-box__back {
+.flip-box__verso {
     transform: rotateY(179.9deg);
 }
