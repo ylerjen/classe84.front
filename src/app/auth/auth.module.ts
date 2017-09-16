@@ -8,12 +8,13 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { SharedModule } from '../shared/shared.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { authHttpServiceFactory } from '../services/auth/auth.service';
-import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { AccountRecoveryFormComponent } from './account-recovery/account-recovery-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RestorePasswordComponent } from './restore-password/restore-password.component';
+import { LoginFormViewerComponent } from './login-form-viewer/login-form-viewer.component';
+import { AccountRecoveryViewerComponent } from './account-recovery-viewer/account-recovery-viewer.component';
 
 export const ROUTE = {
-    passwordRecovery: 'password-recovery',
     restorePassword: 'restore-password',
     changePassword: 'change-password'
 }
@@ -21,7 +22,6 @@ export const RECOVERY_TOKEN_VAR_NAME = '${token}';
 export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
 
 const authRoutes: Routes = [
-    { path: ROUTE.passwordRecovery, component: PasswordRecoveryComponent },
     { path: ROUTE.restorePassword, component: RestorePasswordComponent },
     { path: ROUTE.changePassword, component: ChangePasswordComponent },
 ];
@@ -43,12 +43,17 @@ const authRoutes: Routes = [
     ],
     declarations: [
         LoginFormComponent,
-        PasswordRecoveryComponent,
+        AccountRecoveryFormComponent,
         ChangePasswordComponent,
-        RestorePasswordComponent
+        RestorePasswordComponent,
+        LoginFormViewerComponent,
+        AccountRecoveryViewerComponent,
     ],
     exports: [
-        LoginFormComponent
+        LoginFormComponent,
+        AccountRecoveryFormComponent,
+        LoginFormViewerComponent,
+        AccountRecoveryViewerComponent,
     ]
 })
 export class AuthModule { }

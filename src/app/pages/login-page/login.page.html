@@ -1,1 +1,6 @@
-<app-login-form></app-login-form>
+<div class="row">
+    <app-flip class="col" [flip]="flipface">
+        <app-login-form-viewer class="flip-recto"></app-login-form-viewer>
+        <app-account-recovery-viewer class="flip-verso"></app-account-recovery-viewer>
+    </app-flip>
+</div>

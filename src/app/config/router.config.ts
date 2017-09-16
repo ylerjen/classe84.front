@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 
 import { AuthService } from '../services/auth/auth.service';
-import { LoginPage } from '../pages/login-page/login.page';
+import { LoginPageComponent } from '../pages/login-page/login.page';
+import { LoginFormViewerComponent } from '../auth/login-form-viewer/login-form-viewer.component';
+import { AccountRecoveryViewerComponent } from '../auth/account-recovery-viewer/account-recovery-viewer.component';
 import { HomePage } from '../pages/home-page/home.page';
 import { AboutPage } from '../pages/about-page/about.page';
 import { ContactPageComponent } from '../contact/contact-page/contact-page.component';
@@ -20,7 +22,7 @@ export const ROUTE_URL: { [key: string]: string } = {
     edit: 'edit',
     address: 'addresses',
     contact: 'contact',
-    unauthorized: 'unauthorized',
+    unauthorized: 'unauthorized'
 };
 
 export const appRoutes: Routes = [
@@ -42,7 +44,7 @@ export const appRoutes: Routes = [
     },
     {
         path: ROUTE_URL.login,
-        component: LoginPage
+        component: LoginPageComponent
     },
     // {
     //     path: '',

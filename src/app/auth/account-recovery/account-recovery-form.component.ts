@@ -14,11 +14,11 @@ import { CustomValidators } from '../../shared/validators/CustomValidators';
  * This component is used to ask for a token to recover the account of the passed email
  */
 @Component({
-    selector: 'app-password-recovery',
-    templateUrl: './password-recovery.component.html',
-    styleUrls: ['./password-recovery.component.scss']
+    selector: 'app-account-recovery-form',
+    templateUrl: './account-recovery-form.component.html',
+    styleUrls: ['./account-recovery-form.component.scss']
 })
-export class PasswordRecoveryComponent implements OnInit {
+export class AccountRecoveryFormComponent implements OnInit {
 
     public isSending: boolean;
 

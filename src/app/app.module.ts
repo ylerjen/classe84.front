@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 import { ContactModule } from './contact/contact.module';
 import { UserModule } from './user/user.module';
 import { EventModule } from './event/event.module';
@@ -19,7 +20,7 @@ import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { NotificationService } from './services/notification/notification.service';
 import { HomePage } from './pages/home-page/home.page';
-import { LoginPage } from './pages/login-page/login.page';
+import { LoginPageComponent } from './pages/login-page/login.page';
 import { AboutPage } from './pages/about-page/about.page';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -35,7 +36,7 @@ import { NotFoundPage } from './pages/not-found/not-found.page';
         AboutPage,
         HeaderComponent,
         FooterComponent,
-        LoginPage,
+        LoginPageComponent,
         NotifierComponent,
         UnauthorizedPage,
         NotFoundPage,
@@ -53,6 +54,7 @@ import { NotFoundPage } from './pages/not-found/not-found.page';
         EventModule,
         UserModule,
         ContactModule,
+        SharedModule,
     ],
     providers: [
         AppService,
