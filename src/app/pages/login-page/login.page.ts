@@ -20,7 +20,6 @@ export class LoginPageComponent implements OnInit {
     ngOnInit() {
         this._route.queryParams.subscribe(
             (params) => {
-                console.log(params);
                 if (params.recovery) {
                     this.flipface = VERSO;
                 } else {

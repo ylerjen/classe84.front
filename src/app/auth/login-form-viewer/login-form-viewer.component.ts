@@ -52,7 +52,6 @@ export class LoginFormViewerComponent implements OnInit {
                     );
                 this._route.params
                     .subscribe((data: Params) => {
-                        console.log(data);
                         if (data.redirectTo) {
                             this._router.navigate([data.redirectTo]);
                         }
@@ -65,7 +64,6 @@ export class LoginFormViewerComponent implements OnInit {
                 setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
             },
             () => this.isLoggingIn = false
-            );
+        );
     }
-
 }

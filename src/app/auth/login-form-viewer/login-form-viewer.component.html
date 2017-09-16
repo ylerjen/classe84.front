@@ -7,5 +7,5 @@
         <p>Hello {{loggedUser.fullname}} you're logged in. Would you like to go to your profile page ?</p>
         <p class="text-muted">Not {{loggedUser.first_name}} ? Please <a routerLink="/logout">log into your account</a>.</p>
     </div>
-    <app-login-form *ngIf="!isLoggingIn && !loggedUser"></app-login-form>
+    <app-login-form (loginEvent)="onLogin($event)" *ngIf="!isLoggingIn && !loggedUser"></app-login-form>
 </section>
