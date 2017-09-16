@@ -1,5 +1,5 @@
 <div class="flip-wrapper">
-    <div class="flip-box" [@flipState]="flip">
+    <div [ngClass]="{'flip-box': true, 'flipped': flip === 'verso'}" [@flipState]="flip">
         <div class="flip-box__side flip-box__recto">
             <ng-content select=".flip-recto"></ng-content>
         </div>

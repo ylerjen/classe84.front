@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, trigger, state, style, transition, animate } from '@angular/core';
 
-const RECTO = 'recto';
-const VERSO = 'verso';
+export const RECTO = 'recto';
+export const VERSO = 'verso';
 
 @Component({
     selector: 'app-flip',
@@ -26,7 +26,7 @@ export class FlipComponent {
 
     @Input()
     public set flip(val: string | null) {
-        if (val === RECTO || val === VERSO) {
+        if (val && (val === RECTO || val === VERSO)) {
             this._flip = val;
         } else {
             this._flip = (this.flip === RECTO) ? VERSO : RECTO;

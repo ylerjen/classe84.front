@@ -16,7 +16,12 @@
 }
 .flip-box__recto {
     background-color: #f5f8fa;
+    z-index: 1;
 }
 .flip-box__verso {
     transform: rotateY(179.9deg);
+
+    .flipped & {
+        z-index: 2;
+    }
 }
