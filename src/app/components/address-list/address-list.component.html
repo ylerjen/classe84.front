@@ -1,0 +1,7 @@
+<ul class="address-list">
+    <li *ngFor="let address of addressList" class="col-12">
+        <app-address [address]="address"></app-address>
+    </li>
+    <li *ngIf="!addressList.length"
+        class="col-12 alert alert-info">No address to display...</li>
+</ul>

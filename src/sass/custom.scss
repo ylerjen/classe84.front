@@ -4,6 +4,7 @@
 @import 'partials/config/variables';
 
 // base
+@import 'partials/base/loader';
 @import 'partials/base/footer';
 
 
@@ -24,9 +25,6 @@
 @import 'partials/_el_buttons';
 @import 'partials/_el_containers';
 */
-
-// Components
-@import 'partials/components/_address';
 
 // Specifics partials
 @import 'partials/_mo_users';

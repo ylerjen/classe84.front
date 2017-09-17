@@ -1,0 +1,25 @@
+<div *ngIf="loginForm">
+    <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+        <div class="form-group">
+            <label for="login-email" class="center-block">Email</label>
+            <input id="login-email" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
+        </div>
+        <div class="form-group">
+            <label for="login-password" class="center-block">Password</label>
+            <input id="login-password" type="password" class="form-control" formControlName="password" placeholder="password" />
+        </div>
+        <div class="checkbox">
+            <label for="login-remember-me">
+                <input
+                    id="login-remember-me"
+                    type="checkbox"
+                    formControlName="remember" /> Remember me
+            </label>
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Log me in"/>
+            <a routerLink="/login" [queryParams]="{ recovery: 'true' }" class="btn btn-link">Password forgotten ?</a>
+        </div>
+    </form>
+</div>
