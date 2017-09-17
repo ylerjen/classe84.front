@@ -14,7 +14,7 @@
                     <button class="btn btn-outline-info"><i class="fa fa-pencil"></i></button>
                     <button class="btn btn-outline-danger" data-ng-click="this.delete()"><i class="fa fa-trash"></i></button>
                 </nav>
-                <section class="card-block">
+                <section class="card-body">
                     <p>
                         <span class="text-separator"><i class="fa fa-calendar-o"></i></span>
                         <span>{{event.event_date | date: 'dd.MM.yyyy'}}</span>
@@ -26,12 +26,12 @@
                         <span>CHF {{event.price}}</span>
                     </p>
                 </section>
-                <section class="card-block">
+                <section class="card-body">
                     <h2>Description</h2>
                     <div [innerHTML]="event.description"></div>
                     <p>{{event.organisator}}</p>
                 </section>
-                <section class="card-block">
+                <section class="card-body">
                     <h2>Location</h2>
                     <agm-map class="gmap" [latitude]="event.latitude" [longitude]="event.longitude">
                         <agm-marker [latitude]="event.latitude" [longitude]="event.longitude"></agm-marker>

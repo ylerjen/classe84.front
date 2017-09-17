@@ -17,7 +17,7 @@
             <i class="fa fa-trash"></i>
         </button>
     </div>
-    <section class="card-block">
+    <section class="card-body">
         <h2><i class="fa fa-address-book"></i> Infos</h2>
         <div class="text-muted">Member since {{user.created_at | date}}</div>
         <div class="user-card">            
@@ -48,7 +48,7 @@
             </p>
         </div>
     </section>
-    <section class="card-block">
+    <section class="card-body">
         <h2><i class="fa fa-map-marker"></i> Addresses</h2>
         <app-address-list [addressList]="user.addresses"></app-address-list>
     </section>
