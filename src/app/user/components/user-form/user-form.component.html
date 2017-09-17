@@ -1,0 +1,166 @@
+<div *ngIf="!(user && userForm)" class="mb-5 mt-5 text-center">
+    <i class="fa fa-2x fa-spinner fa-spin"></i>
+</div>
+<form 
+    *ngIf="user && userForm"
+    class="card-body" 
+    [formGroup]="userForm" 
+    (ngSubmit)="onSubmit($event)" 
+    novalidate>
+    <h1>{{ user.fullname }}</h1>
+    <input type="hidden" formControlName="id" />
+    <div class="form-group">
+        <label>Gender</label>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input
+                    type="radio"
+                    class="form-check-input"
+                    formControlName="gender"
+                    id="gender-male"
+                    value="M" />
+                Male
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input
+                    type="radio"
+                    class="form-check-input"
+                    formControlName="gender"
+                    id="gender-female"
+                    value="F" />
+                Female
+            </label>
+        </div>
+        <app-validation-error [errors]="userForm.get('gender').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <label for="user-lastname">Lastname</label>
+        <input
+            type="text"
+            id="user-lastname"
+            class="form-control"
+            formControlName="last_name" 
+            placeholder="Your lastname" />
+        <app-validation-error [errors]="userForm.get('last_name').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <label for="user-maidenname">Maidenname</label>
+        <input
+            type="text"
+            id="user-maidenname"
+            class="form-control"
+            formControlName="maiden_name"
+            placeholder="Your maidenname" />
+            <app-validation-error [errors]="userForm.get('maiden_name').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <label for="user-firstname">Firstname</label>
+        <input
+            type="text"
+            id="user-firstname"
+            class="form-control"
+            formControlName="first_name"
+            placeholder="Your firstname" />
+        <app-validation-error [errors]="userForm.get('first_name').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <label for="user-email">Email</label>
+        <input
+            type="text" 
+            id="user-email"
+            class="form-control"
+            formControlName="email" 
+            placeholder="Your email address">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <app-validation-error [errors]="userForm.get('email').errors"></app-validation-error>
+    </div>
+   <div class="form-group">
+        <label for="user-birthdate">Birthdate</label>
+        <input
+            type="date"
+            class="form-control"
+            id="user-birthdate"
+            formControlName="birthdate"
+            placeholder="Your birthdate" />
+        <app-validation-error [errors]="userForm.get('birthdate').errors"></app-validation-error>
+    </div>       
+    <div class="form-group">
+        <label for="usr-mobile">Téléphone mobile</label>
+        <input
+            type="tel"
+            id="usr-mobile"
+            class="form-control"
+            formControlName="mobile"
+            placeholder="079 123 45 67" />
+            <app-validation-error [errors]="userForm.get('mobile').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <label for="usr-phone">Téléphone fixe</label>
+        <input
+            type="tel"
+            id="usr-phone"
+            class="form-control"
+            formControlName="phone"
+            placeholder="027 123 45 67" />
+        <app-validation-error [errors]="userForm.get('phone').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <label for="usr-website">Site web</label>
+        <div class="input-group">
+            <div class="input-group-addon">http://</div>
+            <input
+                type="text"
+                id="usr-website"
+                class="form-control"
+                formControlName="website"
+                placeholder="www.monsite.ch" />
+            <app-validation-error [errors]="userForm.get('website').errors"></app-validation-error>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="usr-fb-profile">Nom de profile Facebook</label>
+        <div class="input-group">
+            <div class="input-group-addon">http://facebook.com/</div>
+            <input
+                type="text"
+                id="usr-fb-profile"
+                class="form-control"
+                formControlName="fb_profile_name"
+                placeholder="hans.muster.2" />
+            <app-validation-error [errors]="userForm.get('fb_profile_name').errors"></app-validation-error>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="usr-fb-id">Identifiant Facebook</label>
+        <input
+            type="text"
+            id="usr-fb-id"
+            class="form-control"
+            formControlName="fb_user_id"
+            placeholder="2341230958" />
+        <app-validation-error [errors]="userForm.get('fb_user_id').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label for="user-is-activ">
+                <input
+                    type="checkbox"
+                    id="user-is-activ"
+                    formControlName="is_active" />
+                Est membre actif de la classe</label>
+        </div>
+    </div>
+    <div *ngIf="userForm.errors" class="alert alert-danger">
+          {{ userForm.errors | json }}
+        </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-lg-offset-6">
+            <button type="submit" [disabled]="userForm.status !== 'VALID'" class="btn btn-primary">Save</button>
+            <a routerLink="/users/{{user?.id}}" class="btn btn-link">Cancel</a>
+        </div>
+    </div>
+    <p>Form value: {{ userForm.value | json }}</p>
+    <p>Form status: {{ userForm.status | json }}</p>
+</form>

@@ -1,0 +1,25 @@
+<div class="row">
+    <section class="col-md-8">
+         <router-outlet></router-outlet> 
+    </section>
+    <aside class="col-md-4">
+        <app-panel *ngIf="user">
+            <span class="title"><i class="fa fa-ticket"></i> Participation</span>
+            <span class="text">
+                <p>This user participated to {{eventsSubscriptions.length}} events.</p>
+                <ul>
+                    <li *ngFor="let subscr of eventsSubscriptions">
+                        <a routerLink="/events/{{subscr.id}}">{{subscr.title}}</a>
+                    </li>
+                </ul>
+                <div>
+                    <a routerLink="/events/{{user.id}}/subscriptions" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
+                </div>
+            </span>
+        </app-panel>        
+        <app-panel>
+            <span class="title"><i class="fa fa-ticket"></i> Participation</span>
+            <span class="text">This user participated to n events</span>
+        </app-panel>
+    </aside>
+</div>

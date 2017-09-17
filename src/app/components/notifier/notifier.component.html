@@ -1,0 +1,8 @@
+<div class="notifier">
+    <div class="alert"
+        *ngFor="let notif of _notifStore$ | async"
+        [ngClass]="{'alert-info': notif.type === 0, 'alert-warning': notif.type === 1, 'alert-success': notif.type === 2, 'alert-danger': notif.type === 3}">
+        <span class="notifier__item-msg">{{ notif.type }} {{ notif.msg }}</span>
+        <button class="notifier__item-close" (click)="removeNotif($event, notif)">&times;</button>
+    </div>
+</div>

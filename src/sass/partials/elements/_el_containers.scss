@@ -33,11 +33,13 @@
     }
 }
 .module-title {
-    position: absolute;
-    top: 150px;
-    margin: 0 2*$step;
-    text-shadow: 2px 2px 2px black;
+    background-color: rgba(0,0,0,0.3);
     color: $global-bg-color;
+    padding: 6px 12px;
+    position: absolute;
+    text-shadow: 2px 2px 2px black;
+    top: 150px;
+    width: 100%;
 }
 a.card {
     &:hover,

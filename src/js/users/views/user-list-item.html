@@ -1,9 +1,0 @@
-<a href="#/user/{{user.id}}">          {{test}}
-    <div class="item-ico">
-        <i data-ng-class=" user.gender === 'F'  ? 'ico-girl female' : 'ico-boy male'" class="user-ico ico ico-2x"></i>
-    </div>
-    <div class="item-desc">
-        <div class="user-name" data-ng-class="{inactiv: (!user.is_active)}">{{user.last_name}} {{user.first_name}}</div>
-        <div class="user-birthdate">{{user.birthdate | date: 'dd.MM.yyyy'}}</div>
-    </div>
-</a>

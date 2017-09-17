@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" routerLink="/">Classe 84</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler"
+        aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapse()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{'show': !isCollapsed}" id="navbarToggler">
+        <div class="navbar-nav mr-auto mt-2 mt-md-0">
+            <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active"><i class="fa fa-group"></i> Users</a>
+            <a class="nav-item nav-link" routerLink="/events" routerLinkActive="active"><i class="fa fa-calendar"></i> Events</a>
+            <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active"><i class="fa fa-info-circle"></i> About</a>
+            <a class="nav-item nav-link" routerLink="/contact" routerLinkActive="active"><i class="fa fa-envelope"></i> Contact</a>
+            <a href="#" class="nav-item nav-link disabled"><i class="fa fa-suitcase"></i> Administration</a>
+        </div>
+        <span>
+            <a *ngIf="!isLoggedIn" class="btn btn-primary" routerLink="/login" routerLinkActive="active">
+                <i class="fa fa-sign-in"></i> Login
+            </a>
+            <button *ngIf="isLoggedIn" (click)="onLogout($event)" class="btn btn-primary">
+                <i class="fa fa-sign-out"></i> logout
+            </button>
+        </span>
+    </div>
+</nav>

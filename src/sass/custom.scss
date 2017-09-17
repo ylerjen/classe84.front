@@ -3,6 +3,10 @@
 // Custom variables
 @import 'partials/config/variables';
 
+// base
+@import 'partials/base/loader';
+@import 'partials/base/footer';
+
 
 // Helpers
 @import 'partials/_el_helpers';
@@ -16,13 +20,12 @@
 @import 'partials/elements/_el_images';
 @import 'partials/elements/_el_lists';
 @import 'partials/_el_fonts';
+@import 'partials/_el_forms';
 /*
 @import 'partials/_el_buttons';
-@import 'partials/_el_forms';
 @import 'partials/_el_containers';
 */
 
 // Specifics partials
 @import 'partials/_mo_users';
-//@import 'partials/_mo_address';
 @import 'partials/_mo_events';

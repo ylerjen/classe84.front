@@ -1,0 +1,8 @@
+<section class="list">    
+    <div class="card-body inter-block">
+        <app-user-list-filter [filter]="filter" (update)="onFilterChange($event)"></app-user-list-filter>
+    </div>
+    <div class="card-body">
+        <app-users-list [usersList]="filteredList" [isLoading]="isLoading"></app-users-list>
+    </div>
+</section>
