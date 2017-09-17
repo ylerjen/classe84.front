@@ -4,7 +4,7 @@ import { STORE_API_VERSION, STORE_FRNT_VERSION } from '../../actions/app.actions
 import { Version } from '../../models/Version';
 
 
-const initialVersion = 'x.x.x';
+const initialVersion = '0.0.0';
 
 export interface AppVersion {
     front: Version;
