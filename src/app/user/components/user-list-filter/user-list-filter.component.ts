@@ -12,7 +12,7 @@ export interface IUserListFilter {
 })
 export class UserListFilterComponent {
 
-    public model: IUserListFilter = {
+    private model: IUserListFilter = {
         name: '',
         activeOnly: false
     };
