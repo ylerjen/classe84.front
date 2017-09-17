@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -16,18 +18,20 @@ import { NotificationService } from '../../../services/notification/notification
 })
 export class UserListWrapperComponent implements OnInit {
 
-    private filter: IUserListFilter = {
+    public filter: IUserListFilter = {
         name: '',
         activeOnly: false
     };
-    private isLoading = false;
-    private usersList: User[] = [];
-    private filteredList: User[] = [];
+    public isLoading = false;
+    public usersList: User[] = [];
+    public filteredList: User[] = [];
 
     constructor(
         private _usersService: UsersService,
         private _store: Store<IUserListState>,
-        private _notifSrvc: NotificationService
+        private _notifSrvc: NotificationService,
+        private _activeRoute: ActivatedRoute,
+        private _router: Router
     ) { }
 
     ngOnInit(): void {
@@ -35,20 +39,27 @@ export class UserListWrapperComponent implements OnInit {
             .subscribe( (uState: IUserListState) => {
                 if (uState) {
                     this.usersList = uState.userList;
-                    this.filteredList = uState.userList;
+                    this.filterList();
                     this.isLoading = uState.isLoading;
                 }
             });
             this.reloadAll();
+        this._activeRoute.queryParams.subscribe(
+            (params: IUserListFilter) => {
+                if (params) {
+                    this.filter = params;
+                }
+            }
+        );
     }
 
-    filterList(filter) {
+    filterList() {
         this.filteredList = this.usersList.filter(user => {
-            const nameFilter = (filter.name) ? filter.name.toLowerCase() : '';
+            const nameFilter = (this.filter.name) ? this.filter.name.toLowerCase() : '';
             const checkNameSearch = user.first_name.toLowerCase().includes(nameFilter) ||
                 user.last_name.toLowerCase().includes(nameFilter) ||
                 (user.maiden_name && user.maiden_name.toLowerCase().includes(nameFilter) );
-            const checkActiveOnly = !filter.activeOnly || (filter.activeOnly && user.is_active);
+            const checkActiveOnly = !this.filter.activeOnly || (this.filter.activeOnly && user.is_active);
 
             return checkNameSearch && checkActiveOnly;
         });
@@ -69,7 +80,16 @@ export class UserListWrapperComponent implements OnInit {
             .subscribe(action => this._store.dispatch(action));
     }
 
-    filterChange(filter) {
-        this.filterList(filter);
+    onFilterChange(filter: IUserListFilter) {
+        this.filter = filter;
+        this.filterList();
+        this.updateCurrentRoute();
+    }
+
+    updateCurrentRoute() {
+        this._router.navigate([], {
+            queryParams: this.filter,
+            relativeTo: this._activeRoute
+        });
     }
 }

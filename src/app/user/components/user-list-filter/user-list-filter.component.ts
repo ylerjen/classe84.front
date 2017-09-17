@@ -12,14 +12,20 @@ export interface IUserListFilter {
 })
 export class UserListFilterComponent {
 
-    @Input()
-    filter: IUserListFilter = {
+    public model: IUserListFilter = {
         name: '',
         activeOnly: false
     };
 
+    @Input()
+    set filter(val: IUserListFilter) {
+        this.model.name = val.name;
+        this.model.activeOnly = val.activeOnly;
+    };
+    get filter(): IUserListFilter {
+        return this.model;
+    }
+
     @Output()
     update: EventEmitter<IUserListFilter> = new EventEmitter<IUserListFilter>();
-
-    constructor() { }
 }
