@@ -9,6 +9,8 @@ import { Event } from '../../models/Event';
 })
 export class EventListWrapperComponent {
 
+    public filter =  {};
+
     private _eventList: Array<Event> = [];
     @Input()
     set eventList(val: Array<Event>) {
@@ -23,4 +25,8 @@ export class EventListWrapperComponent {
     public filteredList: Array<Event>;
 
 
+    onFilterChange(evt) {
+        console.log('onFilterChange', evt);
+        throw new Error('Not implemented yet');
+    }
 }

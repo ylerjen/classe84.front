@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -25,6 +26,7 @@ const eventRoutes: Routes = [
         CommonModule,
         SharedModule,
         RouterModule.forChild(eventRoutes),
+        FormsModule,
         AgmCoreModule.forRoot({
             apiKey: GMAP_API_KEY
           }),
