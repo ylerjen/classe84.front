@@ -29,20 +29,16 @@ export const appRoutes: Routes = [
     {
         path: ROUTE_URL.default,
         component: HomePage
-    },
-    {
+    }, {
         path: ROUTE_URL.unauthorized,
         component: UnauthorizedPage
-    },
-    {
+    }, {
         path: ROUTE_URL.about,
         component: AboutPage
-    },
-    {
+    }, {
         path: ROUTE_URL.contact,
         component: ContactPageComponent
-    },
-    {
+    }, {
         path: ROUTE_URL.login,
         component: LoginPageComponent
     },
