@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export interface IEventListFilter {
     name: string;
-    activeOnly: boolean;
+    year: number;
 }
 
 @Component({
@@ -14,13 +14,13 @@ export class EventListFilterComponent {
 
     private model: IEventListFilter = {
         name: '',
-        activeOnly: false
+        year: 0
     };
 
     @Input()
     set filter(val: IEventListFilter) {
         this.model.name = val.name;
-        this.model.activeOnly = val.activeOnly;
+        this.model.year = val.year;
     };
     get filter(): IEventListFilter {
         return this.model;

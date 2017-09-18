@@ -11,6 +11,8 @@ export class EventListWrapperComponent {
 
     public filter =  {};
 
+    public isLoading: boolean;
+
     private _eventList: Array<Event> = [];
     @Input()
     set eventList(val: Array<Event>) {

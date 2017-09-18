@@ -11,6 +11,6 @@
         <header>
             <h1 class="card-title">Account recovery</h1>
         </header>
-        <app-account-recovery-form></app-account-recovery-form>
+        <app-account-recovery-form (recoverEvent)="sendREcoveryRequest($event)"></app-account-recovery-form>
     </div>
 </section>
