@@ -32,23 +32,43 @@ $step: 4px;
 // the Bootstrap defaults without modifying key, versioned files.
 
 
-// Table of ontents
+// Table of Contents
 //
-// Colors
+// Color system
 // Options
 // Spacing
 // Body
 // Links
+// Paragraphs
 // Grid breakpoints
 // Grid containers
 // Grid columns
 // Fonts
 // Components
-
-// General variable structure
-//
-// Variable format should follow the `$component-modifier-state-property` order.
-
+// Tables
+// Buttons
+// Forms
+// Dropdowns
+// Z-index master list
+// Navs
+// Navbar
+// Pagination
+// Jumbotron
+// Form states and alerts
+// Cards
+// Tooltips
+// Popovers
+// Badges
+// Modals
+// Alerts
+// Progress bars
+// List group
+// Image thumbnails
+// Figures
+// Breadcrumbs
+// Carousel
+// Close
+// Code
 
 // Colors
 //
@@ -61,8 +81,9 @@ $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
 $brand-primary:             #3097d1 !default;
+$blue: $brand-primary !default; // override for beta
 $brand-primary-invert:      #ffffff !default;
-$brand-success:             #5cb85c !default;
+$brand-success:             #28a745 !default;
 $brand-success-invert:      #ffffff !default;
 $brand-info:                #5bc0de !default;
 $brand-info-invert:         #ffffff !default;
