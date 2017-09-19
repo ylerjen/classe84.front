@@ -57,9 +57,15 @@ export class LoginFormViewerComponent implements OnInit {
                         }
                     });
             },
-            err => {
+            (err: Response) => {
                 console.log(err);
-                const u = new Notification(err._body || err.message, ENotificationType.ERROR);
+                let msg;
+                if (err.json() instanceof ProgressEvent) {
+                    msg = "API error. See console";
+                } else {
+                    msg = err.json();
+                }
+                const u = new Notification(msg, ENotificationType.ERROR);
                 this._store.dispatch(addNotif(u));
                 setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
             },
