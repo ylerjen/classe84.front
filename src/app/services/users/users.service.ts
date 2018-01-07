@@ -11,16 +11,18 @@ import { Event } from '../../models/Event';
 import { Notification, ENotificationType } from '../../models/Notification';
 import { IUserListState } from '../../stores/userlist/userlistReducer';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
-import { GET_USER,
+import {
     addUser,
     updateUser,
     deleteUser,
     changeFilter,
+    GET_USER,
     ASYNC_USER_START,
     ASYNC_USER_SUCCESS,
     ASYNC_USERLIST_START,
     ASYNC_USERLIST_SUCCESS,
-    CHANGE_FILTER } from '../../actions/users.actions';
+    CHANGE_FILTER
+} from '../../actions/users.actions';
 
 
 const BASE_URL = `${env.API_URL}/users`;
@@ -34,7 +36,7 @@ export class UsersService {
         private _authHttp: AuthHttp
     ) { }
 
-    reload(): Observable<Action> {
+    fetchAll(): Observable<Action> {
         this._store.dispatch( { type: ASYNC_USERLIST_START});
         return this._http.get(BASE_URL)
             .map(res => res.json())

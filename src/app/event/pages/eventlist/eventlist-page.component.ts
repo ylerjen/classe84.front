@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
+import { IEventListState } from '../../../stores/eventlist/eventlistReducer';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -10,20 +12,12 @@ import { EventsService } from '../../services/events.service';
 })
 export class EventlistPageComponent implements OnInit {
 
-    public isLoading: boolean;
-
-    public eventList = [];
-
-    constructor(private _evtSrvc: EventsService) { }
+    constructor(
+        private _evtSrvc: EventsService,
+        private _store: Store<IEventListState>,
+    ) { }
 
     ngOnInit() {
-        this.isLoading = true;
-        this._evtSrvc.fetchAll()
-            .finally( () => this.isLoading = false )
-            .subscribe(
-                (resp) => this.eventList = resp,
-                (err) => { throw new Error(JSON.stringify(err)); },
-            );
     }
 
 }

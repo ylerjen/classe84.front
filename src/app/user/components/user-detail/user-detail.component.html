@@ -9,11 +9,11 @@
     <div class="ribbon-wrapper">
         <div class="ribbon" [ngClass]="{inactiv : !user.is_active}">{{user.is_active ? "Actif" : "Inactif"}}</div>
     </div>
-    <div class="actions">
-        <button class="btn btn-primary" (click)="onClickEdit(user.id)">
+    <div class="actions" *ngIf="user">
+        <button class="btn btn-primary" (click)="onClickEdit()">
             <i class="fa fa-pencil"></i>
         </button>
-        <button class="btn btn-danger" (click)="onClickDelete(user.id)">
+        <button class="btn btn-danger" (click)="onClickDelete()">
             <i class="fa fa-trash"></i>
         </button>
     </div>

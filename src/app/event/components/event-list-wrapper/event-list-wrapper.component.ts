@@ -1,51 +1,53 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
-import { User } from '../../../models/User';
-import { IUserListState } from '../../../stores/userlist/userlistReducer';
-import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
-import { UsersService } from '../../../services/users/users.service';
+import { Event } from '../../../models/Event';
+import { IEventListState } from '../../../stores/eventlist/eventlistReducer';
+import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
+import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../../services/notification/notification.service';
 
 @Component({
-    selector: 'app-user-list-wrapper',
-    templateUrl: './user-list-wrapper.component.html',
-    styleUrls: ['./user-list-wrapper.component.scss']
+    selector: 'app-event-list-wrapper',
+    templateUrl: './event-list-wrapper.component.html',
+    styleUrls: ['./event-list-wrapper.component.scss']
 })
-export class UserListWrapperComponent implements OnInit {
+export class EventListWrapperComponent {
 
-    public filter: IUserListFilter = {
+    public filter: IEventListFilter =  {
         name: '',
-        activeOnly: false
+        year: 0
     };
-    public isLoading = false;
-    public usersList: User[] = [];
-    public filteredList: User[] = [];
+    public isLoading: boolean;
+
+    private eventsList: Array<Event> = [];
+
+    public filteredList: Array<Event> = [];
 
     constructor(
-        private _usersService: UsersService,
-        private _store: Store<IUserListState>,
+        private _eventsService: EventsService,
+        private _store: Store<IEventListState>,
         private _notifSrvc: NotificationService,
         private _activeRoute: ActivatedRoute,
         private _router: Router
     ) { }
 
     ngOnInit(): void {
-        this._store.select('userlistState')
-            .subscribe( (uState: IUserListState) => {
-                if (uState) {
-                    this.usersList = uState.userList;
+        this._store.select('eventlistState')
+            .subscribe( (evtState: IEventListState) => {
+                if (evtState) {
+                    this.eventsList = evtState.eventList;
                     this.filterList();
-                    this.isLoading = uState.isLoading;
+                    this.isLoading = evtState.isLoading;
                 }
             });
         this.loadAll();
         this._activeRoute.queryParams.subscribe(
-            (params: IUserListFilter) => {
+            (params: IEventListFilter) => {
                 if (params) {
                     this.filter = params;
                 }
@@ -54,19 +56,16 @@ export class UserListWrapperComponent implements OnInit {
     }
 
     filterList() {
-        this.filteredList = this.usersList.filter(user => {
+        this.filteredList = this.eventsList.filter(event => {
             const nameFilter = (this.filter.name) ? this.filter.name.toLowerCase() : '';
-            const checkNameSearch = user.first_name.toLowerCase().includes(nameFilter) ||
-                user.last_name.toLowerCase().includes(nameFilter) ||
-                (user.maiden_name && user.maiden_name.toLowerCase().includes(nameFilter) );
-            const checkActiveOnly = !this.filter.activeOnly || (this.filter.activeOnly && user.is_active);
-
-            return checkNameSearch && checkActiveOnly;
+            const checkNameSearch = event.title.toLowerCase().includes(nameFilter);
+            
+            return checkNameSearch;
         });
     }
 
     loadAll() {
-        this._usersService.fetchAll()
+        this._eventsService.fetchAll()
             .catch( (error: Response) => {
                 let msg;
                 if (error.status === 0) {
@@ -80,7 +79,7 @@ export class UserListWrapperComponent implements OnInit {
             .subscribe(action => this._store.dispatch(action));
     }
 
-    onFilterChange(filter: IUserListFilter) {
+    onFilterChange(filter: IEventListFilter) {
         this.filter = filter;
         this.filterList();
         this.updateCurrentRoute();

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Event as Evt } from '../../models/Event';
+import { Event as Evt } from '../../../models/Event';
 
 @Component({
     selector: 'app-event-list',
@@ -13,6 +13,7 @@ export class EventListComponent {
     isLoading: boolean;
 
     private _eventList: Array<Evt> = [];
+    
     @Input()
     set eventList(list: Array<Evt>) {
         if (Array.isArray(list)) {

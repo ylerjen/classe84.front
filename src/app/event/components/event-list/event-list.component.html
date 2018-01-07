@@ -1,6 +1,7 @@
-<div>
+<section class="event-list">
     <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
-    <ul id="events_list" class="row list-item" *ngIf="!isLoading">                
+    <div class="alert alert-info">{{eventList.length}} évènements listés</div>
+    <ul class="row list-item" *ngIf="!isLoading">                
         <li *ngFor="let event of eventList" class="col-md-12 col-lg-6">
             <a href="/events/{{event.id}}" class="card">
                 <div class="card-header">
@@ -13,9 +14,6 @@
                     <p><i class="fa fa-users"></i> 18 participants</p>
                 </div>
             </a>
-        </li>
-        <li class="event-item animation" *ngIf="eventList.length === 0">
-            <strong class="label alert">Aucun résultat trouvé...</strong>
-        </li>                
+        </li>             
     </ul>
-</div>
+</section>

@@ -5,36 +5,36 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IUserState } from '../../../stores/user/userReducer';
-import { User } from '../../../models/User';
+import { IEventState } from '../../../stores/event/eventReducer';
+import { Event } from '../../../models/Event';
 import { ROUTE_URL } from '../../../config/router.config';
 
 @Component({
-    selector: 'app-user-detail-viewer',
-    templateUrl: './user-detail-viewer.component.html',
-    styleUrls: ['./user-detail-viewer.component.scss']
+    selector: 'app-event-detail-viewer',
+    templateUrl: './event-detail-viewer.component.html',
+    styleUrls: ['./event-detail-viewer.component.scss']
 })
-export class UserDetailViewerComponent implements OnInit, OnDestroy {
+export class EventDetailViewerComponent implements OnInit, OnDestroy {
 
-    public user: User;
+    public event: Event;
 
-    private store$: Observable<IUserState>;
+    private store$: Observable<IEventState>;
     private sub: Subscription;
 
     constructor(
-        private _store: Store<IUserState>,
+        private _store: Store<IEventState>,
         private _router: Router
     ) {
-        this.store$ = this._store.select('userState');
+        this.store$ = this._store.select('eventState');
     }
 
     ngOnInit(): void {
         this.sub = this.store$
             .subscribe(
-                (userState: IUserState) => {
-                    if (userState.user) {
-                        const curUser = new User(userState.user);
-                        this.user = curUser;
+                (eventState: IEventState) => {
+                    if (eventState.event) {
+                        const curEvent = new Event(eventState.event);
+                        this.event = curEvent;
                     }
                 }
             );
@@ -46,10 +46,10 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
 
     goToEdit(id: number): void {
         if (typeof id === 'undefined') { return; }
-        const url = `${ROUTE_URL.users}/${id.toString()}/edit`;
+        const url = `${ROUTE_URL.event}/${id.toString()}/edit`;
         this._router.navigate([url]);
     }
-    
+
     delete(id: number): void {
         console.log('delete', id);
         throw new Error('not implemented yet');

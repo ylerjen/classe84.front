@@ -11,14 +11,24 @@ import { AuthService } from '../services/auth/auth.service';
 import { EventsService } from './services/events.service';
 import { EventlistPageComponent } from './pages/eventlist/eventlist-page.component';
 import { EventPageComponent } from './pages/event/event-page.component';
-import { EventListComponent } from './event-list/event-list.component';
-import { EventDetailComponent } from './event-detail/event-detail.component';
-import { EventListWrapperComponent } from './event-list-wrapper/event-list-wrapper.component';
-import { EventListFilterComponent } from './event-list-filter/event-list-filter.component';
+import { EventListComponent } from './components/event-list/event-list.component';
+import { EventDetailComponent } from './components/event-detail/event-detail.component';
+import { EventListWrapperComponent } from './components/event-list-wrapper/event-list-wrapper.component';
+import { EventListFilterComponent } from './components/event-list-filter/event-list-filter.component';
+import { EventDetailViewerComponent } from './components/event-detail-viewer/event-detail-viewer.component';
+import { EventFormViewerComponent } from './components/event-form-viewer/event-form-viewer.component';
 
 const eventRoutes: Routes = [
     { path: 'events', component: EventlistPageComponent },
-    { path: 'events/:id', component: EventPageComponent, canActivate: [ AuthService ] }
+    {
+        path: 'events/:id',
+        component: EventPageComponent,
+        canActivate: [ AuthService ],
+        children: [
+            { path: '', component: EventDetailViewerComponent },
+            { path: 'edit', component: EventFormViewerComponent },
+        ]
+    }
 ];
 
 @NgModule({
@@ -38,6 +48,8 @@ const eventRoutes: Routes = [
         EventDetailComponent,
         EventListWrapperComponent,
         EventListFilterComponent,
+        EventDetailViewerComponent,
+        EventFormViewerComponent,
     ],
     providers: [
         EventsService

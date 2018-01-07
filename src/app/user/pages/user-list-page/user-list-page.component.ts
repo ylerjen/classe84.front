@@ -28,7 +28,7 @@ export class UserListPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this._userSrvc.reload();
+        this._userSrvc.fetchAll();
         this._userSrvc.fetchNextBirthday()
             .subscribe( (userList: Array<User>) => this.nextBirthdayUsers = userList);
         this._store.select('userlistState')

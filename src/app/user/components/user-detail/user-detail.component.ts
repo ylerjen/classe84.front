@@ -13,20 +13,20 @@ export class UserDetailComponent {
     user: User = new User();
 
     @Output()
-    goToEditEvent = new EventEmitter<number>();
+    goToEditUser = new EventEmitter<number>();
 
     @Output()
-    deleteEvent = new EventEmitter<number>();
+    deleteUser = new EventEmitter<number>();
 
-    constructor() { }
-
-    onClickEdit(id: number): void {
-        if (typeof id === 'undefined') { return; }
-        this.goToEditEvent.emit(id);
+    onClickEdit(): void {
+        if (this.user) {
+            this.goToEditUser.emit(this.user.id);
+        }
     }
 
-    onClickDelete(id: number): void {
-        if (typeof id === 'undefined') { return; }
-        this.deleteEvent.emit(id);
+    onClickDelete(): void {
+        if (this.user) {
+            this.deleteUser.emit(this.user.id);
+        }
     }
 }

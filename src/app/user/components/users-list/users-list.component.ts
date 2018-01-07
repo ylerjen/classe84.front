@@ -33,5 +33,5 @@ export class UsersListComponent {
     public isLoading = true;
 
     @Input()
-    public usersList: User[] = [];
+    public usersList: Array<User> = [];
 }

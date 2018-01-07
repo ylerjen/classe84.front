@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Store, Action } from '@ngrx/store';
 import 'rxjs/add/operator/finally';
 
 import { Event } from '../../../models/Event';
 import { User } from '../../../models/User';
+import { IGlobalState } from '../../../stores/globalState';
+import { ASYNC_EVENT_SUCCESS } from '../../../actions/events.actions';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -15,48 +18,38 @@ import { EventsService } from '../../services/events.service';
 export class EventPageComponent implements OnInit {
 
     private _id: number;
-    public event: Event;
     public isLoading: boolean;
 
     public participation: Array<User>;
 
     constructor(
+        private _store: Store<IGlobalState>,
         private _route: ActivatedRoute,
+        private _router: Router,
         private _evtSrvc: EventsService,
     ) { }
 
     ngOnInit() {
         this.isLoading = true;
         this._route.params
-            .switchMap( (routeData: Params): Observable<Event> => {
-                this._id = routeData.id;
-                this._evtSrvc.getParticipants(this._id)
+            .switchMap( (routeData: Params): Observable<Action> => {
+                const id = routeData.id;
+                this._evtSrvc.getParticipants(id)
                     .subscribe(
                         (resp: Array<User>) => this.participation = resp.map(usr => new User(usr))
                     );
-                return this._evtSrvc.get(this._id);
+                return this.fetchEvent(id)
+                    .map( (payload: Event): Action => ({ type: ASYNC_EVENT_SUCCESS, payload }));
             })
             .subscribe(
-                (resp: Event) => {
-                    if (resp) {
-                        this.event = resp;
-                    }
-                    this.isLoading = false;
-                },
-                (err: any) => {
-                    if (err) {
-                        if (err.status === 401) {
-                           // JWT expired, go to login
-                           // Observable.throw(err);
-                        }
-                        if (err.status === 403) {
-                           // no sufficient permission, go to unauthorized
-                           // Observable.throw(err);
-                        }
-                    }
-                },
+                (resp: Action) => this._store.dispatch(resp),
+                (error: any) => this._router.navigate(['unauthorized']),
                 () => this.isLoading = false
             );
+    }
+
+    fetchEvent(id: number): Observable<Event> {
+        return this._evtSrvc.get(id);
     }
 
 }
