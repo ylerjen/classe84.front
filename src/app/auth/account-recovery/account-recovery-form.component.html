@@ -1,9 +1,9 @@
 <form [formGroup]="recoveryForm" novalidate>
     <div class="form-group">
-        <label for="login-email" class="center-block">Email</label>
-        <input id="login-email" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
+        <label for="email-{{compId}}" class="center-block">Email</label>
+        <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
         <ul *ngIf="recoveryForm.controls.email.invalid && (recoveryForm.controls.email.dirty || recoveryForm.controls.email.touched)"
-            class="alert alert-danger">
+            class="invalid-feedback">
             <li *ngIf="recoveryForm.controls.email.errors.required">
                 Email is required.
             </li>
