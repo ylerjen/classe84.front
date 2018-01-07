@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/finally';
+import { UUID } from 'angular2-uuid';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { NotificationService } from '../../services/notification/notification.service';
@@ -17,6 +18,8 @@ import { CustomValidators } from '../../shared/validators/CustomValidators';
     styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
+
+    public compId: string;
 
     public isTokenValid: boolean;
 
@@ -34,6 +37,7 @@ export class ChangePasswordComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.compId = UUID.UUID();
         this.restoreForm = this._fb.group(
             {
                 email: ['', Validators.compose([Validators.required, Validators.email])],

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/finally';
 
+import { UUID } from 'angular2-uuid';
+
 import { CustomValidators } from '../../shared/validators/CustomValidators';
 
 /**
@@ -16,6 +18,7 @@ import { CustomValidators } from '../../shared/validators/CustomValidators';
 })
 export class AccountRecoveryFormComponent implements OnInit {
 
+    public compId: string;
     public recoveryForm: FormGroup;
 
     @Output()
@@ -26,6 +29,7 @@ export class AccountRecoveryFormComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.compId = UUID.UUID();
         this.recoveryForm = this._fb.group(
             { email: ['', Validators.compose([Validators.required, Validators.email])] }
         );
