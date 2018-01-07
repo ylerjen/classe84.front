@@ -41,11 +41,8 @@ export class HeaderComponent implements OnInit {
             );
     }
 
-    toggleCollapse(shouldCollapse: boolean|undefined): void {
-        if (typeof shouldCollapse === 'undefined') {
-            shouldCollapse = !this.isCollapsed;
-        }
-        this.isCollapsed = shouldCollapse;
+    toggleCollapse(shouldCollapse: boolean | null = null): void {
+        this.isCollapsed = (typeof shouldCollapse === 'boolean') ? shouldCollapse : !this.isCollapsed;
     }
 
     closeToggle(event: Event): void {

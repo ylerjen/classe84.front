@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/finally';
+import { UUID } from 'angular2-uuid';
 
 import { RECOVERY_TOKEN_PARAM_NAME } from '../auth.module';
 import { AuthService } from '../../services/auth/auth.service';
@@ -21,6 +22,8 @@ import { CustomValidators } from '../../shared/validators/CustomValidators';
     styleUrls: ['./restore-password.component.scss']
 })
 export class RestorePasswordComponent implements OnInit {
+
+    public compId: string;
 
     public isLoading = true;
 
@@ -40,6 +43,7 @@ export class RestorePasswordComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.compId = UUID.UUID();
         this.restoreForm = this._fb.group(
             {
                 email: ['', Validators.compose([Validators.required, Validators.email])],

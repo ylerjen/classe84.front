@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Response } from '@angular/http';
 
 import { RECAPTCHA_KEY } from '../../config/settings';
 import { Contact } from '../models/Contact';
 import { ContactService } from '../services/contact.service';
 import { NotificationService } from '../../services/notification/notification.service';
+import { ContactFormComponent } from '../contact-form/contact-form.component';
 
 @Component({
     selector: 'app-contact-page',
@@ -13,7 +14,11 @@ import { NotificationService } from '../../services/notification/notification.se
 })
 export class ContactPageComponent {
 
-    public recaptchaApiKey;
+    @ViewChild(ContactFormComponent) contactForm: ContactFormComponent;
+
+    public recaptchaApiKey: string;
+
+    public isSending: boolean;
 
     constructor(
         private _contactSrvc: ContactService,
@@ -22,21 +27,20 @@ export class ContactPageComponent {
         this.recaptchaApiKey = RECAPTCHA_KEY;
     }
 
-    onSubmitContactForm($event) {
-        const contact = {
-            name: 'chuck',
-            email: 'email',
-            message: 'hello world'
-        };
+    onSubmitContactForm(contact) {
+        this.isSending = true;
         this.sendContactMail(contact);
     }
 
     sendContactMail(contact: Contact) {
-        this._contactSrvc.sendMail(contact)
-            .subscribe((resp: Response) => {
-                if (resp.status === 200) {
+        this._contactSrvc.sendContactMail(contact)
+            .finally(() => this.isSending = false)
+            .subscribe(
+                (resp: Response) => {
                     this._notifSrvc.notifySuccess('Contact email sent');
-                }
-            });
+                    this.contactForm.reset();
+                },
+                (err) => this._notifSrvc.notifyError('An error prevent your contact mail to be sent')
+            );
     }
 }

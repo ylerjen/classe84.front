@@ -1,7 +1,11 @@
 <div class="card">
     <section class="card-body">
         <h1 class="card-title">Contact us</h1>
-        <app-contact-form
+        <div *ngIf="isSending" class="alert alert-info">
+            <loaders-css class="m-3" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
+            <p class="text-center">Please wait, we are sending your message...</p>
+        </div>
+        <app-contact-form *ngIf="!isSending"
             [recaptchaKey]="recaptchaApiKey"
             (onSubmitEvent)="onSubmitContactForm($event)"></app-contact-form>
     </section>

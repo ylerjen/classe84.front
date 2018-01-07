@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/finally';
 
-import { AuthService } from '../../services/auth/auth.service';
-import { NotificationService } from '../../services/notification/notification.service';
+import { UUID } from 'angular2-uuid';
+
 import { CustomValidators } from '../../shared/validators/CustomValidators';
 
 /**
@@ -20,37 +18,25 @@ import { CustomValidators } from '../../shared/validators/CustomValidators';
 })
 export class AccountRecoveryFormComponent implements OnInit {
 
-    public isSending: boolean;
-
-    public isSuccessful: boolean;
-
+    public compId: string;
     public recoveryForm: FormGroup;
+
+    @Output()
+    public recoverEvent = new EventEmitter();
 
     constructor(
         private _fb: FormBuilder,
-        private _route: ActivatedRoute,
-        private _authSrvc: AuthService,
-        private _notifSrvc: NotificationService,
     ) { }
 
     ngOnInit() {
+        this.compId = UUID.UUID();
         this.recoveryForm = this._fb.group(
             { email: ['', Validators.compose([Validators.required, Validators.email])] }
         );
     }
 
-    recover($event: Event): void {
-        this.isSending = true;
+    recover($event: Event): void {        
         const formValues = this.recoveryForm.value;
-        this._authSrvc.recoverPassword(formValues.email)
-            .finally(() => this.isSending = false)
-            .subscribe(
-                (resp: Response) => this.isSuccessful = true,
-                err => {
-                    if (err.status === 404) {
-                        this._notifSrvc.notifyError(`The email '${formValues.email}' is not registered for any member`);
-                    }
-                }
-            );
+        this.recoverEvent.emit(formValues);
     }
 }

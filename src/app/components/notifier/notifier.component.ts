@@ -13,7 +13,7 @@ import { DELETE_NOTIF } from '../../actions/notifications.actions';
 })
 export class NotifierComponent {
 
-    private _notifStore$: Observable<Array<Notification>>;
+    public _notifStore$: Observable<Array<Notification>>;
 
     constructor(private _store: Store<IGlobalState>) {
         this._notifStore$ = this._store.select('notificationState');

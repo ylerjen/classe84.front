@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { ReCaptchaComponent } from 'angular2-recaptcha';
 
 import { Contact } from '../models/Contact';
 
@@ -14,7 +16,9 @@ export class ContactFormComponent {
     public recaptchaKey: string;
 
     @Output()
-    public onSubmitEvent: EventEmitter<Contact>;
+    public onSubmitEvent: EventEmitter<Contact> = new EventEmitter<Contact>();
+
+    @ViewChild(ReCaptchaComponent) recaptcha: ReCaptchaComponent;
 
     public isCaptchaValid = false;
 
@@ -26,14 +30,29 @@ export class ContactFormComponent {
 
     createForm() {
         this.contactForm = this.fb.group({
-            name: ['', Validators.required, Validators.maxLength(12)],
-            email: ['', Validators.required, Validators.email, Validators.maxLength(12) ],
-            message: ['', Validators.required, Validators.maxLength(12) ]
+            name: new FormControl('', [ Validators.required, Validators.maxLength(12) ]),
+            email: new FormControl('', [ Validators.required, Validators.email ]),
+            message: new FormControl('', [ Validators.required, Validators.minLength(10) ]),
+            captcha: new FormControl('')
         });
     }
 
-    handleCorrectCaptcha($event) {
+    handleCorrectCaptcha(captchaValue) {
         this.isCaptchaValid = true;
+        this.contactForm.controls.captcha.setValue(captchaValue);
+    }
+
+    handleCaptchaExpired($event) {
+        this.isCaptchaValid = false;
+        this.contactForm.controls.captcha.setValue("");
+    }
+
+    isValid() {
+        return this.contactForm.valid && this.isCaptchaValid;
+    }
+
+    reset() {
+        this.contactForm.reset();
     }
 
     onSubmit(event: Event) {

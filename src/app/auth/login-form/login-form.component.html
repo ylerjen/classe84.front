@@ -2,17 +2,17 @@
     <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
     <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
         <div class="form-group">
-            <label for="login-email" class="center-block">Email</label>
-            <input id="login-email" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
+            <label for="email-{{compId}}" class="center-block">Email</label>
+            <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
         </div>
         <div class="form-group">
-            <label for="login-password" class="center-block">Password</label>
-            <input id="login-password" type="password" class="form-control" formControlName="password" placeholder="password" />
+            <label for="password-{{compId}}" class="center-block">Password</label>
+            <input id="password-{{compId}}" type="password" class="form-control" formControlName="password" placeholder="password" />
         </div>
         <div class="checkbox">
-            <label for="login-remember-me">
+            <label for="remember-me-{{compId}}">
                 <input
-                    id="login-remember-me"
+                    id="remember-me-{{compId}}"
                     type="checkbox"
                     formControlName="remember" /> Remember me
             </label>

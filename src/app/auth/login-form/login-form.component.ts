@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { UUID } from 'angular2-uuid';
+
 import { ICredentials } from '../../models/Login';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -13,6 +15,8 @@ export class LoginFormComponent implements OnInit {
 
     @Output() public loginEvent = new EventEmitter();
 
+    public compId: string;
+
     public loginForm: FormGroup;
 
     constructor(
@@ -23,6 +27,7 @@ export class LoginFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.compId = UUID.UUID();
         const creds = this._authSrvc.getRememberedCreds();
         if (creds) {
             this.loginForm.setValue(creds);

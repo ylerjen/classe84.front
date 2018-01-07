@@ -1,8 +1,8 @@
 export enum ENotificationType {
-    INFO,
-    WARNING,
-    SUCCESS,
-    ERROR,
+    INFO = "info",
+    WARNING = "warning",
+    SUCCESS = "success",
+    ERROR = "error",
 };
 
 export const DEFAULT_NOTIF_DURATION = 15000;
