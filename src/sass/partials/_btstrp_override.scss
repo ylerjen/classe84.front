@@ -5,3 +5,7 @@
   border: $card-border-width solid $card-border-color;
   border-radius: $card-border-radius;
 }
+
+.invalid-feedback {
+  display: block; // bootstrap need the form input invalid state to display correctly
+}
