@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { User } from '../models/User';
+import { ASYNC_EVENT_SUCCESS } from 'app/actions/events.actions';
 
 export const ASYNC_USERLIST_START = 'USERLIST_ASYNC_START';
 export const ASYNC_USERLIST_SUCCESS = 'USERLIST_ASYNC_SUCCESS';
@@ -39,6 +40,19 @@ export function deleteUser(payload: User): Action {
 export function changeFilter(payload: string): Action {
     return {
         type: CHANGE_FILTER,
+        payload
+    };
+}
+
+export function getUserAsync(): Action {
+    return {
+        type: ASYNC_USER_START
+    };
+}
+
+export function getUserAsyncSuccess(payload: User): Action {
+    return {
+        type: ASYNC_USER_SUCCESS,
         payload
     };
 }

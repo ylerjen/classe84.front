@@ -42,3 +42,16 @@ export function changeFilter(payload: string): Action {
         payload
     };
 }
+
+export function getEventAsync(): Action {
+    return {
+        type: ASYNC_EVENT_START
+    };
+}
+
+export function getEventAsyncSuccess(payload: Event): Action {
+    return {
+        type: ASYNC_EVENT_SUCCESS,
+        payload
+    };
+}

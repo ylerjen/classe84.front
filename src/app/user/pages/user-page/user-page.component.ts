@@ -10,7 +10,7 @@ import { Event } from '../../../models/Event';
 import { IGlobalState } from '../../../stores/globalState';
 import { IUserState } from '../../../stores/user/userReducer';
 import { ISessionState } from '../../../stores/session/session.reducer';
-import { ASYNC_USER_SUCCESS } from '../../../actions/users.actions';
+import { getUserAsyncSuccess } from '../../../actions/users.actions';
 import { UsersService } from '../../../services/users/users.service';
 
 @Component({
@@ -35,9 +35,9 @@ export class UserPageComponent implements OnInit {
         this.isLoading = true;
         this._route.params
             .switchMap( (routeData: Params): Observable<Action> => {
-                const id = routeData.id;
-                return this.fetchUser(id)
-                    .map( (payload: User): Action => ({ type: ASYNC_USER_SUCCESS, payload }));
+                this._id = routeData.id;
+                return this.fetchUser(this._id)
+                    .map( (payload: User): Action => getUserAsyncSuccess(payload));
             })
             .subscribe(
                 (resp: Action) => {
