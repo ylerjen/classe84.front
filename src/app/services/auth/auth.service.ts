@@ -53,7 +53,10 @@ export class AuthService implements CanActivate {
                 return token;
             });
     }
-
+    /**
+     * Logout the user of the current session
+     * @param successCb - a callback to execute when the logout succeed
+     */
     logout(successCb: () => void): void {
         this._store.dispatch(logoutAction(null));
         this.deleteTokenInStorage();
@@ -115,11 +118,17 @@ export class AuthService implements CanActivate {
         return this._http.post(endpoint, { recoveryToken });
     }
 
+    changePassword(info: { email: string, currentPassword: string, newPassword: string }): Observable<Response> {
+        const endpoint = `${env.API_URL}/change-password`;
+        throw 'not implemented yet';
+        // return this._http.post(endpoint, info);
+    }
+
     /**
      * Change the password of a user with a recovery token
      * @param info - are the infos that are needed for the password change request
      */
-    changePasswordFromRecovery(info: { email, recoveryToken, password }): Observable<Response> {
+    changePasswordFromRecovery(info: { email: string, recoveryToken: string, password: string }): Observable<Response> {
         const endpoint = `${env.API_URL}/change-password-from-recovery`;
         return this._http.post(endpoint, info);
     }

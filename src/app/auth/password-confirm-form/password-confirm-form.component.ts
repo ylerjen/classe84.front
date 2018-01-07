@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { UUID } from 'angular2-uuid'
+
+import { CustomValidators } from '../../shared/validators/CustomValidators';
 
 @Component({
     selector: 'app-password-confirm-form',
@@ -15,8 +17,10 @@ export class PasswordConfirmFormComponent implements OnInit {
      */
     public compId: string;
 
-    public passwordConfirmForm: FormGroup;
-
+    /**
+     * The parent group which will include this current form
+     */
+    @Input() public parent: FormGroup;
 
     constructor(
         private _fb: FormBuilder,
@@ -24,10 +28,14 @@ export class PasswordConfirmFormComponent implements OnInit {
 
     ngOnInit() {
         this.compId = UUID.UUID();
-
-        this.passwordConfirmForm = this._fb.group({
-            password: ['', Validators.required],
-            passwordConfirmation: ['', Validators.required],
-        });
     }
+
+    static getFormGroup(): FormGroup {
+        return new FormGroup({
+                password: new FormControl('', Validators.required),
+                confirmPassword: new FormControl('', Validators.required),
+            },
+            CustomValidators.sameFieldsContent('password', 'confirmPassword')
+        );
+    }   
 }

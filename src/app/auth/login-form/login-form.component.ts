@@ -6,6 +6,9 @@ import { UUID } from 'angular2-uuid';
 import { ICredentials } from '../../models/Login';
 import { AuthService } from '../../services/auth/auth.service';
 
+/**
+ * Login form
+ */
 @Component({
     selector: 'app-login-form',
     templateUrl: './login-form.component.html',

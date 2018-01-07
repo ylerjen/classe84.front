@@ -51,7 +51,7 @@ export class RestorePasswordComponent implements OnInit {
                 confirmPassword:  ['', Validators.required],
                 recoveryToken: ''
             }, {
-                validator: CustomValidators.matchingFields('password', 'confirmPassword')
+                validator: CustomValidators.sameFieldsContent('password', 'confirmPassword')
             }
         );
 
