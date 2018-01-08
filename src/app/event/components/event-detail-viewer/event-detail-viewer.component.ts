@@ -46,7 +46,7 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
 
     goToEdit(id: number): void {
         if (typeof id === 'undefined') { return; }
-        const url = `${ROUTE_URL.event}/${id.toString()}/edit`;
+        const url = `${ROUTE_URL.events}/${id.toString()}/edit`;
         this._router.navigate([url]);
     }
 
