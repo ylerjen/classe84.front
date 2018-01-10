@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
+import { NgxEditorModule } from 'ngx-editor';
 
 import { GMAP_API_KEY } from '../config/settings';
 import { SharedModule } from '../shared/shared.module';
@@ -17,6 +18,7 @@ import { EventListWrapperComponent } from './components/event-list-wrapper/event
 import { EventListFilterComponent } from './components/event-list-filter/event-list-filter.component';
 import { EventDetailViewerComponent } from './components/event-detail-viewer/event-detail-viewer.component';
 import { EventFormViewerComponent } from './components/event-form-viewer/event-form-viewer.component';
+import { EventFormComponent } from './event-form/event-form.component';
 
 const eventRoutes: Routes = [
     { path: 'events', component: EventlistPageComponent },
@@ -37,6 +39,8 @@ const eventRoutes: Routes = [
         SharedModule,
         RouterModule.forChild(eventRoutes),
         FormsModule,
+        ReactiveFormsModule,
+        NgxEditorModule,
         AgmCoreModule.forRoot({
             apiKey: GMAP_API_KEY
           }),
@@ -50,6 +54,7 @@ const eventRoutes: Routes = [
         EventListFilterComponent,
         EventDetailViewerComponent,
         EventFormViewerComponent,
+        EventFormComponent,
     ],
     providers: [
         EventsService
