@@ -1,3 +1,5 @@
-<p>
-  event-form-viewer works!
-</p>
+<app-event-form
+  [event]="event"
+  (saveEvent)="saveEvent($event)"
+  (cancelEvent)="goToDetails($event)"
+></app-event-form>
