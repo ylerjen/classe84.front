@@ -5,8 +5,8 @@ export class Event {
     public description: string;
     public organisator: string;
     public location: string;
-    public latitude: string;
-    public longitude: string;
+    public latitude: number;
+    public longitude: number;
     public link: string;
     public price: string;
     public created_at: string;

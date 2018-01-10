@@ -50,17 +50,18 @@
             <app-validation-error [errors]="eventForm.get('description').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="location-{{compId}}">location</label>
+        <label for="location-{{compId}}">Location</label>
         <input
             type="text"
             id="location-{{compId}}"
             class="form-control"
             formControlName="location"
             placeholder="location" />
+            <button (click)="searchLocation($event)">Search position</button>
             <app-validation-error [errors]="eventForm.get('location').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="latitude-{{compId}}">latitude</label>
+        <label for="latitude-{{compId}}">Latitude</label>
         <input
             type="text"
             id="latitude-{{compId}}"
@@ -70,7 +71,7 @@
             <app-validation-error [errors]="eventForm.get('latitude').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="longitude-{{compId}}">longitude</label>
+        <label for="longitude-{{compId}}">Longitude</label>
         <input
             type="text"
             id="longitude-{{compId}}"

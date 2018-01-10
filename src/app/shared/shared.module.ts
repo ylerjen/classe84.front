@@ -7,11 +7,15 @@ import { ValidationErrorComponent } from './validation-error/validation-error.co
 import { PanelComponent } from './panel/panel.component';
 import { PhoneNbPipe } from './pipes/phone-nb.pipe';
 import { FlipComponent } from './flip/flip.component';
+import { GeoService } from 'app/services/geo/geo.service';
 
 @NgModule({
     imports: [
         CommonModule,
         LoadersCssModule,
+    ],
+    providers: [
+        GeoService,
     ],
     declarations: [
         PanelComponent,

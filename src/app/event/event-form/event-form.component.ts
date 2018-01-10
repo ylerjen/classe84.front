@@ -5,6 +5,8 @@ import { UUID } from 'angular2-uuid';
 
 import { Event as EventModel } from '../../models/Event';
 import { ISessionState } from 'app/stores/session/session.reducer';
+import { GeoService, IReverseGeoCodeResponse, IReverseGeoCodeResult } from '../../services/geo/geo.service';
+import { Response } from '@angular/http/src/static_response';
 
 @Component({
     selector: 'app-event-form',
@@ -18,6 +20,8 @@ export class EventFormComponent implements OnInit {
     public compId: string;
 
     public eventForm: FormGroup;
+
+    public isLocationLoading: boolean = false;
 
     @Input()
     set event(val: EventModel) {
@@ -34,7 +38,10 @@ export class EventFormComponent implements OnInit {
     @Output()
     cancelEvent = new EventEmitter<number>();
 
-    constructor(private fb: FormBuilder) { }
+    constructor(
+        private _fb: FormBuilder,
+        private _geoSrvc: GeoService
+    ) { }
 
     ngOnInit(): void {
         this.compId = UUID.UUID();
@@ -44,7 +51,7 @@ export class EventFormComponent implements OnInit {
         if (!this.event) {
             return;
         }
-        this.eventForm = this.fb.group({
+        this.eventForm = this._fb.group({
             id: [this.event.id || ''],
             title: [this.event.title || '', Validators.required ],
             event_date: [this.event.event_date || '', Validators.required ],
@@ -66,5 +73,23 @@ export class EventFormComponent implements OnInit {
     onCancel(event: MouseEvent) {
         event.preventDefault();
         this.cancelEvent.emit(this.event.id);
+    }
+
+    searchLocation(event: Event) {
+        event.preventDefault();
+        const location = this.eventForm.value.location;
+        console.log('searchLocation clicked', location);
+        this.isLocationLoading = true;
+        this._geoSrvc.reverseGeocode(location)
+            .subscribe((geoResp: IReverseGeoCodeResponse) => {
+                const results = geoResp.results;
+                console.log(results);
+                if (Array.isArray(results) && results.length) {
+                    const geo1 = results[0] as IReverseGeoCodeResult;
+                    const coord = geo1.geometry.location;
+                    this.eventForm.controls.latitude.setValue(coord.lat);
+                    this.eventForm.controls.longitude.setValue(coord.lng);
+                }
+            });
     }
 }
