@@ -10,7 +10,7 @@ export class Event {
     public link: string;
     public price: string;
     public created_at: string;
-    public created_by: string;
+    public created_by: number;
     public updated_at: string;
 
     constructor(props: { [key: string]: any } = {}) {
