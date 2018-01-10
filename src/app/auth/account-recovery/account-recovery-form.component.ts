@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/finally';
-
 import { UUID } from 'angular2-uuid';
 
 import { CustomValidators } from '../../shared/validators/CustomValidators';
