@@ -8,6 +8,8 @@ import { updateUser } from '../../../actions/users.actions';
 import { UsersService } from '../../../services/users/users.service';
 import { NotificationService } from '../../../services/notification/notification.service';
 
+import { ROUTE_URL } from '../../../config/router.config';
+
 @Component({
   selector: 'app-user-form-viewer',
   templateUrl: './user-form-viewer.component.html',
@@ -45,6 +47,6 @@ export class UserFormViewerComponent {
     }
 
     goToDetails(userId: number) {
-        this._router.navigate([`/users/${userId}`]);
+        this._router.navigate([`/${ROUTE_URL.users}/${userId}`]);
     }
 }
