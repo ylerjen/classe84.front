@@ -11,6 +11,8 @@ import { User, EGender } from '../../../models/User';
 export class UserFormComponent {
 
     private _user: User;
+    
+    public userForm: FormGroup;
 
     @Input()
     set user(val: User) {
@@ -27,8 +29,6 @@ export class UserFormComponent {
     @Output()
     cancelEvent = new EventEmitter<number>();
 
-    public userForm: FormGroup;
-
     constructor(private fb: FormBuilder) { }
 
     createForm() {
@@ -37,11 +37,11 @@ export class UserFormComponent {
         }
         this.userForm = this.fb.group({
             id: [this.user.id || ''],
-            gender: [this.user.gender || EGender.Male, Validators.required ],
-            last_name: [this.user.last_name || '', Validators.required ],
-            maiden_name: [this.user.maiden_name || '' ],
-            first_name: [this.user.first_name || '', Validators.required ],
-            birthdate: [this.user.birthdate || '', Validators.required ],
+            gender: [this.user.gender || EGender.Male, Validators.required],
+            last_name: [this.user.last_name || '', Validators.required],
+            maiden_name: [this.user.maiden_name || ''],
+            first_name: [this.user.first_name || '', Validators.required],
+            birthdate: [this.user.birthdate || '', Validators.required],
             email: [this.user.email || '', Validators.email],
             phone: [this.user.phone || '', Validators.maxLength(12)],
             mobile: [this.user.mobile || '', Validators.maxLength(12)],
@@ -50,16 +50,16 @@ export class UserFormComponent {
             fb_user_id: [this.user.fb_user_id || ''],
             is_active: [this.user.is_active || false],
         });
-  }
+    }
 
-  onSubmit(event: Event) {
-      event.preventDefault();
-      this.saveEvent.emit(this.userForm.value);
-  }
+    onSubmit(event: Event) {
+        event.preventDefault();
+        this.saveEvent.emit(this.userForm.value);
+    }
 
-  onCancel(event: MouseEvent) {
-      event.preventDefault();
-      console.log('cancel', event);
-      this.cancelEvent.emit(this.user.id);
-  }
+    onCancel(event: MouseEvent) {
+        event.preventDefault();
+        console.log('cancel', event);
+        this.cancelEvent.emit(this.user.id);
+    }
 }
