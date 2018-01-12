@@ -8,7 +8,8 @@ import { UUID } from 'angular2-uuid';
 import { CustomValidators } from '../../shared/validators/CustomValidators';
 
 /**
- * This component is used to ask for a token to recover the account of the passed email
+ * This component is used to ask for a token to recover the account of the passed email.
+ * It's commonly used for the "forgot your password ?" feature
  */
 @Component({
     selector: 'app-account-recovery-form',

@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Validator, FormGroup, AbstractControl } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms/src/directives/validators';
 
 export class CustomValidators {
-
-    static matchingFields(...fieldList: Array<string>): Object | null {
+    /**
+     * Validate that all fields passed in the string array have the same value
+     * @param fieldList - a list of fields name from the form group
+     */
+    static sameFieldsContent(...fieldList: Array<string>): ValidatorFn {
         return (frmgroup: FormGroup): { [key: string]: any } => {
             if ( ! (Array.isArray(fieldList) && fieldList.length > 1)) {
                 return null;
@@ -16,10 +20,10 @@ export class CustomValidators {
                 const curFieldVal = frmgroup.controls[curFieldName].value;
                 if (refFieldVal !== curFieldVal) {
                     isValid = false;
+                    break;
                 }
             }
-
-            return (!isValid) ? { mismatchedFields: true } : null;
+            return (!isValid) ? { fieldContentMismatched: true } : null;
         };
     }
 }

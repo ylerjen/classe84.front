@@ -13,6 +13,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { RestorePasswordComponent } from './restore-password/restore-password.component';
 import { LoginFormViewerComponent } from './login-form-viewer/login-form-viewer.component';
 import { AccountRecoveryViewerComponent } from './account-recovery-viewer/account-recovery-viewer.component';
+import { PasswordConfirmFormComponent } from './password-confirm-form/password-confirm-form.component';
 
 export const ROUTE = {
     restorePassword: 'restore-password',
@@ -48,6 +49,7 @@ const authRoutes: Routes = [
         RestorePasswordComponent,
         LoginFormViewerComponent,
         AccountRecoveryViewerComponent,
+        PasswordConfirmFormComponent,
     ],
     exports: [
         LoginFormComponent,
