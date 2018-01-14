@@ -19,6 +19,8 @@ export class HeaderComponent implements OnInit {
 
     public isCollapsed = true;
 
+    public isAccountDropdownOpen = false;
+
     public isLoggedIn = false;
 
     public loggedUser: User;
@@ -50,6 +52,11 @@ export class HeaderComponent implements OnInit {
             event.stopPropagation();
             this.toggleCollapse(true);
         }
+    }
+
+    toggleAccountDropdownState(evt: Event): void {
+        evt.preventDefault();
+        this.isAccountDropdownOpen = !this.isAccountDropdownOpen;
     }
 
     onLogout(event: Event): void {
