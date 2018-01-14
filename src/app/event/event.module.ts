@@ -19,6 +19,7 @@ import { EventListFilterComponent } from './components/event-list-filter/event-l
 import { EventDetailViewerComponent } from './components/event-detail-viewer/event-detail-viewer.component';
 import { EventFormViewerComponent } from './components/event-form-viewer/event-form-viewer.component';
 import { EventFormComponent } from './event-form/event-form.component';
+import { GeoresultFormComponent } from './components/georesult-form/georesult-form.component';
 
 const eventRoutes: Routes = [
     { path: 'events', component: EventlistPageComponent },
@@ -55,6 +56,7 @@ const eventRoutes: Routes = [
         EventDetailViewerComponent,
         EventFormViewerComponent,
         EventFormComponent,
+        GeoresultFormComponent,
     ],
     providers: [
         EventsService

@@ -112,3 +112,6 @@
     <p>Form value: {{ eventForm.value | json }}</p>
     <p>Form status: {{ eventForm.status | json }}</p>
 </form>
+<app-modal *ngIf="isModalDisplayed" [isDisplayed]="isModalDisplayed" (onSubmitModal)="onGeoResultsChoosen($event)" (onCloseModal)="onCloseModal($event)">
+    <app-georesult-form [georesults]="georesults" (onResultSelection)="onGeoResultsChoosen($event)"></app-georesult-form>
+</app-modal>

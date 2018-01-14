@@ -1,6 +1,6 @@
 <a routerLink="/users/{{user.id}}">
     <div class="item-ico">
-        <i class="user-ico fa ico-2x" [ngClass]="[user.gender==='M' ? 'fa-mars male' : 'fa-venus female']"></i>
+        <i class="user-ico fa" [ngClass]="[user.gender==='M' ? 'fa-mars male' : 'fa-venus female']"></i>
     </div>
     <div class="item-desc">
         <div class="user-name" [ngClass]="{inactiv: (!user.is_active)}">{{user.last_name}} {{user.first_name}}</div>

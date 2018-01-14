@@ -8,6 +8,8 @@ import { PanelComponent } from './panel/panel.component';
 import { PhoneNbPipe } from './pipes/phone-nb.pipe';
 import { FlipComponent } from './flip/flip.component';
 import { GeoService } from 'app/services/geo/geo.service';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
     imports: [
@@ -22,6 +24,8 @@ import { GeoService } from 'app/services/geo/geo.service';
         PhoneNbPipe,
         ValidationErrorComponent,
         FlipComponent,
+        DropdownComponent,
+        ModalComponent,
     ],
     exports: [
         CommonModule,
@@ -30,6 +34,8 @@ import { GeoService } from 'app/services/geo/geo.service';
         PhoneNbPipe,
         ValidationErrorComponent,
         FlipComponent,
+        DropdownComponent,
+        ModalComponent,
     ],
 })
 export class SharedModule { }

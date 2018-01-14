@@ -22,6 +22,8 @@ export class UserPageComponent implements OnInit {
 
     private _id: number;
     public isLoading: boolean;
+    public isEditMode: boolean;
+    public user: User;
     public eventsSubscriptions: Array<Event> = [];
 
     constructor(
@@ -35,9 +37,13 @@ export class UserPageComponent implements OnInit {
         this.isLoading = true;
         this._route.params
             .switchMap( (routeData: Params): Observable<Action> => {
+                this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id;
                 return this.fetchUser(this._id)
-                    .map( (payload: User): Action => getUserAsyncSuccess(payload));
+                    .map( (payload: User): Action => {
+                        this.user = payload;
+                        return getUserAsyncSuccess(payload);
+                    });
             })
             .subscribe(
                 (resp: Action) => {

@@ -58,7 +58,7 @@ export class AuthService implements CanActivate {
      * @param successCb - a callback to execute when the logout succeed
      */
     logout(successCb: () => void): void {
-        this._store.dispatch(logoutAction(null));
+        this._store.dispatch(logoutAction());
         this.deleteTokenInStorage();
         successCb();
 

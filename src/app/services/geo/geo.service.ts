@@ -32,7 +32,7 @@ export class GeoService {
 }
 
 export interface IReverseGeoCodeResponse {
-    results: Array<Object>;
+    results: Array<IReverseGeoCodeResult>;
     status: string;
 }
 

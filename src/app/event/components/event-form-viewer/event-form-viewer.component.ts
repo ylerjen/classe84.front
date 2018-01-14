@@ -18,8 +18,9 @@ import { ROUTE_URL } from '../../../config/router.config';
 })
 export class EventFormViewerComponent {
 
-    public event: EventModel;
     private _sessionState: ISessionState;
+    
+    public event: EventModel;
 
     constructor(
         private _store: Store<IEventState>,
