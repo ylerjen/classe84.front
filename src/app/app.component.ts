@@ -9,7 +9,7 @@ import { Version } from './models/Version';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { NotificationService } from './services/notification/notification.service';
-import { login } from './actions/session.actions';
+import { login, logout } from './actions/session.actions';
 
 @Component({
     selector: 'app-root',
@@ -32,8 +32,7 @@ export class AppComponent implements OnInit {
         this._store.select('appState')
             .subscribe(
                 (resp: AppState) => this.version = resp.version,
-                err => console.error(err),
-                () => console.log('on finish')
+                (err: Error) => console.error(err)
             );
     }
 
@@ -46,17 +45,13 @@ export class AppComponent implements OnInit {
             }
         );
         const token = this._authSrvc.getTokenFromStorage();
-        this._authSrvc.getAuthUser()
-            .subscribe( (resp) => {
-                console.log(resp);
-                if (token) {
+        if (token) {
+            this._authSrvc.getAuthUser()
+                .subscribe( (resp) => {
                     this._store.dispatch(login({ loggedUser: resp, token }));
-                }
-            },
-            (err) => {
-                throw err;
-            },
-            () => {}
-        );
+                },
+                (err: Error) => this._store.dispatch(logout())
+            );
+        }
     }
 }
