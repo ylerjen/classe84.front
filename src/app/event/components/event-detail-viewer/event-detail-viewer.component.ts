@@ -17,7 +17,7 @@ import { ROUTE_URL } from '../../../config/router.config';
 export class EventDetailViewerComponent implements OnInit, OnDestroy {
 
     public event: Event;
-
+    public isLoading: boolean;
     private store$: Observable<IEventState>;
     private sub: Subscription;
 
@@ -29,14 +29,18 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.isLoading = true;
         this.sub = this.store$
             .subscribe(
                 (eventState: IEventState) => {
                     if (eventState.event) {
                         const curEvent = new Event(eventState.event);
                         this.event = curEvent;
+                        this.isLoading = eventState.isLoading;
                     }
-                }
+                },
+                (err) => console.error(err),
+                () => this.isLoading = false
             );
     }
 

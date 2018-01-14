@@ -1,6 +1,6 @@
+<loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
 <app-event-detail
     [event]="event"
-    [isLoading]="isLoading"
     (goToEditEvent)="goToEdit($event)"
     (deleteEvent)="delete($event)"
     ></app-event-detail>

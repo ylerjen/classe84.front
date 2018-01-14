@@ -10,9 +10,6 @@ import { Event } from '../../../models/Event';
 export class EventDetailComponent {
 
     @Input()
-    public isLoading: boolean;
-
-    @Input()
     public event: Event;    
 
     @Output()

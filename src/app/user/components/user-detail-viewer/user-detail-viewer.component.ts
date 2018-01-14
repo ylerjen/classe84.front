@@ -17,6 +17,7 @@ import { ROUTE_URL } from '../../../config/router.config';
 export class UserDetailViewerComponent implements OnInit, OnDestroy {
 
     public user: User;
+    public isLoading: boolean;
 
     private store$: Observable<IUserState>;
     private sub: Subscription;
@@ -29,14 +30,18 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.isLoading = true;
         this.sub = this.store$
             .subscribe(
                 (userState: IUserState) => {
                     if (userState.user) {
                         const curUser = new User(userState.user);
                         this.user = curUser;
+                        this.isLoading = userState.isLoading;
                     }
-                }
+                },
+                () => {},
+                () => this.isLoading = false
             );
     }
 
