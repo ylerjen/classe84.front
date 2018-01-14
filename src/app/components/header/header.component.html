@@ -24,7 +24,7 @@
                     <i class="fa fa-sign-in"></i> Login
                 </a>
             </li>
-            <li *ngIf="isLoggedIn" class="nav-item dropdown" [class.show]="isAccountDropdownOpen">
+            <li *ngIf="isLoggedIn && loggedUser" class="nav-item dropdown" [class.show]="isAccountDropdownOpen">
                 <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" (click)="toggleAccountDropdownState($event)">
                     <img class="navbar-brand" src="http://www.gravatar.com/avatar/023da329ad0304e026ee0d41533a26f7?s=30" alt="User avatar" class="rounded-circle">
                 </a>
