@@ -10,8 +10,8 @@ export function login(payload: Object): Action {
     return { type: LOGIN, payload };
 }
 
-export function logout(payload: any): Action {
-    return { type: LOGOUT, payload };
+export function logout(): Action {
+    return { type: LOGOUT };
 }
 
 export function setUser(payload: SessionUser): Action {

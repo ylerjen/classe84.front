@@ -3,10 +3,10 @@ import { Action } from '@ngrx/store';
 import { User } from '../models/User';
 import { ASYNC_EVENT_SUCCESS } from 'app/actions/events.actions';
 
-export const ASYNC_USERLIST_START = 'USERLIST_ASYNC_START';
-export const ASYNC_USERLIST_SUCCESS = 'USERLIST_ASYNC_SUCCESS';
-export const ASYNC_USER_START = 'USER_ASYNC_START';
-export const ASYNC_USER_SUCCESS = 'USER_ASYNC_SUCCESS';
+export const ASYNC_USERLIST_START = 'ASYNC_USERLIST_START';
+export const ASYNC_USERLIST_SUCCESS = 'ASYNC_USERLIST_SUCCESS';
+export const ASYNC_USER_START = 'ASYNC_USER_START';
+export const ASYNC_USER_SUCCESS = 'ASYNC_USER_SUCCESS';
 export const GET_USER = 'USER_GET';
 export const ADD_USER = 'USER_ADD';
 export const UPDATE_USER = 'USER_UPDATE';
@@ -55,4 +55,17 @@ export function getUserAsyncSuccess(payload: User): Action {
         type: ASYNC_USER_SUCCESS,
         payload
     };
+}
+
+export function getUserListAsync(): Action {
+    return {
+        type: ASYNC_USERLIST_START
+    };
+}
+
+export function getUserListAsyncSuccess(payload: Array<User>): Action {
+    return {
+        type: ASYNC_USERLIST_SUCCESS,
+        payload
+    }
 }

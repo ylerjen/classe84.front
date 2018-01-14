@@ -16,12 +16,9 @@ import {
     updateUser,
     deleteUser,
     changeFilter,
-    GET_USER,
-    ASYNC_USER_START,
-    ASYNC_USER_SUCCESS,
-    ASYNC_USERLIST_START,
-    ASYNC_USERLIST_SUCCESS,
-    CHANGE_FILTER
+    getUserAsync,
+    getUserListAsync,
+    getUserListAsyncSuccess,
 } from '../../actions/users.actions';
 
 
@@ -37,21 +34,21 @@ export class UsersService {
     ) { }
 
     fetchAll(): Observable<Action> {
-        this._store.dispatch( { type: ASYNC_USERLIST_START});
+        this._store.dispatch( getUserListAsync() );
         return this._http.get(BASE_URL)
             .map(res => res.json())
-            .map(payload => ({ type: ASYNC_USERLIST_SUCCESS, payload }));
+            .map(payload => (getUserListAsyncSuccess(payload)));
     }
 
     get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
-        this._store.dispatch( { type: ASYNC_USER_START});
+        this._store.dispatch( getUserAsync());
         return this._authHttp.get(endpoint)
             .map( (resp: Response): User => resp.json());
     }
 
     create(user: User): Observable<Response> {
-        console.log('add user from service');
+        console.error('add user from service, to verify');
         this._store.dispatch(addUser(user));
         return this._authHttp.post(BASE_URL, user)
             .map( (resp: Response) => resp.json());
@@ -60,7 +57,7 @@ export class UsersService {
     update(user: User): Observable<Response> {
         const endpoint = `${BASE_URL}/${user.id}`;
         this._store.dispatch(updateUser(user));
-        console.log('add user from service => not finished: request create api');
+        console.error('add user from service => not finished: request create api');
         return this._authHttp.put(endpoint, user)
             .map( (resp: Response) => resp.json());
     }
@@ -74,7 +71,7 @@ export class UsersService {
     }
 
     delete(user: User) {
-        console.log('delete from service => not finished: request delete api');
+        console.error('delete from service => not finished: request delete api');
         this._store.dispatch(deleteUser(user));
     }
 
