@@ -46,8 +46,17 @@ export class AppComponent implements OnInit {
             }
         );
         const token = this._authSrvc.getTokenFromStorage();
-        if (token) {
-            this._store.dispatch(login(token));
-        }
+        this._authSrvc.getAuthUser()
+            .subscribe( (resp) => {
+                console.log(resp);
+                if (token) {
+                    this._store.dispatch(login({ loggedUser: resp, token }));
+                }
+            },
+            (err) => {
+                throw err;
+            },
+            () => {}
+        );
     }
 }
