@@ -75,18 +75,36 @@ export class UsersService {
         this._store.dispatch(deleteUser(user));
     }
 
+    /**
+     * Update the filter state of the user list in the store
+     * @param filter
+     */
     updateFilter(filter: string) {
         this._store.dispatch(changeFilter(filter));
     }
 
+    /**
+     * Request the api to get the next users who have the birthday (can be multiple if born the same day)
+     */
     fetchNextBirthday(): Observable<Array<User>> {
         return this._http.get(`${BASE_URL}/next-birthday`)
             .map((resp: Response): Array<User> => resp.json());
     }
 
+    /**
+     * Request the api to get all the events subscribed by the user
+     * @param id - the id of the user
+     */
     getSubscriptions(id: number): Observable<Array<Event>> {
         return this._authHttp.get(`${BASE_URL}/${id}/events`)
             .map( (resp: Response): Array<Event> => resp.json());
+    }
 
+    /**
+     * Get the top 3 users with the most participations to events
+     */
+    getTopSubscriptions(): Observable<Array<User>> {
+        return this._http.get(`${BASE_URL}/top-subscribers`)
+            .map((resp: Response): Array<User> => resp.json());
     }
 }

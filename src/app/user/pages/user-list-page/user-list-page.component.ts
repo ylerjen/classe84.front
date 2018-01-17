@@ -11,11 +11,12 @@ import { UsersService } from '../../../services/users/users.service';
     // tslint:disable-next-line:component-selector
     selector: 'user-list-page',
     templateUrl: './user-list-page.component.html',
-    // styleUrls: ['./users.page.scss']
+    styleUrls: ['./user-list-page.component.scss']
 })
 export class UserListPageComponent implements OnInit {
 
     public nextBirthdayUsers: Array<User> = [];
+    public top3SubscribersList: Array<User> = [];
     public totalActive = 0;
     public totalMembers = 0;
     public totalMen = 0;
@@ -31,6 +32,8 @@ export class UserListPageComponent implements OnInit {
         this._userSrvc.fetchAll();
         this._userSrvc.fetchNextBirthday()
             .subscribe( (userList: Array<User>) => this.nextBirthdayUsers = userList);
+        this._userSrvc.getTopSubscriptions()
+            .subscribe( (userList: Array<User>) => this.top3SubscribersList = userList);
         this._store.select('userlistState')
             .subscribe( (uState: IUserListState) => {
                 if (uState) {
