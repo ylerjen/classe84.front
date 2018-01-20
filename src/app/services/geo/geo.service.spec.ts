@@ -1,68 +1,48 @@
-/* tslint:disable:no-unused-variable */
+import { TestBed, async, inject } from '@angular/core/testing';
 import {
-    JsonpModule,
-    Jsonp,
-    BaseRequestOptions,
+    HttpModule,
+    Http,
     Response,
     ResponseOptions,
-    Http
-} from "@angular/http";
-import { TestBed, fakeAsync, tick, inject } from '@angular/core/testing';
-import { MockBackend } from "@angular/http/testing";
+    XHRBackend
+} from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 import { GeoService, IReverseGeoCodeResponse } from './geo.service';
 
 describe('GeoService', () => {
 
-    let service: GeoService;
-    let backend: MockBackend;
-
     beforeEach(() => {
+
         TestBed.configureTestingModule({
-            imports: [JsonpModule],
+            imports: [HttpModule],
             providers: [
+                { provide: '', useValue: 'http://example.com' },
                 GeoService,
-                MockBackend,
-                BaseRequestOptions,
-                {
-                    provide: Jsonp,
-                    useFactory: (backend, options) => new Jsonp(backend, options),
-                    deps: [MockBackend, BaseRequestOptions]
-                }
+                { provide: XHRBackend, useClass: MockBackend },
             ]
         });
-
-        // Get the MockBackend
-        backend = TestBed.get(MockBackend);
-
-        // Returns a service with the MockBackend so we can test with dummy responses
-        service = TestBed.get(GeoService);
-
     });
+    describe('#reverseGeocode()', () => {
 
-
-    it('should be defined', inject([GeoService], geoSrvc => {
-        expect(geoSrvc).toBeDefined();
-    }));
-
-    it('# the reverseGeocode method should return the mocked result', fakeAsync(() => {
-        let mockedResponse: IReverseGeoCodeResponse = {
-            results: [],
-            status: 'ok'
-        };
-
-        // When the request subscribes for results on a connection, return a fake response
-        backend.connections.subscribe(connection => {
-            connection.mockRespond(new Response(<ResponseOptions>{
-                body: JSON.stringify(mockedResponse)
-            }));
-        });
-
-        let result: IReverseGeoCodeResponse;
-        // Perform a request and make sure we get the response we expect
-        service.reverseGeocode('fake address 13, 1234 Bumplitz')
-            .subscribe( resp => result = resp);
-        tick();
-        expect(result.status).toBe('ok');
-        expect(result.results).not.toBeNull();
-    }));
-});
+        it('should return an Observable<IReverseGeoCodeResponse>',
+            inject([GeoService, XHRBackend], (geoService: GeoService, mockBackend) => {
+    
+            const mockResponse: IReverseGeoCodeResponse = {
+              results: [],
+              status: 'cool'
+            };
+    
+            mockBackend.connections.subscribe((connection) => {
+              connection.mockRespond(new Response(new ResponseOptions({
+                body: JSON.stringify(mockResponse)
+              })));
+            });
+    
+            geoService.reverseGeocode('fake address 42, 1337 Futurama').subscribe((resp: IReverseGeoCodeResponse) => {
+              expect(resp.status).toBe('cool');
+              expect(resp.results.length).toBe(0);
+            });
+    
+        }));
+      });
+    });
