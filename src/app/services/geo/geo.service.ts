@@ -18,7 +18,7 @@ export class GeoService {
      * Find a geolocation (lat/lon) from a given address
      * @param location - the address of the location
      */
-    reverseGeocode(location: string): Observable<any> {
+    reverseGeocode(location: string): Observable<IReverseGeoCodeResponse> {
         var params = {
             format: 'json',
             address: location,
