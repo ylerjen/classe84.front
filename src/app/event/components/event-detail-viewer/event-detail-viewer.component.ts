@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IEventState } from '../../../stores/event/eventReducer';
+import { IEventState } from '../../../stores/event/event.reducer';
 import { Event } from '../../../models/Event';
 import { ROUTE_URL } from '../../../config/router.config';
 
