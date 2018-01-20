@@ -16,16 +16,21 @@ describe('GeoService', () => {
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
-                { provide: '', useValue: 'http://example.com' },
                 GeoService,
                 { provide: XHRBackend, useClass: MockBackend },
             ]
         });
     });
+
+
+    it('should be defined', inject([GeoService], geoSrvc => {
+        expect(geoSrvc).toBeDefined();
+    }));
+
     describe('#reverseGeocode()', () => {
 
         it('should return an Observable<IReverseGeoCodeResponse>',
-            inject([GeoService, XHRBackend], (geoService: GeoService, mockBackend) => {
+            inject([GeoService, XHRBackend], (geoSrvc: GeoService, mockBackend) => {
     
             const mockResponse: IReverseGeoCodeResponse = {
               results: [],
@@ -38,7 +43,7 @@ describe('GeoService', () => {
               })));
             });
     
-            geoService.reverseGeocode('fake address 42, 1337 Futurama').subscribe((resp: IReverseGeoCodeResponse) => {
+            geoSrvc.reverseGeocode('fake address 42, 1337 Futurama').subscribe((resp: IReverseGeoCodeResponse) => {
               expect(resp.status).toBe('cool');
               expect(resp.results.length).toBe(0);
             });
