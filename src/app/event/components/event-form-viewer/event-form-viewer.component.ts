@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { ISessionState } from '../../../stores/session/session.reducer';
-import { IEventState } from '../../../stores/event/eventReducer';
+import { IEventState } from '../../../stores/event/event.reducer';
 import { EventsService } from '../../services/events.service';
 import { Event as EventModel } from '../../../models/Event';
 import { updateEvent } from '../../../actions/events.actions';
@@ -39,7 +39,6 @@ export class EventFormViewerComponent {
     }
 
     saveEvent(event: EventModel) {
-        console.log(event);
         if (!event.id) {
             event.created_by = this._sessionState.loggedUser.id;
         }

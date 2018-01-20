@@ -3,7 +3,7 @@ import { notificationReducer } from './notifications/notifications.reducer';
 import { ISessionState, sessionReducer  } from './session/session.reducer';
 import { IUserState, userReducer } from './user/userReducer';
 import { IUserListState, userlistReducer } from './userlist/userlistReducer';
-import { IEventState, eventReducer } from 'app/stores/event/eventReducer';
+import { IEventState, eventReducer } from 'app/stores/event/event.reducer';
 import { IEventListState, eventlistReducer } from 'app/stores/eventlist/eventlistReducer';
 import { appReducer } from './app/appReducer';
 
