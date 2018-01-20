@@ -7,19 +7,18 @@ import { AuthHttp } from 'angular2-jwt';
 import { environment as env } from '../../../environments/environment';
 import { IGlobalState } from '../../stores/globalState';
 import { Event } from '../../models/Event';
-import { User } from '../../models/User';
+import { Subscription } from '../../models/Subscription';
 import {
     addEvent,
     updateEvent,
-    deleteEvent,
-    changeFilter,
-    GET_EVENT,
-    ASYNC_EVENT_START,
-    ASYNC_EVENT_SUCCESS,
-    ASYNC_EVENTLIST_START,
-    ASYNC_EVENTLIST_SUCCESS,
-    CHANGE_FILTER
+    getEventAsyncStart,
+    getEventAsyncFinished
 } from '../../actions/events.actions';
+import { 
+    deleteEventFromEventlist,
+    changeEventListFilter, 
+    getEventListAsyncStart,
+} from 'app/actions/eventlist.actions';
 
 const BASE_URL = `${env.API_URL}/events`;
 
@@ -35,10 +34,10 @@ export class EventsService {
      * Fetch all events
      */
     fetchAll(): Observable<Action> {
-        this._store.dispatch( { type: ASYNC_EVENTLIST_START});
+        this._store.dispatch( getEventListAsyncStart());
         return this._http.get(BASE_URL)
             .map(res => res.json())
-            .map(payload => ({ type: ASYNC_EVENTLIST_SUCCESS, payload }));
+            .map(payload => getEventAsyncFinished(payload));
     }
 
     /**
@@ -47,7 +46,7 @@ export class EventsService {
      */
     get(id: number): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
-        this._store.dispatch( { type: ASYNC_EVENT_START});
+        this._store.dispatch( getEventAsyncStart());
         return this._authHttp.get(endpoint)
             .map( (resp: Response): Event => resp.json());
     }
@@ -77,19 +76,19 @@ export class EventsService {
 
     delete(event: Event) {
         console.log('delete from service => not finished: request delete api');
-        this._store.dispatch(deleteEvent(event));
+        this._store.dispatch(deleteEventFromEventlist(event));
     }
 
     updateFilter(filter: string) {
-        this._store.dispatch(changeFilter(filter));
+        this._store.dispatch(changeEventListFilter(filter));
     }
 
     /**
      * Get all subscribers for an event
      * @param eventId - the id of the event
      */
-    getParticipants(eventId: number): Observable<Array<User>> {
+    getSubscribers(eventId: number): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${eventId}/users`)
-            .map((resp: Response): Array<User> => resp.json());
+            .map((resp: Response): Array<Subscription> => resp.json());
     }
 }

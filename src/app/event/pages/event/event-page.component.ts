@@ -7,7 +7,7 @@ import 'rxjs/add/operator/finally';
 import { Event } from '../../../models/Event';
 import { User } from '../../../models/User';
 import { IGlobalState } from '../../../stores/globalState';
-import { getEventAsyncSuccess } from '../../../actions/events.actions';
+import { getEventAsyncFinished } from '../../../actions/events.actions';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class EventPageComponent implements OnInit {
                         (resp: Array<User>) => this.participation = resp.map(usr => new User(usr))
                     );
                 return this.fetchEvent(id)
-                    .map( (payload: Event): Action => getEventAsyncSuccess(payload));
+                    .map( (payload: Event): Action => getEventAsyncFinished(payload));
             })
             .subscribe(
                 (resp: Action) => this._store.dispatch(resp),

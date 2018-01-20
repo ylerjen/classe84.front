@@ -1,7 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { Event } from '../../models/Event';
-import { ASYNC_EVENTLIST_START, ASYNC_EVENTLIST_SUCCESS, ADD_EVENT, DELETE_EVENT, EMPTY } from '../../actions/events.actions';
+import { ASYNC_EVENTLIST_START, ASYNC_EVENTLIST_SUCCESS, ADD_EVENT_IN_EVENTLIST, DELETE_EVENT_FROM_EVENTLIST, EMPTY_EVENTLIST } from '../../actions/eventlist.actions';
 
 export interface IEventListState {
     eventList: Event[];
@@ -28,7 +28,7 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
                 eventList: action.payload.slice()
             });
 
-        case ADD_EVENT:
+        case ADD_EVENT_IN_EVENTLIST:
             return Object.assign({}, state, {
                 isLoading: false,
                 eventList: [
@@ -37,13 +37,13 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
                 ]
             });
 
-        case DELETE_EVENT:
+        case DELETE_EVENT_FROM_EVENTLIST:
             return Object.assign({}, state, {
                 isLoading: false,
                 eventList: state.eventList.filter(event => event.id !== action.payload.id)
             });
 
-        case EMPTY:
+        case EMPTY_EVENTLIST:
             return Object.assign({}, state, {
                 isLoading: false,
                 eventList: []

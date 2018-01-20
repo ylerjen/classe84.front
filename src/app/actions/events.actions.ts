@@ -1,19 +1,21 @@
 import { Action } from '@ngrx/store';
 
 import { Event } from '../models/Event';
+import { Subscription } from '../models/Subscription';
 
-export const ASYNC_EVENTLIST_START = 'EVENTLIST_ASYNC_START';
-export const ASYNC_EVENTLIST_SUCCESS = 'EVENTLIST_ASYNC_SUCCESS';
 export const ASYNC_EVENT_START = 'EVENT_ASYNC_START';
 export const ASYNC_EVENT_SUCCESS = 'EVENT_ASYNC_SUCCESS';
-export const GET_EVENT = 'EVENT_GET';
-export const ADD_EVENT = 'EVENT_ADD';
+export const ADD_EVENT = 'ADD_EVENT';
 export const UPDATE_EVENT = 'EVENT_UPDATE';
-export const DELETE_EVENT = 'EVENT_DELETE';
-export const RESET = 'EVENTLIST_RESET';
-export const EMPTY = 'EVENTLIST_EMPTY';
-export const CHANGE_FILTER = 'EVENTLIST_CHANGE_FILTER';
+export const RESET_EVENT_STATE = 'RESET_EVENT_STATE';
+export const SET_EVENT_SUBSCRIBERS = 'SET_EVENT_SUBSCRIBERS';
 
+
+export function resetEventState(): Action {
+    return {
+        type: RESET_EVENT_STATE
+    }
+}
 
 export function addEvent(payload: Event): Action {
     return {
@@ -29,29 +31,22 @@ export function updateEvent(payload: Event): Action {
     };
 }
 
-export function deleteEvent(payload: Event): Action {
-    return {
-        type: DELETE_EVENT,
-        payload
-    };
-}
-
-export function changeFilter(payload: string): Action {
-    return {
-        type: CHANGE_FILTER,
-        payload
-    };
-}
-
-export function getEventAsync(): Action {
+export function getEventAsyncStart(): Action {
     return {
         type: ASYNC_EVENT_START
     };
 }
 
-export function getEventAsyncSuccess(payload: Event): Action {
+export function getEventAsyncFinished(payload: Event): Action {
     return {
         type: ASYNC_EVENT_SUCCESS,
         payload
     };
+}
+
+export function setSubscribersToEvent(payload: Array<Subscription>): Action {
+    return {
+        type: SET_EVENT_SUBSCRIBERS,
+        payload
+    }
 }
