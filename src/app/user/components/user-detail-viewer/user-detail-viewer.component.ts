@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IUserState } from '../../../stores/user/userReducer';
+import { IUserState } from '../../../stores/user/user.reducer';
 import { User } from '../../../models/User';
 import { ROUTE_URL } from '../../../config/router.config';
 
@@ -54,7 +54,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         const url = `${ROUTE_URL.users}/${id.toString()}/edit`;
         this._router.navigate([url]);
     }
-    
+
     delete(id: number): void {
         console.log('delete', id);
         throw new Error('not implemented yet');

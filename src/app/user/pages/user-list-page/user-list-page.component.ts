@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { User, EGender } from '../../../models/User';
-import { IUserListState } from '../../../stores/userlist/userlistReducer';
-import { IUserState } from '../../../stores/user/userReducer';
+import { IUserListState } from '../../../stores/userlist/userlist.reducer';
 import { UsersService } from '../../../services/users/users.service';
 
 @Component({

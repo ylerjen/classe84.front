@@ -1,4 +1,4 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
 import { STORE_API_VERSION, STORE_FRNT_VERSION } from '../../actions/app.actions';
 import { Version } from '../../models/Version';

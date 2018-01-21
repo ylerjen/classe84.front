@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { IEventListState } from '../../../stores/eventlist/eventlistReducer';
+import { IEventListState } from '../../../stores/eventlist/eventlist.reducer';
 import { EventsService } from '../../services/events.service';
 
 @Component({

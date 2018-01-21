@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
 import { NgxEditorModule } from 'ngx-editor';
+import { Ng2CompleterModule } from 'ng2-completer';
 
 import { GMAP_API_KEY } from '../config/settings';
 import { SharedModule } from '../shared/shared.module';
@@ -20,6 +21,8 @@ import { EventDetailViewerComponent } from './components/event-detail-viewer/eve
 import { EventFormViewerComponent } from './components/event-form-viewer/event-form-viewer.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { GeoresultFormComponent } from './components/georesult-form/georesult-form.component';
+import { EventSubscriptionsComponent } from './components/event-subscriptions/event-subscriptions.component';
+import { EventSubscriptionsViewerComponent } from './components/event-subscriptions-viewer/event-subscriptions-viewer.component';
 
 const eventRoutes: Routes = [
     { path: 'events', component: EventlistPageComponent },
@@ -30,6 +33,7 @@ const eventRoutes: Routes = [
         children: [
             { path: '', component: EventDetailViewerComponent },
             { path: 'edit', component: EventFormViewerComponent },
+            { path: 'subscriptions', component: EventSubscriptionsViewerComponent },
         ]
     }
 ];
@@ -39,6 +43,7 @@ const eventRoutes: Routes = [
         CommonModule,
         SharedModule,
         RouterModule.forChild(eventRoutes),
+        Ng2CompleterModule,
         FormsModule,
         ReactiveFormsModule,
         NgxEditorModule,
@@ -57,6 +62,8 @@ const eventRoutes: Routes = [
         EventFormViewerComponent,
         EventFormComponent,
         GeoresultFormComponent,
+        EventSubscriptionsComponent,
+        EventSubscriptionsViewerComponent,
     ],
     providers: [
         EventsService

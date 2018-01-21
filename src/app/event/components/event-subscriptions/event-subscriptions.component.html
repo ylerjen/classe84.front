@@ -1,0 +1,22 @@
+<section *ngIf="subscribersList">
+    <form *ngIf="isEditable">
+        <div class="form-group">
+            <label for="user-subscription-search">
+                <i class="fa fa-search" aria-labelledby="search"></i> <span>Subscribe member by their name</span>
+            </label>
+            <ng2-completer
+                inputId="user-subscription-search"
+                inputClass="form-control"
+                clearSelected="true"
+                [datasource]="dataService"
+                [minSearchLength]="0"
+                (selected)="addUserSubscription($event)"
+                ></ng2-completer>
+        </div>
+    </form>
+    
+    <span *ngIf="!isTotalHidden">{{subscribersList.length}} users participated to this event.</span>
+    <ol>
+        <li *ngFor="let subscr of subscribersList"><span>{{subscr.user.fullname}}</span> <button class="round" *ngIf="isEditable" (click)="removeUserSubscription(subscr.user.id)">&times;</button></li>
+    </ol>
+</section>

@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 import 'rxjs/add/operator/finally';
 
+import { Subscription } from 'app/models/Subscription';
 import { Event } from '../../../models/Event';
-import { User } from '../../../models/User';
 import { IGlobalState } from '../../../stores/globalState';
-import { getEventAsyncFinished } from '../../../actions/events.actions';
+import { getEventAsyncFinished } from '../../../actions/event.actions';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -17,10 +17,9 @@ import { EventsService } from '../../services/events.service';
 })
 export class EventPageComponent implements OnInit {
 
-    private _id: number;
     public isLoading: boolean;
 
-    public participation: Array<User>;
+    public subscriberList: Array<Subscription>;
 
     constructor(
         private _store: Store<IGlobalState>,
@@ -34,9 +33,11 @@ export class EventPageComponent implements OnInit {
         this._route.params
             .switchMap( (routeData: Params): Observable<Action> => {
                 const id = routeData.id;
-                this._evtSrvc.getParticipants(id)
+                this._evtSrvc.getSubscribers(id)
                     .subscribe(
-                        (resp: Array<User>) => this.participation = resp.map(usr => new User(usr))
+                        (subscrList: Array<Subscription>) => {
+                            this.subscriberList = subscrList.map(subscr => new Subscription(subscr));
+                        }
                     );
                 return this.fetchEvent(id)
                     .map( (payload: Event): Action => getEventAsyncFinished(payload));
@@ -49,7 +50,7 @@ export class EventPageComponent implements OnInit {
     }
 
     fetchEvent(id: number): Observable<Event> {
-        return this._evtSrvc.get(id);
+        return this._evtSrvc.get(id.toString());
     }
 
 }

@@ -15,7 +15,7 @@ import { UserModule } from './user/user.module';
 import { EventModule } from './event/event.module';
 import { AppComponent } from './app.component';
 import { appRoutes } from './config/router.config';
-import { IGlobalState, globalState } from './stores/globalState';
+import { globalState } from './stores/globalState';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { NotificationService } from './services/notification/notification.service';

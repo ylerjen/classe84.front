@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
 import { User } from '../../../models/User';
-import { IUserListState } from '../../../stores/userlist/userlistReducer';
+import { IUserListState } from '../../../stores/userlist/userlist.reducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { UsersService } from '../../../services/users/users.service';
 import { NotificationService } from '../../../services/notification/notification.service';

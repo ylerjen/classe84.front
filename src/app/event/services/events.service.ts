@@ -12,12 +12,14 @@ import {
     addEvent,
     updateEvent,
     getEventAsyncStart,
-    getEventAsyncFinished
-} from '../../actions/events.actions';
-import { 
-    deleteEventFromEventlist,
-    changeEventListFilter, 
+    getEventAsyncFinished,
+    setSubscribersToEvent
+} from '../../actions/event.actions';
+import {
+    deleteEventFromList,
+    changeEventListFilter,
     getEventListAsyncStart,
+    getEventListAsyncFinished
 } from 'app/actions/eventlist.actions';
 
 const BASE_URL = `${env.API_URL}/events`;
@@ -28,7 +30,8 @@ export class EventsService {
     constructor(
         private _http: Http,
         private _store: Store<IGlobalState>,
-        private _authHttp: AuthHttp) { }
+        private _authHttp: AuthHttp
+    ) { }
 
     /**
      * Fetch all events
@@ -37,18 +40,23 @@ export class EventsService {
         this._store.dispatch( getEventListAsyncStart());
         return this._http.get(BASE_URL)
             .map(res => res.json())
-            .map(payload => getEventAsyncFinished(payload));
+            .map(payload => getEventListAsyncFinished(payload));
     }
 
     /**
      * Get the event by its id
      * @param id - the id of the event to get
      */
-    get(id: number): Observable<Event> {
+    get(id: string): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
         this._store.dispatch( getEventAsyncStart());
         return this._authHttp.get(endpoint)
-            .map( (resp: Response): Event => resp.json());
+            .map( (resp: Response): any => resp.json() )
+            .map( (evtAttr: any): Event => new Event(evtAttr) )
+            .map( (payload: Event) => {
+                this._store.dispatch(getEventAsyncFinished(payload));
+                return payload;
+            });
     }
 
     create(event: Event): Observable<Response> {
@@ -76,9 +84,13 @@ export class EventsService {
 
     delete(event: Event) {
         console.log('delete from service => not finished: request delete api');
-        this._store.dispatch(deleteEventFromEventlist(event));
+        this._store.dispatch(deleteEventFromList(event));
     }
 
+    /**
+     * Update the filter used for the event list
+     * @param filter - a text string which represent the search filter of an event
+     */
     updateFilter(filter: string) {
         this._store.dispatch(changeEventListFilter(filter));
     }
@@ -87,8 +99,38 @@ export class EventsService {
      * Get all subscribers for an event
      * @param eventId - the id of the event
      */
-    getSubscribers(eventId: number): Observable<Array<Subscription>> {
+    getSubscribers(eventId: string): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${eventId}/users`)
+            .map((resp: Response): Array<Subscription> => resp.json())
+            .map((subscrList: Array<Subscription>): Array<Subscription> => {
+                this._store.dispatch(setSubscribersToEvent(subscrList));
+                return subscrList;
+            });
+    }
+
+    /**
+     * Subscribe a user to an event
+     * @param eventId - the id of the event to subscribe to
+     * @param userId - the id of the user to subscribe to the event
+     */
+    susbcribeToEvent(eventId: string, userId: string): Observable<any> {
+        if (!eventId || !userId) {
+            throw new Error(`Trying to subscribe to an event, but userId ${userId} or eventId ${eventId} is missing.`);
+        }
+        return this._authHttp.post(`${BASE_URL}/${eventId}/users/${userId}`, {})
+            .map((resp: Response): Array<Subscription> => resp.json());
+    }
+
+    /**
+     * Unsubscribe a user from an event
+     * @param eventId - the id of the event to unsubscribe from
+     * @param userId - the id of the user to unsubscribe from the event
+     */
+    unsubscribeFromEvent(eventId: string, userId: string): Observable<any> {
+        if (!eventId || !userId) {
+            throw new Error(`Trying to unsubscribe from an event, but userId ${userId} or eventId ${eventId} is missing.`);
+        }
+        return this._authHttp.delete(`${BASE_URL}/${eventId}/users/${userId}`)
             .map((resp: Response): Array<Subscription> => resp.json());
     }
 }

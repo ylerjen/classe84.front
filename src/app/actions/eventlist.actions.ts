@@ -5,7 +5,7 @@ import { Event as EventModel} from '../models/Event';
 export const EMPTY_EVENTLIST = 'EMPTY_EVENTLIST';
 export const CHANGE_FILTER = 'EVENTLIST_CHANGE_FILTER';
 export const ASYNC_EVENTLIST_START = 'EVENTLIST_ASYNC_START';
-export const ASYNC_EVENTLIST_SUCCESS = 'EVENTLIST_ASYNC_SUCCESS';
+export const ASYNC_EVENTLIST_FINISHED = 'ASYNC_EVENTLIST_FINISHED';
 export const ADD_EVENT_IN_EVENTLIST = 'ADD_EVENT_IN_EVENTLIST';
 export const DELETE_EVENT_FROM_EVENTLIST = 'DELETE_EVENT_FROM_EVENTLIST';
 
@@ -17,7 +17,14 @@ export function changeEventListFilter(payload: string): Action {
     };
 }
 
-export function deleteEventFromEventlist(payload: EventModel): Action {
+export function addEventInlist(payload: EventModel): Action {
+    return {
+        type: ADD_EVENT_IN_EVENTLIST,
+        payload
+    };
+}
+
+export function deleteEventFromList(payload: EventModel): Action {
     return {
         type: DELETE_EVENT_FROM_EVENTLIST,
         payload
@@ -36,9 +43,9 @@ export function getEventListAsyncStart(): Action {
     };
 }
 
-export function getEventAsyncFinished(payload: Array<EventModel>): Action {
+export function getEventListAsyncFinished(payload: Array<EventModel>): Action {
     return {
-        type: ASYNC_EVENTLIST_SUCCESS,
+        type: ASYNC_EVENTLIST_FINISHED,
         payload
     };
 }

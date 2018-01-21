@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
 import { Event } from '../../../models/Event';
-import { IEventListState } from '../../../stores/eventlist/eventlistReducer';
+import { IEventListState } from '../../../stores/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../../services/notification/notification.service';
@@ -16,7 +16,7 @@ import { NotificationService } from '../../../services/notification/notification
     templateUrl: './event-list-wrapper.component.html',
     styleUrls: ['./event-list-wrapper.component.scss']
 })
-export class EventListWrapperComponent {
+export class EventListWrapperComponent implements OnInit {
 
     public filter: IEventListFilter =  {
         name: '',
@@ -39,6 +39,7 @@ export class EventListWrapperComponent {
     ngOnInit(): void {
         this._store.select('eventlistState')
             .subscribe( (evtState: IEventListState) => {
+                console.log('eventlistState goooooo')
                 if (evtState) {
                     this.eventsList = evtState.eventList;
                     this.filterList();
@@ -59,7 +60,6 @@ export class EventListWrapperComponent {
         this.filteredList = this.eventsList.filter(event => {
             const nameFilter = (this.filter.name) ? this.filter.name.toLowerCase() : '';
             const checkNameSearch = event.title.toLowerCase().includes(nameFilter);
-            
             return checkNameSearch;
         });
     }

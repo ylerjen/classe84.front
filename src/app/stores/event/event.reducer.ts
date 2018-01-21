@@ -1,13 +1,13 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
-import { Event } from '../../models/Event';
+import { Event } from 'app/models/Event';
 import {
     ASYNC_EVENT_START,
     ASYNC_EVENT_SUCCESS,
     UPDATE_EVENT,
     SET_EVENT_SUBSCRIBERS,
     RESET_EVENT_STATE
-} from '../../actions/events.actions';
+} from 'app/actions/event.actions';
 
 export interface IEventState {
     event: Event;
@@ -32,7 +32,7 @@ export function eventReducer(state: IEventState = initialState, action?: Action)
 
         case SET_EVENT_SUBSCRIBERS:
             if (!state.event) {
-                throw new Error("eventReducer executed SET_EVENT_SUBSCRIBERS, but Event was not fetched yet");
+                throw new Error('eventReducer executed SET_EVENT_SUBSCRIBERS, but Event was not fetched yet');
             }
             const updatedEvent = Object.assign({}, state.event);
             updatedEvent.subscriberList = Array.isArray(action.payload) ? action.payload : [] ;

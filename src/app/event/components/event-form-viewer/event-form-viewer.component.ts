@@ -6,7 +6,7 @@ import { ISessionState } from '../../../stores/session/session.reducer';
 import { IEventState } from '../../../stores/event/event.reducer';
 import { EventsService } from '../../services/events.service';
 import { Event as EventModel } from '../../../models/Event';
-import { updateEvent } from '../../../actions/events.actions';
+import { updateEvent } from '../../../actions/event.actions';
 import { NotificationService } from '../../../services/notification/notification.service';
 
 import { ROUTE_URL } from '../../../config/router.config';

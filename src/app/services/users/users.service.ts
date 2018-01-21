@@ -9,17 +9,19 @@ import { IGlobalState } from '../../stores/globalState';
 import { User } from '../../models/User';
 import { Event } from '../../models/Event';
 import { Notification, ENotificationType } from '../../models/Notification';
-import { IUserListState } from '../../stores/userlist/userlistReducer';
+import { IUserListState } from '../../stores/userlist/userlist.reducer';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import {
     addUser,
     updateUser,
     deleteUser,
+    getUserAsyncStart,
+} from '../../actions/user.actions';
+import {
     changeFilter,
-    getUserAsync,
     getUserListAsync,
-    getUserListAsyncSuccess,
-} from '../../actions/users.actions';
+    getUserListAsyncFinished
+} from '../../actions/userlist.actions';
 
 
 const BASE_URL = `${env.API_URL}/users`;
@@ -33,16 +35,20 @@ export class UsersService {
         private _authHttp: AuthHttp
     ) { }
 
-    fetchAll(): Observable<Action> {
+    fetchAll(): Observable<Array<User>> {
         this._store.dispatch( getUserListAsync() );
         return this._http.get(BASE_URL)
-            .map(res => res.json())
-            .map(payload => (getUserListAsyncSuccess(payload)));
+            .map((res: Response): Array<any> => res.json())
+            .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)))
+            .map( (payload): Array<User> => {
+                this._store.dispatch(getUserListAsyncFinished(payload));
+                return payload;
+            });
     }
 
     get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
-        this._store.dispatch( getUserAsync());
+        this._store.dispatch( getUserAsyncStart());
         return this._authHttp.get(endpoint)
             .map( (resp: Response): User => resp.json());
     }

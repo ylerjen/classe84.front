@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { IUserState } from '../../../stores/user/userReducer';
+import { IUserState } from '../../../stores/user/user.reducer';
 import { User } from '../../../models/User';
-import { updateUser } from '../../../actions/users.actions';
+import { updateUser } from '../../../actions/user.actions';
 import { UsersService } from '../../../services/users/users.service';
 import { NotificationService } from '../../../services/notification/notification.service';
 

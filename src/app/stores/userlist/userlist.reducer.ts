@@ -1,7 +1,13 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
-import { User, EGender } from '../../models/User';
-import { ASYNC_USERLIST_START, ASYNC_USERLIST_SUCCESS, ADD_USER, DELETE_USER, EMPTY } from '../../actions/users.actions';
+import { User } from '../../models/User';
+import {
+    ASYNC_USERLIST_START,
+    ASYNC_USERLIST_FINISHED,
+    ADD_USER_IN_USERLIST,
+    DELETE_USER_FROM_USERLIST,
+    EMPTY_USERLIST
+} from '../../actions/userlist.actions';
 
 export interface IUserListState {
     userList: User[];
@@ -22,13 +28,13 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
                 isLoading: true
             });
 
-        case ASYNC_USERLIST_SUCCESS:
+        case ASYNC_USERLIST_FINISHED:
             return Object.assign({}, state, {
                 isLoading: false,
                 userList: action.payload.slice()
             });
 
-        case ADD_USER:
+        case ADD_USER_IN_USERLIST:
             return Object.assign({}, state, {
                 isLoading: false,
                 userList: [
@@ -37,13 +43,13 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
                 ]
             });
 
-        case DELETE_USER:
+        case DELETE_USER_FROM_USERLIST:
             return Object.assign({}, state, {
                 isLoading: false,
                 userList: state.userList.filter(user => user.id !== action.payload.id)
             });
 
-        case EMPTY:
+        case EMPTY_USERLIST:
             return Object.assign({}, state, {
                 isLoading: false,
                 userList: []

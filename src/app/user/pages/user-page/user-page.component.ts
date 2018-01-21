@@ -4,13 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 
-import { ROUTE_URL } from '../../../config/router.config';
 import { User } from '../../../models/User';
 import { Event } from '../../../models/Event';
 import { IGlobalState } from '../../../stores/globalState';
-import { IUserState } from '../../../stores/user/userReducer';
-import { ISessionState } from '../../../stores/session/session.reducer';
-import { getUserAsyncSuccess } from '../../../actions/users.actions';
+import { getUserAsyncFinished } from '../../../actions/user.actions';
 import { UsersService } from '../../../services/users/users.service';
 
 @Component({
@@ -42,7 +39,7 @@ export class UserPageComponent implements OnInit {
                 return this.fetchUser(this._id)
                     .map( (payload: User): Action => {
                         this.user = payload;
-                        return getUserAsyncSuccess(payload);
+                        return getUserAsyncFinished(payload);
                     });
             })
             .subscribe(

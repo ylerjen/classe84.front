@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Response } from '@angular/http';
 
 import { environment } from '../environments/environment';
-import { AppState, AppVersion } from './stores/app/appReducer';
+import { AppState, AppVersion } from './stores/app/app.reducer';
 import { storeFrontVersion, storeApiVersion } from './actions/app.actions';
 import { Version } from './models/Version';
 import { AppService } from './services/app/app.service';

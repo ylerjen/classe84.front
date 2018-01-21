@@ -1,6 +1,3 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Action } from '@ngrx/store';
-
 import { eventReducer, initialState, IEventState } from './event.reducer';
 
 import { Event } from 'app/models/Event';
@@ -17,16 +14,15 @@ import {
     ASYNC_EVENT_SUCCESS,
     UPDATE_EVENT,
     RESET_EVENT_STATE
-} from 'app/actions/events.actions';
+} from 'app/actions/event.actions';
 
 describe('eventReducer state', () => {
 
-    it('should have a default value on init', () => {
+    it('should return the default state on init', () => {
         const action = {} as any;
-        const currentState = initialState;
 
         const result = eventReducer(undefined, action);
-        
+
         expect(result.isLoading).toBe(initialState.isLoading);
         expect(result.event).toBe(initialState.event);
     });
