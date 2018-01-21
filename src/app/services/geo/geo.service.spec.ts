@@ -12,7 +12,6 @@ import { GeoService, IReverseGeoCodeResponse } from './geo.service';
 describe('GeoService', () => {
 
     beforeEach(() => {
-
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
@@ -21,7 +20,6 @@ describe('GeoService', () => {
             ]
         });
     });
-
 
     it('should be defined', inject([GeoService], geoSrvc => {
         expect(geoSrvc).toBeDefined();
