@@ -97,11 +97,11 @@ describe('subscriptionsReducer state', () => {
         const currentState: ISubscriptionState = {
             isLoading: false,
             subscriptionList: [
-                new Subscription({user_id: 1, event_id: 1, isStoreConfirmed: false }),
-                new Subscription({user_id: 2, event_id: 2, isStoreConfirmed: false }) ],
+                new Subscription({user_id: 1, event_id: 1, isStorePending: false }),
+                new Subscription({user_id: 2, event_id: 2, isStorePending: false }) ],
             dataDate: new Date()
         };
-        const payload = new Subscription({user_id: 2, event_id: 2, isStoreConfirmed: true });
+        const payload = new Subscription({user_id: 2, event_id: 2, isStorePending: true });
 
         it('should update the existing subscription in the list', () => {
             const result = subscriptionsReducer(currentState, action(payload));
@@ -109,10 +109,10 @@ describe('subscriptionsReducer state', () => {
             expect(result.subscriptionList.length).toBe(2);
             expect(result.subscriptionList.find(
                 subscr => subscr.event_id === 1
-            ).isStoreConfirmed).toBeFalsy();
+            ).isStorePending).toBeFalsy();
             expect(result.subscriptionList.find(
                 subscr => subscr.event_id === 2
-            ).isStoreConfirmed).toBe(payload.isStoreConfirmed);
+            ).isStorePending).toBe(payload.isStorePending);
         });
     });
 
