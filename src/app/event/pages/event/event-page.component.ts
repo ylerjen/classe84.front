@@ -4,10 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 import 'rxjs/add/operator/finally';
 
+import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
-import { Event } from '../../../models/Event';
-import { IGlobalState } from '../../../stores/globalState';
-import { getEventAsyncFinished } from '../../../actions/event.actions';
+import { IGlobalState } from 'app/stores/globalState';
+import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { getEventAsyncFinished } from 'app/actions/event.actions';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -26,27 +27,25 @@ export class EventPageComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private _evtSrvc: EventsService,
-    ) { }
+    ) {
+        this._store.select('subscriptionsState')
+            .subscribe(
+                (subscrState: ISubscriptionState) => this.subscriberList = subscrState.subscriptionList
+            );
+    }
 
     ngOnInit() {
         this.isLoading = true;
         this._route.params
-            .switchMap( (routeData: Params): Observable<Action> => {
+            .subscribe( (routeData: Params) => {
                 const id = routeData.id;
-                this._evtSrvc.getSubscribers(id)
-                    .subscribe(
-                        (subscrList: Array<Subscription>) => {
-                            this.subscriberList = subscrList.map(subscr => new Subscription(subscr));
-                        }
-                    );
-                return this.fetchEvent(id)
-                    .map( (payload: Event): Action => getEventAsyncFinished(payload));
-            })
-            .subscribe(
-                (resp: Action) => this._store.dispatch(resp),
-                (error: any) => this._router.navigate(['unauthorized']),
-                () => this.isLoading = false
-            );
+                this._evtSrvc.getSubscribers(id).subscribe();
+                this.fetchEvent(id).subscribe(
+                    (resp) => console.log('display event page'),
+                    (error: any) => this._router.navigate(['unauthorized']),
+                    () => this.isLoading = false
+                );
+            });
     }
 
     fetchEvent(id: number): Observable<Event> {

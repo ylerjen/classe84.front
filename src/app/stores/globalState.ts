@@ -5,6 +5,7 @@ import { IUserState, userReducer } from './user/user.reducer';
 import { IUserListState, userlistReducer } from './userlist/userlist.reducer';
 import { IEventState, eventReducer } from 'app/stores/event/event.reducer';
 import { IEventListState, eventlistReducer } from 'app/stores/eventlist/eventlist.reducer';
+import { ISubscriptionState, subscriptionsReducer } from 'app/stores/subscription/subscription.reducer';
 import { appReducer } from './app/app.reducer';
 
 export interface IGlobalState {
@@ -15,6 +16,7 @@ export interface IGlobalState {
     userState: IUserState;
     eventState: IEventState;
     eventlistState: IEventListState;
+    subscriptionsState: ISubscriptionState;
 }
 
 export const globalState = {
@@ -25,4 +27,5 @@ export const globalState = {
     userState: userReducer,
     eventState: eventReducer,
     eventlistState: eventlistReducer,
+    subscriptionsState: subscriptionsReducer
 };

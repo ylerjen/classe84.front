@@ -1,15 +1,11 @@
 import { eventReducer, initialState, IEventState } from './event.reducer';
 
 import { Event } from 'app/models/Event';
-import { Subscription } from 'app/models/Subscription';
-import { User } from 'app/models/User';
 import {
     resetEventState,
     getEventAsyncStart,
     getEventAsyncFinished,
-    setSubscribersToEvent,
     updateEvent,
-    SET_EVENT_SUBSCRIBERS,
     ASYNC_EVENT_START,
     ASYNC_EVENT_SUCCESS,
     UPDATE_EVENT,
@@ -75,37 +71,6 @@ describe('eventReducer state', () => {
             const result = eventReducer(currentState, action(updatedEvtObj));
 
             expect(result.event.title).toBe(updatedEvtObj.title);
-        });
-    });
-
-    describe(`#${SET_EVENT_SUBSCRIBERS} to the event state action`, () => {
-        const action = setSubscribersToEvent;
-
-        it('should throw if the event is not initialized', () => {
-            const currentState = initialState;
-
-            const reducerCall = () => {
-                eventReducer(currentState, action([]));
-            };
-
-            expect(reducerCall).toThrow();
-        });
-
-        it(`should set the subscriber's list to the event`, () => {
-            const currentState: IEventState = {
-                isLoading: false,
-                event: new Event({ id: 1, title: 'The title of the event' })
-            };
-            const subscrList = [ new Subscription({
-                created_at: 'Sat Jan 20 2018 18:34:22 GMT+0100 (CET)',
-                updated_at: 'Sat Jan 20 2018 18:34:22 GMT+0100 (CET)',
-                user_id: 0,
-                User: new User({id: 0, first_name: 'yann', last_name: 'chuck' })
-            })];
-
-            const result = eventReducer(currentState, action(subscrList));
-
-            expect(result.event.subscriberList).toEqual(subscrList);
         });
     });
 

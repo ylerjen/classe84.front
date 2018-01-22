@@ -8,7 +8,6 @@ export const ASYNC_EVENT_SUCCESS = 'EVENT_ASYNC_SUCCESS';
 export const ADD_EVENT = 'ADD_EVENT';
 export const UPDATE_EVENT = 'EVENT_UPDATE';
 export const RESET_EVENT_STATE = 'RESET_EVENT_STATE';
-export const SET_EVENT_SUBSCRIBERS = 'SET_EVENT_SUBSCRIBERS';
 
 
 export function resetEventState(): Action {
@@ -42,11 +41,4 @@ export function getEventAsyncFinished(payload: Event): Action {
         type: ASYNC_EVENT_SUCCESS,
         payload
     };
-}
-
-export function setSubscribersToEvent(payload: Array<Subscription>): Action {
-    return {
-        type: SET_EVENT_SUBSCRIBERS,
-        payload
-    }
 }

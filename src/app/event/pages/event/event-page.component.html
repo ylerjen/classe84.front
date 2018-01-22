@@ -4,9 +4,9 @@
     </section>
     <aside class="col-md-4">
         <app-panel>
-            <span class="title"><i class="fa fa-ticket"></i> Subscribers</span>
+            <span class="title"><i class="fa fa-ticket"></i> {{subscriberList ? subscriberList.length : ''}} Subscribers</span>
             <span class="text" *ngIf="subscriberList && subscriberList.length">
-                <app-event-subscriptions isTotalHidden="true"></app-event-subscriptions>
+                <app-event-subscriptions isTotalHidden="true" [subscribersList]="subscriberList"></app-event-subscriptions>
             </span>
         </app-panel>
         <app-panel>

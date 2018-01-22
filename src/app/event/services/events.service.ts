@@ -4,16 +4,15 @@ import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
 
-import { environment as env } from '../../../environments/environment';
-import { IGlobalState } from '../../stores/globalState';
-import { Event } from '../../models/Event';
-import { Subscription } from '../../models/Subscription';
+import { environment as env } from 'app/../environments/environment';
+import { IGlobalState } from 'app/stores/globalState';
+import { Event } from 'app/models/Event';
+import { Subscription } from 'app/models/Subscription';
 import {
     addEvent,
     updateEvent,
     getEventAsyncStart,
-    getEventAsyncFinished,
-    setSubscribersToEvent
+    getEventAsyncFinished
 } from '../../actions/event.actions';
 import {
     deleteEventFromList,
@@ -21,6 +20,8 @@ import {
     getEventListAsyncStart,
     getEventListAsyncFinished
 } from 'app/actions/eventlist.actions';
+import { getSubscriptionAsyncStart, getSubscriptionAsyncFinished } from 'app/actions/subscription.actions';
+import { Subscriber } from 'rxjs/Subscriber';
 
 const BASE_URL = `${env.API_URL}/events`;
 
@@ -100,37 +101,38 @@ export class EventsService {
      * @param eventId - the id of the event
      */
     getSubscribers(eventId: string): Observable<Array<Subscription>> {
+        this._store.dispatch(getSubscriptionAsyncStart());
         return this._authHttp.get(`${BASE_URL}/${eventId}/users`)
-            .map((resp: Response): Array<Subscription> => resp.json())
+            .map((resp: Response): Array<Object> => resp.json())
+            .map((objArr): Array<Subscription> => (objArr.map(obj => new Subscription(obj))))
             .map((subscrList: Array<Subscription>): Array<Subscription> => {
-                this._store.dispatch(setSubscribersToEvent(subscrList));
+                subscrList = subscrList.sort(Subscription.sortByFullNameComparator);
+                this._store.dispatch(getSubscriptionAsyncFinished(subscrList));
                 return subscrList;
             });
     }
 
     /**
      * Subscribe a user to an event
-     * @param eventId - the id of the event to subscribe to
-     * @param userId - the id of the user to subscribe to the event
+     * @param subscr - the subscription with info about the event and the user
      */
-    susbcribeToEvent(eventId: string, userId: string): Observable<any> {
-        if (!eventId || !userId) {
-            throw new Error(`Trying to subscribe to an event, but userId ${userId} or eventId ${eventId} is missing.`);
+    susbcribeToEvent(subscr: Subscription): Observable<any> {
+        if (!subscr.event_id || !subscr.user_id) {
+            throw new Error(`Trying to subscribe to an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
-        return this._authHttp.post(`${BASE_URL}/${eventId}/users/${userId}`, {})
+        return this._authHttp.post(`${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`, {})
             .map((resp: Response): Array<Subscription> => resp.json());
     }
 
     /**
      * Unsubscribe a user from an event
-     * @param eventId - the id of the event to unsubscribe from
-     * @param userId - the id of the user to unsubscribe from the event
+     * @param subscr - the subscription with info about the event and the user
      */
-    unsubscribeFromEvent(eventId: string, userId: string): Observable<any> {
-        if (!eventId || !userId) {
-            throw new Error(`Trying to unsubscribe from an event, but userId ${userId} or eventId ${eventId} is missing.`);
+    unsubscribeFromEvent(subscr: Subscription): Observable<any> {
+        if (!subscr.event_id || !subscr.user_id) {
+            throw new Error(`Trying to unsubscribe from an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
-        return this._authHttp.delete(`${BASE_URL}/${eventId}/users/${userId}`)
+        return this._authHttp.delete(`${BASE_URL}/${subscr.event_id }/users/${subscr.user_id}`)
             .map((resp: Response): Array<Subscription> => resp.json());
     }
 }

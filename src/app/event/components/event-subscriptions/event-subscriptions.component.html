@@ -14,9 +14,15 @@
                 ></ng2-completer>
         </div>
     </form>
-    
-    <span *ngIf="!isTotalHidden">{{subscribersList.length}} users participated to this event.</span>
-    <ol>
-        <li *ngFor="let subscr of subscribersList"><span>{{subscr.user.fullname}}</span> <button class="round" *ngIf="isEditable" (click)="removeUserSubscription(subscr.user.id)">&times;</button></li>
-    </ol>
+    <div *ngIf="!subscribersList.length" class="alert alert-primary" role="alert">No subscription yet...</div>
+    <div *ngIf="subscribersList.length">
+        <span *ngIf="!isTotalHidden">{{subscribersList.length}} users subscribed to this event.</span>
+        <ol>
+            <li *ngFor="let subscr of subscribersList">
+                <i class="fa fa-spinner fa-spin" *ngIf="subscr.isStorePending"></i>
+                <a href="/users/{{subscr.user.id}}">{{subscr.user.fullname}}</a>
+                <button class="btn btn-sm" *ngIf="isEditable" (click)="removeUserSubscription(subscr)">&times;</button>
+            </li>
+        </ol>
+</div>
 </section>

@@ -40,9 +40,10 @@ export class UsersService {
         return this._http.get(BASE_URL)
             .map((res: Response): Array<any> => res.json())
             .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)))
-            .map( (payload): Array<User> => {
-                this._store.dispatch(getUserListAsyncFinished(payload));
-                return payload;
+            .map( (userList): Array<User> => {
+                userList = userList.sort(User.sortByFullNameComparator);
+                this._store.dispatch(getUserListAsyncFinished(userList));
+                return userList;
             });
     }
 
