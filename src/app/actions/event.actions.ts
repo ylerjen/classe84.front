@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
 import { Event } from '../models/Event';
-import { Subscription } from '../models/Subscription';
 
 export const ASYNC_EVENT_START = 'EVENT_ASYNC_START';
 export const ASYNC_EVENT_SUCCESS = 'EVENT_ASYNC_SUCCESS';
