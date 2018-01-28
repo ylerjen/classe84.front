@@ -1,13 +1,11 @@
 <section class="user-list">
-    <div class="loader-spinner" *ngIf="isLoading">
-        <i class="fa fa-spinner fa-pulse fa-lg"></i>
-    </div>
+    <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
     <div class="alert alert-info">{{usersList.length}} membres listés</div>
     <ul class="row list-item">
         <li class="animation card-item col-xs-12 col-sm-6 col-lg-4"
             *ngFor="let user of usersList"
             [@flyInOut]="'in'">
             <app-user-list-item [user]="user"></app-user-list-item>
-        </li>
+        </li>       
     </ul>
 </section>

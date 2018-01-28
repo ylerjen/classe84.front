@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Response } from '@angular/http';
 
 import { environment } from '../environments/environment';
-import { AppState, AppVersion } from './stores/app/appReducer';
+import { AppState, AppVersion } from './stores/app/app.reducer';
 import { storeFrontVersion, storeApiVersion } from './actions/app.actions';
 import { Version } from './models/Version';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { NotificationService } from './services/notification/notification.service';
-import { login } from './actions/session.actions';
+import { login, logout } from './actions/session.actions';
 
 @Component({
     selector: 'app-root',
@@ -32,8 +31,7 @@ export class AppComponent implements OnInit {
         this._store.select('appState')
             .subscribe(
                 (resp: AppState) => this.version = resp.version,
-                err => console.error(err),
-                () => console.log('on finish')
+                (err: Error) => console.error(err)
             );
     }
 
@@ -47,7 +45,12 @@ export class AppComponent implements OnInit {
         );
         const token = this._authSrvc.getTokenFromStorage();
         if (token) {
-            this._store.dispatch(login(token));
+            this._authSrvc.getAuthUser()
+                .subscribe( (resp) => {
+                    this._store.dispatch(login({ loggedUser: resp, token }));
+                },
+                (err: Error) => this._store.dispatch(logout())
+            );
         }
     }
 }

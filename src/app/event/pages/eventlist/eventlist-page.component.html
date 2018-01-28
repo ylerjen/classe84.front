@@ -1,7 +1,14 @@
 <div class="row">
     <section class="card col-md-8">
-        <loaders-css class="mt-3" [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
-        <app-event-list-wrapper *ngIf="!isLoading" [eventList]="eventList"></app-event-list-wrapper>
+        <div class="card-body">
+            <h1 class="card-title">Events</h1>
+            <div class="global-actions">
+                <a href="#/event/add" class="btn btn-outline-primary">
+                    <i class="fa fa-calendar-plus-o"></i> <span class="d-none d-md-inline">New Event</span>
+                </a>	
+            </div>
+            <app-event-list-wrapper></app-event-list-wrapper>
+        </div>
     </section>
     <aside class="col-md-4">
         <app-panel>

@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { User, EGender } from '../../../models/User';
-import { IUserListState } from '../../../stores/userlist/userlistReducer';
-import { IUserState } from '../../../stores/user/userReducer';
+import { IUserListState } from '../../../stores/userlist/userlist.reducer';
 import { UsersService } from '../../../services/users/users.service';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'user-list-page',
     templateUrl: './user-list-page.component.html',
-    // styleUrls: ['./users.page.scss']
+    styleUrls: ['./user-list-page.component.scss']
 })
 export class UserListPageComponent implements OnInit {
 
     public nextBirthdayUsers: Array<User> = [];
+    public top3SubscribersList: Array<User> = [];
     public totalActive = 0;
     public totalMembers = 0;
     public totalMen = 0;
@@ -28,9 +27,11 @@ export class UserListPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this._userSrvc.reload();
+        this._userSrvc.fetchAll();
         this._userSrvc.fetchNextBirthday()
             .subscribe( (userList: Array<User>) => this.nextBirthdayUsers = userList);
+        this._userSrvc.getTopSubscriptions()
+            .subscribe( (userList: Array<User>) => this.top3SubscribersList = userList);
         this._store.select('userlistState')
             .subscribe( (uState: IUserListState) => {
                 if (uState) {

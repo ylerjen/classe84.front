@@ -2,16 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
-
 import 'rxjs/add/operator/switchMap';
 
-import { ROUTE_URL } from '../../../config/router.config';
 import { User } from '../../../models/User';
 import { Event } from '../../../models/Event';
 import { IGlobalState } from '../../../stores/globalState';
-import { IUserState } from '../../../stores/user/userReducer';
-import { ISessionState } from '../../../stores/session/session.reducer';
-import { ASYNC_USER_SUCCESS } from '../../../actions/users.actions';
+import { getUserAsyncFinished } from '../../../actions/user.actions';
 import { UsersService } from '../../../services/users/users.service';
 
 @Component({
@@ -21,8 +17,10 @@ import { UsersService } from '../../../services/users/users.service';
 })
 export class UserPageComponent implements OnInit {
 
-    public user: User;
     private _id: number;
+    public isLoading: boolean;
+    public isEditMode: boolean;
+    public user: User;
     public eventsSubscriptions: Array<Event> = [];
 
     constructor(
@@ -30,36 +28,30 @@ export class UserPageComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private _userSrv: UsersService,
-    ) {
-        this._store.select('userState')
-            .subscribe( (userState: IUserState) => {
-                this.user = userState.user;
-                console.log(this.user);
-            });
-    }
+    ) { }
 
     ngOnInit(): void {
+        this.isLoading = true;
         this._route.params
-            .switchMap( (routeData: Params): Observable<ISessionState> => {
+            .switchMap( (routeData: Params): Observable<Action> => {
+                this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id;
-                return this._store.select('sessionState');
+                return this.fetchUser(this._id)
+                    .map( (payload: User): Action => {
+                        this.user = payload;
+                        return getUserAsyncFinished(payload);
+                    });
             })
-            .subscribe( (sessionState: ISessionState) => {
-                // if (sessionState.isLoggedIn) {
-                    this.fetchUser(this._id)
-                        .map( (payload: User): Action => ({ type: ASYNC_USER_SUCCESS, payload }))
-                        .subscribe(
-                            (action: Action) => this._store.dispatch(action),
-                            (error: any) => this._router.navigate(['unauthorized'])
-                        );
-
-                        this.fetchUserSubscriptions(this._id).subscribe(
-                            (eventList: Array<Event>) => this.eventsSubscriptions = eventList
-                        );
-                // } else {
-                //     console.log('NOT LOGGED IN => ADD REDIRECT');
-                // }
-            });
+            .subscribe(
+                (resp: Action) => {
+                    this._store.dispatch(resp);
+                    this.fetchUserSubscriptions(this._id).subscribe(
+                        (eventList: Array<Event>) => this.eventsSubscriptions = eventList
+                    );
+                },
+                (error: any) => this._router.navigate(['unauthorized']),
+                () => this.isLoading = false
+            );
 
     }
 

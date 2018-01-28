@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { IGlobalState } from '../../stores/globalState';
 import { Notification } from '../../models/Notification';
-import { DELETE_NOTIF } from '../../actions/notifications.actions';
+import { deleteNotif } from '../../actions/notifications.actions';
 
 @Component({
     selector: 'app-notifier',
@@ -21,6 +21,6 @@ export class NotifierComponent {
 
     removeNotif($event, payload: Notification) {
         $event.preventDefault();
-        this._store.dispatch({type: DELETE_NOTIF, payload});
+        this._store.dispatch(deleteNotif(payload));
     }
 }

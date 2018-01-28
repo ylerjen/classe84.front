@@ -8,18 +8,15 @@ import { Observable } from 'rxjs/Observable';
 import { environment as env } from '../../../environments/environment';
 import { ROUTE, RECOVERY_TOKEN_PARAM_NAME, RECOVERY_TOKEN_VAR_NAME } from '../../auth/auth.module';
 import { User } from '../../models/User';
-import { ROUTE_URL } from '../../config/router.config';
 import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { ICredentials } from '../../models/Login';
 import { logout as logoutAction } from '../../actions/session.actions';
-import { ASYNC_USER_SUCCESS } from '../../actions/users.actions';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../models/Notification';
 
 const LS_TOKEN_KEY = 'jwt-token';
 const LS_CRED_KEY = 'app84LoginCreds';
-const TOKEN_VAR_NAME = '${token}';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -58,7 +55,7 @@ export class AuthService implements CanActivate {
      * @param successCb - a callback to execute when the logout succeed
      */
     logout(successCb: () => void): void {
-        this._store.dispatch(logoutAction(null));
+        this._store.dispatch(logoutAction());
         this.deleteTokenInStorage();
         successCb();
 

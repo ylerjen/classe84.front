@@ -1,0 +1,13 @@
+<form>
+    <div *ngFor="let location of georesults; let i = index" class="form-check">
+        <input class="form-check-input"
+            type="radio"
+            name="georesult"
+            id="georesult-{{i}}"
+            value="{{i}}"
+            (change)="resultSelected(location)">
+        <label class="form-check-label" for="georesult-{{i}}">
+            {{location.formatted_address}}
+        </label>
+    </div>
+</form>

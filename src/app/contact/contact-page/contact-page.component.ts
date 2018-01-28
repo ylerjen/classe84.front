@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Response } from '@angular/http';
 
 import { RECAPTCHA_KEY } from '../../config/settings';
-import { Contact } from '../models/Contact';
+import { Contact } from 'app/models/Contact';
 import { ContactService } from '../services/contact.service';
 import { NotificationService } from '../../services/notification/notification.service';
 import { ContactFormComponent } from '../contact-form/contact-form.component';

@@ -1,0 +1,16 @@
+<section class="card card-body">
+    <h1 class="card-title">
+        <span class="title">Subscriptions</span>
+    </h1>
+    <div class="card-text">
+        <loaders-css *ngIf="isLoading"
+            [loader]="'ball-scale-multiple'"
+            [loaderClass]="'my-loader'"></loaders-css>
+        <app-event-subscriptions *ngIf="!isLoading"
+            [subscribersList]="subscribersList"
+            [searchableList]="searchableList"
+            [isEditable]="true"
+            (addSubscriptionEmitter)="onAddSubscription($event)"
+            (removeSubscriptionEmitter)="onDeleteSubscription($event)"></app-event-subscriptions>
+    </div>
+</section>

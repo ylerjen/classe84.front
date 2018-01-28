@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
 import { User } from '../../../models/User';
-import { IUserListState } from '../../../stores/userlist/userlistReducer';
+import { IUserListState } from '../../../stores/userlist/userlist.reducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { UsersService } from '../../../services/users/users.service';
 import { NotificationService } from '../../../services/notification/notification.service';
@@ -43,7 +43,7 @@ export class UserListWrapperComponent implements OnInit {
                     this.isLoading = uState.isLoading;
                 }
             });
-            this.reloadAll();
+        this.loadAll();
         this._activeRoute.queryParams.subscribe(
             (params: IUserListFilter) => {
                 if (params) {
@@ -65,8 +65,8 @@ export class UserListWrapperComponent implements OnInit {
         });
     }
 
-    reloadAll() {
-        this._usersService.reload()
+    loadAll() {
+        this._usersService.fetchAll()
             .catch( (error: Response) => {
                 let msg;
                 if (error.status === 0) {

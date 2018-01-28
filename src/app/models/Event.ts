@@ -1,3 +1,5 @@
+import { Subscription } from './Subscription';
+
 export class Event {
     public id: number;
     public title: string;
@@ -5,13 +7,14 @@ export class Event {
     public description: string;
     public organisator: string;
     public location: string;
-    public latitude: string;
-    public longitude: string;
+    public latitude: number;
+    public longitude: number;
     public link: string;
     public price: string;
     public created_at: string;
-    public created_by: string;
+    public created_by: number;
     public updated_at: string;
+    public subscriberList: Array<Subscription>;
 
     constructor(props: { [key: string]: any } = {}) {
         this.id = props.id;
@@ -31,6 +34,7 @@ export class Event {
             this.updated_at = dateTimeToString(props.updated_at as string);
         }
         this.created_by = props.created_by;
+        this.subscriberList = (props.subscriberList) ? props.subscriberList : [];
     }
 }
 

@@ -1,5 +1,5 @@
-import { ActionReducer, Action } from '@ngrx/store';
-import { Notification, ENotificationType } from '../models/Notification';
+import { Action } from '@ngrx/store';
+import { Notification } from '../models/Notification';
 
 export const ADD_NOTIF = 'ADD_NOTIF';
 export const DELETE_NOTIF = 'DELETE_NOTIF';

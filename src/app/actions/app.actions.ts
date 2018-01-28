@@ -1,5 +1,5 @@
-import { ActionReducer, Action } from '@ngrx/store';
-import { AppVersion } from '../stores/app/appReducer';
+import { Action } from '@ngrx/store';
+
 import { Version } from '../models/Version';
 
 export const STORE_API_VERSION = 'STORE_API_VERSION';

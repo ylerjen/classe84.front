@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { ReCaptchaComponent } from 'angular2-recaptcha';
 
-import { Contact } from '../models/Contact';
+import { Contact } from 'app/models/Contact';
 
 @Component({
     selector: 'app-contact-form',

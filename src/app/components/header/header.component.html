@@ -7,19 +7,40 @@
 
     <div class="collapse navbar-collapse" [ngClass]="{'show': !isCollapsed}" id="navbarToggler">
         <div class="navbar-nav mr-auto mt-2 mt-md-0">
-            <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active"><i class="fa fa-group"></i> Users</a>
-            <a class="nav-item nav-link" routerLink="/events" routerLinkActive="active"><i class="fa fa-calendar"></i> Events</a>
-            <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active"><i class="fa fa-info-circle"></i> About</a>
-            <a class="nav-item nav-link" routerLink="/contact" routerLinkActive="active"><i class="fa fa-envelope"></i> Contact</a>
-            <a href="#" class="nav-item nav-link disabled"><i class="fa fa-suitcase"></i> Administration</a>
+            <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">
+                <i class="fa fa-group"></i> Users</a>
+            <a class="nav-item nav-link" routerLink="/events" routerLinkActive="active">
+                <i class="fa fa-calendar"></i> Events</a>
+            <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">
+                <i class="fa fa-info-circle"></i> About</a>
+            <a class="nav-item nav-link" routerLink="/contact" routerLinkActive="active">
+                <i class="fa fa-envelope"></i> Contact</a>
+            <a href="#" class="nav-item nav-link disabled">
+                <i class="fa fa-suitcase"></i> Administration</a>
         </div>
-        <span>
-            <a *ngIf="!isLoggedIn" class="btn btn-primary" routerLink="/login" routerLinkActive="active">
-                <i class="fa fa-sign-in"></i> Login
-            </a>
-            <button *ngIf="isLoggedIn" (click)="onLogout($event)" class="btn btn-primary">
-                <i class="fa fa-sign-out"></i> logout
-            </button>
-        </span>
+        <ul class="navbar-nav d-md-flex d-none flex-row ml-md-auto">
+            <li *ngIf="!isLoggedIn">
+                <a class="btn btn-primary" routerLink="/login" routerLinkActive="active">
+                    <i class="fa fa-sign-in"></i> Login
+                </a>
+            </li>
+            <li *ngIf="isLoggedIn && loggedUser" class="nav-item dropdown" [class.show]="isAccountDropdownOpen">
+                <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" (click)="toggleAccountDropdownState($event)">
+                    <img class="navbar-brand" src="http://www.gravatar.com/avatar/023da329ad0304e026ee0d41533a26f7?s=30" alt="User avatar" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" [class.show]="isAccountDropdownOpen">
+                    <h6 class="dropdown-header">{{loggedUser.fullname}}</h6>
+                    <a class="dropdown-item" href="/users/{{loggedUser.id}}">
+                        <i class="fa fa-id-card-o"></i> My infos</a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-shield"></i> Change password</a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-bug"></i> Something else here</a>
+                    <a class="dropdown-item" href="/logout">
+                        <i class="fa fa-sign-out"></i> logout
+                    </a>
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>

@@ -2,7 +2,8 @@ import { User } from './User';
 
 export class SessionUser extends User {
 
-    public loginTime;
+    public loginTime: Date;
+    public permissions;
 
     constructor(user: User) {
         super(user);

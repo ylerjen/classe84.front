@@ -9,18 +9,19 @@ import { IGlobalState } from '../../stores/globalState';
 import { User } from '../../models/User';
 import { Event } from '../../models/Event';
 import { Notification, ENotificationType } from '../../models/Notification';
-import { IUserListState } from '../../stores/userlist/userlistReducer';
+import { IUserListState } from '../../stores/userlist/userlist.reducer';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
-import { GET_USER,
+import {
     addUser,
     updateUser,
     deleteUser,
+    getUserAsyncStart,
+} from '../../actions/user.actions';
+import {
     changeFilter,
-    ASYNC_USER_START,
-    ASYNC_USER_SUCCESS,
-    ASYNC_USERLIST_START,
-    ASYNC_USERLIST_SUCCESS,
-    CHANGE_FILTER } from '../../actions/users.actions';
+    getUserListAsync,
+    getUserListAsyncFinished
+} from '../../actions/userlist.actions';
 
 
 const BASE_URL = `${env.API_URL}/users`;
@@ -34,22 +35,27 @@ export class UsersService {
         private _authHttp: AuthHttp
     ) { }
 
-    reload(): Observable<Action> {
-        this._store.dispatch( { type: ASYNC_USERLIST_START});
+    fetchAll(): Observable<Array<User>> {
+        this._store.dispatch( getUserListAsync() );
         return this._http.get(BASE_URL)
-            .map(res => res.json())
-            .map(payload => ({ type: ASYNC_USERLIST_SUCCESS, payload }));
+            .map((res: Response): Array<any> => res.json())
+            .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)))
+            .map( (userList): Array<User> => {
+                userList = userList.sort(User.sortByFullNameComparator);
+                this._store.dispatch(getUserListAsyncFinished(userList));
+                return userList;
+            });
     }
 
     get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
-        this._store.dispatch( { type: ASYNC_USER_START});
+        this._store.dispatch( getUserAsyncStart());
         return this._authHttp.get(endpoint)
             .map( (resp: Response): User => resp.json());
     }
 
     create(user: User): Observable<Response> {
-        console.log('add user from service');
+        console.error('add user from service, to verify');
         this._store.dispatch(addUser(user));
         return this._authHttp.post(BASE_URL, user)
             .map( (resp: Response) => resp.json());
@@ -58,7 +64,7 @@ export class UsersService {
     update(user: User): Observable<Response> {
         const endpoint = `${BASE_URL}/${user.id}`;
         this._store.dispatch(updateUser(user));
-        console.log('add user from service => not finished: request create api');
+        console.error('add user from service => not finished: request create api');
         return this._authHttp.put(endpoint, user)
             .map( (resp: Response) => resp.json());
     }
@@ -72,22 +78,40 @@ export class UsersService {
     }
 
     delete(user: User) {
-        console.log('delete from service => not finished: request delete api');
+        console.error('delete from service => not finished: request delete api');
         this._store.dispatch(deleteUser(user));
     }
 
+    /**
+     * Update the filter state of the user list in the store
+     * @param filter
+     */
     updateFilter(filter: string) {
         this._store.dispatch(changeFilter(filter));
     }
 
+    /**
+     * Request the api to get the next users who have the birthday (can be multiple if born the same day)
+     */
     fetchNextBirthday(): Observable<Array<User>> {
         return this._http.get(`${BASE_URL}/next-birthday`)
             .map((resp: Response): Array<User> => resp.json());
     }
 
+    /**
+     * Request the api to get all the events subscribed by the user
+     * @param id - the id of the user
+     */
     getSubscriptions(id: number): Observable<Array<Event>> {
         return this._authHttp.get(`${BASE_URL}/${id}/events`)
             .map( (resp: Response): Array<Event> => resp.json());
+    }
 
+    /**
+     * Get the top 3 users with the most participations to events
+     */
+    getTopSubscriptions(): Observable<Array<User>> {
+        return this._http.get(`${BASE_URL}/top-subscribers`)
+            .map((resp: Response): Array<User> => resp.json());
     }
 }

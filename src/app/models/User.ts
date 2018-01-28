@@ -28,17 +28,30 @@ export class User {
 
     get fullname(): string {
         let name = '';
-        if (this.first_name) {
-            name += `${this.first_name}`;
+        if (this.last_name) {
+            name += `${this.last_name}`;
         }
         if (this.maiden_name) {
             name += ` (${this.maiden_name})`;
         }
-        if (this.last_name) {
-            name += ` ${this.last_name}`;
+        if (this.first_name) {
+            name += ` ${this.first_name}`;
         }
         return name;
     }
+
+    /**
+     * This is a comparator to sort a user list by the user fullname
+     */
+    static sortByFullNameComparator = function(u1: User, u2: User): number {
+        if (u1.fullname < u2.fullname) {
+            return -1;
+        } else if (u1.fullname > u2.fullname) {
+            return 1;
+        } else {
+            return 0;
+        }
+    };
 
     constructor(props: { [key: string]: any } = {}) {
         this.id = props.id;
