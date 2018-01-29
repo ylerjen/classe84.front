@@ -49,7 +49,7 @@ const eventRoutes: Routes = [
         NgxEditorModule,
         AgmCoreModule.forRoot({
             apiKey: GMAP_API_KEY
-          }),
+        }),
     ],
     declarations: [
         EventlistPageComponent,

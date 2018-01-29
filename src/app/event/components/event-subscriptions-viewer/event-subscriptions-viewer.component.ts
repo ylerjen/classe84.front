@@ -27,7 +27,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
 
     public searchableList: Array<CompleterItem>;
 
-    protected isLoading: boolean;
+    public isLoading: boolean;
 
     constructor(
         private _route: ActivatedRoute,

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 
+import { GMAP_API_KEY } from '../config/settings';
 import { SharedModule } from '../shared/shared.module';
-// import { userRoutes } from './user-routes.config';
 import { AuthService } from '../services/auth/auth.service';
 import { UsersService } from '../services/users/users.service';
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
@@ -33,6 +34,15 @@ const userRoutes = [
 ];
 
 @NgModule({
+    imports: [
+        SharedModule,
+        RouterModule.forChild(userRoutes),
+        FormsModule,
+        ReactiveFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: GMAP_API_KEY
+        }),
+    ],
     declarations: [
         UserListPageComponent,
         UserPageComponent,
@@ -46,12 +56,6 @@ const userRoutes = [
         UserFormComponent,
         AddressListComponent,
         AddressComponent,
-    ],
-    imports: [
-        SharedModule,
-        RouterModule.forChild(userRoutes),
-        FormsModule,
-        ReactiveFormsModule,
     ],
     providers: [
         UsersService,
