@@ -11,7 +11,7 @@ import { User, EGender } from '../../../models/User';
 export class UserFormComponent {
 
     private _user: User;
-    
+
     public userForm: FormGroup;
 
     @Input()

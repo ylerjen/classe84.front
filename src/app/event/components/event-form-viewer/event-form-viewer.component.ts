@@ -10,6 +10,7 @@ import { updateEvent } from '../../../actions/event.actions';
 import { NotificationService } from '../../../services/notification/notification.service';
 
 import { ROUTE_URL } from '../../../config/router.config';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
     selector: 'app-event-form-viewer',
@@ -23,7 +24,7 @@ export class EventFormViewerComponent {
     public event: EventModel;
 
     constructor(
-        private _store: Store<IEventState>,
+        private _store: Store<IGlobalState>,
         private _evtSrvc: EventsService,
         private _notifSrvc: NotificationService,
         private _router: Router

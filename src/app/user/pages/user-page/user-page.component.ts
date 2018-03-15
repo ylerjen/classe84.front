@@ -4,13 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 
-import { User } from '../../../models/User';
-import { Event } from '../../../models/Event';
-import { IGlobalState } from '../../../stores/globalState';
-import { getUserAsyncFinished } from '../../../actions/user.actions';
-import { UsersService } from '../../../services/users/users.service';
+import { User } from 'app/models/User';
+import { Event } from 'app/models/Event';
+import { IGlobalState } from 'app/stores/globalState';
+import { getUserAsyncFinished } from 'app/actions/user.actions';
+import { UsersService } from 'app/services/users/users.service';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'user-page',
     templateUrl: './user-page.component.html',
     styleUrls: [ './user-page.component.scss' ]

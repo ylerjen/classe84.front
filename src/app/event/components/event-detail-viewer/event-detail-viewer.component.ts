@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { IEventState } from '../../../stores/event/event.reducer';
 import { Event } from '../../../models/Event';
 import { ROUTE_URL } from '../../../config/router.config';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -22,7 +23,7 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
     private sub: Subscription;
 
     constructor(
-        private _store: Store<IEventState>,
+        private _store: Store<IGlobalState>,
         private _router: Router
     ) {
         this.store$ = this._store.select('eventState');

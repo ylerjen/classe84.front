@@ -12,6 +12,7 @@ import { EventsService } from '../../services/events.service';
 import { User } from 'app/models/User';
 import { UsersService } from 'app/services/users/users.service';
 import { addSubscription, updateSubscription, deleteSubscription } from 'app/actions/subscription.actions';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
     selector: 'app-event-subscriptions-viewer',
@@ -31,7 +32,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
 
     constructor(
         private _route: ActivatedRoute,
-        private _store: Store<IEventState>,
+        private _store: Store<IGlobalState>,
         private _evtSrvc: EventsService,
         private _userSrvc: UsersService
     ) {

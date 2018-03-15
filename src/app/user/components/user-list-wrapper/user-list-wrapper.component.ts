@@ -10,6 +10,8 @@ import { IUserListState } from '../../../stores/userlist/userlist.reducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { UsersService } from '../../../services/users/users.service';
 import { NotificationService } from '../../../services/notification/notification.service';
+import { getUserListAsyncFinished } from 'app/actions/userlist.actions';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
     selector: 'app-user-list-wrapper',
@@ -28,7 +30,7 @@ export class UserListWrapperComponent implements OnInit {
 
     constructor(
         private _usersService: UsersService,
-        private _store: Store<IUserListState>,
+        private _store: Store<IGlobalState>,
         private _notifSrvc: NotificationService,
         private _activeRoute: ActivatedRoute,
         private _router: Router
@@ -77,7 +79,7 @@ export class UserListWrapperComponent implements OnInit {
                 this._notifSrvc.notifyError(msg);
                 return Observable.throw(error.body);
             })
-            .subscribe(action => this._store.dispatch(action));
+            .subscribe(userlist => this._store.dispatch(getUserListAsyncFinished(userlist)));
     }
 
     onFilterChange(filter: IUserListFilter) {

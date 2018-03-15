@@ -52,8 +52,8 @@ export class EventFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.compId = UUID.UUID();
-    }    
-    
+    }
+
     createForm(): void {
         if (!this.event) {
             return;

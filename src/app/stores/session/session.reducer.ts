@@ -2,6 +2,7 @@ import { ActionReducer, Action } from '@ngrx/store';
 
 import { SessionUser } from '../../models/SessionUser';
 import { LOGIN, LOGOUT, SET_USER } from '../../actions/session.actions';
+import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface ISessionState {
     isLoggedIn: boolean;
@@ -18,19 +19,25 @@ export const initialState: ISessionState = {
 export function sessionReducer(state = initialState, action: Action): ISessionState {
     switch (action.type) {
         case LOGIN:
+        {
+            const act = action as ActionWithPayload<ISessionState>;
             return Object.assign({}, state, {
                 isLoggedIn: true,
-                loggedUser: action.payload.loggedUser,
-                token: action.payload.token
+                loggedUser: act.payload.loggedUser,
+                token: act.payload.token
             });
+        }
 
         case LOGOUT:
             return initialState;
 
         case SET_USER:
+        {
+            const act = action as ActionWithPayload<SessionUser>;
             return Object.assign({}, state, {
-                loggedUser: action.payload
+                loggedUser: act.payload
             });
+        }
 
         default:
             return state;

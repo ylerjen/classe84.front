@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Event as EventModel} from '../models/Event';
+import { ActionWithPayload } from './app.actions';
 
 export const EMPTY_EVENTLIST = 'EMPTY_EVENTLIST';
 export const CHANGE_FILTER = 'EVENTLIST_CHANGE_FILTER';
@@ -10,21 +11,21 @@ export const ADD_EVENT_IN_EVENTLIST = 'ADD_EVENT_IN_EVENTLIST';
 export const DELETE_EVENT_FROM_EVENTLIST = 'DELETE_EVENT_FROM_EVENTLIST';
 
 
-export function changeEventListFilter(payload: string): Action {
+export function changeEventListFilter(payload: string): ActionWithPayload<string> {
     return {
         type: CHANGE_FILTER,
         payload
     };
 }
 
-export function addEventInlist(payload: EventModel): Action {
+export function addEventInlist(payload: EventModel): ActionWithPayload<EventModel> {
     return {
         type: ADD_EVENT_IN_EVENTLIST,
         payload
     };
 }
 
-export function deleteEventFromList(payload: EventModel): Action {
+export function deleteEventFromList(payload: EventModel): ActionWithPayload<EventModel> {
     return {
         type: DELETE_EVENT_FROM_EVENTLIST,
         payload
@@ -43,7 +44,7 @@ export function getEventListAsyncStart(): Action {
     };
 }
 
-export function getEventListAsyncFinished(payload: Array<EventModel>): Action {
+export function getEventListAsyncFinished(payload: Array<EventModel>): ActionWithPayload<Array<EventModel>> {
     return {
         type: ASYNC_EVENTLIST_FINISHED,
         payload

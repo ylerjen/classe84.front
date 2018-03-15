@@ -9,6 +9,7 @@ import { UsersService } from '../../../services/users/users.service';
 import { NotificationService } from '../../../services/notification/notification.service';
 
 import { ROUTE_URL } from '../../../config/router.config';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
   selector: 'app-user-form-viewer',
@@ -20,7 +21,7 @@ export class UserFormViewerComponent {
     public user: User;
 
     constructor(
-        private _store: Store<IUserState>,
+        private _store: Store<IGlobalState>,
         private _userSrvc: UsersService,
         private _notifSrvc: NotificationService,
         private _router: Router

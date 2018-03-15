@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { User } from '../models/User';
+import { ActionWithPayload } from './app.actions';
 
 export const ASYNC_USER_START = 'ASYNC_USER_START';
 export const ASYNC_USER_FINISHED = 'ASYNC_USER_FINISHED';
@@ -11,21 +12,21 @@ export const DELETE_USER = 'USER_DELETE';
 export const RESET_USER_STATE = 'RESET_USER_STATE';
 
 
-export function addUser(payload: User): Action {
+export function addUser(payload: User): ActionWithPayload<User> {
     return {
         type: ADD_USER,
         payload
     };
 }
 
-export function updateUser(payload: User): Action {
+export function updateUser(payload: User): ActionWithPayload<User> {
     return {
         type: UPDATE_USER,
         payload
     };
 }
 
-export function deleteUser(payload: User): Action {
+export function deleteUser(payload: User): ActionWithPayload<User> {
     return {
         type: DELETE_USER,
         payload
@@ -38,7 +39,7 @@ export function getUserAsyncStart(): Action {
     };
 }
 
-export function getUserAsyncFinished(payload: User): Action {
+export function getUserAsyncFinished(payload: User): ActionWithPayload<User> {
     return {
         type: ASYNC_USER_FINISHED,
         payload

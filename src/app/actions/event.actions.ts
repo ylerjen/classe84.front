@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Event } from '../models/Event';
+import { ActionWithPayload } from './app.actions';
 
 export const ASYNC_EVENT_START = 'EVENT_ASYNC_START';
 export const ASYNC_EVENT_SUCCESS = 'EVENT_ASYNC_SUCCESS';
@@ -15,14 +16,14 @@ export function resetEventState(): Action {
     }
 }
 
-export function addEvent(payload: Event): Action {
+export function addEvent(payload: Event): ActionWithPayload<Event> {
     return {
         type: ADD_EVENT,
         payload
     };
 }
 
-export function updateEvent(payload: Event): Action {
+export function updateEvent(payload: Event): ActionWithPayload<Event> {
     return {
         type: UPDATE_EVENT,
         payload
@@ -35,7 +36,7 @@ export function getEventAsyncStart(): Action {
     };
 }
 
-export function getEventAsyncFinished(payload: Event): Action {
+export function getEventAsyncFinished(payload: Event): ActionWithPayload<Event> {
     return {
         type: ASYNC_EVENT_SUCCESS,
         payload

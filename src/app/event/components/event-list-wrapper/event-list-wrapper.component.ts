@@ -10,6 +10,7 @@ import { IEventListState } from '../../../stores/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../../services/notification/notification.service';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
     selector: 'app-event-list-wrapper',
@@ -30,7 +31,7 @@ export class EventListWrapperComponent implements OnInit {
 
     constructor(
         private _eventsService: EventsService,
-        private _store: Store<IEventListState>,
+        private _store: Store<IGlobalState>,
         private _notifSrvc: NotificationService,
         private _activeRoute: ActivatedRoute,
         private _router: Router

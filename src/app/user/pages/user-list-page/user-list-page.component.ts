@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { User, EGender } from '../../../models/User';
 import { IUserListState } from '../../../stores/userlist/userlist.reducer';
 import { UsersService } from '../../../services/users/users.service';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -23,7 +24,7 @@ export class UserListPageComponent implements OnInit {
 
     constructor(
         private _userSrvc: UsersService,
-        private _store: Store<IUserListState>,
+        private _store: Store<IGlobalState>,
     ) {}
 
     ngOnInit(): void {

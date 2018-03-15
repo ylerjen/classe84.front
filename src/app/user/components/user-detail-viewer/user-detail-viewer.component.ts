@@ -8,6 +8,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { IUserState } from '../../../stores/user/user.reducer';
 import { User } from '../../../models/User';
 import { ROUTE_URL } from '../../../config/router.config';
+import { Address } from 'app/models/Address';
+import { getAddressListAsync } from 'app/actions/addresslist.actions';
+import { IGlobalState } from '../../../stores/globalState';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -17,13 +20,14 @@ import { ROUTE_URL } from '../../../config/router.config';
 export class UserDetailViewerComponent implements OnInit, OnDestroy {
 
     public user: User;
+    public addressList: Array<Address> = [];
     public isLoading: boolean;
 
     private store$: Observable<IUserState>;
     private sub: Subscription;
 
     constructor(
-        private _store: Store<IUserState>,
+        private _store: Store<IGlobalState>,
         private _router: Router
     ) {
         this.store$ = this._store.select('userState');
@@ -39,6 +43,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
                         this.user = curUser;
                         this.isLoading = userState.isLoading;
                     }
+                    this._store.dispatch(getAddressListAsync());
                 },
                 () => {},
                 () => this.isLoading = false

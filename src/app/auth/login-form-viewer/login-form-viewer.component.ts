@@ -3,13 +3,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AuthService } from '../../services/auth/auth.service';
-import { IGlobalState } from '../../stores/globalState';
 import { ISessionState } from '../../stores/session/session.reducer';
 import { login as loginAction, setUser } from '../../actions/session.actions';
 import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../models/Notification';
 import { SessionUser } from '../../models/SessionUser';
 import { ICredentials } from '../../models/Login';
+import { IGlobalState } from '../../stores/globalState';
 
 @Component({
     selector: 'app-login-form-viewer',
@@ -25,7 +25,7 @@ export class LoginFormViewerComponent implements OnInit {
     public errorMsg: string;
 
     constructor(
-        private _store: Store<ISessionState>,
+        private _store: Store<IGlobalState>,
         private _authSrvc: AuthService,
         private _route: ActivatedRoute,
         private _router: Router,

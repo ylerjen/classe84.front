@@ -1,13 +1,14 @@
 import { Action } from '@ngrx/store';
 
-import { User } from '../../models/User';
+import { User } from 'app/models/User';
 import {
     ASYNC_USERLIST_START,
     ASYNC_USERLIST_FINISHED,
     ADD_USER_IN_USERLIST,
     DELETE_USER_FROM_USERLIST,
     EMPTY_USERLIST
-} from '../../actions/userlist.actions';
+} from 'app/actions/userlist.actions';
+import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface IUserListState {
     userList: User[];
@@ -29,25 +30,36 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             });
 
         case ASYNC_USERLIST_FINISHED:
+        {
+            const act = action as ActionWithPayload<Array<User>>;
             return Object.assign({}, state, {
                 isLoading: false,
-                userList: action.payload.slice()
+                userList: act.payload.slice()
             });
+        }
 
         case ADD_USER_IN_USERLIST:
+        {
+            const act = action as ActionWithPayload<User>;
             return Object.assign({}, state, {
                 isLoading: false,
                 userList: [
                     ...state.userList,
-                    action.payload
+                    act.payload
                 ]
             });
+        }
 
         case DELETE_USER_FROM_USERLIST:
-            return Object.assign({}, state, {
-                isLoading: false,
-                userList: state.userList.filter(user => user.id !== action.payload.id)
+        {
+         const act = action as ActionWithPayload<User>;
+         return Object.assign({}, state, {
+             isLoading: false,
+             userList: state.userList.filter(
+                 user => user.id !== act.payload.id
+                )
             });
+        }
 
         case EMPTY_USERLIST:
             return Object.assign({}, state, {

@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Subscription } from '../models/Subscription';
+import { ActionWithPayload } from './app.actions';
 
 export const ASYNC_SUBSCRIPTION_LIST_START = 'ASYNC_SUBSCRIPTION_LIST_START';
 export const ASYNC_SUBSCRIPTION_LIST_FINISHED = 'ASYNC_SUBSCRIPTION_LIST_FINISHED';
@@ -16,21 +17,21 @@ export function resetSubscriptionState(): Action {
     };
 }
 
-export function addSubscription(payload: Subscription): Action {
+export function addSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
         type: ADD_SUBSCRIPTION_TO_EVENT,
         payload
     };
 }
 
-export function updateSubscription(payload: Subscription): Action {
+export function updateSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
         type: UPDATE_SUBSCRIPTION_STATE,
         payload
     };
 }
 
-export function deleteSubscription(payload: Subscription): Action {
+export function deleteSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
         type: DELETE_SUBSCRIPTION_FROM_EVENT,
         payload
@@ -43,7 +44,7 @@ export function getSubscriptionAsyncStart(): Action {
     };
 }
 
-export function getSubscriptionAsyncFinished(payload: Array<Subscription>): Action {
+export function getSubscriptionAsyncFinished(payload: Array<Subscription>): ActionWithPayload<Array<Subscription>> {
     return {
         type: ASYNC_SUBSCRIPTION_LIST_FINISHED,
         payload

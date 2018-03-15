@@ -9,6 +9,7 @@ import {
     DELETE_USER,
     RESET_USER_STATE
 } from 'app/actions/user.actions';
+import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface IUserState {
     user: User;
@@ -23,16 +24,25 @@ export const initialState: IUserState = {
 export function userReducer(state: IUserState = initialState, action: Action): IUserState {
     switch (action.type) {
         case GET_USER:
-            return Object.assign({}, state, { user: action.payload });
+        {
+            const act = action as ActionWithPayload<User>;
+            return Object.assign({}, state, { user: act.payload });
+        }
 
         case ASYNC_USER_START:
             return Object.assign({}, state, { isLoading: true });
 
         case ASYNC_USER_FINISHED:
-            return Object.assign({}, state, { user: action.payload, isLoading: false });
+        {
+            const act = action as ActionWithPayload<User>;
+            return Object.assign({}, state, { user: act.payload, isLoading: false });
+        }
 
         case UPDATE_USER:
-            return Object.assign({}, state, { user: action.payload });
+        {
+            const act = action as ActionWithPayload<User>;
+            return Object.assign({}, state, { user: act.payload });
+        }
 
         case DELETE_USER:
             return Object.assign({}, state, { user: undefined });

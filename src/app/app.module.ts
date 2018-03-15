@@ -7,7 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
+import { environment } from '../environments/environment';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ContactModule } from './contact/contact.module';
@@ -27,6 +29,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
+import { AddressEffects } from 'app/effects/address.effect';
 
 
 @NgModule({
@@ -44,9 +47,14 @@ import { NotFoundPage } from './pages/not-found/not-found.page';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.provideStore(globalState),
+        StoreModule.forRoot(globalState),
         RouterModule.forRoot(appRoutes),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),  // for redux debug => storeDevtools instrument
+        EffectsModule.forRoot([AddressEffects]),
+        StoreDevtoolsModule.instrument({
+            // for redux debug => storeDevtools instrument
+            maxAge: 25, // Retains last 25 states
+            logOnly: environment.production // Restrict extension to log-only mode
+          }),
         FormsModule,
         ReactiveFormsModule,
         HttpModule,

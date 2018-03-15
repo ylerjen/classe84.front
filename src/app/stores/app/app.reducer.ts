@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { STORE_API_VERSION, STORE_FRNT_VERSION } from '../../actions/app.actions';
+import { STORE_API_VERSION, STORE_FRNT_VERSION, ActionWithPayload } from 'app/actions/app.actions';
 import { Version } from '../../models/Version';
 
 
@@ -26,14 +26,20 @@ export function appReducer(state: AppState = initialState, action: Action): AppS
     let version: AppVersion;
     switch (action.type) {
         case STORE_API_VERSION:
+        {
+            const act = action as ActionWithPayload<Version>;
             state = Object.assign({}, state);
-            version = Object.assign({}, state.version, { api: action.payload});
+            version = Object.assign({}, state.version, { api: act.payload});
             return Object.assign(state, { version });
+        }
 
         case STORE_FRNT_VERSION:
+        {
+            const act = action as ActionWithPayload<Version>;
             state = Object.assign({}, state);
-            version = Object.assign({}, state.version, { front: action.payload});
+            version = Object.assign({}, state.version, { front: act.payload});
             return Object.assign(state, { version });
+        }
 
         default:
             return state;

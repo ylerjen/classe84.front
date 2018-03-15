@@ -9,6 +9,7 @@ import {
     RESET_SUBSCRIPTION_STATE,
     UPDATE_SUBSCRIPTION_STATE
 } from 'app/actions/subscription.actions';
+import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface ISubscriptionState {
     subscriptionList: Array<Subscription>;
@@ -28,36 +29,48 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             return Object.assign({}, state, { isLoading: true });
 
         case ASYNC_SUBSCRIPTION_LIST_FINISHED:
+        {
+            const act = action as ActionWithPayload<Array<Subscription>>;
             return Object.assign({}, state, {
-                subscriptionList: action.payload,
+                subscriptionList: act.payload,
                 isLoading: false,
                 dataDate: new Date()
             });
+        }
 
         case ADD_SUBSCRIPTION_TO_EVENT:
+        {
+            const act = action as ActionWithPayload<Subscription>;
             return Object.assign({}, state, {
                 subscriptionList: [
                     ...state.subscriptionList,
-                    action.payload
+                    act.payload
                 ]
             });
+        }
 
         case UPDATE_SUBSCRIPTION_STATE:
+        {
+            const act = action as ActionWithPayload<Subscription>;
             return Object.assign({}, state, {
                 subscriptionList: [
                     ...state.subscriptionList.map(
-                        (subscr) => (subscr.user_id === action.payload.user_id && subscr.event_id === action.payload.event_id)
-                            ? action.payload
-                            : subscr)
-                ]
-            });
+                        (subscr) => (subscr.user_id === act.payload.user_id && subscr.event_id === act.payload.event_id)
+                        ? act.payload
+                        : subscr)
+                    ]
+                });
+            }
 
         case DELETE_SUBSCRIPTION_FROM_EVENT:
+        {
+            const act = action as ActionWithPayload<Subscription>;
             return Object.assign({}, state, {
                 subscriptionList: state.subscriptionList.filter(
-                    subscr => !(subscr.event_id === action.payload.event_id && subscr.user_id === action.payload.user_id)
+                    subscr => !(subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id)
                 )
             });
+        }
 
         case RESET_SUBSCRIPTION_STATE:
             return Object.assign({}, initialState);

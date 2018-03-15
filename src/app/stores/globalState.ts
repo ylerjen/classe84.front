@@ -6,10 +6,10 @@ import { IUserListState, userlistReducer } from './userlist/userlist.reducer';
 import { IEventState, eventReducer } from 'app/stores/event/event.reducer';
 import { IEventListState, eventlistReducer } from 'app/stores/eventlist/eventlist.reducer';
 import { ISubscriptionState, subscriptionsReducer } from 'app/stores/subscription/subscription.reducer';
-import { appReducer } from './app/app.reducer';
+import { appReducer, AppState } from './app/app.reducer';
 
 export interface IGlobalState {
-    appState: string;
+    appState: AppState;
     notificationState: Array<Notification>;
     sessionState: ISessionState;
     userlistState: IUserListState;
