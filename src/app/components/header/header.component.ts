@@ -2,10 +2,10 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { User } from '../../models/User';
-import { IGlobalState } from '../../stores/globalState';
-import { ISessionState } from '../../stores/session/session.reducer';
-import { AuthService } from '../../services/auth/auth.service';
+import { User } from 'app/models/User';
+import { IGlobalState } from 'app/stores/globalState';
+import { ISessionState } from 'app/stores/session/session.reducer';
+import { AuthService } from 'app/services/auth/auth.service';
 
 @Component({
     selector: 'app-header',

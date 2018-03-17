@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { ISessionState } from '../../../stores/session/session.reducer';
-import { IEventState } from '../../../stores/event/event.reducer';
+import { ISessionState } from 'app/stores/session/session.reducer';
+import { IEventState } from 'app/stores/event/event.reducer';
 import { EventsService } from '../../services/events.service';
-import { Event as EventModel } from '../../../models/Event';
-import { updateEvent } from '../../../actions/event.actions';
-import { NotificationService } from '../../../services/notification/notification.service';
+import { Event as EventModel } from 'app/models/Event';
+import { updateEvent } from 'app/actions/event.actions';
+import { NotificationService } from 'app/services/notification/notification.service';
 
-import { ROUTE_URL } from '../../../config/router.config';
-import { IGlobalState } from '../../../stores/globalState';
+import { ROUTE_URL } from 'app/config/router.config';
+import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
     selector: 'app-event-form-viewer',
@@ -20,7 +20,7 @@ import { IGlobalState } from '../../../stores/globalState';
 export class EventFormViewerComponent {
 
     private _sessionState: ISessionState;
-    
+
     public event: EventModel;
 
     constructor(

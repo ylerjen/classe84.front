@@ -1,7 +1,7 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
-import { Notification, ENotificationType } from '../../models/Notification';
-import { ADD_NOTIF, DELETE_NOTIF, CLEAR_NOTIF } from '../../actions/notifications.actions';
+import { Notification } from 'app/models/Notification';
+import { ADD_NOTIF, DELETE_NOTIF, CLEAR_NOTIF } from 'app/actions/notifications.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 
 export const initialState: Array<Notification> = [];

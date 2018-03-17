@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UUID } from 'angular2-uuid';
 
-import { ICredentials } from '../../models/Login';
-import { AuthService } from '../../services/auth/auth.service';
+import { ICredentials } from 'app/models/Login';
+import { AuthService } from 'app/services/auth/auth.service';
 
 /**
  * Login form

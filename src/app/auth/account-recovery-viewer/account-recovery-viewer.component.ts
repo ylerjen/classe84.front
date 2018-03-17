@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { AuthService } from '../../services/auth/auth.service';
-import { NotificationService } from '../../services/notification/notification.service';
+import { AuthService } from 'app/services/auth/auth.service';
+import { NotificationService } from 'app/services/notification/notification.service';
 
 @Component({
     selector: 'app-account-recovery-viewer',
@@ -20,9 +20,6 @@ export class AccountRecoveryViewerComponent {
         private _notifSrvc: NotificationService,
     ) { }
 
-    ngOnInit() {
-    }
-    
     sendREcoveryRequest(formValues) {
         this.isSending = true;
         this._authSrvc.recoverPassword(formValues.email)

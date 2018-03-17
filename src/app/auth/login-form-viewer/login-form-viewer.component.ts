@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { AuthService } from '../../services/auth/auth.service';
-import { ISessionState } from '../../stores/session/session.reducer';
-import { login as loginAction, setUser } from '../../actions/session.actions';
-import { addNotif, deleteNotif } from '../../actions/notifications.actions';
-import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../models/Notification';
-import { SessionUser } from '../../models/SessionUser';
-import { ICredentials } from '../../models/Login';
-import { IGlobalState } from '../../stores/globalState';
+import { AuthService } from 'app/services/auth/auth.service';
+import { ISessionState } from 'app/stores/session/session.reducer';
+import { login as loginAction, setUser } from 'app/actions/session.actions';
+import { addNotif, deleteNotif } from 'app/actions/notifications.actions';
+import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from 'app/models/Notification';
+import { SessionUser } from 'app/models/SessionUser';
+import { ICredentials } from 'app/models/Login';
+import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
     selector: 'app-login-form-viewer',

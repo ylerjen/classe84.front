@@ -5,13 +5,13 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
-import { User } from '../../../models/User';
-import { IUserListState } from '../../../stores/userlist/userlist.reducer';
+import { User } from 'app/models/User';
+import { IUserListState } from 'app/stores/userlist/userlist.reducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
-import { UsersService } from '../../../services/users/users.service';
-import { NotificationService } from '../../../services/notification/notification.service';
+import { UsersService } from 'app/services/users/users.service';
+import { NotificationService } from 'app/services/notification/notification.service';
 import { getUserListAsyncFinished } from 'app/actions/userlist.actions';
-import { IGlobalState } from '../../../stores/globalState';
+import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
     selector: 'app-user-list-wrapper',

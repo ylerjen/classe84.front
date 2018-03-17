@@ -5,12 +5,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
-import { Event } from '../../../models/Event';
-import { IEventListState } from '../../../stores/eventlist/eventlist.reducer';
+import { Event } from 'app/models/Event';
+import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { EventsService } from '../../services/events.service';
-import { NotificationService } from '../../../services/notification/notification.service';
-import { IGlobalState } from '../../../stores/globalState';
+import { NotificationService } from 'app/services/notification/notification.service';
+import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
     selector: 'app-event-list-wrapper',

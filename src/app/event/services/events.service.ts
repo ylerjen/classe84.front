@@ -13,7 +13,7 @@ import {
     updateEvent,
     getEventAsyncStart,
     getEventAsyncFinished
-} from '../../actions/event.actions';
+} from 'app/actions/event.actions';
 import {
     deleteEventFromList,
     changeEventListFilter,
@@ -21,7 +21,6 @@ import {
     getEventListAsyncFinished
 } from 'app/actions/eventlist.actions';
 import { getSubscriptionAsyncStart, getSubscriptionAsyncFinished } from 'app/actions/subscription.actions';
-import { Subscriber } from 'rxjs/Subscriber';
 
 const BASE_URL = `${env.API_URL}/events`;
 

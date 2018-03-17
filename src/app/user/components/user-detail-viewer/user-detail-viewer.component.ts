@@ -5,13 +5,13 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IUserState } from '../../../stores/user/user.reducer';
-import { User } from '../../../models/User';
-import { ROUTE_URL } from '../../../config/router.config';
+import { IUserState } from 'app/stores/user/user.reducer';
+import { User } from 'app/models/User';
+import { ROUTE_URL } from 'app/config/router.config';
 import { Address } from 'app/models/Address';
 import { getAddressListAsync, setFavoriteAddress } from 'app/actions/addresslist.actions';
-import { IGlobalState } from '../../../stores/globalState';
-import { IAddressListState } from '../../../stores/addresslist/addresslist.reducer';
+import { IGlobalState } from 'app/stores/globalState';
+import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 
 @Component({
     selector: 'app-user-detail-viewer',

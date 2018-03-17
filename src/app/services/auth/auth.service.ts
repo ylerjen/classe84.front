@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Response } from '@angular/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 
 import { environment as env } from '../../../environments/environment';
-import { ROUTE, RECOVERY_TOKEN_PARAM_NAME, RECOVERY_TOKEN_VAR_NAME } from '../../auth/auth.module';
-import { User } from '../../models/User';
-import { IGlobalState } from '../../stores/globalState';
-import { ISessionState } from '../../stores/session/session.reducer';
-import { ICredentials } from '../../models/Login';
-import { logout as logoutAction } from '../../actions/session.actions';
-import { addNotif, deleteNotif } from '../../actions/notifications.actions';
-import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from '../../models/Notification';
+import { ROUTE, RECOVERY_TOKEN_PARAM_NAME, RECOVERY_TOKEN_VAR_NAME } from 'app/auth/auth.module';
+import { User } from 'app/models/User';
+import { IGlobalState } from 'app/stores/globalState';
+import { ISessionState } from 'app/stores/session/session.reducer';
+import { ICredentials } from 'app/models/Login';
+import { logout as logoutAction } from 'app/actions/session.actions';
 
 const LS_TOKEN_KEY = 'jwt-token';
 const LS_CRED_KEY = 'app84LoginCreds';

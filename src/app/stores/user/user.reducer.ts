@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { User } from '../../models/User';
+import { User } from 'app/models/User';
 import {
     GET_USER,
     ASYNC_USER_START,

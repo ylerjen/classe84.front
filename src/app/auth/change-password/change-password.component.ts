@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Response } from '@angular/http';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/finally';
 import { UUID } from 'angular2-uuid';
 
 import { PasswordConfirmFormComponent } from '../password-confirm-form/password-confirm-form.component';
-import { AuthService } from '../../services/auth/auth.service';
-import { NotificationService } from '../../services/notification/notification.service';
-import { CustomValidators } from '../../shared/validators/CustomValidators';
-
+import { AuthService } from 'app/services/auth/auth.service';
+import { NotificationService } from 'app/services/notification/notification.service';
 
 /**
  * The ChangePasswordComponent is used to change the password of the current login session.

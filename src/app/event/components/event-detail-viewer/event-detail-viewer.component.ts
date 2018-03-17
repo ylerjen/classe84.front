@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IEventState } from '../../../stores/event/event.reducer';
-import { Event } from '../../../models/Event';
-import { ROUTE_URL } from '../../../config/router.config';
-import { IGlobalState } from '../../../stores/globalState';
+import { IEventState } from 'app/stores/event/event.reducer';
+import { Event } from 'app/models/Event';
+import { ROUTE_URL } from 'app/config/router.config';
+import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
     selector: 'app-event-detail-viewer',

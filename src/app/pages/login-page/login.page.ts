@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ROUTE_URL } from '../../config/router.config';
-import { RECTO, VERSO } from '../../shared/flip/flip.component';
+import { RECTO, VERSO } from 'app/shared/flip/flip.component';
 
 @Component({
     selector: 'login-page',

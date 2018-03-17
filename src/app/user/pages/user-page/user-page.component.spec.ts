@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { UserPageComponent } from './user-page.component';
 
 xdescribe('UserPage', () => {

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { IGlobalState } from '../../stores/globalState';
-import { Notification } from '../../models/Notification';
-import { deleteNotif } from '../../actions/notifications.actions';
+import { IGlobalState } from 'app/stores/globalState';
+import { Notification } from 'app/models/Notification';
+import { deleteNotif } from 'app/actions/notifications.actions';
 
 @Component({
     selector: 'app-notifier',

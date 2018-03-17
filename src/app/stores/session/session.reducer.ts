@@ -1,7 +1,7 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
-import { SessionUser } from '../../models/SessionUser';
-import { LOGIN, LOGOUT, SET_USER } from '../../actions/session.actions';
+import { SessionUser } from 'app/models/SessionUser';
+import { LOGIN, LOGOUT, SET_USER } from 'app/actions/session.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface ISessionState {

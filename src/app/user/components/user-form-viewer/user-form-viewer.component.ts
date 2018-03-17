@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { IUserState } from '../../../stores/user/user.reducer';
-import { User } from '../../../models/User';
-import { updateUser } from '../../../actions/user.actions';
-import { UsersService } from '../../../services/users/users.service';
-import { NotificationService } from '../../../services/notification/notification.service';
+import { IUserState } from 'app/stores/user/user.reducer';
+import { User } from 'app/models/User';
+import { updateUser } from 'app/actions/user.actions';
+import { UsersService } from 'app/services/users/users.service';
+import { NotificationService } from 'app/services/notification/notification.service';
 
-import { ROUTE_URL } from '../../../config/router.config';
-import { IGlobalState } from '../../../stores/globalState';
+import { ROUTE_URL } from 'app/config/router.config';
+import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
   selector: 'app-user-form-viewer',

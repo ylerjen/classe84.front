@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { UUID } from 'angular2-uuid'
+import { UUID } from 'angular2-uuid';
 
-import { CustomValidators } from '../../shared/validators/CustomValidators';
+import { CustomValidators } from 'app/shared/validators/CustomValidators';
 
 @Component({
     selector: 'app-password-confirm-form',

@@ -3,7 +3,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { environment as env } from '../../../environments/environment';
-import { MAILER_TOKEN } from '../../config/settings';
+import { MAILER_TOKEN } from 'app/config/settings';
 import { Contact } from 'app/models/Contact';
 
 const BASE_URL = `${env.API_URL}/contact`;

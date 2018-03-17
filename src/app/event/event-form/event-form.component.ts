@@ -3,10 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UUID } from 'angular2-uuid';
 
-import { Event as EventModel } from '../../models/Event';
-import { ISessionState } from 'app/stores/session/session.reducer';
-import { GeoService, IReverseGeoCodeResponse, IReverseGeoCodeResult } from '../../services/geo/geo.service';
-import { Response } from '@angular/http/src/static_response';
+import { Event as EventModel } from 'app/models/Event';
+import { GeoService, IReverseGeoCodeResponse, IReverseGeoCodeResult } from 'app/services/geo/geo.service';
 import { Coordinates } from 'app/models/Coordinates';
 
 @Component({

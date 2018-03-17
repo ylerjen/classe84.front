@@ -5,20 +5,20 @@ import { Store } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
 
 import { environment as env } from '../../../environments/environment';
-import { IGlobalState } from '../../stores/globalState';
-import { User } from '../../models/User';
-import { Event } from '../../models/Event';
+import { IGlobalState } from 'app/stores/globalState';
+import { User } from 'app/models/User';
+import { Event } from 'app/models/Event';
 import {
     addUser,
     updateUser,
     deleteUser,
     getUserAsyncStart,
-} from '../../actions/user.actions';
+} from 'app/actions/user.actions';
 import {
     changeFilter,
     getUserListAsync,
     getUserListAsyncFinished
-} from '../../actions/userlist.actions';
+} from 'app/actions/userlist.actions';
 
 
 const BASE_URL = `${env.API_URL}/users`;

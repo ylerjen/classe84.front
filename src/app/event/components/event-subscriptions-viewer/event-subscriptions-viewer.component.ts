@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CompleterItem } from 'ng2-completer';
 import { Store } from '@ngrx/store';
 
@@ -12,7 +12,7 @@ import { EventsService } from '../../services/events.service';
 import { User } from 'app/models/User';
 import { UsersService } from 'app/services/users/users.service';
 import { addSubscription, updateSubscription, deleteSubscription } from 'app/actions/subscription.actions';
-import { IGlobalState } from '../../../stores/globalState';
+import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
     selector: 'app-event-subscriptions-viewer',

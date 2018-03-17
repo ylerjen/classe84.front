@@ -1,11 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/finally';
 import { UUID } from 'angular2-uuid';
-
-import { CustomValidators } from '../../shared/validators/CustomValidators';
 
 /**
  * This component is used to ask for a token to recover the account of the passed email.
@@ -35,7 +31,7 @@ export class AccountRecoveryFormComponent implements OnInit {
         );
     }
 
-    recover($event: Event): void {        
+    recover($event: Event): void {
         const formValues = this.recoveryForm.value;
         this.recoverEvent.emit(formValues);
     }

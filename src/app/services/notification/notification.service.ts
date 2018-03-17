@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { addNotif, deleteNotif } from '../../actions/notifications.actions';
-import { Notification, ENotificationType } from '../../models/Notification';
+import { addNotif, deleteNotif } from 'app/actions/notifications.actions';
+import { Notification, ENotificationType } from 'app/models/Notification';
 
 @Injectable()
 export class NotificationService {

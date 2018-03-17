@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { STORE_API_VERSION, STORE_FRNT_VERSION, ActionWithPayload } from 'app/actions/app.actions';
-import { Version } from '../../models/Version';
+import { Version } from 'app/models/Version';
 
 
 const initialVersion = '0.0.0';

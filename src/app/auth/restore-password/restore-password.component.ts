@@ -9,9 +9,9 @@ import 'rxjs/add/operator/finally';
 import { UUID } from 'angular2-uuid';
 
 import { RECOVERY_TOKEN_PARAM_NAME } from '../auth.module';
-import { AuthService } from '../../services/auth/auth.service';
-import { NotificationService } from '../../services/notification/notification.service';
-import { CustomValidators } from '../../shared/validators/CustomValidators';
+import { AuthService } from 'app/services/auth/auth.service';
+import { NotificationService } from 'app/services/notification/notification.service';
+import { CustomValidators } from 'app/shared/validators/CustomValidators';
 
 /**
  * This component is used to restore the password of an account identified by the passed token in the url
