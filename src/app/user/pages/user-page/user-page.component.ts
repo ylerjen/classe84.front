@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
-import 'rxjs/add/operator/switchMap';
+import { Store } from '@ngrx/store';
 
 import { User } from 'app/models/User';
-import { Event } from 'app/models/Event';
+import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
-import { getUserAsyncFinished } from 'app/actions/user.actions';
-import { UsersService } from 'app/services/users/users.service';
+import { getUserAsyncStart } from 'app/actions/user.actions';
+import { UsersService } from '../../services/users.service';
+import { IUserState } from 'app/stores/user/user.reducer';
+import { getSubscriptionAsyncStart } from 'app/actions/subscription.actions';
+import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -22,7 +23,7 @@ export class UserPageComponent implements OnInit {
     public isLoading: boolean;
     public isEditMode: boolean;
     public user: User;
-    public eventsSubscriptions: Array<Event> = [];
+    public eventsSubscriptions: Array<Subscription> = [];
 
     constructor(
         private _store: Store<IGlobalState>,
@@ -32,36 +33,27 @@ export class UserPageComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.isLoading = true;
+        this._store.select('userState')
+            .subscribe(
+                (resp: IUserState) => {
+                    this.isLoading = resp.isLoading;
+                    this.user = resp.user;
+                },
+                (error: any) => this._router.navigate(['unauthorized'])
+            );
+        this._store.select('subscriptionsState')
+            .subscribe(
+                (subscrState: ISubscriptionState) => this.eventsSubscriptions = subscrState.subscriptionList,
+                (err: Error) => console.error(err)
+            );
         this._route.params
-            .switchMap( (routeData: Params): Observable<Action> => {
+            .subscribe( (routeData: Params) => {
                 this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id;
-                return this.fetchUser(this._id)
-                    .map( (payload: User): Action => {
-                        this.user = payload;
-                        return getUserAsyncFinished(payload);
-                    });
-            })
-            .subscribe(
-                (resp: Action) => {
-                    this._store.dispatch(resp);
-                    this.fetchUserSubscriptions(this._id).subscribe(
-                        (eventList: Array<Event>) => this.eventsSubscriptions = eventList
-                    );
-                },
-                (error: any) => this._router.navigate(['unauthorized']),
-                () => this.isLoading = false
-            );
+                this._store.dispatch(getUserAsyncStart(this._id));
+                this._store.dispatch(getSubscriptionAsyncStart(this._id));
+            });
 
-    }
-
-    fetchUser(id: number): Observable<User> {
-        return this._userSrv.get(id);
-    }
-
-    fetchUserSubscriptions(id: number): Observable<Array<Event>> {
-        return this._userSrv.getSubscriptions(this._id);
     }
 
     deleteRequest(userId: number): void {

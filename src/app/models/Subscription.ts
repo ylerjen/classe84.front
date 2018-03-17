@@ -9,6 +9,7 @@ export class Subscription {
     public updated_at: Date;
     public user: User | null;
     public event: Event | null;
+
     /**
      * This property is used to make optimistic action.
      * We change the store even if the request is not finished.

@@ -3,51 +3,61 @@ import { Action } from '@ngrx/store';
 import { User } from '../models/User';
 import { ActionWithPayload } from './app.actions';
 
-export const ASYNC_USER_START = 'ASYNC_USER_START';
-export const ASYNC_USER_FINISHED = 'ASYNC_USER_FINISHED';
-export const GET_USER = 'USER_GET';
-export const ADD_USER = 'USER_ADD';
-export const UPDATE_USER = 'USER_UPDATE';
-export const DELETE_USER = 'USER_DELETE';
-export const RESET_USER_STATE = 'RESET_USER_STATE';
+export enum UserActions {
+    getUserAsyncStart = '[User] get Async Start',
+    getUserAsyncFinished = '[User] get Async Finished',
+    getUserAsyncFailed = '[User] get Async Failed',
+    addUser = '[User] add',
+    updateUser = '[User] update',
+    deleteUser = '[User] delete',
+    resetUserState = '[User] reset State',
+}
 
 
 export function addUser(payload: User): ActionWithPayload<User> {
     return {
-        type: ADD_USER,
+        type: UserActions.addUser,
         payload
     };
 }
 
 export function updateUser(payload: User): ActionWithPayload<User> {
     return {
-        type: UPDATE_USER,
+        type: UserActions.updateUser,
         payload
     };
 }
 
 export function deleteUser(payload: User): ActionWithPayload<User> {
     return {
-        type: DELETE_USER,
+        type: UserActions.deleteUser,
         payload
     };
 }
 
-export function getUserAsyncStart(): Action {
+export function getUserAsyncStart(payload: number): ActionWithPayload<number> {
     return {
-        type: ASYNC_USER_START
+        type: UserActions.getUserAsyncStart,
+        payload
     };
 }
 
 export function getUserAsyncFinished(payload: User): ActionWithPayload<User> {
     return {
-        type: ASYNC_USER_FINISHED,
+        type: UserActions.getUserAsyncFinished,
+        payload
+    };
+}
+
+export function getUserAsyncFailed(payload: Error): ActionWithPayload<Error> {
+    return {
+        type: UserActions.getUserAsyncFailed,
         payload
     };
 }
 
 export function resetUserState(): Action {
     return {
-        type: RESET_USER_STATE
+        type: UserActions.resetUserState
     };
 }

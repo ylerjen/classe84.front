@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
@@ -12,13 +12,13 @@ import {
     addUser,
     updateUser,
     deleteUser,
-    getUserAsyncStart,
 } from 'app/actions/user.actions';
 import {
     changeFilter,
     getUserListAsync,
-    getUserListAsyncFinished
+    getUserListAsyncFinished,
 } from 'app/actions/userlist.actions';
+import { Subscription } from 'app/models/Subscription';
 
 
 const BASE_URL = `${env.API_URL}/users`;
@@ -46,7 +46,6 @@ export class UsersService {
 
     get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
-        this._store.dispatch( getUserAsyncStart());
         return this._authHttp.get(endpoint)
             .map( (resp: Response): User => resp.json());
     }
@@ -99,9 +98,18 @@ export class UsersService {
      * Request the api to get all the events subscribed by the user
      * @param id - the id of the user
      */
-    getSubscriptions(id: number): Observable<Array<Event>> {
+    getSubscriptions(id: number): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${id}/events`)
-            .map( (resp: Response): Array<Event> => resp.json());
+            .map( (resp: Response): Array<Event> => resp.json())
+            .map( (events: Array<Event>) => events.map(
+                evt => {
+                    const subscr = new Subscription(evt);
+                    subscr.event = evt;
+                    subscr.event_id = evt.id;
+                    subscr.user_id = id;
+                    return subscr;
+                })
+            );
     }
 
     /**

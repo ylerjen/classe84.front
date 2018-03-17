@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { IUserState } from 'app/stores/user/user.reducer';
 import { User } from 'app/models/User';
 import { updateUser } from 'app/actions/user.actions';
-import { UsersService } from 'app/services/users/users.service';
+import { UsersService } from 'app/user/services/users.service';
 import { NotificationService } from 'app/services/notification/notification.service';
 
 import { ROUTE_URL } from 'app/config/router.config';

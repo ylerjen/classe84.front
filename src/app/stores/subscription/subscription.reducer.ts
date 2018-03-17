@@ -1,14 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Subscription } from 'app/models/Subscription';
-import {
-    ASYNC_SUBSCRIPTION_LIST_START,
-    ASYNC_SUBSCRIPTION_LIST_FINISHED,
-    ADD_SUBSCRIPTION_TO_EVENT,
-    DELETE_SUBSCRIPTION_FROM_EVENT,
-    RESET_SUBSCRIPTION_STATE,
-    UPDATE_SUBSCRIPTION_STATE
-} from 'app/actions/subscription.actions';
+import { SubscriptionActions } from 'app/actions/subscription.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface ISubscriptionState {
@@ -25,10 +18,10 @@ export const initialState: ISubscriptionState = {
 
 export function subscriptionsReducer(state: ISubscriptionState = initialState, action?: Action): ISubscriptionState {
     switch (action.type) {
-        case ASYNC_SUBSCRIPTION_LIST_START:
+        case SubscriptionActions.getSubscriptionListAsyncStart:
             return Object.assign({}, state, { isLoading: true });
 
-        case ASYNC_SUBSCRIPTION_LIST_FINISHED:
+        case SubscriptionActions.getSubscriptionListAsyncFinished:
         {
             const act = action as ActionWithPayload<Array<Subscription>>;
             return Object.assign({}, state, {
@@ -38,7 +31,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             });
         }
 
-        case ADD_SUBSCRIPTION_TO_EVENT:
+        case SubscriptionActions.addSubscrToEvent:
         {
             const act = action as ActionWithPayload<Subscription>;
             return Object.assign({}, state, {
@@ -49,7 +42,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             });
         }
 
-        case UPDATE_SUBSCRIPTION_STATE:
+        case SubscriptionActions.updateSubscrList:
         {
             const act = action as ActionWithPayload<Subscription>;
             return Object.assign({}, state, {
@@ -62,7 +55,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
                 });
             }
 
-        case DELETE_SUBSCRIPTION_FROM_EVENT:
+        case SubscriptionActions.deleteSubscrFromEvent:
         {
             const act = action as ActionWithPayload<Subscription>;
             return Object.assign({}, state, {
@@ -72,7 +65,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             });
         }
 
-        case RESET_SUBSCRIPTION_STATE:
+        case SubscriptionActions.resetSubscriptionState:
             return Object.assign({}, initialState);
 
         default:

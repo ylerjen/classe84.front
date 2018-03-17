@@ -30,6 +30,8 @@ import { NotifierComponent } from './components/notifier/notifier.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
 import { AddressEffects } from 'app/effects/address.effect';
+import { UserEffects } from './effects/user.effect';
+import { SubscriptionEffects } from './effects/subscription.effect';
 
 
 @NgModule({
@@ -49,7 +51,11 @@ import { AddressEffects } from 'app/effects/address.effect';
         BrowserAnimationsModule,
         StoreModule.forRoot(globalState),
         RouterModule.forRoot(appRoutes),
-        EffectsModule.forRoot([ AddressEffects ]),
+        EffectsModule.forRoot([
+            UserEffects,
+            AddressEffects,
+            SubscriptionEffects,
+        ]),
         StoreDevtoolsModule.instrument({    // for redux debug => storeDevtools instrument
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production // Restrict extension to log-only mode

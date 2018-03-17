@@ -5,14 +5,15 @@
     <aside class="col-md-4">
         <app-panel *ngIf="user && !isEditMode">
             <span class="title"><i class="fa fa-ticket"></i> Subscriptions</span>
+            {{ eventsSubscriptions | json}}
             <span class="text">
                 <p>This user participated to {{eventsSubscriptions.length}} events.</p>
                 <ul>
                     <li *ngFor="let subscr of eventsSubscriptions">
-                        <a routerLink="/events/{{subscr.id}}">{{subscr.title}}</a>
+                        <a routerLink="/events/{{subscr.event.id}}">{{subscr.event.title}}</a>
                     </li>
                 </ul>
-                <div>
+                <div *ngIf="eventsSubscriptions.length">
                     <a routerLink="/users/{{user.id}}/subscriptions" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
                 </div>
             </span>

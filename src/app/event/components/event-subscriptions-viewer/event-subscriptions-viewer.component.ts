@@ -10,7 +10,7 @@ import { IUserListState } from 'app/stores/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { EventsService } from '../../services/events.service';
 import { User } from 'app/models/User';
-import { UsersService } from 'app/services/users/users.service';
+import { UsersService } from 'app/user/services/users.service';
 import { addSubscription, updateSubscription, deleteSubscription } from 'app/actions/subscription.actions';
 import { IGlobalState } from 'app/stores/globalState';
 

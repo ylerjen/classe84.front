@@ -100,15 +100,10 @@ export class EventsService {
      * @param eventId - the id of the event
      */
     getSubscribers(eventId: string): Observable<Array<Subscription>> {
-        this._store.dispatch(getSubscriptionAsyncStart());
         return this._authHttp.get(`${BASE_URL}/${eventId}/users`)
             .map((resp: Response): Array<Object> => resp.json())
             .map((objArr): Array<Subscription> => (objArr.map(obj => new Subscription(obj))))
-            .map((subscrList: Array<Subscription>): Array<Subscription> => {
-                subscrList = subscrList.sort(Subscription.sortByFullNameComparator);
-                this._store.dispatch(getSubscriptionAsyncFinished(subscrList));
-                return subscrList;
-            });
+            .map((subscrList: Array<Subscription>): Array<Subscription> => subscrList.sort(Subscription.sortByFullNameComparator));
     }
 
     /**

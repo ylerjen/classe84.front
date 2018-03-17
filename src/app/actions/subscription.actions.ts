@@ -1,52 +1,64 @@
 import { Action } from '@ngrx/store';
 
 import { Subscription } from '../models/Subscription';
+import { Event } from '../models/Event';
 import { ActionWithPayload } from './app.actions';
 
-export const ASYNC_SUBSCRIPTION_LIST_START = 'ASYNC_SUBSCRIPTION_LIST_START';
-export const ASYNC_SUBSCRIPTION_LIST_FINISHED = 'ASYNC_SUBSCRIPTION_LIST_FINISHED';
-export const ADD_SUBSCRIPTION_TO_EVENT = 'ADD_SUBSCRIPTION_TO_EVENT';
-export const UPDATE_SUBSCRIPTION_STATE = 'UPDATE_SUBSCRIPTION_STATE';
-export const DELETE_SUBSCRIPTION_FROM_EVENT = 'DELETE_SUBSCRIPTION_FROM_EVENT';
-export const RESET_SUBSCRIPTION_STATE = 'RESET_SUBSCRIPTION_STATE';
+export enum SubscriptionActions {
+    getSubscriptionListAsyncStart = '[subscription] get Async Start',
+    getSubscriptionListAsyncFinished = '[subscription] get Async Finished',
+    getSubscriptionListAsyncFailed = '[subscription] get Async Failed',
+    addSubscrToEvent = '[subscription] add to event',
+    updateSubscrList = '[subscription] update list',
+    deleteSubscrFromEvent = '[subscription] delete from event',
+    resetSubscriptionState = '[subscription] reset state',
+}
 
 
 export function resetSubscriptionState(): Action {
     return {
-        type: RESET_SUBSCRIPTION_STATE
+        type: SubscriptionActions.resetSubscriptionState
     };
 }
 
 export function addSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
-        type: ADD_SUBSCRIPTION_TO_EVENT,
+        type: SubscriptionActions.addSubscrToEvent,
         payload
     };
 }
 
 export function updateSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
-        type: UPDATE_SUBSCRIPTION_STATE,
+        type: SubscriptionActions.updateSubscrList,
         payload
     };
 }
 
 export function deleteSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
-        type: DELETE_SUBSCRIPTION_FROM_EVENT,
+        type: SubscriptionActions.deleteSubscrFromEvent,
         payload
     };
 }
 
-export function getSubscriptionAsyncStart(): Action {
+export function getSubscriptionAsyncStart(payload: number): ActionWithPayload<number> {
     return {
-        type: ASYNC_SUBSCRIPTION_LIST_START
+        type: SubscriptionActions.getSubscriptionListAsyncStart,
+        payload
     };
 }
 
 export function getSubscriptionAsyncFinished(payload: Array<Subscription>): ActionWithPayload<Array<Subscription>> {
     return {
-        type: ASYNC_SUBSCRIPTION_LIST_FINISHED,
+        type: SubscriptionActions.getSubscriptionListAsyncFinished,
+        payload
+    };
+}
+
+export function getSubscriptionAsyncFailed(payload: Error): ActionWithPayload<Error> {
+    return {
+        type: SubscriptionActions.getSubscriptionListAsyncFailed,
         payload
     };
 }

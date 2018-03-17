@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { User, EGender } from 'app/models/User';
 import { IUserListState } from 'app/stores/userlist/userlist.reducer';
-import { UsersService } from 'app/services/users/users.service';
+import { UsersService } from 'app/user/services/users.service';
 import { IGlobalState } from 'app/stores/globalState';
 
 @Component({
