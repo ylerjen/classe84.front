@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export interface IEventListFilter {
     name: string;
-    year: number;
+    year: string;
 }
 
 @Component({
@@ -14,19 +14,19 @@ export class EventListFilterComponent {
 
     private model: IEventListFilter = {
         name: '',
-        year: 0
+        year: ''
     };
 
     @Input()
     set filter(val: IEventListFilter) {
-        this.model.name = val.name;
-        this.model.year = val.year;
+        this.model.name = val.name || '';
+        this.model.year = val.year || '';
     };
     get filter(): IEventListFilter {
         return this.model;
     }
 
     @Output()
-    update: EventEmitter<IEventListFilter> = new EventEmitter<IEventListFilter>();
+    update = new EventEmitter<IEventListFilter>();
 
 }

@@ -3,42 +3,51 @@ import { Action } from '@ngrx/store';
 import { Event } from '../models/Event';
 import { ActionWithPayload } from './app.actions';
 
-export const ASYNC_EVENT_START = 'EVENT_ASYNC_START';
-export const ASYNC_EVENT_SUCCESS = 'EVENT_ASYNC_SUCCESS';
-export const ADD_EVENT = 'ADD_EVENT';
-export const UPDATE_EVENT = 'EVENT_UPDATE';
-export const RESET_EVENT_STATE = 'RESET_EVENT_STATE';
+export enum EventActions {
+    getEventAsyncStart = '[Event] EVENT_ASYNC_START',
+    getEventAsyncFinished = '[Event] EVENT_ASYNC_SUCCESS',
+    addEvent = '[Event] ADD_EVENT',
+    updateEvent = '[Event] EVENT_UPDATE',
+    resetEventState = '[Event] RESET_EVENT_STATE',
+}
 
 
 export function resetEventState(): Action {
     return {
-        type: RESET_EVENT_STATE
+        type: EventActions.resetEventState
     }
 }
 
 export function addEvent(payload: Event): ActionWithPayload<Event> {
     return {
-        type: ADD_EVENT,
+        type: EventActions.addEvent,
         payload
     };
 }
 
 export function updateEvent(payload: Event): ActionWithPayload<Event> {
     return {
-        type: UPDATE_EVENT,
+        type: EventActions.updateEvent,
         payload
     };
 }
 
 export function getEventAsyncStart(): Action {
     return {
-        type: ASYNC_EVENT_START
+        type: EventActions.getEventAsyncStart
     };
 }
 
 export function getEventAsyncFinished(payload: Event): ActionWithPayload<Event> {
     return {
-        type: ASYNC_EVENT_SUCCESS,
+        type: EventActions.getEventAsyncFinished,
+        payload
+    };
+}
+
+export function getEventAsyncFailed(payload: Error): ActionWithPayload<Error> {
+    return {
+        type: EventActions.getEventAsyncFinished,
         payload
     };
 }

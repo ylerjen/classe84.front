@@ -5,22 +5,19 @@ import { Store, Action } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
 
 import { environment as env } from 'app/../environments/environment';
-import { IGlobalState } from 'app/stores/globalState';
 import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
+import { IGlobalState } from 'app/stores/globalState';
 import {
     addEvent,
     updateEvent,
     getEventAsyncStart,
-    getEventAsyncFinished
 } from 'app/actions/event.actions';
 import {
     deleteEventFromList,
     changeEventListFilter,
     getEventListAsyncStart,
-    getEventListAsyncFinished
 } from 'app/actions/eventlist.actions';
-import { getSubscriptionAsyncStart, getSubscriptionAsyncFinished } from 'app/actions/subscription.actions';
 
 const BASE_URL = `${env.API_URL}/events`;
 
@@ -36,11 +33,9 @@ export class EventsService {
     /**
      * Fetch all events
      */
-    fetchAll(): Observable<Action> {
-        this._store.dispatch( getEventListAsyncStart());
+    fetchAll(): Observable<Array<Event>> {
         return this._http.get(BASE_URL)
-            .map(res => res.json())
-            .map(payload => getEventListAsyncFinished(payload));
+            .map(res => res.json());
     }
 
     /**
@@ -49,14 +44,9 @@ export class EventsService {
      */
     get(id: string): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
-        this._store.dispatch( getEventAsyncStart());
         return this._authHttp.get(endpoint)
             .map( (resp: Response): any => resp.json() )
-            .map( (evtAttr: any): Event => new Event(evtAttr) )
-            .map( (payload: Event) => {
-                this._store.dispatch(getEventAsyncFinished(payload));
-                return payload;
-            });
+            .map( (evtAttr: any): Event => new Event(evtAttr) );
     }
 
     create(event: Event): Observable<Response> {
@@ -85,14 +75,6 @@ export class EventsService {
     delete(event: Event) {
         console.log('delete from service => not finished: request delete api');
         this._store.dispatch(deleteEventFromList(event));
-    }
-
-    /**
-     * Update the filter used for the event list
-     * @param filter - a text string which represent the search filter of an event
-     */
-    updateFilter(filter: string) {
-        this._store.dispatch(changeEventListFilter(filter));
     }
 
     /**

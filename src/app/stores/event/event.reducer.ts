@@ -2,12 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Event } from 'app/models/Event';
 import { ActionWithPayload } from 'app/actions/app.actions';
-import {
-    ASYNC_EVENT_START,
-    ASYNC_EVENT_SUCCESS,
-    UPDATE_EVENT,
-    RESET_EVENT_STATE
-} from 'app/actions/event.actions';
+import { EventActions } from 'app/actions/event.actions';
 
 export interface IEventState {
     event: Event;
@@ -21,22 +16,22 @@ export const initialState: IEventState = {
 
 export function eventReducer(state: IEventState = initialState, action?: Action): IEventState {
     switch (action.type) {
-        case ASYNC_EVENT_START:
+        case EventActions.getEventAsyncStart:
             return Object.assign({}, state, { isLoading: true });
 
-        case ASYNC_EVENT_SUCCESS:
+        case EventActions.getEventAsyncFinished:
         {
             const act = action as ActionWithPayload<Event>;
             return Object.assign({}, state, { event: act.payload, isLoading: false });
         }
 
-        case UPDATE_EVENT:
+        case EventActions.updateEvent:
         {
             const act = action as ActionWithPayload<Event>;
             return Object.assign({}, state, { event: act.payload });
         }
 
-        case RESET_EVENT_STATE:
+        case EventActions.resetEventState:
             return Object.assign({}, initialState);
 
         default:

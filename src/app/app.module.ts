@@ -29,9 +29,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
-import { AddressEffects } from 'app/effects/address.effect';
+import { AddressEffects } from './effects/address.effect';
 import { UserEffects } from './effects/user.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
+import { EventEffects } from './effects/event.effect';
+import { EventlistEffects } from './effects/eventlist.effect';
 
 
 @NgModule({
@@ -55,6 +57,8 @@ import { SubscriptionEffects } from './effects/subscription.effect';
             UserEffects,
             AddressEffects,
             SubscriptionEffects,
+            EventlistEffects,
+            EventEffects,
         ]),
         StoreDevtoolsModule.instrument({    // for redux debug => storeDevtools instrument
             maxAge: 25, // Retains last 25 states
