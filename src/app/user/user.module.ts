@@ -3,10 +3,12 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 
-import { GMAP_API_KEY } from '../config/settings';
-import { SharedModule } from '../shared/shared.module';
+import { GMAP_API_KEY } from 'app/config/settings';
+import { SharedModule } from 'app/shared/shared.module';
+import { AddressModule } from 'app/address/address.module';
 import { AuthService } from '../services/auth/auth.service';
 import { UsersService } from '../services/users/users.service';
+import { AddressService } from '../address/address.service';
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
@@ -17,8 +19,6 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserDetailViewerComponent } from './components/user-detail-viewer/user-detail-viewer.component';
 import { UserFormViewerComponent } from './components/user-form-viewer/user-form-viewer.component';
-import { AddressListComponent } from '../components/address-list/address-list.component';
-import { AddressComponent } from '../components/address/address.component';
 
 const userRoutes = [
     { path: 'users', component: UserListPageComponent },
@@ -36,6 +36,7 @@ const userRoutes = [
 @NgModule({
     imports: [
         SharedModule,
+        AddressModule,
         RouterModule.forChild(userRoutes),
         FormsModule,
         ReactiveFormsModule,
@@ -54,11 +55,10 @@ const userRoutes = [
         UserListWrapperComponent,
         UserFormViewerComponent,
         UserFormComponent,
-        AddressListComponent,
-        AddressComponent,
     ],
     providers: [
         UsersService,
+        AddressService
     ],
     bootstrap: [],
     exports: [

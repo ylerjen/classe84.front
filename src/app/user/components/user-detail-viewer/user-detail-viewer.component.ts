@@ -9,8 +9,9 @@ import { IUserState } from '../../../stores/user/user.reducer';
 import { User } from '../../../models/User';
 import { ROUTE_URL } from '../../../config/router.config';
 import { Address } from 'app/models/Address';
-import { getAddressListAsync } from 'app/actions/addresslist.actions';
+import { getAddressListAsync, setFavoriteAddress } from 'app/actions/addresslist.actions';
 import { IGlobalState } from '../../../stores/globalState';
+import { IAddressListState } from '../../../stores/addresslist/addresslist.reducer';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -23,27 +24,33 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     public addressList: Array<Address> = [];
     public isLoading: boolean;
 
-    private store$: Observable<IUserState>;
-    private sub: Subscription;
+    private storeUser$: Observable<IUserState>;
+    private storeAddr$: Observable<IAddressListState>;
+    private subUser: Subscription;
+    private subAddress: Subscription;
 
     constructor(
         private _store: Store<IGlobalState>,
         private _router: Router
     ) {
-        this.store$ = this._store.select('userState');
+        this.storeUser$ = this._store.select('userState');
+        this.storeAddr$ = this._store.select('addressListState');
     }
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.sub = this.store$
+        this.subAddress = this.storeAddr$.subscribe(
+            (addrState: IAddressListState) => this.addressList = addrState.addressList
+        );
+        this.subUser = this.storeUser$
             .subscribe(
                 (userState: IUserState) => {
                     if (userState.user) {
                         const curUser = new User(userState.user);
                         this.user = curUser;
                         this.isLoading = userState.isLoading;
+                        this._store.dispatch(getAddressListAsync(this.user.id.toString()));
                     }
-                    this._store.dispatch(getAddressListAsync());
                 },
                 () => {},
                 () => this.isLoading = false
@@ -51,7 +58,8 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.sub.unsubscribe();
+        this.subUser.unsubscribe();
+        this.subAddress.unsubscribe();
     }
 
     goToEdit(id: number): void {
@@ -63,5 +71,14 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     delete(id: number): void {
         console.log('delete', id);
         throw new Error('not implemented yet');
+    }
+
+    onSetFavoriteAddress(addressId: string) {
+        const setFavCmd = {
+            userId: this.user.id.toString(),
+            addressId
+        };
+        console.log('set favorite address', setFavCmd);
+        this._store.dispatch(setFavoriteAddress(setFavCmd));
     }
 }

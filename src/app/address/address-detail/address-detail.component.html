@@ -1,0 +1,25 @@
+<div class="card block-card content">
+    <div *ngIf="address.latitude && address.longitude" class="img-top">
+        <agm-map class="gmap" [latitude]="address.latitude" [longitude]="address.longitude">
+            <agm-marker [latitude]="address.latitude" [longitude]="address.longitude"></agm-marker>
+        </agm-map>
+    </div>
+    <div class="card-body">
+        <div class="address-item__logo">
+            <button *ngIf="!address.is_default;else favorite" (click)="setFavorite($event)" class="btn btn-outline-primary">
+                <i class="fa fa-2x fa-star-o" title="Set address as default"></i>
+            </button>
+        </div>
+        <ng-template #favorite>
+            <span class="favorite-address">
+                <i class="fa fa-2x fa-star" title="This is the default address"></i>
+            </span>
+        </ng-template >
+        <div class="address-item__detail">
+            <p>{{ address.street }}</p>
+            <p *ngIf="address.street2">{{ address.street2 }}</p>
+            <p>{{ address.npa }} {{ address.city }}</p>
+            <p>{{ address.state }} - {{ address.country }}</p>
+        </div>
+    </div>
+</div>

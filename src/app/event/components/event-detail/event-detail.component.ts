@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Event } from '../../../models/Event';
+import { Event } from 'app/models/Event';
 
 @Component({
     selector: 'app-event-detail',
@@ -10,7 +10,7 @@ import { Event } from '../../../models/Event';
 export class EventDetailComponent {
 
     @Input()
-    public event: Event;    
+    public event: Event;
 
     @Output()
     goToEditEvent = new EventEmitter<number>();

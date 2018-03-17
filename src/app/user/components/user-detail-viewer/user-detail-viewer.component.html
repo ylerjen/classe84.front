@@ -1,6 +1,12 @@
-<loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
-<app-user-detail
-    [user]="user"
-    (goToEditUser)="goToEdit($event)"
-    (deleteUser)="delete($event)"
+<section class="col-md-12 card user-profile" *ngIf="user">
+    <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
+    <app-user-detail
+        [user]="user"
+        (goToEditUser)="goToEdit($event)"
+        (deleteUser)="delete($event)"
     ></app-user-detail>
+    <app-address-list
+        [addressList]="addressList"
+        (setFavoriteAddress)="onSetFavoriteAddress($event)"
+    ></app-address-list>
+</section>

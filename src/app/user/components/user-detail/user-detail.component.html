@@ -1,10 +1,11 @@
-<section class="col-md-12 card user-profile" *ngIf="user">
+<div>
     <figure class="user-image-holder">
         <img id="profileImg" src="http://findicons.com/files/icons/175/halloween_avatar/300/mike.png" class="png" alt="Photo de {{ user.first_name }}" class="logo img-circle" height="140px" width="140px" />
     </figure>
     <div class="user-title text-center">
         <h1>{{user.fullname}}</h1>
         <p>{{user.birthdate | date: 'dd.MM.yyyy'}}</p>
+        <p class="text-muted">Member since {{user.created_at | date}}</p>
     </div>
     <div class="ribbon-wrapper">
         <div class="ribbon" [ngClass]="{inactiv : !user.is_active}">{{user.is_active ? "Actif" : "Inactif"}}</div>
@@ -19,7 +20,6 @@
     </div>
     <section class="card-body">
         <h2><i class="fa fa-address-book"></i> Infos</h2>
-        <div class="text-muted">Member since {{user.created_at | date}}</div>
         <div class="user-card">            
             <p ng-show="user.mobile">
                 <span class="text-separator"><i class="fa fa-mobile"></i></span>
@@ -48,8 +48,4 @@
             </p>
         </div>
     </section>
-    <section class="card-body">
-        <h2><i class="fa fa-map-marker"></i> Addresses</h2>
-        <app-address-list [addressList]="user.addresses"></app-address-list>
-    </section>
-</section>
+</div>

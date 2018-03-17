@@ -49,9 +49,8 @@ import { AddressEffects } from 'app/effects/address.effect';
         BrowserAnimationsModule,
         StoreModule.forRoot(globalState),
         RouterModule.forRoot(appRoutes),
-        EffectsModule.forRoot([AddressEffects]),
-        StoreDevtoolsModule.instrument({
-            // for redux debug => storeDevtools instrument
+        EffectsModule.forRoot([ AddressEffects ]),
+        StoreDevtoolsModule.instrument({    // for redux debug => storeDevtools instrument
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production // Restrict extension to log-only mode
           }),
@@ -69,6 +68,6 @@ import { AddressEffects } from 'app/effects/address.effect';
         AuthService,
         NotificationService,
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [ AppComponent ]
 })
 export class AppModule { }

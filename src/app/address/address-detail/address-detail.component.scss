@@ -9,9 +9,22 @@
 }
 
 .address-item__logo {
-	margin: 0 5%;
+	text-align: right;
 }
 
 .address-item__detail {
 	flex-grow: 2;
+
+	p {
+		margin: 0;
+	}
+}
+
+.gmap {
+    display: block;
+    height: 150px;
+}
+
+.favorite-address {
+	color: gold;
 }

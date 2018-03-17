@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AuthHttp } from 'angular2-jwt';
 
 import { environment as env } from '../../../environments/environment';
 import { IGlobalState } from '../../stores/globalState';
 import { User } from '../../models/User';
 import { Event } from '../../models/Event';
-import { Notification, ENotificationType } from '../../models/Notification';
-import { IUserListState } from '../../stores/userlist/userlist.reducer';
-import { addNotif, deleteNotif } from '../../actions/notifications.actions';
 import {
     addUser,
     updateUser,

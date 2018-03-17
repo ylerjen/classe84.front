@@ -7,9 +7,11 @@ import { IEventState, eventReducer } from 'app/stores/event/event.reducer';
 import { IEventListState, eventlistReducer } from 'app/stores/eventlist/eventlist.reducer';
 import { ISubscriptionState, subscriptionsReducer } from 'app/stores/subscription/subscription.reducer';
 import { appReducer, AppState } from './app/app.reducer';
+import { addresslistReducer, IAddressListState } from './addresslist/addresslist.reducer';
 
 export interface IGlobalState {
     appState: AppState;
+    addressListState: IAddressListState;
     notificationState: Array<Notification>;
     sessionState: ISessionState;
     userlistState: IUserListState;
@@ -21,6 +23,7 @@ export interface IGlobalState {
 
 export const globalState = {
     appState: appReducer,
+    addressListState: addresslistReducer,
     notificationState: notificationReducer,
     sessionState: sessionReducer,
     userlistState: userlistReducer,
