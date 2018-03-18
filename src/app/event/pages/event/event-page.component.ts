@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
-import 'rxjs/add/operator/finally';
+import { Store } from '@ngrx/store';
 
-import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { getEventStart } from 'app/actions/event.actions';
-import { getSubscriptionStart, SubscriptionRqstCmd, SubscriptionType } from 'app/actions/subscription.actions';
+import { getSubscriptionStart, FetchSubscriptionCmd, SubscriptionType } from 'app/actions/subscription.actions';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -40,7 +37,7 @@ export class EventPageComponent implements OnInit {
         this._route.params
             .subscribe( (routeData: Params) => {
                 const id = routeData.id;
-                const subscrRqstCmd: SubscriptionRqstCmd = {
+                const subscrRqstCmd: FetchSubscriptionCmd = {
                     id,
                     type: SubscriptionType.Event
                 };
@@ -48,9 +45,4 @@ export class EventPageComponent implements OnInit {
                 this._store.dispatch(getSubscriptionStart(subscrRqstCmd));
             });
     }
-
-    fetchEvent(id: number): Observable<Event> {
-        return this._evtSrvc.get(id.toString());
-    }
-
 }

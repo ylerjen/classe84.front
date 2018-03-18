@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { SessionUser } from 'app/models/SessionUser';
-import { LOGIN, LOGOUT, SET_USER } from 'app/actions/session.actions';
+import { SessionActions } from 'app/actions/session.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface ISessionState {
@@ -18,7 +18,7 @@ export const initialState: ISessionState = {
 
 export function sessionReducer(state = initialState, action: Action): ISessionState {
     switch (action.type) {
-        case LOGIN:
+        case SessionActions.Login:
         {
             const act = action as ActionWithPayload<ISessionState>;
             return Object.assign({}, state, {
@@ -28,10 +28,10 @@ export function sessionReducer(state = initialState, action: Action): ISessionSt
             });
         }
 
-        case LOGOUT:
+        case SessionActions.Logout:
             return initialState;
 
-        case SET_USER:
+        case SessionActions.SetUser:
         {
             const act = action as ActionWithPayload<SessionUser>;
             return Object.assign({}, state, {

@@ -7,25 +7,6 @@
             </div>
             <div class="content">
                 <p class="text-muted module-meta">Created by {{event.created_by}} at {{event.created_at}}</p>
-                <nav class="module-actions" *ngIf="event">
-                    <a href="/events" class="btn btn-default"><i class="fa fa-arrow-left"></i></a>
-                    <div>
-                        <button class="btn btn-outline-info" (click)="onClickEdit()">
-                            <i class="fa fa-pencil" title="Edit"></i>
-                        </button>
-                        <button class="btn btn-outline-danger" (click)="this.onClickDelete()" title="Delete">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </div>
-                    <div>
-                        <button class="btn btn-outline-dark" data-ng-click="this.subscribe(currentUser.id)">
-                            <i class="fa fa-ticket"></i> Subscribe
-                        </button>
-                        <button class="btn btn-outline-info" data-ng-click="this.unsubscribe(currentUser.id)">
-                            <i class="fa fa-ticket"></i> Unsubscribe
-                        </button>
-                    </div>
-                </nav>
                 <section class="card-body">
                     <p>
                         <span class="text-separator"><i class="fa fa-calendar-o"></i></span>

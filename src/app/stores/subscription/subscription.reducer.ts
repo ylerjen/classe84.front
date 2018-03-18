@@ -31,14 +31,31 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             });
         }
 
-        case SubscriptionActions.addSubscrToEvent:
+        case SubscriptionActions.addSubscription:
         {
             const act = action as ActionWithPayload<Subscription>;
+            act.payload.isStorePending = true;
             return Object.assign({}, state, {
                 subscriptionList: [
                     ...state.subscriptionList,
                     act.payload
                 ]
+            });
+        }
+
+        case SubscriptionActions.addSubscriptionFinished:
+        {
+            const act = action as ActionWithPayload<Subscription>;
+            return Object.assign({}, state, {
+                subscriptionList: state.subscriptionList.map( subsc => {
+                    if (subsc.user_id === act.payload.user_id
+                        && subsc.event_id === act.payload.event_id) {
+                            const newSub = new Subscription(subsc);
+                            newSub.isStorePending = false;
+                            return newSub;
+                    }
+                    return subsc;
+                })
             });
         }
 
@@ -52,10 +69,27 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
                         ? act.payload
                         : subscr)
                     ]
-                });
-            }
+                }
+            );
+        }
 
-        case SubscriptionActions.deleteSubscrFromEvent:
+        case SubscriptionActions.deleteSubscription:
+        {
+            const act = action as ActionWithPayload<Subscription>;
+            return Object.assign({}, state, {
+                subscriptionList: state.subscriptionList.map( subsc => {
+                    if (subsc.user_id === act.payload.user_id
+                        && subsc.event_id === act.payload.event_id) {
+                            const newSub = new Subscription(subsc);
+                            newSub.isStorePending = true;
+                            return newSub;
+                    }
+                    return subsc;
+                })
+            });
+        }
+
+        case SubscriptionActions.deleteSubscriptionFinished:
         {
             const act = action as ActionWithPayload<Subscription>;
             return Object.assign({}, state, {

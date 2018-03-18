@@ -3,18 +3,20 @@ import { Action } from '@ngrx/store';
 import { SessionUser } from '../models/SessionUser';
 import { ActionWithPayload } from './app.actions';
 
-export const LOGIN = 'SESSION_ACTION_LOGIN';
-export const LOGOUT = 'SESSION_ACTION_LOGOUT';
-export const SET_USER = 'SESSION_ACTION_SET_USER';
+export enum SessionActions {
+    Login = '[Session] Login',
+    Logout = '[Session] Logout',
+    SetUser = '[Session] Set User',
+}
 
 export function login(payload: Object): ActionWithPayload<Object> {
-    return { type: LOGIN, payload };
+    return { type: SessionActions.Login, payload };
 }
 
 export function logout(): Action {
-    return { type: LOGOUT };
+    return { type: SessionActions.Logout };
 }
 
 export function setUser(payload: SessionUser): ActionWithPayload<SessionUser> {
-    return { type: SET_USER, payload };
+    return { type: SessionActions.SetUser, payload };
 }

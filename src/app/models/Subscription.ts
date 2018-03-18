@@ -31,13 +31,13 @@ export class Subscription {
     };
 
     constructor(props: { [key: string]: any } = {}) {
-        this.event_id = props.event_id;
-        this.user_id = props.user_id;
+        this.user = props.user ? new User(props.user) : null;
+        this.user_id = props.user ? props.user.id : props.user_id;
+        this.event = props.event ? new Event(props.event) : null;
+        this.event_id = props.event ? props.event.id : props.event_id;
         this.has_paid = props.has_paid;
         this.created_at = props.created_at;
         this.updated_at = props.updated_at;
-        this.user = props.user ? new User(props.user) : null;
-        this.event = props.event ? new Event(props.event) : null;
         this.isStorePending = typeof props.isStorePending === 'undefined' ? false : props.isStorePending;
     }
 }

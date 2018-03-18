@@ -1,14 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription as RxjsSubscriptions } from 'rxjs/Subscription';
 
+import { ROUTE_URL } from 'app/config/router.config';
 import { IEventState } from 'app/stores/event/event.reducer';
 import { Event } from 'app/models/Event';
-import { ROUTE_URL } from 'app/config/router.config';
+import { Subscription as EventSubscription, Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
+import { ISessionState } from 'app/stores/session/session.reducer';
+import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { addSubscription, deleteSubscription } from 'app/actions/subscription.actions';
+import { User } from 'app/models/User';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -17,43 +21,122 @@ import { IGlobalState } from 'app/stores/globalState';
 })
 export class EventDetailViewerComponent implements OnInit, OnDestroy {
 
+    private subscrList: Array<EventSubscription> = [];
+    private sessionUser: User;
+    private rxjsSubscriptions: RxjsSubscriptions;
+    private eventState$: Observable<IEventState>;
+    private sessionState$: Observable<ISessionState>;
+    private evtSubscrState$: Observable<ISubscriptionState>;
+
     public event: Event;
+
     public isLoading: boolean;
-    private store$: Observable<IEventState>;
-    private sub: Subscription;
+
+    public isSubscribed = false;
+
+    public isSubscribable = false;
+
+    public isAdmin = true;
 
     constructor(
         private _store: Store<IGlobalState>,
         private _router: Router
     ) {
-        this.store$ = this._store.select('eventState');
+        this.eventState$ = this._store.select('eventState');
+        this.sessionState$ = this._store.select('sessionState');
+        this.evtSubscrState$ = this._store.select('subscriptionsState');
     }
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.sub = this.store$.subscribe(
-            (eventState: IEventState) => {
-                if (eventState.event) {
-                    this.event = new Event(eventState.event);
-                    this.isLoading = eventState.isLoading;
-                }
-            },
+        this.rxjsSubscriptions = this.eventState$.subscribe(
+            (eventState: IEventState) => this.onEventStateChanged(eventState),
             (err) => console.error(err)
+        );
+        this.rxjsSubscriptions.add(
+            this.evtSubscrState$.subscribe(
+                state => {
+                    this.subscrList = state.subscriptionList;
+                    this.defineSubscriptionState();
+                }
+            )
+        );
+        this.rxjsSubscriptions.add(
+            this.sessionState$.subscribe(
+                state => {
+                    if (state.isLoggedIn && state.loggedUser) {
+                        this.sessionUser = state.loggedUser;
+                    }
+                    this.defineSubscriptionState();
+                }
+            )
         );
     }
 
-    ngOnDestroy(): void {
-        this.sub.unsubscribe();
+    defineSubscriptionState() {
+        if (!this.sessionUser || !this.sessionUser.id || !Array.isArray(this.subscrList)) {
+            this.isSubscribable = false;
+        } else {
+            this.isSubscribable = true;
+            this.isSubscribed = this.subscrList.some(subsc => subsc.user_id === this.sessionUser.id);
+        }
     }
 
-    goToEdit(id: number): void {
+    onEventStateChanged(state: IEventState) {
+        if (state.event) {
+            this.event = new Event(state.event);
+            this.isLoading = state.isLoading;
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.rxjsSubscriptions.unsubscribe();
+    }
+
+    goToEdit(): void {
+        if (!this.event) {
+            throw new Error('no valid Event is referenced');
+        }
+        const id = this.event.id;
         if (typeof id === 'undefined') { return; }
         const url = `${ROUTE_URL.events}/${id.toString()}/edit`;
         this._router.navigate([url]);
     }
 
-    delete(id: number): void {
+    delete(): void {
+        if (!this.event) {
+            throw new Error('no valid Event is referenced');
+        }
+        const id = this.event.id;
         console.log('delete', id);
         throw new Error('not implemented yet');
+    }
+
+    subscribe(): void {
+        if (!this.event) {
+            throw new Error('no valid Event is referenced');
+        }
+        if (!this.sessionUser || !this.sessionUser.id) {
+            throw new Error('no valid session user id referenced');
+        }
+        const subscr = new Subscription({
+            user: this.sessionUser,
+            event: this.event,
+        });
+        this._store.dispatch(addSubscription(subscr));
+    }
+
+    unsubscribe(): void {
+        if (!this.event) {
+            throw new Error('no valid Event is referenced');
+        }
+        if (!this.sessionUser || !this.sessionUser.id) {
+            throw new Error('no valid session user id referenced');
+        }
+        const subscr = new Subscription({
+            user: this.sessionUser,
+            event: this.event,
+        });
+        this._store.dispatch(deleteSubscription(subscr));
     }
 }

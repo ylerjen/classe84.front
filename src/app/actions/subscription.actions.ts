@@ -20,24 +20,27 @@ export enum SubscriptionType {
 }
 
 export enum SubscriptionActions {
-    getSubscriptionListStart = '[subscription] get Start',
-    getSubscriptionListFinished = '[subscription] get Finished',
-    getSubscriptionListFailed = '[subscription] get Failed',
-    addSubscrToEvent = '[subscription] add to event',
-    updateSubscrList = '[subscription] update list',
-    deleteSubscrFromEvent = '[subscription] delete from event',
-    resetSubscriptionState = '[subscription] reset state',
+    getSubscriptionListStart = '[Subscription] get Start',
+    getSubscriptionListFinished = '[Subscription] get Finished',
+    getSubscriptionListFailed = '[Subscription] get Failed',
+    addSubscription = '[Subscription] add',
+    addSubscriptionFinished = '[Subscription] add Finished',
+    addSubscriptionFailed = '[Subscription] add Failed',
+    updateSubscrList = '[Subscription] update list',
+    deleteSubscription = '[Subscription] delete',
+    deleteSubscriptionFinished = '[Subscription] delete Finished',
+    deleteSubscriptionFailed = '[Subscription] delete Failed',
+    resetSubscriptionState = '[Subscription] reset state',
 }
 
 /**
  * The contract to pass to the action when we
  * want to retrieve the subscriptions
  */
-export interface SubscriptionRqstCmd {
+export interface FetchSubscriptionCmd {
     id: string;
     type: SubscriptionType;
 }
-
 
 export function resetSubscriptionState(): Action {
     return {
@@ -47,7 +50,21 @@ export function resetSubscriptionState(): Action {
 
 export function addSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
-        type: SubscriptionActions.addSubscrToEvent,
+        type: SubscriptionActions.addSubscription,
+        payload
+    };
+}
+
+export function addSubscriptionFinished(payload: Subscription): ActionWithPayload<Subscription> {
+    return {
+        type: SubscriptionActions.addSubscriptionFinished,
+        payload
+    };
+}
+
+export function addSubscriptionFailed(payload: Error): ActionWithPayload<Error> {
+    return {
+        type: SubscriptionActions.addSubscriptionFailed,
         payload
     };
 }
@@ -61,12 +78,26 @@ export function updateSubscription(payload: Subscription): ActionWithPayload<Sub
 
 export function deleteSubscription(payload: Subscription): ActionWithPayload<Subscription> {
     return {
-        type: SubscriptionActions.deleteSubscrFromEvent,
+        type: SubscriptionActions.deleteSubscription,
         payload
     };
 }
 
-export function getSubscriptionStart(payload: SubscriptionRqstCmd): ActionWithPayload<SubscriptionRqstCmd> {
+export function deleteSubscriptionFinished(payload: Subscription): ActionWithPayload<Subscription> {
+    return {
+        type: SubscriptionActions.deleteSubscriptionFinished,
+        payload
+    };
+}
+
+export function deleteSubscriptionFailed(payload: Error): ActionWithPayload<Error> {
+    return {
+        type: SubscriptionActions.deleteSubscriptionFailed,
+        payload
+    };
+}
+
+export function getSubscriptionStart(payload: FetchSubscriptionCmd): ActionWithPayload<FetchSubscriptionCmd> {
     return {
         type: SubscriptionActions.getSubscriptionListStart,
         payload

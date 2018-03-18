@@ -9,28 +9,53 @@ import {
     getSubscriptionFinished,
     getSubscriptionFailed,
     SubscriptionActions,
-    SubscriptionRqstCmd,
-    SubscriptionType } from '../actions/subscription.actions';
+    FetchSubscriptionCmd,
+    SubscriptionType, 
+    addSubscriptionFinished,
+    addSubscriptionFailed,
+    deleteSubscriptionFinished,
+    deleteSubscriptionFailed,
+} from '../actions/subscription.actions';
+import { Subscription } from '../models/Subscription';
 
 @Injectable()
 export class SubscriptionEffects {
 
-  @Effect()
-  getSubscrAsyncStart$ = this.actions$
+    @Effect()
+    getSubscrStart$ = this.actions$
         .ofType(SubscriptionActions.getSubscriptionListStart)
-        .map((action: Action) => {
-            const act = action as ActionWithPayload<SubscriptionRqstCmd>;
-            return act.payload;
-        })
-        .switchMap((payload: SubscriptionRqstCmd) => {
-            if (payload.type === SubscriptionType.User) {
-                return this._userSrvc.getSubscriptions(payload.id);
+        .switchMap((action: Action) => {
+            const act = action as ActionWithPayload<FetchSubscriptionCmd>;
+            if (act.payload.type === SubscriptionType.User) {
+                return this._userSrvc.getSubscriptions(act.payload.id);
             }
-            return this._eventSrvc.getSubscribers(payload.id);
+            return this._eventSrvc.getSubscribers(act.payload.id);
         })
         .map(subscrList => getSubscriptionFinished(subscrList))
         .catch((err: Error) => Observable.of(getSubscriptionFailed(err))
     );
+
+    @Effect()
+    addSubscription$ = this.actions$
+          .ofType(SubscriptionActions.addSubscription)
+          .switchMap((action: Action) => {
+              const act = action as ActionWithPayload<Subscription>;
+              return this._eventSrvc.susbcribeToEvent(act.payload);
+          })
+          .map(subscrList => addSubscriptionFinished(subscrList))
+          .catch((err: Error) => Observable.of(addSubscriptionFailed(err))
+      );
+
+      @Effect()
+      deleteSubscription$ = this.actions$
+            .ofType(SubscriptionActions.deleteSubscription)
+            .switchMap((action: Action) => {
+                const act = action as ActionWithPayload<Subscription>;
+                return this._eventSrvc.unsubscribeFromEvent(act.payload);
+            })
+            .map(subscr => deleteSubscriptionFinished(subscr))
+            .catch((err: Error) => Observable.of(deleteSubscriptionFailed(err))
+        );
 
     constructor(
         private _userSrvc: UsersService,

@@ -88,23 +88,25 @@ export class EventsService {
      * Subscribe a user to an event
      * @param subscr - the subscription with info about the event and the user
      */
-    susbcribeToEvent(subscr: Subscription): Observable<any> {
+    susbcribeToEvent(subscr: Subscription): Observable<Subscription> {
         if (!subscr.event_id || !subscr.user_id) {
             throw new Error(`Trying to subscribe to an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
-        return this._authHttp.post(`${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`, {})
-            .map((resp: Response): Array<Subscription> => resp.json());
+        const route = `${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`;
+        return this._authHttp.post(route, {})
+            .map((resp: Response): Subscription => subscr);
     }
 
     /**
      * Unsubscribe a user from an event
      * @param subscr - the subscription with info about the event and the user
      */
-    unsubscribeFromEvent(subscr: Subscription): Observable<any> {
+    unsubscribeFromEvent(subscr: Subscription): Observable<Subscription> {
         if (!subscr.event_id || !subscr.user_id) {
             throw new Error(`Trying to unsubscribe from an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
-        return this._authHttp.delete(`${BASE_URL}/${subscr.event_id }/users/${subscr.user_id}`)
-            .map((resp: Response): Array<Subscription> => resp.json());
+        const route = `${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`;
+        return this._authHttp.delete(route)
+            .map((resp: Response): Subscription => subscr);
     }
 }

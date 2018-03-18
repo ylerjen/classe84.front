@@ -1,6 +1,15 @@
 <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
+<div class="card" *ngIf="event">
+    <app-event-controls class="card-body"
+        [isSubscribed]="isSubscribed"
+        [isSubscribable]="isSubscribable"
+        [isAdmin]="isAdmin"
+        (goToEditEvent)="goToEdit()"
+        (deleteEvent)="delete()"
+        (subscribeToEvent)="subscribe()"
+        (unsubscribeFromEvent)="unsubscribe()"
+    ></app-event-controls>
+</div>
 <app-event-detail
     [event]="event"
-    (goToEditEvent)="goToEdit($event)"
-    (deleteEvent)="delete($event)"
-    ></app-event-detail>
+></app-event-detail>

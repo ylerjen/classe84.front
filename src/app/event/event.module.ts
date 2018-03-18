@@ -23,6 +23,7 @@ import { EventFormComponent } from './event-form/event-form.component';
 import { GeoresultFormComponent } from './components/georesult-form/georesult-form.component';
 import { EventSubscriptionsComponent } from './components/event-subscriptions/event-subscriptions.component';
 import { EventSubscriptionsViewerComponent } from './components/event-subscriptions-viewer/event-subscriptions-viewer.component';
+import { EventControlsComponent } from './components/event-controls/event-controls.component';
 
 const eventRoutes: Routes = [
     { path: 'events', component: EventlistPageComponent },
@@ -54,6 +55,7 @@ const eventRoutes: Routes = [
     declarations: [
         EventlistPageComponent,
         EventPageComponent,
+        EventControlsComponent,
         EventListComponent,
         EventDetailComponent,
         EventListWrapperComponent,

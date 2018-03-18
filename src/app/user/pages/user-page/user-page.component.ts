@@ -8,7 +8,7 @@ import { IGlobalState } from 'app/stores/globalState';
 import { getUserStart } from 'app/actions/user.actions';
 import { UsersService } from '../../services/users.service';
 import { IUserState } from 'app/stores/user/user.reducer';
-import { getSubscriptionStart, SubscriptionType, SubscriptionRqstCmd } from 'app/actions/subscription.actions';
+import { getSubscriptionStart, SubscriptionType, FetchSubscriptionCmd } from 'app/actions/subscription.actions';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 
 @Component({
@@ -51,7 +51,7 @@ export class UserPageComponent implements OnInit {
             .subscribe( (routeData: Params) => {
                 this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id;
-                const subscrRqstCmd: SubscriptionRqstCmd = {
+                const subscrRqstCmd: FetchSubscriptionCmd = {
                     id: this._id,
                     type: SubscriptionType.User
                 };

@@ -103,7 +103,7 @@ export class UsersService {
             .map( (resp: Response): Array<Event> => resp.json())
             .map( (events: Array<Event>) => events.map(
                 evt => {
-                    const subscr = new Subscription(evt);
+                    const subscr = new Subscription();
                     subscr.event = evt;
                     subscr.event_id = evt.id;
                     subscr.user_id = id;

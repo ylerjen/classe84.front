@@ -13,10 +13,10 @@ export class EventDetailComponent {
     public event: Event;
 
     @Output()
-    goToEditEvent = new EventEmitter<number>();
+    goToEditEvent = new EventEmitter<string>();
 
     @Output()
-    deleteEvent = new EventEmitter<number>();
+    deleteEvent = new EventEmitter<string>();
 
     onClickEdit(): void {
         if (this.event) {
