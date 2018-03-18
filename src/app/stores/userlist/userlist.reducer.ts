@@ -1,13 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { User } from 'app/models/User';
-import {
-    ASYNC_USERLIST_START,
-    ASYNC_USERLIST_FINISHED,
-    ADD_USER_IN_USERLIST,
-    DELETE_USER_FROM_USERLIST,
-    EMPTY_USERLIST
-} from 'app/actions/userlist.actions';
+import { UserlistActions } from 'app/actions/userlist.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface IUserListState {
@@ -24,12 +18,12 @@ export const initialState: IUserListState = {
 
 export function userlistReducer(state: IUserListState = initialState, action: Action): IUserListState {
     switch (action.type) {
-        case ASYNC_USERLIST_START:
+        case UserlistActions.GetListStart:
             return Object.assign({}, state, {
                 isLoading: true
             });
 
-        case ASYNC_USERLIST_FINISHED:
+        case UserlistActions.GetListFinished:
         {
             const act = action as ActionWithPayload<Array<User>>;
             return Object.assign({}, state, {
@@ -38,7 +32,7 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             });
         }
 
-        case ADD_USER_IN_USERLIST:
+        case UserlistActions.AddUserInList:
         {
             const act = action as ActionWithPayload<User>;
             return Object.assign({}, state, {
@@ -50,7 +44,7 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             });
         }
 
-        case DELETE_USER_FROM_USERLIST:
+        case UserlistActions.DeleteUserFromList:
         {
          const act = action as ActionWithPayload<User>;
          return Object.assign({}, state, {
@@ -61,11 +55,8 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             });
         }
 
-        case EMPTY_USERLIST:
-            return Object.assign({}, state, {
-                isLoading: false,
-                userList: []
-            });
+        case UserlistActions.ResetState:
+            return Object.assign({}, initialState);
 
         default:
             return state;
