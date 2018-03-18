@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { environment } from '../environments/environment';
-import { AppState, AppVersion } from './stores/app/app.reducer';
+import { AppVersion } from './stores/app/app.reducer';
 import { storeFrontVersion, storeApiVersion } from './actions/app.actions';
 import { Version } from './models/Version';
 import { AppService } from './services/app/app.service';
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._store.dispatch(storeFrontVersion(environment.version));
+        this._store.dispatch(storeFrontVersion(new Version(environment.version)));
         this._appSrvc.getApiVersion().subscribe(
             (resp: Version): void => this._store.dispatch(storeApiVersion(resp)),
             (err: any): void => {

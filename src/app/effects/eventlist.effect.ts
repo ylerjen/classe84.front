@@ -19,7 +19,7 @@ export class EventlistEffects {
         .switchMap(payload => this._evtSrvc.fetchAll())
         .map(eventlist => getEventListAsyncFinished(eventlist))
         .catch((err: Error) => Observable.of(getEventListAsyncFailed(err))
-    );pe
+    );
 
     constructor(
         private _evtSrvc: EventsService,
