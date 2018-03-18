@@ -15,14 +15,14 @@ import { changeEventListFilter, getEventListAsyncStart } from 'app/actions/event
 })
 export class EventListWrapperComponent implements OnInit {
 
+    private eventsList: Array<Event> = [];
+
     public filter: IEventListFilter =  {
         name: '',
         year: ''
     };
 
     public isLoading: boolean;
-
-    private eventsList: Array<Event> = [];
 
     public filteredList: Array<Event> = [];
 
