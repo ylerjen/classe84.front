@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 import { User } from 'app/models/User';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
-import { getUserAsyncStart } from 'app/actions/user.actions';
+import { getUserStart } from 'app/actions/user.actions';
 import { UsersService } from '../../services/users.service';
 import { IUserState } from 'app/stores/user/user.reducer';
-import { getSubscriptionAsyncStart } from 'app/actions/subscription.actions';
+import { getSubscriptionStart, SubscriptionType, SubscriptionRqstCmd } from 'app/actions/subscription.actions';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 
 @Component({
@@ -19,7 +19,7 @@ import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer
 })
 export class UserPageComponent implements OnInit {
 
-    private _id: number;
+    private _id: string;
     public isLoading: boolean;
     public isEditMode: boolean;
     public user: User;
@@ -30,9 +30,7 @@ export class UserPageComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private _userSrv: UsersService,
-    ) { }
-
-    ngOnInit(): void {
+    ) {
         this._store.select('userState')
             .subscribe(
                 (resp: IUserState) => {
@@ -46,14 +44,20 @@ export class UserPageComponent implements OnInit {
                 (subscrState: ISubscriptionState) => this.eventsSubscriptions = subscrState.subscriptionList,
                 (err: Error) => console.error(err)
             );
+    }
+
+    ngOnInit(): void {
         this._route.params
             .subscribe( (routeData: Params) => {
                 this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id;
-                this._store.dispatch(getUserAsyncStart(this._id));
-                this._store.dispatch(getSubscriptionAsyncStart(this._id));
+                const subscrRqstCmd: SubscriptionRqstCmd = {
+                    id: this._id,
+                    type: SubscriptionType.User
+                };
+                this._store.dispatch(getUserStart(this._id));
+                this._store.dispatch(getSubscriptionStart(subscrRqstCmd));
             });
-
     }
 
     deleteRequest(userId: number): void {

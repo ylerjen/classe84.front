@@ -54,7 +54,7 @@ export class EventFormViewerComponent {
             );
     }
 
-    goToDetails(eventId: number) {
+    goToDetails(eventId: string) {
         this._router.navigate([`/${ROUTE_URL.events}/${eventId}`]);
     }
 }

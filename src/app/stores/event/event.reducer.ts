@@ -16,10 +16,10 @@ export const initialState: IEventState = {
 
 export function eventReducer(state: IEventState = initialState, action?: Action): IEventState {
     switch (action.type) {
-        case EventActions.getEventAsyncStart:
+        case EventActions.getEventStart:
             return Object.assign({}, state, { isLoading: true });
 
-        case EventActions.getEventAsyncFinished:
+        case EventActions.getEventFinished:
         {
             const act = action as ActionWithPayload<Event>;
             return Object.assign({}, state, { event: act.payload, isLoading: false });

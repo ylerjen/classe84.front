@@ -30,5 +30,5 @@ export const globalState = {
     userState: userReducer,
     eventState: eventReducer,
     eventlistState: eventlistReducer,
-    subscriptionsState: subscriptionsReducer
+    subscriptionsState: subscriptionsReducer,
 };

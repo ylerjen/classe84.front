@@ -18,10 +18,10 @@ export const initialState: ISubscriptionState = {
 
 export function subscriptionsReducer(state: ISubscriptionState = initialState, action?: Action): ISubscriptionState {
     switch (action.type) {
-        case SubscriptionActions.getSubscriptionListAsyncStart:
+        case SubscriptionActions.getSubscriptionListStart:
             return Object.assign({}, state, { isLoading: true });
 
-        case SubscriptionActions.getSubscriptionListAsyncFinished:
+        case SubscriptionActions.getSubscriptionListFinished:
         {
             const act = action as ActionWithPayload<Array<Subscription>>;
             return Object.assign({}, state, {

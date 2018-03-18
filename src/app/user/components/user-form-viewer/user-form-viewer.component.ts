@@ -47,7 +47,7 @@ export class UserFormViewerComponent {
             );
     }
 
-    goToDetails(userId: number) {
+    goToDetails(userId: string) {
         this._router.navigate([`/${ROUTE_URL.users}/${userId}`]);
     }
 }

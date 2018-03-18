@@ -2,8 +2,8 @@ import { User } from './User';
 import { Event } from './Event';
 
 export class Subscription {
-    public event_id: number;
-    public user_id: number;
+    public event_id: string;
+    public user_id: string;
     public has_paid: number;
     public created_at: Date;
     public updated_at: Date;

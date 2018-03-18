@@ -27,7 +27,7 @@ export class UserFormComponent {
     saveEvent = new EventEmitter<User>();
 
     @Output()
-    cancelEvent = new EventEmitter<number>();
+    cancelEvent = new EventEmitter<string>();
 
     constructor(private fb: FormBuilder) { }
 

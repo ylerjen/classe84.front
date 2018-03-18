@@ -31,18 +31,15 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.sub = this.store$
-            .subscribe(
-                (eventState: IEventState) => {
-                    if (eventState.event) {
-                        const curEvent = new Event(eventState.event);
-                        this.event = curEvent;
-                        this.isLoading = eventState.isLoading;
-                    }
-                },
-                (err) => console.error(err),
-                () => this.isLoading = false
-            );
+        this.sub = this.store$.subscribe(
+            (eventState: IEventState) => {
+                if (eventState.event) {
+                    this.event = new Event(eventState.event);
+                    this.isLoading = eventState.isLoading;
+                }
+            },
+            (err) => console.error(err)
+        );
     }
 
     ngOnDestroy(): void {

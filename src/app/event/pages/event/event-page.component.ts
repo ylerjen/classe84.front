@@ -8,7 +8,8 @@ import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { getEventAsyncFinished } from 'app/actions/event.actions';
+import { getEventStart } from 'app/actions/event.actions';
+import { getSubscriptionStart, SubscriptionRqstCmd, SubscriptionType } from 'app/actions/subscription.actions';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -39,12 +40,12 @@ export class EventPageComponent implements OnInit {
         this._route.params
             .subscribe( (routeData: Params) => {
                 const id = routeData.id;
-                this._evtSrvc.getSubscribers(id).subscribe();
-                this.fetchEvent(id).subscribe(
-                    (resp) => console.log('display event page'),
-                    (error: any) => this._router.navigate(['unauthorized']),
-                    () => this.isLoading = false
-                );
+                const subscrRqstCmd: SubscriptionRqstCmd = {
+                    id,
+                    type: SubscriptionType.Event
+                };
+                this._store.dispatch(getEventStart(id));
+                this._store.dispatch(getSubscriptionStart(subscrRqstCmd));
             });
     }
 

@@ -9,7 +9,7 @@ export enum EGender {
  * A user object that describe a member person
  */
 export class User {
-    public id: number;
+    public id: string;
     public last_name: string;
     public maiden_name: string;
     public first_name: string;

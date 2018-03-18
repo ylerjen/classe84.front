@@ -98,7 +98,7 @@ export class UsersService {
      * Request the api to get all the events subscribed by the user
      * @param id - the id of the user
      */
-    getSubscriptions(id: number): Observable<Array<Subscription>> {
+    getSubscriptions(id: string): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${id}/events`)
             .map( (resp: Response): Array<Event> => resp.json())
             .map( (events: Array<Event>) => events.map(

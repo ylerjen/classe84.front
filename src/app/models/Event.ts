@@ -1,7 +1,7 @@
 import { Subscription } from './Subscription';
 
 export class Event {
-    public id: number;
+    public id: string;
     public title: string;
     public event_date: Date;
     public description: string;
@@ -12,7 +12,7 @@ export class Event {
     public link: string;
     public price: string;
     public created_at: string;
-    public created_by: number;
+    public created_by: string;
     public updated_at: string;
     public subscriberList: Array<Subscription>;
 

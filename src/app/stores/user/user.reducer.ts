@@ -17,10 +17,10 @@ export const initialState: IUserState = {
 export function userReducer(state: IUserState = initialState, action: Action): IUserState {
     switch (action.type) {
 
-        case UserActions.getUserAsyncStart:
+        case UserActions.getUserStart:
             return Object.assign({}, state, { isLoading: true });
 
-        case UserActions.getUserAsyncFinished:
+        case UserActions.getUserFinished:
         {
             const act = action as ActionWithPayload<User>;
             return Object.assign({}, state, { user: act.payload, isLoading: false });

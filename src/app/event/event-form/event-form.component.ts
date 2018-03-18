@@ -41,7 +41,7 @@ export class EventFormComponent implements OnInit {
     saveEvent = new EventEmitter<EventModel>();
 
     @Output()
-    cancelEvent = new EventEmitter<number>();
+    cancelEvent = new EventEmitter<string>();
 
     constructor(
         private _fb: FormBuilder,

@@ -4,18 +4,21 @@ import { Event } from '../models/Event';
 import { ActionWithPayload } from './app.actions';
 
 export enum EventActions {
-    getEventAsyncStart = '[Event] EVENT_ASYNC_START',
-    getEventAsyncFinished = '[Event] EVENT_ASYNC_SUCCESS',
-    addEvent = '[Event] ADD_EVENT',
-    updateEvent = '[Event] EVENT_UPDATE',
-    resetEventState = '[Event] RESET_EVENT_STATE',
+    getEventStart = '[Event] get start',
+    getEventFinished = '[Event] get finished',
+    getEventFailed = '[Event] get failed',
+    addEvent = '[Event] add',
+    updateEvent = '[Event] update',
+    resetEventState = '[Event] reset state',
 }
 
+
+// ==== List of Actions Fn ====
 
 export function resetEventState(): Action {
     return {
         type: EventActions.resetEventState
-    }
+    };
 }
 
 export function addEvent(payload: Event): ActionWithPayload<Event> {
@@ -32,22 +35,23 @@ export function updateEvent(payload: Event): ActionWithPayload<Event> {
     };
 }
 
-export function getEventAsyncStart(): Action {
+export function getEventStart(payload: string): ActionWithPayload<string> {
     return {
-        type: EventActions.getEventAsyncStart
-    };
-}
-
-export function getEventAsyncFinished(payload: Event): ActionWithPayload<Event> {
-    return {
-        type: EventActions.getEventAsyncFinished,
+        type: EventActions.getEventStart,
         payload
     };
 }
 
-export function getEventAsyncFailed(payload: Error): ActionWithPayload<Error> {
+export function getEventFinished(payload: Event): ActionWithPayload<Event> {
     return {
-        type: EventActions.getEventAsyncFinished,
+        type: EventActions.getEventFinished,
+        payload
+    };
+}
+
+export function getEventFailed(payload: Error): ActionWithPayload<Error> {
+    return {
+        type: EventActions.getEventFailed,
         payload
     };
 }

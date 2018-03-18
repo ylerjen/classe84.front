@@ -4,9 +4,9 @@ import { User } from '../models/User';
 import { ActionWithPayload } from './app.actions';
 
 export enum UserActions {
-    getUserAsyncStart = '[User] get Async Start',
-    getUserAsyncFinished = '[User] get Async Finished',
-    getUserAsyncFailed = '[User] get Async Failed',
+    getUserStart = '[User] get Start',
+    getUserFinished = '[User] get Finished',
+    getUserFailed = '[User] get Failed',
     addUser = '[User] add',
     updateUser = '[User] update',
     deleteUser = '[User] delete',
@@ -35,23 +35,23 @@ export function deleteUser(payload: User): ActionWithPayload<User> {
     };
 }
 
-export function getUserAsyncStart(payload: number): ActionWithPayload<number> {
+export function getUserStart(payload: string): ActionWithPayload<string> {
     return {
-        type: UserActions.getUserAsyncStart,
+        type: UserActions.getUserStart,
         payload
     };
 }
 
-export function getUserAsyncFinished(payload: User): ActionWithPayload<User> {
+export function getUserFinished(payload: User): ActionWithPayload<User> {
     return {
-        type: UserActions.getUserAsyncFinished,
+        type: UserActions.getUserFinished,
         payload
     };
 }
 
-export function getUserAsyncFailed(payload: Error): ActionWithPayload<Error> {
+export function getUserFailed(payload: Error): ActionWithPayload<Error> {
     return {
-        type: UserActions.getUserAsyncFailed,
+        type: UserActions.getUserFailed,
         payload
     };
 }

@@ -11,12 +11,9 @@ import { IGlobalState } from 'app/stores/globalState';
 import {
     addEvent,
     updateEvent,
-    getEventAsyncStart,
 } from 'app/actions/event.actions';
 import {
     deleteEventFromList,
-    changeEventListFilter,
-    getEventListAsyncStart,
 } from 'app/actions/eventlist.actions';
 
 const BASE_URL = `${env.API_URL}/events`;
@@ -50,7 +47,6 @@ export class EventsService {
     }
 
     create(event: Event): Observable<Response> {
-        console.log('add event from service');
         this._store.dispatch(addEvent(event));
         return this._authHttp.post(BASE_URL, event)
             .map( (resp: Response) => resp.json());
@@ -59,7 +55,7 @@ export class EventsService {
     update(event: Event): Observable<Response> {
         const endpoint = `${BASE_URL}/${event.id}`;
         this._store.dispatch(updateEvent(event));
-        console.log('add event from service => not finished: request create api');
+        console.error('add event from service => not finished: request create api');
         return this._authHttp.put(endpoint, event)
             .map( (resp: Response) => resp.json());
     }
@@ -73,7 +69,7 @@ export class EventsService {
     }
 
     delete(event: Event) {
-        console.log('delete from service => not finished: request delete api');
+        console.error('delete from service => not finished: request delete api');
         this._store.dispatch(deleteEventFromList(event));
     }
 
