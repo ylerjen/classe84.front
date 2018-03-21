@@ -1,37 +1,39 @@
 <div class="row">
-    <section class="card col-md-8">
-        <div class="card-body">
-            <h1 class="card-title">Membres</h1>
-            <div class="global-actions">
-                <a href="#/user/add" class="btn btn-outline-primary">
-                    <i class="fa fa-user-plus"></i>  <span class="d-none d-md-inline">New User</span>
-                </a>	
+    <section class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Membres</h1>
+                <div class="global-actions">
+                    <a href="#/user/add" class="btn btn-outline-primary">
+                        <i class="fa fa-user-plus"></i>  <span class="d-none d-md-inline">New User</span>
+                    </a>	
+                </div>
+                <app-user-list-wrapper></app-user-list-wrapper>
             </div>
-            <app-user-list-wrapper></app-user-list-wrapper>
         </div>
     </section>
     <aside class="col-md-4">
         <app-panel>
-            <span class="title"><i class="fa fa-birthday-cake"></i> Next birthday</span>
-            <span class="text" *ngIf="nextBirthdayUsers.length > 0">The next birthday is
+            <p class="title"><i class="fa fa-birthday-cake"></i> Next birthday</p>
+            <p class="text" *ngIf="nextBirthdayUsers.length > 0">The next birthday is
                 <a routerLink="/users/{{person.id}}" *ngFor="let person of nextBirthdayUsers; ">{{person.first_name}} {{person.last_name}}</a>
                 on {{nextBirthdayUsers[0].birthdate | date: "d MMMM"}}.
-            </span>
+            </p>
         </app-panel>        
         <app-panel *ngIf="top3SubscribersList && top3SubscribersList.length">
-            <span class="title"><i class="fa fa-trophy"></i> Hall of fame</span>
-            <span class="text">
+            <p class="title"><i class="fa fa-trophy"></i> Hall of fame</p>
+            <p class="text">
                 <ol class="top3-list">
                     <li *ngFor="let user of top3SubscribersList; let i=index">
                         <i class="fa fa-trophy" [style.color]="(i==0) ? 'gold': (i==1) ? 'silver': '#CD7F32'"></i>
                         <a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a> <span class="subscription-number">({{user.subscriptionsNb}} <i class="fa fa-calendar-check-o"></i>)</span>
                     </li>
                 </ol>
-            </span>
+            </p>
         </app-panel>  
         <app-panel>
-            <span class="title"><i class="fa fa-bar-chart"></i> Stats</span>
-            <span class="text">{{totalMembers}} members <br />{{totalMen}} men<br />{{totalWomen}} women<br />{{totalActive}} active members</span>
+            <p class="title"><i class="fa fa-bar-chart"></i> Stats</p>
+            <p class="text">{{totalMembers}} members <br />{{totalMen}} men<br />{{totalWomen}} women<br />{{totalActive}} active members</p>
         </app-panel>
     </aside>
 </div>
