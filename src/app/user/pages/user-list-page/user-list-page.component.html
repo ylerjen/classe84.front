@@ -5,7 +5,7 @@
                 <h1 class="card-title">Membres</h1>
                 <div class="global-actions">
                     <a href="#/user/add" class="btn btn-outline-primary">
-                        <i class="fa fa-user-plus"></i>  <span class="d-none d-md-inline">New User</span>
+                        <i class="fa fa-user-plus"></i> <span class="d-none d-md-inline">New User</span>
                     </a>	
                 </div>
                 <app-user-list-wrapper></app-user-list-wrapper>
@@ -21,12 +21,15 @@
             </p>
         </app-panel>        
         <app-panel *ngIf="top3SubscribersList && top3SubscribersList.length">
-            <p class="title"><i class="fa fa-trophy"></i> Hall of fame</p>
+            <p class="title">
+                <i class="fa fa-trophy"></i> Hall of fame
+            </p>
             <p class="text">
                 <ol class="top3-list">
                     <li *ngFor="let user of top3SubscribersList; let i=index">
                         <i class="fa fa-trophy" [style.color]="(i==0) ? 'gold': (i==1) ? 'silver': '#CD7F32'"></i>
-                        <a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a> <span class="subscription-number">({{user.subscriptionsNb}} <i class="fa fa-calendar-check-o"></i>)</span>
+                        <a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
+                        <span class="subscription-number">({{user.subscriptionsNb}} <i class="fa fa-calendar-check-o"></i>)</span>
                     </li>
                 </ol>
             </p>
