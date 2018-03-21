@@ -1,27 +1,29 @@
 <div class="row">
-    <section class="card col-md-8">
-        <div class="card-body">
-            <h1 class="card-title">Events</h1>
-            <div class="global-actions">
-                <a href="#/event/add" class="btn btn-outline-primary">
-                    <i class="fa fa-calendar-plus-o"></i> <span class="d-none d-md-inline">New Event</span>
-                </a>	
+    <section class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Events</h1>
+                <div class="global-actions">
+                    <a href="#/event/add" class="btn btn-outline-primary">
+                        <i class="fa fa-calendar-plus-o"></i> <span class="d-none d-md-inline">New Event</span>
+                    </a>	
+                </div>
+                <app-event-list-wrapper></app-event-list-wrapper>
             </div>
-            <app-event-list-wrapper></app-event-list-wrapper>
         </div>
     </section>
     <aside class="col-md-4">
         <app-panel>
-            <span class="title"><i class="fa fa-plane"></i> Event planned !</span>
-            <span class="text">There is a next event planned on 01-01-2022 : <strong>Souper 1234</strong></span>
+            <p class="title"><i class="fa fa-plane"></i> Event planned !</p>
+            <p class="text">There is a next event planned on 01-01-2022 : <a href="todo">Static Data ouper 1234</a></p>
         </app-panel>
         <app-panel>
-            <span class="title"><i class="fa fa-bar-chart"></i> Stats</span>
-            <span class="text">
-                <p>The average participation is 150 members.</p>
-                <p>The most frequented event was <strong>Souper 1234</strong> with 200 subscriptions.</p>
-                <p>The most rejected event was <strong>Souper 5678</strong> with 2 subscriptions.</p>
-            </span>
+            <p class="title"><i class="fa fa-bar-chart"></i> Stats</p>
+            <p class="text">
+                <span>The average participation is 150 members.</span>
+                <span>The most frequented event was <strong>Souper 1234</strong> with 200 subscriptions.</span>
+                <span>The most rejected event was <strong>Souper 5678</strong> with 2 subscriptions.</span>
+            </p>
         </app-panel>        
     </aside>
 </div>
