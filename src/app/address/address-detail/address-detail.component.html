@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
         <div class="address-item__logo">
-            <button *ngIf="!address.is_default;else favorite" (click)="setFavorite($event)" class="btn btn-outline-primary">
+            <button *ngIf="!address.is_default;else favorite" (click)="setFavorite($event)" class="btn btn-outline-primary btn-sm">
                 <i class="fa fa-2x fa-star-o" title="Set address as default"></i>
             </button>
         </div>
