@@ -6,8 +6,9 @@
     "baseUrl": "",
     "types": ["node"],
     "paths": {
-      "@models/*": ["./app/models/*"],
-      "@actions/*": ["./app/actions/*"]
+      "@models/*": ["app/models/*"],
+      "@actions/*": ["app/actions/*"],
+      "@shared/*": ["app/shared/*"]
     }
   },
   "exclude": [
