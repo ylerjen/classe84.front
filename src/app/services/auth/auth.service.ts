@@ -16,6 +16,8 @@ import { logout as logoutAction } from 'app/actions/session.actions';
 const LS_TOKEN_KEY = 'jwt-token';
 const LS_CRED_KEY = 'app84LoginCreds';
 
+const authBaseRoute = `${env.API_URL}/auth`;
+
 @Injectable()
 export class AuthService implements CanActivate {
     private _isLoggedIn = false;
@@ -39,7 +41,7 @@ export class AuthService implements CanActivate {
      * @param errorCb - the callback to call on success
      */
     login(creds: ICredentials, successCb?, errorCb?): Observable<string> {
-        const endpoint = `${env.API_URL}/login`;
+        const endpoint = `${authBaseRoute}/login`;
         return this._http.post(endpoint, creds)
             .map(res => res.json())
             .map(payload => {
@@ -57,7 +59,7 @@ export class AuthService implements CanActivate {
         this.deleteTokenInStorage();
         successCb();
 
-        // const endpoint = `${env.API_URL}/logout`;
+        // const endpoint = `${authBaseRoute}/logout`;
         // this._authHttp.post(endpoint, {})
         //     .map(res => res.json())
         //     .map(payload => logoutAction(payload))
@@ -84,7 +86,7 @@ export class AuthService implements CanActivate {
      * Get the authenticated user info according to the jwt-token
      */
     getAuthUser(): Observable<User> {
-        const endpoint = `${env.API_URL}/auth-user`;
+        const endpoint = `${authBaseRoute}/user`;
         return this._authHttp.get(endpoint)
             .map( resp => new User(resp.json().user));
     }
@@ -94,7 +96,7 @@ export class AuthService implements CanActivate {
      * @param email - is the email of the related user
      */
     recoverPassword(email): Observable<Response> {
-        const endpoint = `${env.API_URL}/reset-password`;
+        const endpoint = `${authBaseRoute}/reset-password`;
         const recoveryRoute = `${window.location.origin}/${ROUTE.restorePassword};${RECOVERY_TOKEN_PARAM_NAME}=${RECOVERY_TOKEN_VAR_NAME}`;
         const param = {
             email,
@@ -109,12 +111,12 @@ export class AuthService implements CanActivate {
      * @param recoveryToken - The recovery token to check
      */
     isRecoveryTokenValid(recoveryToken: string): Observable<Response> {
-        const endpoint = `${env.API_URL}/check-recovery-token-validity`;
+        const endpoint = `${authBaseRoute}/check-recovery-token-validity`;
         return this._http.post(endpoint, { recoveryToken });
     }
 
     changePassword(info: { email: string, currentPassword: string, newPassword: string }): Observable<Response> {
-        const endpoint = `${env.API_URL}/change-password`;
+        const endpoint = `${authBaseRoute}/change-password`;
         throw 'not implemented yet';
         // return this._http.post(endpoint, info);
     }
@@ -124,7 +126,7 @@ export class AuthService implements CanActivate {
      * @param info - are the infos that are needed for the password change request
      */
     changePasswordFromRecovery(info: { email: string, recoveryToken: string, password: string }): Observable<Response> {
-        const endpoint = `${env.API_URL}/change-password-from-recovery`;
+        const endpoint = `${authBaseRoute}/change-password-from-recovery`;
         return this._http.post(endpoint, info);
     }
 
