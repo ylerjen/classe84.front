@@ -6,7 +6,9 @@ import { ActionWithPayload } from './app.actions';
 export enum SessionActions {
     Login = '[Session] Login',
     Logout = '[Session] Logout',
-    SetUser = '[Session] Set User',
+    SetUser = '[Session] get Authenticated User',
+    SetUserFinished = '[Session] Set User finished',
+    SetUserFailed = '[Session] Set User failed',
 }
 
 export function login(payload: Object): ActionWithPayload<Object> {
@@ -17,6 +19,10 @@ export function logout(): Action {
     return { type: SessionActions.Logout };
 }
 
-export function setUser(payload: SessionUser): ActionWithPayload<SessionUser> {
-    return { type: SessionActions.SetUser, payload };
+export function setUser(): Action {
+    return { type: SessionActions.SetUser };
+}
+
+export function setUserFinished(payload: SessionUser): ActionWithPayload<SessionUser> {
+    return { type: SessionActions.SetUserFinished, payload };
 }

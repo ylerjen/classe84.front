@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 
 import { environment } from '../environments/environment';
 import { AppVersion } from './stores/app/app.reducer';
-import { storeFrontVersion, storeApiVersion } from './actions/app.actions';
+import { storeFrontVersion, getApiVersion } from './actions/app.actions';
 import { Version } from './models/Version';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { NotificationService } from './services/notification/notification.service';
-import { login, logout } from './actions/session.actions';
+import { login, logout, setUser } from './actions/session.actions';
 import { IGlobalState } from './stores/globalState';
 
 @Component({
@@ -38,20 +38,17 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this._store.dispatch(storeFrontVersion(new Version(environment.version)));
-        this._appSrvc.getApiVersion().subscribe(
-            (resp: Version): void => this._store.dispatch(storeApiVersion(resp)),
-            (err: any): void => {
-                this._notifSrvc.notifyError(JSON.stringify(err));
-            }
-        );
+        this._store.dispatch(getApiVersion());
+
         const token = this._authSrvc.getTokenFromStorage();
         if (token) {
-            this._authSrvc.getAuthUser()
-                .subscribe( (resp) => {
-                    this._store.dispatch(login({ loggedUser: resp, token }));
-                },
-                (err: Error) => this._store.dispatch(logout())
-            );
+            this._store.dispatch(login(token));
+            // this._authSrvc.getAuthUser()
+            //     .subscribe( (resp) => {
+            //         this._store.dispatch(login({ loggedUser: resp, token }));
+            //     },
+            //     (err: Error) => this._store.dispatch(logout())
+            // );
         }
     }
 }

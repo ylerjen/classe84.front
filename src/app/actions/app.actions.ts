@@ -2,17 +2,24 @@ import { Action } from '@ngrx/store';
 
 import { Version } from '../models/Version';
 
-export const STORE_API_VERSION = 'STORE_API_VERSION';
-export const STORE_FRNT_VERSION = 'STORE_FRNT_VERSION';
+export enum AppActions {
+    getApiVersion = '[app] get api version',
+    getApiVersionFinished = '[app] get api version finished',
+    getFrontVersion = '[app] get front version'
+}
 
 export interface ActionWithPayload<T> extends Action {
     payload: T;
 }
 
-export function storeApiVersion(payload: Version): ActionWithPayload<Version> {
-    return { type: STORE_API_VERSION, payload };
+export function getApiVersion(): Action {
+    return { type: AppActions.getApiVersion };
+}
+
+export function getApiVersionFinished(payload: Version): ActionWithPayload<Version> {
+    return { type: AppActions.getApiVersionFinished, payload };
 }
 
 export function storeFrontVersion(payload: Version): ActionWithPayload<Version> {
-    return { type: STORE_FRNT_VERSION, payload };
+    return { type: AppActions.getFrontVersion, payload };
 }
