@@ -24,7 +24,7 @@
             <p class="title">
                 <i class="fa fa-trophy"></i> Hall of fame
             </p>
-            <p class="text">
+            <div class="text">
                 <ol class="top3-list">
                     <li *ngFor="let user of top3SubscribersList; let i=index">
                         <i class="fa fa-trophy" [style.color]="(i==0) ? 'gold': (i==1) ? 'silver': '#CD7F32'"></i>
@@ -32,7 +32,7 @@
                         <span class="subscription-number">({{user.subscriptionsNb}} <i class="fa fa-calendar-check-o"></i>)</span>
                     </li>
                 </ol>
-            </p>
+            </div>
         </app-panel>  
         <app-panel>
             <p class="title"><i class="fa fa-bar-chart"></i> Stats</p>
