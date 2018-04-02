@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { Http, RequestOptions } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AuthHttp } from 'angular2-jwt';
 
 import { SharedModule } from '../shared/shared.module';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -18,7 +18,7 @@ import { PasswordConfirmFormComponent } from './password-confirm-form/password-c
 export const ROUTE = {
     restorePassword: 'restore-password',
     changePassword: 'change-password'
-}
+};
 export const RECOVERY_TOKEN_VAR_NAME = '${token}';
 export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
 

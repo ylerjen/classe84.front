@@ -5,14 +5,14 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription as RxjsSubscriptions } from 'rxjs/Subscription';
 
 import { ROUTE_URL } from 'app/config/router.config';
-import { IEventState } from 'app/stores/event/event.reducer';
+import { Session } from 'app/models/Session';
 import { Event } from 'app/models/Event';
 import { Subscription as EventSubscription, Subscription } from 'app/models/Subscription';
+import { addSubscription, deleteSubscription } from 'app/actions/subscription.actions';
 import { IGlobalState } from 'app/stores/globalState';
+import { IEventState } from 'app/stores/event/event.reducer';
 import { ISessionState } from 'app/stores/session/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { addSubscription, deleteSubscription } from 'app/actions/subscription.actions';
-import { User } from 'app/models/User';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -22,7 +22,7 @@ import { User } from 'app/models/User';
 export class EventDetailViewerComponent implements OnInit, OnDestroy {
 
     private subscrList: Array<EventSubscription> = [];
-    private sessionUser: User;
+    private session: Session;
     private rxjsSubscriptions: RxjsSubscriptions;
     private eventState$: Observable<IEventState>;
     private sessionState$: Observable<ISessionState>;
@@ -64,8 +64,8 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         this.rxjsSubscriptions.add(
             this.sessionState$.subscribe(
                 state => {
-                    if (state.isLoggedIn && state.loggedUser) {
-                        this.sessionUser = state.loggedUser;
+                    if (state.isLoggedIn && state.session.user) {
+                        this.session = state.session;
                     }
                     this.defineSubscriptionState();
                 }
@@ -74,11 +74,11 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
     }
 
     defineSubscriptionState() {
-        if (!this.sessionUser || !this.sessionUser.id || !Array.isArray(this.subscrList)) {
+        if (!this.session || !this.session.user.id || !Array.isArray(this.subscrList)) {
             this.isSubscribable = false;
         } else {
             this.isSubscribable = true;
-            this.isSubscribed = this.subscrList.some(subsc => subsc.user_id === this.sessionUser.id);
+            this.isSubscribed = this.subscrList.some(subsc => subsc.user_id === this.session.user.id);
         }
     }
 
@@ -116,11 +116,11 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         if (!this.event) {
             throw new Error('no valid Event is referenced');
         }
-        if (!this.sessionUser || !this.sessionUser.id) {
+        if (!this.session || !this.session.user || !this.session.user.id) {
             throw new Error('no valid session user id referenced');
         }
         const subscr = new Subscription({
-            user: this.sessionUser,
+            user: this.session.user,
             event: this.event,
         });
         this._store.dispatch(addSubscription(subscr));
@@ -130,11 +130,11 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         if (!this.event) {
             throw new Error('no valid Event is referenced');
         }
-        if (!this.sessionUser || !this.sessionUser.id) {
+        if (!this.session || !this.session.user || !this.session.user.id) {
             throw new Error('no valid session user id referenced');
         }
         const subscr = new Subscription({
-            user: this.sessionUser,
+            user: this.session.user,
             event: this.event,
         });
         this._store.dispatch(deleteSubscription(subscr));

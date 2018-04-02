@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UUID } from 'angular2-uuid';
 
-import { ICredentials } from 'app/models/Login';
+import { Login, LoginFactory } from 'app/models/Login';
 import { AuthService } from 'app/services/auth/auth.service';
 
 /**
@@ -16,7 +16,8 @@ import { AuthService } from 'app/services/auth/auth.service';
 })
 export class LoginFormComponent implements OnInit {
 
-    @Output() public loginEvent = new EventEmitter();
+    @Output()
+    public loginEvent = new EventEmitter();
 
     public compId: string;
 
@@ -37,7 +38,7 @@ export class LoginFormComponent implements OnInit {
         }
     }
 
-    createForm() {
+    createForm(): void {
         this.loginForm = this._fb.group({
             email: ['', Validators.required],
             password: ['', Validators.required],
@@ -45,12 +46,12 @@ export class LoginFormComponent implements OnInit {
         });
     }
 
-    resetForm() {
+    resetForm(): void {
         this.loginForm.reset();
     }
 
-    login() {
-        const creds: ICredentials = this.loginForm.value;
+    login(): void {
+        const creds: Login = LoginFactory.fromObject(this.loginForm.value);
         this.loginEvent.emit(creds);
     }
 

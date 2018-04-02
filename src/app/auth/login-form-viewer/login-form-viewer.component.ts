@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AuthService } from 'app/services/auth/auth.service';
 import { ISessionState } from 'app/stores/session/session.reducer';
-import { login as loginAction, setUser } from 'app/actions/session.actions';
-import { addNotif, deleteNotif } from 'app/actions/notifications.actions';
-import { Notification, ENotificationType, DEFAULT_NOTIF_DURATION } from 'app/models/Notification';
-import { SessionUser } from 'app/models/SessionUser';
-import { ICredentials } from 'app/models/Login';
+import { login } from 'app/actions/session.actions';
+import { Session } from 'app/models/Session';
+import { Login } from 'app/models/Login';
 import { IGlobalState } from 'app/stores/globalState';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-login-form-viewer',
     templateUrl: './login-form-viewer.component.html',
     styleUrls: ['./login-form-viewer.component.scss']
 })
-export class LoginFormViewerComponent implements OnInit {
+export class LoginFormViewerComponent implements OnInit, OnDestroy {
 
-    public loggedUser: SessionUser;
+    private subscription$: ISubscription;
 
-    public isLoggingIn: boolean;
+    public session: Session;
 
     public errorMsg: string;
 
@@ -29,47 +28,32 @@ export class LoginFormViewerComponent implements OnInit {
         private _authSrvc: AuthService,
         private _route: ActivatedRoute,
         private _router: Router,
-    ) {
-        this._store.select('sessionState')
-            .subscribe((state: ISessionState) => this.loggedUser = state.loggedUser ? state.loggedUser : null
-            );
-    }
+    ) { }
 
     ngOnInit() {
+        this.subscription$ = this._store.select('sessionState')
+            .subscribe(
+                (state: ISessionState) => this.session = state.session ? state.session : null
+            );
+    }
+    ngOnDestroy(): void {
+        this.subscription$.unsubscribe();
     }
 
-    onLogin(creds: ICredentials) {
+    onLogin(creds: Login) {
         if (creds.remember) {
-            this._authSrvc.setRememberedCreds(creds);
+            // TODO create this part but with secure cred mgmt
+            // this._authSrvc.setRememberedCreds(creds);
         }
-        this._authSrvc.login(creds)
-            .subscribe(
-            (token: string) => {
-                this._store.dispatch(loginAction(token));
-                this._authSrvc.getAuthUser()
-                    .subscribe(
-                    user => this._store.dispatch(setUser(new SessionUser(user)))
-                    );
-                this._route.params
-                    .subscribe((data: Params) => {
-                        if (data.redirectTo) {
-                            this._router.navigate([data.redirectTo]);
-                        }
-                    });
-            },
-            (err: Response) => {
-                console.log(err);
-                let msg;
-                if (err.json() instanceof ProgressEvent) {
-                    msg = "API error. See console";
-                } else {
-                    msg = err.json();
+
+        // TODO improve this redirection by calling an effect
+        const successCb = () => this._route.params
+            .subscribe((data: Params) => {
+                if (data.redirectTo) {
+                    this._router.navigate([data.redirectTo]);
                 }
-                const u = new Notification(msg, ENotificationType.ERROR);
-                this._store.dispatch(addNotif(u));
-                setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
-            },
-            () => this.isLoggingIn = false
-        );
+            });
+
+        this._store.dispatch(login(creds, successCb));
     }
 }

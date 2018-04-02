@@ -8,7 +8,7 @@ import { Version } from './models/Version';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { NotificationService } from './services/notification/notification.service';
-import { login, logout, setUser } from './actions/session.actions';
+import { login, logout, setExistingSession } from './actions/session.actions';
 import { IGlobalState } from './stores/globalState';
 
 @Component({
@@ -40,15 +40,9 @@ export class AppComponent implements OnInit {
         this._store.dispatch(storeFrontVersion(new Version(environment.version)));
         this._store.dispatch(getApiVersion());
 
-        const token = this._authSrvc.getTokenFromStorage();
-        if (token) {
-            this._store.dispatch(login(token));
-            // this._authSrvc.getAuthUser()
-            //     .subscribe( (resp) => {
-            //         this._store.dispatch(login({ loggedUser: resp, token }));
-            //     },
-            //     (err: Error) => this._store.dispatch(logout())
-            // );
+        const session = this._authSrvc.getStoredSession();
+        if (session) {
+            this._store.dispatch(setExistingSession(session));
         }
     }
 }

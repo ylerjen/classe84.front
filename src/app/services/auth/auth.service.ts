@@ -10,17 +10,29 @@ import { ROUTE, RECOVERY_TOKEN_PARAM_NAME, RECOVERY_TOKEN_VAR_NAME } from 'app/a
 import { User } from 'app/models/User';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISessionState } from 'app/stores/session/session.reducer';
-import { ICredentials } from 'app/models/Login';
+import { Login } from 'app/models/Login';
 import { logout as logoutAction } from 'app/actions/session.actions';
+import { Session } from '@models/Session';
 
-const LS_TOKEN_KEY = 'jwt-token';
+const STORAGE_SESSION_KEY = 'app-session';
 const LS_CRED_KEY = 'app84LoginCreds';
 
 const authBaseRoute = `${env.API_URL}/auth`;
 
 @Injectable()
 export class AuthService implements CanActivate {
+
     private _isLoggedIn = false;
+
+    static getSessionFromStorage(): Session {
+        const storageContent: Object = JSON.parse(sessionStorage.getItem(STORAGE_SESSION_KEY));
+        const session = new Session(storageContent);
+        return session;
+    }
+
+    static setSessionInStorage(session: Session): void {
+        sessionStorage.setItem(STORAGE_SESSION_KEY, JSON.stringify(session));
+    }
 
     constructor(
         private _http: Http,
@@ -40,14 +52,13 @@ export class AuthService implements CanActivate {
      * @param successCb - the callback to call on success
      * @param errorCb - the callback to call on success
      */
-    login(creds: ICredentials, successCb?, errorCb?): Observable<string> {
+    login(creds: Login, successCb?, errorCb?): Observable<Session> {
         const endpoint = `${authBaseRoute}/login`;
         return this._http.post(endpoint, creds)
-            .map(res => res.json())
-            .map(payload => {
-                const token: string = payload.token;
-                this.setTokenToStorage(token);
-                return token;
+            .map(res => {
+                const session: Session = new Session(res.json());
+                this.storeSession(session);
+                return session;
             });
     }
     /**
@@ -56,7 +67,7 @@ export class AuthService implements CanActivate {
      */
     logout(successCb: () => void): void {
         this._store.dispatch(logoutAction());
-        this.deleteTokenInStorage();
+        this.deleteSessionInStorage();
         successCb();
 
         // const endpoint = `${authBaseRoute}/logout`;
@@ -130,25 +141,25 @@ export class AuthService implements CanActivate {
         return this._http.post(endpoint, info);
     }
 
-    getTokenFromStorage(): string {
-        return sessionStorage.getItem(LS_TOKEN_KEY);
+    getStoredSession(): Session {
+        return AuthService.getSessionFromStorage();
     }
 
-    setTokenToStorage(token: string): void {
-        sessionStorage.setItem(LS_TOKEN_KEY, token);
+    storeSession(session: Session): void {
+        AuthService.setSessionInStorage(session);
     }
 
-    deleteTokenInStorage(): void {
-        sessionStorage.removeItem(LS_TOKEN_KEY);
+    deleteSessionInStorage(): void {
+        sessionStorage.removeItem(STORAGE_SESSION_KEY);
     }
 
-    getRememberedCreds(): ICredentials {
+    getRememberedCreds(): Login {
         const str = localStorage.getItem(LS_CRED_KEY);
         if (typeof str === 'string') {
             return JSON.parse(str);
         }
     }
-    setRememberedCreds(creds: ICredentials): void {
+    setRememberedCreds(creds: Login): void {
         const str = JSON.stringify(creds);
         localStorage.setItem(LS_CRED_KEY, str);
     }
@@ -158,7 +169,7 @@ export class AuthService implements CanActivate {
      * @returns {boolean} - if the token is still valid
      */
     isLoggedIn(): boolean {
-        return tokenNotExpired(LS_TOKEN_KEY, this.getTokenFromStorage());
+        return tokenNotExpired(STORAGE_SESSION_KEY, this.getStoredSession().token);
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -176,8 +187,8 @@ export class AuthService implements CanActivate {
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     const config = new AuthConfig({
-        tokenName: LS_TOKEN_KEY,
-        tokenGetter: (() => sessionStorage.getItem(LS_TOKEN_KEY)),
+        tokenName: STORAGE_SESSION_KEY,
+        tokenGetter: (() => AuthService.getSessionFromStorage().token),
         globalHeaders: [{ 'Content-Type': 'application/json' }],
         // noJwtError: true, // true = if jwt is missing, then fallback to simple http
     });

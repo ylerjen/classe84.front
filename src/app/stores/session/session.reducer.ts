@@ -1,43 +1,43 @@
 import { Action } from '@ngrx/store';
 
-import { SessionUser } from 'app/models/SessionUser';
+import { Session } from 'app/models/Session';
 import { SessionActions } from 'app/actions/session.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface ISessionState {
     isLoggedIn: boolean;
-    loggedUser: SessionUser;
-    token: string;
+    session: Session;
+    isProcessing: boolean;
 }
 
 export const initialState: ISessionState = {
     isLoggedIn: false,
-    loggedUser: null,
-    token: ''
+    session: null,
+    isProcessing: false
 };
 
 export function sessionReducer(state = initialState, action: Action): ISessionState {
     switch (action.type) {
         case SessionActions.Login:
         {
+            return Object.assign({}, state, {
+                isProcessing: true
+            });
+        }
+
+        case SessionActions.LoginFinished:
+        case SessionActions.SetExistingSession:
+        {
             const act = action as ActionWithPayload<ISessionState>;
             return Object.assign({}, state, {
                 isLoggedIn: true,
-                loggedUser: act.payload.loggedUser,
-                token: act.payload.token
+                session: act.payload,
+                isProcessing: false
             });
         }
 
         case SessionActions.Logout:
             return initialState;
-
-        case SessionActions.SetUser:
-        {
-            const act = action as ActionWithPayload<SessionUser>;
-            return Object.assign({}, state, {
-                loggedUser: act.payload
-            });
-        }
 
         default:
             return state;

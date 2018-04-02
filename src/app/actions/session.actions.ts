@@ -1,28 +1,34 @@
 import { Action } from '@ngrx/store';
 
-import { SessionUser } from '../models/SessionUser';
+import { Session } from '../models/Session';
+import { Login } from '../models/Login';
 import { ActionWithPayload } from './app.actions';
 
 export enum SessionActions {
     Login = '[Session] Login',
     Logout = '[Session] Logout',
-    SetUser = '[Session] get Authenticated User',
-    SetUserFinished = '[Session] Set User finished',
-    SetUserFailed = '[Session] Set User failed',
+    LoginFinished = '[Session] Login finished',
+    LoginFailed = '[Session] Login failed',
+    SetExistingSession = '[Session] set Authenticated User',
 }
 
-export function login(payload: Object): ActionWithPayload<Object> {
+export function login(payload: Login, successCb?: Function, errCb?: Function): ActionWithPayload<Login> {
+    console.warn('manage successCb and errCb');
     return { type: SessionActions.Login, payload };
+}
+
+export function loginFinished(payload: Session): ActionWithPayload<Session> {
+    return { type: SessionActions.LoginFinished, payload };
+}
+
+export function loginFailed(payload: Error): ActionWithPayload<Error> {
+    return { type: SessionActions.LoginFailed, payload };
 }
 
 export function logout(): Action {
     return { type: SessionActions.Logout };
 }
 
-export function setUser(): Action {
-    return { type: SessionActions.SetUser };
-}
-
-export function setUserFinished(payload: SessionUser): ActionWithPayload<SessionUser> {
-    return { type: SessionActions.SetUserFinished, payload };
+export function setExistingSession(payload: Session): ActionWithPayload<Session> {
+    return { type: SessionActions.SetExistingSession, payload };
 }

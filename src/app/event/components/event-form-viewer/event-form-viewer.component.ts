@@ -41,7 +41,7 @@ export class EventFormViewerComponent {
 
     saveEvent(event: EventModel) {
         if (!event.id) {
-            event.created_by = this._sessionState.loggedUser.id;
+            event.created_by = this._sessionState.session.user.id;
         }
         this._evtSrvc.save(event)
             .subscribe(

@@ -29,6 +29,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
+import { SessionEffects } from './effects/session.effect';
 import { AddressEffects } from './effects/address.effect';
 import { UserEffects } from './effects/user.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
@@ -54,6 +55,7 @@ import { EventlistEffects } from './effects/eventlist.effect';
         StoreModule.forRoot(globalState),
         RouterModule.forRoot(appRoutes),
         EffectsModule.forRoot([
+            SessionEffects,
             UserEffects,
             AddressEffects,
             SubscriptionEffects,

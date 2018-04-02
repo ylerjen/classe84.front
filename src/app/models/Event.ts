@@ -9,9 +9,9 @@ export class Event {
     public longitude: number;
     public link: string;
     public price: string;
-    public created_at: string;
+    public created_at: Date;
     public created_by: string;
-    public updated_at: string;
+    public updated_at: Date;
 
     constructor(props: { [key: string]: any } = {}) {
         this.id = props.id;
@@ -24,16 +24,24 @@ export class Event {
         this.link = props.link;
         this.price = props.price;
         this.organisator = props.organisator;
-        if (props.created_at && props.created_at.length >= 19) {
-            this.created_at = dateTimeToString(props.created_at as string);
-        }
-        if (props.updated_at && props.updated_at.length >= 19) {
-            this.updated_at = dateTimeToString(props.updated_at as string);
-        }
+        this.created_at = multiTypeDateToDate(props.created_at);
+        this.updated_at = multiTypeDateToDate(props.updated_at);
         this.created_by = props.created_by;
     }
 }
 
 function dateTimeToString(dt: string): string {
     return `${dt.substr(8, 2)}.${dt.substr(5, 2)}.${dt.substr(0, 4)} ${dt.substr(11, 2)}:${dt.substr(14, 2)}`;
+}
+
+function multiTypeDateToDate(refDate: string | Date): Date {
+    if (!refDate) {
+        return null;
+    } else if (typeof refDate === 'string') {
+        return new Date(refDate);
+    } else if (typeof refDate === 'object' && typeof refDate.getHours === 'function') {
+        return refDate;
+    }
+
+    return null;
 }

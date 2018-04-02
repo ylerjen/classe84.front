@@ -44,15 +44,13 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         );
         this.subUser = this.storeUser$.subscribe(
             (userState: IUserState) => {
-                console.log(userState);
                 if (userState.user) {
                     const curUser = new User(userState.user);
                     this.user = curUser;
                     this.isLoading = userState.isLoading;
                     this._store.dispatch(getAddressListAsync(this.user.id.toString()));
                 }
-            },
-            () => {}
+            }
         );
     }
 
