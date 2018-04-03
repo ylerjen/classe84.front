@@ -26,14 +26,14 @@ export class User {
 
     get fullname(): string {
         let name = '';
-        if (this.last_name) {
-            name += `${this.last_name}`;
+        if (this.first_name) {
+            name += `${this.first_name}`;
         }
         if (this.maiden_name) {
             name += ` (${this.maiden_name})`;
         }
-        if (this.first_name) {
-            name += ` ${this.first_name}`;
+        if (this.last_name) {
+            name += ` ${this.last_name}`;
         }
         return name;
     }
