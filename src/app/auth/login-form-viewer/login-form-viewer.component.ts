@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { AuthService } from 'app/services/auth/auth.service';
+import { AuthService } from '../services/auth.service';
 import { ISessionState } from 'app/stores/session/session.reducer';
 import { login } from 'app/actions/session.actions';
 import { Session } from 'app/models/Session';
@@ -44,6 +44,8 @@ export class LoginFormViewerComponent implements OnInit, OnDestroy {
         if (creds.remember) {
             // TODO create this part but with secure cred mgmt
             // this._authSrvc.setRememberedCreds(creds);
+        } else {
+            this._authSrvc.deleteRememberedCreds();
         }
 
         // TODO improve this redirection by calling an effect

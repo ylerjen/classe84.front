@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 
 import { Event as EventModel } from 'app/models/Event';
-import { GeoService, IReverseGeoCodeResponse, IReverseGeoCodeResult } from 'app/services/geo/geo.service';
+import { GeoService, IReverseGeoCodeResponse, IReverseGeoCodeResult } from '@shared/services/geo/geo.service';
 import { Coordinates } from 'app/models/Coordinates';
 
 @Component({

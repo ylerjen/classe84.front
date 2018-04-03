@@ -9,7 +9,7 @@ import { User } from 'app/models/User';
 import { IUserListState } from 'app/stores/userlist/userlist.reducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { UsersService } from 'app/user/services/users.service';
-import { NotificationService } from 'app/services/notification/notification.service';
+import { NotificationService } from '@shared/services/notification/notification.service';
 import { getUserListAsyncFinished } from 'app/actions/userlist.actions';
 import { IGlobalState } from 'app/stores/globalState';
 

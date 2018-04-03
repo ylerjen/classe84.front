@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/filter';
 
 import { environment } from '../environments/environment';
+import { Version } from './models/Version';
+import { IGlobalState } from './stores/globalState';
+import { setExistingSession, logout } from './actions/session.actions';
 import { AppVersion } from './stores/app/app.reducer';
 import { storeFrontVersion, getApiVersion } from './actions/app.actions';
-import { Version } from './models/Version';
-import { AppService } from './services/app/app.service';
-import { AuthService } from './services/auth/auth.service';
-import { NotificationService } from './services/notification/notification.service';
-import { login, logout, setExistingSession } from './actions/session.actions';
-import { IGlobalState } from './stores/globalState';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -25,9 +24,7 @@ export class AppComponent implements OnInit {
 
     constructor(
         private _store: Store<IGlobalState>,
-        private _appSrvc: AppService,
         private _authSrvc: AuthService,
-        private _notifSrvc: NotificationService,
     ) {
         this._store.select('appState')
             .subscribe(

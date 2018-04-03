@@ -9,6 +9,8 @@ export enum SessionActions {
     Logout = '[Session] Logout',
     LoginFinished = '[Session] Login finished',
     LoginFailed = '[Session] Login failed',
+    LogoutFinished = '[Session] Logout finished',
+    LogoutFailed = '[Session] Logout failed',
     SetExistingSession = '[Session] set Authenticated User',
 }
 
@@ -27,6 +29,14 @@ export function loginFailed(payload: Error): ActionWithPayload<Error> {
 
 export function logout(): Action {
     return { type: SessionActions.Logout };
+}
+
+export function logoutFinished(): Action {
+    return { type: SessionActions.LogoutFinished };
+}
+
+export function logoutFailed(payload: Error): ActionWithPayload<Error> {
+    return { type: SessionActions.LogoutFailed, payload };
 }
 
 export function setExistingSession(payload: Session): ActionWithPayload<Session> {

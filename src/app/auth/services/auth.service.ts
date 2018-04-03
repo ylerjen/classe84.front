@@ -10,12 +10,12 @@ import { ROUTE, RECOVERY_TOKEN_PARAM_NAME, RECOVERY_TOKEN_VAR_NAME } from 'app/a
 import { User } from 'app/models/User';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISessionState } from 'app/stores/session/session.reducer';
-import { Login } from 'app/models/Login';
+import { Login, LoginFactory } from 'app/models/Login';
 import { logout as logoutAction } from 'app/actions/session.actions';
 import { Session } from '@models/Session';
 
 const STORAGE_SESSION_KEY = 'app-session';
-const LS_CRED_KEY = 'app84LoginCreds';
+const LS_CRED_KEY = 'app-login-creds';
 
 const authBaseRoute = `${env.API_URL}/auth`;
 
@@ -26,8 +26,7 @@ export class AuthService implements CanActivate {
 
     static getSessionFromStorage(): Session {
         const storageContent: Object = JSON.parse(sessionStorage.getItem(STORAGE_SESSION_KEY));
-        const session = new Session(storageContent);
-        return session;
+        return storageContent ? new Session(storageContent) : null;
     }
 
     static setSessionInStorage(session: Session): void {
@@ -65,32 +64,9 @@ export class AuthService implements CanActivate {
      * Logout the user of the current session
      * @param successCb - a callback to execute when the logout succeed
      */
-    logout(successCb: () => void): void {
-        this._store.dispatch(logoutAction());
-        this.deleteSessionInStorage();
-        successCb();
-
-        // const endpoint = `${authBaseRoute}/logout`;
-        // this._authHttp.post(endpoint, {})
-        //     .map(res => res.json())
-        //     .map(payload => logoutAction(payload))
-        //     .subscribe(
-        //         logoutAction => {
-        //             this._store.dispatch(logoutAction);
-        //             this.deleteTokenInStorage();
-        //             successCb();
-        //         },
-        //         err => {
-        //             console.log(err);
-        //             if (err.status === 0) {
-        //                 err.statusText = 'API not reachable';
-        //             }
-        //             const u = new Notification(`Error : ${err.statusText}`, ENotificationType.ERROR);
-        //             this._store.dispatch(addNotif(u));
-        //             setTimeout(() => this._store.dispatch(deleteNotif(u)), DEFAULT_NOTIF_DURATION);
-        //         }
-        //     );
-
+    logout(): Observable<Response> {
+        const endpoint = `${authBaseRoute}/logout`;
+        return this._authHttp.post(endpoint, {});
     }
 
     /**
@@ -156,12 +132,17 @@ export class AuthService implements CanActivate {
     getRememberedCreds(): Login {
         const str = localStorage.getItem(LS_CRED_KEY);
         if (typeof str === 'string') {
-            return JSON.parse(str);
+            return LoginFactory.fromObject(JSON.parse(str));
         }
     }
+
     setRememberedCreds(creds: Login): void {
         const str = JSON.stringify(creds);
         localStorage.setItem(LS_CRED_KEY, str);
+    }
+
+    deleteRememberedCreds(): void {
+        localStorage.removeItem(LS_CRED_KEY);
     }
 
     /**
@@ -169,7 +150,8 @@ export class AuthService implements CanActivate {
      * @returns {boolean} - if the token is still valid
      */
     isLoggedIn(): boolean {
-        return tokenNotExpired(STORAGE_SESSION_KEY, this.getStoredSession().token);
+        const storageContent = this.getStoredSession();
+        return storageContent ? tokenNotExpired(STORAGE_SESSION_KEY, storageContent.token) : false;
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {

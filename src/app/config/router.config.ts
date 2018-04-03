@@ -1,21 +1,18 @@
 import { Routes } from '@angular/router';
 
-import { AuthService } from '../services/auth/auth.service';
 import { LoginPageComponent } from '../pages/login-page/login.page';
-import { LoginFormViewerComponent } from '../auth/login-form-viewer/login-form-viewer.component';
-import { AccountRecoveryViewerComponent } from '../auth/account-recovery-viewer/account-recovery-viewer.component';
 import { HomePage } from '../pages/home-page/home.page';
 import { AboutPage } from '../pages/about-page/about.page';
 import { ContactPageComponent } from '../contact/contact-page/contact-page.component';
-import { EventlistPageComponent } from '../event/pages/eventlist/eventlist-page.component';
-import { EventPageComponent } from '../event/pages/event/event-page.component';
 import { NotFoundPage } from '../pages/not-found/not-found.page';
 import { UnauthorizedPage } from '../pages/unauthorized/unauthorized.page';
+import { LogoutPageComponent } from '../pages/logout-page/logout-page.component';
 
 export const ROUTE_URL: { [key: string]: string } = {
     default: '',
     about: 'about',
     login: 'login',
+    logout: 'logout',
     events: 'events',
     users: 'users',
     byId: ':id',
@@ -41,6 +38,9 @@ export const appRoutes: Routes = [
     }, {
         path: ROUTE_URL.login,
         component: LoginPageComponent
+    }, {
+        path: ROUTE_URL.logout,
+        component: LogoutPageComponent
     },
     // {
     //     path: '',

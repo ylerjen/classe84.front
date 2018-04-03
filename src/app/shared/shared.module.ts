@@ -7,7 +7,8 @@ import { ValidationErrorComponent } from './validation-error/validation-error.co
 import { PanelComponent } from './panel/panel.component';
 import { PhoneNbPipe } from './pipes/phone-nb.pipe';
 import { FlipComponent } from './flip/flip.component';
-import { GeoService } from 'app/services/geo/geo.service';
+import { GeoService } from './services/geo/geo.service';
+import { NotificationService } from './services/notification/notification.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ModalComponent } from './modal/modal.component';
 
@@ -18,6 +19,7 @@ import { ModalComponent } from './modal/modal.component';
     ],
     providers: [
         GeoService,
+        NotificationService,
     ],
     declarations: [
         PanelComponent,

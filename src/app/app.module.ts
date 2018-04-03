@@ -19,8 +19,6 @@ import { AppComponent } from './app.component';
 import { appRoutes } from './config/router.config';
 import { globalState } from './stores/globalState';
 import { AppService } from './services/app/app.service';
-import { AuthService } from './services/auth/auth.service';
-import { NotificationService } from './services/notification/notification.service';
 import { HomePage } from './pages/home-page/home.page';
 import { LoginPageComponent } from './pages/login-page/login.page';
 import { AboutPage } from './pages/about-page/about.page';
@@ -35,6 +33,7 @@ import { UserEffects } from './effects/user.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
 import { EventEffects } from './effects/event.effect';
 import { EventlistEffects } from './effects/eventlist.effect';
+import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 
 
 @NgModule({
@@ -48,6 +47,7 @@ import { EventlistEffects } from './effects/eventlist.effect';
         NotifierComponent,
         UnauthorizedPage,
         NotFoundPage,
+        LogoutPageComponent,
     ],
     imports: [
         BrowserModule,
@@ -77,8 +77,6 @@ import { EventlistEffects } from './effects/eventlist.effect';
     ],
     providers: [
         AppService,
-        AuthService,
-        NotificationService,
     ],
     bootstrap: [ AppComponent ]
 })

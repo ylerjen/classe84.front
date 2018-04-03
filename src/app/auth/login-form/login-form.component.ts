@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 
 import { Login, LoginFactory } from 'app/models/Login';
-import { AuthService } from 'app/services/auth/auth.service';
+import { AuthService } from '../services/auth.service';
 
 /**
  * Login form
@@ -26,14 +26,13 @@ export class LoginFormComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private _authSrvc: AuthService,
-    ) {
-        this.createForm();
-    }
+    ) { }
 
     ngOnInit(): void {
+        this.createForm();
         this.compId = UUID.UUID();
         const creds = this._authSrvc.getRememberedCreds();
-        if (creds) {
+        if (creds.email && creds.password) {
             this.loginForm.setValue(creds);
         }
     }

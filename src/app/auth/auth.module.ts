@@ -7,7 +7,7 @@ import { AuthHttp } from 'angular2-jwt';
 
 import { SharedModule } from '../shared/shared.module';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { authHttpServiceFactory } from '../services/auth/auth.service';
+import { AuthService, authHttpServiceFactory } from './services/auth.service';
 import { AccountRecoveryFormComponent } from './account-recovery/account-recovery-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RestorePasswordComponent } from './restore-password/restore-password.component';
@@ -36,6 +36,7 @@ const authRoutes: Routes = [
         SharedModule,
     ],
     providers: [
+        AuthService,
         {
             provide: AuthHttp,
             useFactory: authHttpServiceFactory,

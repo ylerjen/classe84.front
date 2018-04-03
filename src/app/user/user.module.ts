@@ -6,7 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 import { GMAP_API_KEY } from 'app/config/settings';
 import { SharedModule } from 'app/shared/shared.module';
 import { AddressModule } from 'app/address/address.module';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../auth/services/auth.service';
 import { UsersService } from './services/users.service';
 import { AddressService } from '../address/address.service';
 import { UserPageComponent } from './pages/user-page/user-page.component';

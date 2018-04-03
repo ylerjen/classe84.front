@@ -9,8 +9,8 @@ import 'rxjs/add/operator/finally';
 import { UUID } from 'angular2-uuid';
 
 import { RECOVERY_TOKEN_PARAM_NAME } from '../auth.module';
-import { AuthService } from 'app/services/auth/auth.service';
-import { NotificationService } from 'app/services/notification/notification.service';
+import { AuthService } from '../services/auth.service';
+import { NotificationService } from '@shared/services/notification/notification.service';
 import { CustomValidators } from 'app/shared/validators/CustomValidators';
 
 /**

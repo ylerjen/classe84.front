@@ -3,11 +3,11 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
+import { ENotificationType } from '@models/Notification';
 import { ActionWithPayload } from '@actions/app.actions';
 import { getUserFinished, getUserFailed, UserActions } from '@actions/user.actions';
 import { UsersService } from 'app/user/services/users.service';
-import { NotificationService } from '../services/notification/notification.service';
-import { ENotificationType } from '@models/Notification';
+import { NotificationService } from '@shared/services/notification/notification.service';
 
 @Injectable()
 export class UserEffects {

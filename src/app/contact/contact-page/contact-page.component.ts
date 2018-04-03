@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 import { RECAPTCHA_KEY } from 'app/config/settings';
 import { Contact } from 'app/models/Contact';
 import { ContactService } from '../services/contact.service';
-import { NotificationService } from 'app/services/notification/notification.service';
+import { NotificationService } from '@shared/services/notification/notification.service';
 import { ContactFormComponent } from '../contact-form/contact-form.component';
 
 @Component({

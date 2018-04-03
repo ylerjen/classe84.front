@@ -7,7 +7,7 @@ import { IEventState } from 'app/stores/event/event.reducer';
 import { EventsService } from '../../services/events.service';
 import { Event as EventModel } from 'app/models/Event';
 import { updateEvent } from 'app/actions/event.actions';
-import { NotificationService } from 'app/services/notification/notification.service';
+import { NotificationService } from '@shared/services/notification/notification.service';
 
 import { ROUTE_URL } from 'app/config/router.config';
 import { IGlobalState } from 'app/stores/globalState';

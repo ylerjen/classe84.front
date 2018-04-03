@@ -6,7 +6,7 @@ import { IUserState } from 'app/stores/user/user.reducer';
 import { User } from 'app/models/User';
 import { updateUser } from 'app/actions/user.actions';
 import { UsersService } from 'app/user/services/users.service';
-import { NotificationService } from 'app/services/notification/notification.service';
+import { NotificationService } from '@shared/services/notification/notification.service';
 
 import { ROUTE_URL } from 'app/config/router.config';
 import { IGlobalState } from 'app/stores/globalState';

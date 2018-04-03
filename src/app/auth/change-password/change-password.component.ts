@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 
 import { PasswordConfirmFormComponent } from '../password-confirm-form/password-confirm-form.component';
-import { AuthService } from 'app/services/auth/auth.service';
-import { NotificationService } from 'app/services/notification/notification.service';
+import { AuthService } from '../services/auth.service';
+import { NotificationService } from '@shared/services/notification/notification.service';
 
 /**
  * The ChangePasswordComponent is used to change the password of the current login session.

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { AuthService } from 'app/services/auth/auth.service';
-import { NotificationService } from 'app/services/notification/notification.service';
+import { AuthService } from '../services/auth.service';
+import { NotificationService } from '@shared/services/notification/notification.service';
 
 @Component({
     selector: 'app-account-recovery-viewer',

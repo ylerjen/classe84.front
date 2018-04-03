@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Session } from 'app/models/Session';
-import { User } from 'app/models/User';
 import { IGlobalState } from 'app/stores/globalState';
+import { logout } from '@actions/session.actions';
 import { ISessionState } from 'app/stores/session/session.reducer';
-import { AuthService } from 'app/services/auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -57,8 +57,6 @@ export class HeaderComponent implements OnInit {
 
     onLogout(event: Event): void {
         event.preventDefault();
-        this._authSrvc.logout( () => {
-            this._router.navigate(['login']);
-        });
+        this._store.dispatch(logout());
     }
 }
