@@ -47,8 +47,13 @@ export class SessionEffects {
         .ofType(SessionActions.Logout)
         .switchMap((creds: Action): Observable<Response> => this._authSrvc.logout())
         .map((res: Response): Action => logoutFinished())
-        .catch((err: Response): Observable<ActionWithPayload<Error>> => {
-            const action = logoutFailed(new Error('Unhandled service error. Please report this to the web admin !'));
+        .catch((err: Error): Observable<Action> => {
+            let action: Action;
+            if (err.message === 'No JWT present or has expired') {
+                action = logoutFinished();
+            } else {
+                action = logoutFailed(new Error('Unhandled service error. Please report this to the web admin !'));
+            }
             return Observable.of(action);
         });
 
