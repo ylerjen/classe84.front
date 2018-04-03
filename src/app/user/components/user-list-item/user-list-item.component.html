@@ -3,7 +3,7 @@
         <i class="user-ico fa" [ngClass]="[user.gender==='M' ? 'fa-mars male' : 'fa-venus female']"></i>
     </div>
     <div class="item-desc">
-        <div class="user-name" [ngClass]="{inactiv: (!user.is_active)}">{{user.last_name}} {{user.first_name}}</div>
+        <div class="user-name" [ngClass]="{inactiv: (!user.is_active)}">{{user.fullname}}</div>
         <div class="user-birthdate">{{user.birthdate | date: 'dd.MM.yyyy'}}</div>
     </div>
 </a>
