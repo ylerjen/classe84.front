@@ -12,6 +12,6 @@ export class Session {
     constructor(opts: { [key: string]:  any }) {
         this.loginTime = opts.loginTime || new Date();
         this.token = opts.token;
-        this.user = opts.user;
+        this.user = opts.user ? new User(opts.user) : null;
     }
 }
