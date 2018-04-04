@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
         this._store.dispatch(getApiVersion());
 
         const session = this._authSrvc.getStoredSession();
-        if (session) {
+        if (session && this._authSrvc.isTokenValid(session.token)) {
             this._store.dispatch(setExistingSession(session));
         }
     }

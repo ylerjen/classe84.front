@@ -146,12 +146,21 @@ export class AuthService implements CanActivate {
     }
 
     /**
-     * Check if the current session token name is still valid
-     * @returns {boolean} - if the token is still valid
+     * Check if the current session is still valid and not expired
+     * @returns {boolean} - if the still has a valid session
      */
     isLoggedIn(): boolean {
         const storageContent = this.getStoredSession();
-        return storageContent ? tokenNotExpired(STORAGE_SESSION_KEY, storageContent.token) : false;
+        return storageContent ? this.isTokenValid(storageContent.token) : false;
+    }
+
+    /**
+     * Check if the jwt token is still valid according the content and the expiration date
+     * @param token - the jwt token
+     * @returns {boolean} - if the token is still valid
+     */
+    isTokenValid(token: string): boolean {
+        return tokenNotExpired(STORAGE_SESSION_KEY, token);
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
