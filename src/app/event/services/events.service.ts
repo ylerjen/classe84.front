@@ -109,4 +109,14 @@ export class EventsService {
         return this._authHttp.delete(route)
             .map((resp: Response): Subscription => subscr);
     }
+
+    /**
+     * Find the next planned event if any
+     * @returns an observable of 'getNextEvent' request's response body
+     */
+    getNextEvent(): Observable<Event> {
+        const route = `${BASE_URL}/next`;
+        return this._http.get(route)
+            .map( (resp: Response) => new Event(resp.json()));
+    }
 }

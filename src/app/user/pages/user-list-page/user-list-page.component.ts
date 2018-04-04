@@ -29,10 +29,13 @@ export class UserListPageComponent implements OnInit {
 
     ngOnInit(): void {
         this._userSrvc.fetchAll();
+
         this._userSrvc.fetchNextBirthday()
             .subscribe( (userList: Array<User>) => this.nextBirthdayUsers = userList);
+
         this._userSrvc.getTopSubscriptions()
             .subscribe( (userList: Array<User>) => this.top3SubscribersList = userList);
+
         this._store.select('userlistState')
             .subscribe( (uState: IUserListState) => {
                 if (uState) {

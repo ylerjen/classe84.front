@@ -13,9 +13,9 @@
         </div>
     </section>
     <aside class="col-md-4">
-        <app-panel>
+        <app-panel *ngIf="nextEvent">
             <p class="title"><i class="fa fa-plane"></i> Event planned !</p>
-            <p class="text">There is a next event planned on 01-01-2022 : <a href="todo">Static Data ouper 1234</a></p>
+            <p class="text">The next event is <a href="/events/{{nextEvent.id}}">{{nextEvent.title}}</a> planned on {{nextEvent.event_date | date: 'dd.MM.yyyy'}} in {{nextEvent.location}}</p>
         </app-panel>
         <app-panel>
             <p class="title"><i class="fa fa-bar-chart"></i> Stats</p>
