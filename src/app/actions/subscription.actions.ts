@@ -20,17 +20,17 @@ export enum SubscriptionType {
 }
 
 export enum SubscriptionActions {
-    getSubscriptionListStart = '[Subscription] get Start',
+    getSubscriptionListStart    = '[Subscription] get Start',
     getSubscriptionListFinished = '[Subscription] get Finished',
-    getSubscriptionListFailed = '[Subscription] get Failed',
-    addSubscription = '[Subscription] add',
-    addSubscriptionFinished = '[Subscription] add Finished',
-    addSubscriptionFailed = '[Subscription] add Failed',
-    updateSubscrList = '[Subscription] update list',
-    deleteSubscription = '[Subscription] delete',
-    deleteSubscriptionFinished = '[Subscription] delete Finished',
-    deleteSubscriptionFailed = '[Subscription] delete Failed',
-    resetSubscriptionState = '[Subscription] reset state',
+    getSubscriptionListFailed   = '[Subscription] get Failed',
+    addSubscription             = '[Subscription] add',
+    addSubscriptionFinished     = '[Subscription] add Finished',
+    addSubscriptionFailed       = '[Subscription] add Failed',
+    deleteSubscription          = '[Subscription] delete',
+    deleteSubscriptionFinished  = '[Subscription] delete Finished',
+    deleteSubscriptionFailed    = '[Subscription] delete Failed',
+    updateSubscrList            = '[Subscription] update list',
+    resetSubscriptionState      = '[Subscription] reset state',
 }
 
 /**
