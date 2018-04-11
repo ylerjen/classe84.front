@@ -17,7 +17,7 @@ export const initialState: ISessionState = {
     isProcessing: false
 };
 
-export function sessionReducer(state = initialState, action: Action): ISessionState {
+export function sessionReducer(state: ISessionState = initialState, action: Action): ISessionState {
     switch (action.type) {
         case SessionActions.Login:
         {
@@ -29,6 +29,7 @@ export function sessionReducer(state = initialState, action: Action): ISessionSt
         case SessionActions.LoginFinished:
         case SessionActions.SetExistingSession:
         {
+            const act = action as ActionWithPayload<Session>;
             return tassign(state, {
                 isLoggedIn: true,
                 session: act.payload,
