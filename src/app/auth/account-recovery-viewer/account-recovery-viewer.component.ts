@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { NotificationService } from '@shared/services/notification/notification.service';
 import { sendPasswordRecoveryMail } from '@actions/session.actions';
 import { Store } from '@ngrx/store';
 import { IGlobalState } from '../../stores/globalState';
@@ -18,7 +17,6 @@ export class AccountRecoveryViewerComponent {
 
     constructor(
         private _store: Store<IGlobalState>,
-        private _notifSrvc: NotificationService,
     ) { }
 
     sendREcoveryRequest(formValues) {

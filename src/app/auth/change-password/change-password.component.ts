@@ -8,7 +8,6 @@ import { PasswordChangeObject } from '@models/Login';
 import { IGlobalState } from 'app/stores/globalState';
 import { changePassword } from '@actions/session.actions';
 import { PasswordConfirmFormComponent } from '../password-confirm-form/password-confirm-form.component';
-import { NotificationService } from '@shared/services/notification/notification.service';
 
 /**
  * The ChangePasswordComponent is used to change the password of the current login session.
@@ -31,7 +30,6 @@ export class ChangePasswordComponent implements OnInit {
         private _fb: FormBuilder,
         private _route: ActivatedRoute,
         private _store: Store<IGlobalState>,
-        private _notifSrvc: NotificationService,
     ) { }
 
     ngOnInit() {
