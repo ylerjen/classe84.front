@@ -4,14 +4,14 @@ import { Address } from 'app/models/Address';
 import { ActionWithPayload } from './app.actions';
 
 export enum addressActions {
-    setFavoriteAddress = 'SET_FAVORITE_ADDRESS',
-    asyncAddresslistStart = 'ASYNC_ADDRESSLIST_START',
-    asyncAddresslistFinished = 'ASYNC_ADDRESSLIST_FINISHED',
-    asyncAddresslistFailed = 'ASYNC_ADDRESSLIST_FAILED',
-    resetAddresslist = 'RESET_ADDRESSLIST',
-    addAddressInAddresslist = 'ADD_ADDRESS_IN_ADDRESSLIST',
-    updateAddressInAddresslist = 'UPDATE_ADDRESS_IN_ADDRESSLIST',
-    deleteAddressFromAddresslist = 'DELETE_ADDRESS_FROM_ADDRESSSLIST',
+    asyncAddresslistStart = '[AddressList] get',
+    asyncAddresslistFinished = '[AddressList] get finished',
+    asyncAddresslistFailed = '[AddressList] get failed',
+    resetAddresslist = '[AddressList] reset',
+    setFavoriteAddress = '[Address] set favorite',
+    addAddressInAddresslist = '[Address] add in list',
+    updateAddressInAddresslist = '[Address] update in list',
+    deleteAddressFromAddresslist = '[Address] delete from list',
 }
 
 export interface UserAddressCmd {
