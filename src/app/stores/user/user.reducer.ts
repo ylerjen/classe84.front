@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { tassign } from 'tassign';
 
 import { User } from 'app/models/User';
 import { UserActions } from 'app/actions/user.actions';
@@ -18,25 +19,25 @@ export function userReducer(state: IUserState = initialState, action: Action): I
     switch (action.type) {
 
         case UserActions.getUserStart:
-            return Object.assign({}, state, { isLoading: true });
+            return tassign(state, { isLoading: true });
 
         case UserActions.getUserFinished:
         {
             const act = action as ActionWithPayload<User>;
-            return Object.assign({}, state, { user: act.payload, isLoading: false });
+            return tassign(state, { user: act.payload, isLoading: false });
         }
 
         case UserActions.updateUser:
         {
             const act = action as ActionWithPayload<User>;
-            return Object.assign({}, state, { user: act.payload });
+            return tassign(state, { user: act.payload });
         }
 
         case UserActions.deleteUser:
-            return Object.assign({}, state, { user: undefined });
+            return tassign(state, { user: undefined });
 
         case UserActions.resetUserState:
-            return Object.assign({}, initialState);
+            return tassign(initialState);
 
         default:
             return state;

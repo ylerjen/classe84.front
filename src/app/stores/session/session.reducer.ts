@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { tassign } from 'tassign';
 
 import { Session } from 'app/models/Session';
 import { SessionActions } from 'app/actions/session.actions';
@@ -20,7 +21,7 @@ export function sessionReducer(state = initialState, action: Action): ISessionSt
     switch (action.type) {
         case SessionActions.Login:
         {
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isProcessing: true
             });
         }
@@ -28,8 +29,7 @@ export function sessionReducer(state = initialState, action: Action): ISessionSt
         case SessionActions.LoginFinished:
         case SessionActions.SetExistingSession:
         {
-            const act = action as ActionWithPayload<ISessionState>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoggedIn: true,
                 session: act.payload,
                 isProcessing: false

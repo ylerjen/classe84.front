@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { tassign } from 'tassign';
 
 import { User } from 'app/models/User';
 import { UserlistActions } from 'app/actions/userlist.actions';
@@ -19,14 +20,14 @@ export const initialState: IUserListState = {
 export function userlistReducer(state: IUserListState = initialState, action: Action): IUserListState {
     switch (action.type) {
         case UserlistActions.GetListStart:
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: true
             });
 
         case UserlistActions.GetListFinished:
         {
             const act = action as ActionWithPayload<Array<User>>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 userList: act.payload.slice()
             });
@@ -35,7 +36,7 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
         case UserlistActions.AddUserInList:
         {
             const act = action as ActionWithPayload<User>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 userList: [
                     ...state.userList,
@@ -47,7 +48,7 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
         case UserlistActions.DeleteUserFromList:
         {
          const act = action as ActionWithPayload<User>;
-         return Object.assign({}, state, {
+         return tassign(state, {
              isLoading: false,
              userList: state.userList.filter(
                  user => user.id !== act.payload.id
@@ -56,7 +57,7 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
         }
 
         case UserlistActions.ResetState:
-            return Object.assign({}, initialState);
+            return tassign(initialState);
 
         default:
             return state;

@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { tassign } from 'tassign';
 
 import { EventlistActions } from 'app/actions/eventlist.actions';
 import { Event } from 'app/models/Event';
@@ -20,14 +21,14 @@ export const initialState: IEventListState = {
 export function eventlistReducer(state: IEventListState = initialState, action: Action): IEventListState {
     switch (action.type) {
         case EventlistActions.getEventlistAsyncStart:
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: true
             });
 
         case EventlistActions.getEventlistAsyncFinished:
         {
             const act = action as ActionWithPayload<Array<Event>>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 eventList: act.payload.slice()
             });
@@ -36,7 +37,7 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
         case EventlistActions.addEventInList:
         {
             const act = action as ActionWithPayload<Event>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 eventList: [
                     ...state.eventList,
@@ -48,14 +49,14 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
         case EventlistActions.deleteEventFromList:
         {
             const act = action as ActionWithPayload<Event>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 eventList: state.eventList.filter(event => event.id !== act.payload.id)
             });
         }
 
         case EventlistActions.resetEventlistState:
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 eventList: []
             });
@@ -63,7 +64,7 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
         case EventlistActions.changeFilter:
         {
             const act = action as ActionWithPayload<IEventListFilter>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 eventFilter: act.payload
             });
         }

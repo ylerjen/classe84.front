@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { Address } from 'app/models/Address';
 import { addressActions, UserAddressCmd } from 'app/actions/addresslist.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
+import { tassign } from 'tassign';
 
 export interface IAddressListState {
     addressList: Address[];
@@ -17,14 +18,14 @@ export const initialState: IAddressListState = {
 export function addresslistReducer(state: IAddressListState = initialState, action: Action): IAddressListState {
     switch (action.type) {
         case addressActions.asyncAddresslistStart:
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: true
             });
 
         case addressActions.asyncAddresslistFinished:
         {
             const act = action as ActionWithPayload<Array<Address>>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 addressList: act.payload
             });
@@ -33,7 +34,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
         case addressActions.addAddressInAddresslist:
         {
             const act = action as ActionWithPayload<Address>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 addressList: [
                     ...state.addressList,
@@ -45,7 +46,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
         case addressActions.updateAddressInAddresslist:
         {
             const act = action as ActionWithPayload<Address>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 addressList: [
                     ...state.addressList,
@@ -57,14 +58,14 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
         case addressActions.deleteAddressFromAddresslist:
         {
             const act = action as ActionWithPayload<Address>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 addressList: state.addressList.filter(addr => addr.id !== act.payload.id)
             });
         }
 
         case addressActions.resetAddresslist:
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 addressList: []
             });
@@ -72,7 +73,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
         case addressActions.setFavoriteAddress:
         {
             const act = action as ActionWithPayload<UserAddressCmd>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 isLoading: false,
                 addressList: state.addressList.map(addr => {
                     addr.is_default = (addr.id.toString() === act.payload.addressId);

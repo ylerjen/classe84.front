@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { tassign } from 'tassign';
 
 import { Subscription } from 'app/models/Subscription';
 import { SubscriptionActions } from 'app/actions/subscription.actions';
@@ -19,12 +20,12 @@ export const initialState: ISubscriptionState = {
 export function subscriptionsReducer(state: ISubscriptionState = initialState, action?: Action): ISubscriptionState {
     switch (action.type) {
         case SubscriptionActions.getSubscriptionListStart:
-            return Object.assign({}, state, { isLoading: true });
+            return tassign(state, { isLoading: true });
 
         case SubscriptionActions.getSubscriptionListFinished:
         {
             const act = action as ActionWithPayload<Array<Subscription>>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 subscriptionList: act.payload,
                 isLoading: false,
                 dataDate: new Date()
@@ -35,7 +36,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         {
             const act = action as ActionWithPayload<Subscription>;
             act.payload.isStorePending = true;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 subscriptionList: [
                     ...state.subscriptionList,
                     act.payload
@@ -46,7 +47,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         case SubscriptionActions.addSubscriptionFinished:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 subscriptionList: state.subscriptionList.map( subsc => {
                     if (subsc.user_id === act.payload.user_id
                         && subsc.event_id === act.payload.event_id) {
@@ -62,7 +63,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         case SubscriptionActions.updateSubscrList:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 subscriptionList: [
                     ...state.subscriptionList.map(
                         (subscr) => (subscr.user_id === act.payload.user_id && subscr.event_id === act.payload.event_id)
@@ -76,7 +77,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         case SubscriptionActions.deleteSubscription:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 subscriptionList: state.subscriptionList.map( subsc => {
                     if (subsc.user_id === act.payload.user_id
                         && subsc.event_id === act.payload.event_id) {
@@ -92,7 +93,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         case SubscriptionActions.deleteSubscriptionFinished:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return Object.assign({}, state, {
+            return tassign(state, {
                 subscriptionList: state.subscriptionList.filter(
                     subscr => !(subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id)
                 )
@@ -100,7 +101,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         }
 
         case SubscriptionActions.resetSubscriptionState:
-            return Object.assign({}, initialState);
+            return tassign(initialState);
 
         default:
             return state;

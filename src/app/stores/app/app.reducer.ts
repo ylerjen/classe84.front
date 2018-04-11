@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { tassign } from 'tassign';
 
 import { ActionWithPayload, AppActions } from 'app/actions/app.actions';
 import { Version } from 'app/models/Version';
@@ -28,17 +29,17 @@ export function appReducer(state: AppState = initialState, action: Action): AppS
         case AppActions.getApiVersionFinished:
         {
             const act = action as ActionWithPayload<Version>;
-            state = Object.assign({}, state);
-            version = Object.assign({}, state.version, { api: act.payload});
-            return Object.assign(state, { version });
+            state = tassign(state);
+            version = tassign(state.version, { api: act.payload});
+            return tassign(state, { version });
         }
 
         case AppActions.getFrontVersion:
         {
             const act = action as ActionWithPayload<Version>;
-            state = Object.assign({}, state);
-            version = Object.assign({}, state.version, { front: act.payload});
-            return Object.assign(state, { version });
+            state = tassign(state);
+            version = tassign(state.version, { front: act.payload});
+            return tassign(state, { version });
         }
 
         default:
