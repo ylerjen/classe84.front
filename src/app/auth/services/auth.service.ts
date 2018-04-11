@@ -6,14 +6,16 @@ import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 
 import { environment as env } from '../../../environments/environment';
-import { ROUTE, RECOVERY_TOKEN_PARAM_NAME, RECOVERY_TOKEN_VAR_NAME } from 'app/auth/auth.module';
 import { User } from 'app/models/User';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISessionState } from 'app/stores/session/session.reducer';
-import { Login, LoginFactory } from 'app/models/Login';
+import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from 'app/models/Login';
 import { logout as logoutAction } from 'app/actions/session.actions';
 import { Session } from '@models/Session';
+import { ROUTE } from '../auth-route.config';
 
+export const RECOVERY_TOKEN_VAR_NAME = '${token}';
+export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
 const STORAGE_SESSION_KEY = 'app-session';
 const LS_CRED_KEY = 'app-login-creds';
 
@@ -102,7 +104,7 @@ export class AuthService implements CanActivate {
         return this._http.post(endpoint, { recoveryToken });
     }
 
-    changePassword(info: { email: string, currentPassword: string, newPassword: string }): Observable<Response> {
+    changePassword(info: PasswordChangeObject): Observable<Response> {
         const endpoint = `${authBaseRoute}/change-password`;
         throw 'not implemented yet';
         // return this._http.post(endpoint, info);
@@ -112,7 +114,7 @@ export class AuthService implements CanActivate {
      * Change the password of a user with a recovery token
      * @param info - are the infos that are needed for the password change request
      */
-    changePasswordFromRecovery(info: { email: string, recoveryToken: string, password: string }): Observable<Response> {
+    changePasswordFromRecovery(info: PasswordRecoveryObject): Observable<Response> {
         const endpoint = `${authBaseRoute}/change-password-from-recovery`;
         return this._http.post(endpoint, info);
     }

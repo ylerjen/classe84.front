@@ -5,7 +5,7 @@ import 'rxjs/add/operator/filter';
 import { environment } from '../environments/environment';
 import { Version } from './models/Version';
 import { IGlobalState } from './stores/globalState';
-import { setExistingSession, logout } from './actions/session.actions';
+import { setExistingSession } from './actions/session.actions';
 import { AppVersion } from './stores/app/app.reducer';
 import { storeFrontVersion, getApiVersion } from './actions/app.actions';
 import { AuthService } from './auth/services/auth.service';

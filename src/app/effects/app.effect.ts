@@ -8,7 +8,7 @@ import { Version } from 'app/models/Version';
 import { Notification, ENotificationType } from 'app/models/Notification';
 
 @Injectable()
-export class AddressEffects {
+export class AppEffects {
 
     @Effect()
     getApiVersion$ = this.actions$

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Session } from '../models/Session';
-import { Login } from '../models/Login';
+import { Login, PasswordChangeObject, PasswordRecoveryObject } from '../models/Login';
 import { ActionWithPayload } from './app.actions';
 
 export enum SessionActions {
@@ -12,10 +12,12 @@ export enum SessionActions {
     LogoutFinished = '[Session] Logout finished',
     LogoutFailed = '[Session] Logout failed',
     SetExistingSession = '[Session] set Authenticated User',
+    SendPasswordRecoveryMail = 'sendPasswordRecoveryMail',
+    ChangePassword = 'ChangePassword',
+    ChangePasswordFromRecovery = 'ChangePasswordFromRecovery',
 }
 
-export function login(payload: Login, successCb?: Function, errCb?: Function): ActionWithPayload<Login> {
-    console.warn('manage successCb and errCb');
+export function login(payload: Login): ActionWithPayload<Login> {
     return { type: SessionActions.Login, payload };
 }
 
@@ -41,4 +43,18 @@ export function logoutFailed(payload: Error): ActionWithPayload<Error> {
 
 export function setExistingSession(payload: Session): ActionWithPayload<Session> {
     return { type: SessionActions.SetExistingSession, payload };
+}
+
+// Action for effects only (no data in store)
+
+export function sendPasswordRecoveryMail(payload: string): ActionWithPayload<string> {
+    return { type: SessionActions.SendPasswordRecoveryMail, payload };
+}
+
+export function changePassword(payload: PasswordChangeObject): ActionWithPayload<PasswordChangeObject> {
+    return { type: SessionActions.ChangePassword, payload };
+}
+
+export function changePasswordFromRecovery(payload: PasswordRecoveryObject): ActionWithPayload<PasswordRecoveryObject> {
+    return { type: SessionActions.ChangePasswordFromRecovery, payload };
 }

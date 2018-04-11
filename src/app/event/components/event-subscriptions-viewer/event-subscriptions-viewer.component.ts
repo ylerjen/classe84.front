@@ -58,7 +58,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
 
     ngOnInit() {
         this.isLoading = true;
-        const routePath = window.location.pathname.replace('/events/', ''); // TODO find a better to get the route id from Angular Router
+        const routePath = window.location.pathname.replace('/events/', ''); // TODO find a better way to get the route id from Angular Router
         const curId = routePath.substring(0, routePath.indexOf('/'));
         this._evtSrvc.get(curId)
             .subscribe( (event: EventModel) => {

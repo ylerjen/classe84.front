@@ -27,13 +27,14 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
+import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
+import { AppEffects } from './effects/app.effect';
 import { SessionEffects } from './effects/session.effect';
 import { AddressEffects } from './effects/address.effect';
 import { UserEffects } from './effects/user.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
 import { EventEffects } from './effects/event.effect';
 import { EventlistEffects } from './effects/eventlist.effect';
-import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
         StoreModule.forRoot(globalState),
         RouterModule.forRoot(appRoutes),
         EffectsModule.forRoot([
+            AppEffects,
             SessionEffects,
             UserEffects,
             AddressEffects,

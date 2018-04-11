@@ -18,8 +18,14 @@
             </label>
         </div>
         <div>
-            <input type="submit" class="btn btn-primary" value="Log me in"/>
-            <a routerLink="/login" [queryParams]="{ recovery: 'true' }" class="btn btn-link">Password forgotten ?</a>
+            <button type="submit" class="btn btn-primary" [disabled]="isProcessing">
+                <i class="fa fa-spinner fa-spin" *ngIf="isProcessing"></i> Log me in
+            </button>
+            <a routerLink="/login"
+                class="btn btn-link"
+                *ngIf="isProcessing"
+                [queryParams]="{ recovery: 'true' }"
+                >Password forgotten ?</a>
         </div>
     </form>
 </div>

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
 import { UUID } from 'angular2-uuid';
 
+import { PasswordChangeObject } from '@models/Login';
+import { IGlobalState } from 'app/stores/globalState';
+import { changePassword } from '@actions/session.actions';
 import { PasswordConfirmFormComponent } from '../password-confirm-form/password-confirm-form.component';
-import { AuthService } from '../services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 
 /**
@@ -28,7 +30,7 @@ export class ChangePasswordComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private _route: ActivatedRoute,
-        private _authSrvc: AuthService,
+        private _store: Store<IGlobalState>,
         private _notifSrvc: NotificationService,
     ) { }
 
@@ -43,11 +45,8 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     changePassword($event: Event): void {
-        const values = this.changePasswordForm.value;
+        const values = this.changePasswordForm.value as PasswordChangeObject;
         console.log('change password with', values);
-        this._authSrvc.changePassword(values)
-            .subscribe(
-                resp => alert('yes changed')
-            );
+        this._store.dispatch(changePassword(values));
     }
 }

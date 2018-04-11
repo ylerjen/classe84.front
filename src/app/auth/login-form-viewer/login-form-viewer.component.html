@@ -2,10 +2,9 @@
     <header>
         <h1 class="card-title">Login</h1>
     </header>
-    <div *ngIf="isLoggingIn" class="text-center"><i class="fa fa-spinner fa-spin fa-2x"></i></div>
     <div *ngIf="session?.user">
         <p>Hello {{session.user.fullname}} you're already logged in. Would you like to go to your profile page ?</p>
         <p class="text-muted">Not {{session.user.first_name}} ? Please <a routerLink="/logout">log into your account</a>.</p>
     </div>
-    <app-login-form (loginEvent)="onLogin($event)" *ngIf="!(session && session.user)"></app-login-form>
+    <app-login-form [isProcessing]="isLoggingIn" (loginEvent)="onLogin($event)" *ngIf="!(session && session.user)"></app-login-form>
 </section>

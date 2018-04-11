@@ -14,15 +14,10 @@ import { RestorePasswordComponent } from './restore-password/restore-password.co
 import { LoginFormViewerComponent } from './login-form-viewer/login-form-viewer.component';
 import { AccountRecoveryViewerComponent } from './account-recovery-viewer/account-recovery-viewer.component';
 import { PasswordConfirmFormComponent } from './password-confirm-form/password-confirm-form.component';
+import { ROUTE } from './auth-route.config';
 
-export const ROUTE = {
-    restorePassword: 'restore-password',
-    changePassword: 'change-password'
-};
-export const RECOVERY_TOKEN_VAR_NAME = '${token}';
-export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
 
-const authRoutes: Routes = [
+export const authRoutes: Routes = [
     { path: ROUTE.restorePassword, component: RestorePasswordComponent },
     { path: ROUTE.changePassword, component: ChangePasswordComponent },
 ];

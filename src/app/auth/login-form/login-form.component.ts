@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UUID } from 'angular2-uuid';
@@ -15,6 +15,9 @@ import { AuthService } from '../services/auth.service';
     styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
+
+    @Input()
+    public isProcessing: boolean;
 
     @Output()
     public loginEvent = new EventEmitter();

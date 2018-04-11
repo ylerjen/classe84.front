@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/finally';
 import { UUID } from 'angular2-uuid';
 
-import { RECOVERY_TOKEN_PARAM_NAME } from '../auth.module';
-import { AuthService } from '../services/auth.service';
+import { IGlobalState } from 'app/stores/globalState';
+import { changePasswordFromRecovery } from '@actions/session.actions';
+import { AuthService, RECOVERY_TOKEN_PARAM_NAME } from '../services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
-import { CustomValidators } from 'app/shared/validators/CustomValidators';
+import { CustomValidators } from '@shared/validators/CustomValidators';
 
 /**
  * This component is used to restore the password of an account identified by the passed token in the url
@@ -38,6 +39,7 @@ export class RestorePasswordComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private _route: ActivatedRoute,
+        private _store: Store<IGlobalState>,
         private _authSrvc: AuthService,
         private _notifSrvc: NotificationService,
     ) { }
@@ -88,19 +90,10 @@ export class RestorePasswordComponent implements OnInit {
     }
 
     changePassword($event: Event): void {
+
+        // TODO manage the isProcessing from the applicationStore
         this.isProcessing = true;
         const values = this.restoreForm.value;
-        this._authSrvc.changePasswordFromRecovery(values)
-            .finally( () => this.isProcessing = false)
-            .subscribe(
-                resp => {
-                    this._notifSrvc.notifySuccess('Your new password was successfully setted');
-                    // TODO redirect to login
-                },
-                err => {
-                    console.log(err);
-                    this._notifSrvc.notifyError('Error, see console');
-                }
-            );
+        this._store.dispatch(changePasswordFromRecovery(values));
     }
 }

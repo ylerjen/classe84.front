@@ -24,3 +24,27 @@ export class LoginFactory {
         return new Login(email, password, remember);
     }
 }
+
+export class PasswordChangeObject {
+    email: string;
+    currentPassword: string;
+    newPassword: string;
+
+    constructor(props: {[key: string]: string}) {
+        this.email = props.email;
+        this.currentPassword = props.currentPassword;
+        this.newPassword = props.newPassword;
+    }
+}
+
+export class PasswordRecoveryObject {
+    email: string;
+    recoveryToken: string;
+    password: string;
+
+    constructor(props: {[key: string]: string}) {
+        this.email = props.email;
+        this.password = props.password;
+        this.recoveryToken = props.recoveryToken;
+    }
+}

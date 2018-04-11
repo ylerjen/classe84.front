@@ -9,12 +9,14 @@ export interface IUserListState {
     userList: User[];
     isLoading: boolean;
     userFilter: string;
+    dataDate: Date;
 }
 
 export const initialState: IUserListState = {
     userList: [],
     isLoading: false,
-    userFilter: ''
+    userFilter: '',
+    dataDate: null,
 };
 
 export function userlistReducer(state: IUserListState = initialState, action: Action): IUserListState {
@@ -29,7 +31,8 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             const act = action as ActionWithPayload<Array<User>>;
             return tassign(state, {
                 isLoading: false,
-                userList: act.payload.slice()
+                userList: act.payload.slice(),
+                dataDate: new Date(),
             });
         }
 

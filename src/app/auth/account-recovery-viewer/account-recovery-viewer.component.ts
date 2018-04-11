@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Response } from '@angular/http';
 
-import { AuthService } from '../services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
+import { sendPasswordRecoveryMail } from '@actions/session.actions';
+import { Store } from '@ngrx/store';
+import { IGlobalState } from '../../stores/globalState';
 
 @Component({
     selector: 'app-account-recovery-viewer',
@@ -16,21 +17,11 @@ export class AccountRecoveryViewerComponent {
     public isSuccessful: boolean;
 
     constructor(
-        private _authSrvc: AuthService,
+        private _store: Store<IGlobalState>,
         private _notifSrvc: NotificationService,
     ) { }
 
     sendREcoveryRequest(formValues) {
-        this.isSending = true;
-        this._authSrvc.recoverPassword(formValues.email)
-            .finally(() => this.isSending = false)
-            .subscribe(
-                (resp: Response) => this.isSuccessful = true,
-                err => {
-                    if (err.status === 404) {
-                        this._notifSrvc.notifyError(`The email '${formValues.email}' is not registered for any member`);
-                    }
-                }
-            );
+        this._store.dispatch(sendPasswordRecoveryMail(formValues.email));
     }
 }
