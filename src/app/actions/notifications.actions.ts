@@ -2,16 +2,18 @@ import { Action } from '@ngrx/store';
 import { Notification } from '../models/Notification';
 import { ActionWithPayload } from './app.actions';
 
-export const ADD_NOTIF = 'ADD_NOTIF';
-export const DELETE_NOTIF = 'DELETE_NOTIF';
-export const CLEAR_NOTIF = 'CLEAR_NOTIF';
+export enum NotificationActions {
+    AddNotification = '[Notification] Add',
+    DeleteNotification = '[Notification] Delete',
+    ClearNotification = '[Notification] Clear',
+}
 
 export function addNotif(payload: Notification): ActionWithPayload<Notification> {
-    return { type: ADD_NOTIF, payload };
+    return { type: NotificationActions.AddNotification, payload };
 }
 export function deleteNotif(payload: Notification): ActionWithPayload<Notification> {
-    return { type: DELETE_NOTIF, payload };
+    return { type: NotificationActions.DeleteNotification, payload };
 }
 export function clearNotif(): Action {
-    return { type: CLEAR_NOTIF };
+    return { type: NotificationActions.DeleteNotification };
 }

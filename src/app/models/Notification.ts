@@ -12,12 +12,14 @@ export class Notification {
     msg: string;
     createdAt: Date;
     type: ENotificationType;
+    isSelfDestructible: boolean;
 
-    constructor(msg: string, type: ENotificationType = ENotificationType.ERROR) {
+    constructor(msg: string, type: ENotificationType = ENotificationType.ERROR, isSelfDestructible = true) {
         const now = new Date();
         this.id = +now;
         this.msg = msg;
         this.type = type;
         this.createdAt = now;
+        this.isSelfDestructible = isSelfDestructible;
     }
 }

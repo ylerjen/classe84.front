@@ -35,6 +35,7 @@ import { UserEffects } from './effects/user.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
 import { EventEffects } from './effects/event.effect';
 import { EventlistEffects } from './effects/eventlist.effect';
+import { NotificationEffects } from './effects/notification.effect';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { EventlistEffects } from './effects/eventlist.effect';
         RouterModule.forRoot(appRoutes),
         EffectsModule.forRoot([
             AppEffects,
+            NotificationEffects,
             SessionEffects,
             UserEffects,
             AddressEffects,
