@@ -2,7 +2,11 @@
     <div class="alert"
         *ngFor="let notif of _notifStore$ | async"
         [ngClass]="{'alert-info': notif.type === 'info', 'alert-warning': notif.type === 'warning', 'alert-success': notif.type === 'success', 'alert-danger': notif.type === 'error'}">
-        <span class="notifier__item-msg">{{ notif.type }} {{ notif.msg }}</span>
+        <span class="notifier__item-msg">
+            <i class="fa"
+                [ngClass]="{'fa-info-circle': notif.type === 'info', 'fa-warning': notif.type === 'warning', 'fa-check-circle': notif.type === 'success', 'fa-times-circle': notif.type === 'error'}"></i>
+             {{ notif.msg }}
+        </span>
         <button class="notifier__item-close" (click)="removeNotif($event, notif)">&times;</button>
     </div>
 </div>
