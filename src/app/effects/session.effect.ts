@@ -34,9 +34,10 @@ export class SessionEffects {
         .catch((err: Response): Observable<ActionWithPayload<Error>> => {
             let action: ActionWithPayload<Error>;
             if (err.status === 401) {
-                action = loginFailed(new Error('Login attempt failed.'));
-            }
+                action = loginFailed(new Error('Username or password was wrong'));
+            } else {
             action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
+            }
             return Observable.of(action);
         });
 
