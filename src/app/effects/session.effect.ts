@@ -59,6 +59,7 @@ export class SessionEffects {
         .map((act: ActionWithPayload<Error>): Action => {
             const err = act.payload;
             console.error(err);
+            this._authSrvc.deleteStoredSession();
             const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
             this._notifSrvc.notify(msg, ENotificationType.ERROR);
             return { type: 'don t dispatch anything' };
@@ -74,7 +75,7 @@ export class SessionEffects {
             if (err.message === 'No JWT present or has expired') {
                 action = logoutFinished();
             } else {
-                action = logoutFailed(new Error('Unhandled service error. Please report this to the web admin !'));
+                action = logoutFailed(new Error(`Unhandled service error. ${err.message}`));
             }
             return Observable.of(action);
         });
@@ -83,6 +84,8 @@ export class SessionEffects {
     logoutFinished$ = this.actions$
         .ofType(SessionActions.LogoutFinished)
         .map((act: Action): Action => {
+            const msg = 'Successfuly logged out';
+            this._notifSrvc.notify(msg, ENotificationType.SUCCESS);
             this._router.navigate(['login']);
             return { type: 'don t dispatch anything' };
         });
