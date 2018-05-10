@@ -38,6 +38,7 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
         }
 
         case SessionActions.Logout:
+        case SessionActions.LoginFailed:
             return initialState;
 
         default:
