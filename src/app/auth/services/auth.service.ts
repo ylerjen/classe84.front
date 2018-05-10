@@ -10,7 +10,6 @@ import { User } from 'app/models/User';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISessionState } from 'app/stores/session/session.reducer';
 import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from 'app/models/Login';
-import { logout as logoutAction } from 'app/actions/session.actions';
 import { Session } from '@models/Session';
 import { ROUTE } from '../auth-route.config';
 
@@ -25,6 +24,11 @@ const authBaseRoute = `${env.API_URL}/auth`;
 export class AuthService implements CanActivate {
 
     private _isLoggedIn = false;
+
+    static getSessionToken(): string {
+        const session = AuthService.getSessionFromStorage();
+        return session ? session.token : null;
+    }
 
     static getSessionFromStorage(): Session {
         const storageContent: Object = JSON.parse(sessionStorage.getItem(STORAGE_SESSION_KEY));
@@ -127,7 +131,7 @@ export class AuthService implements CanActivate {
         AuthService.setSessionInStorage(session);
     }
 
-    deleteSessionInStorage(): void {
+    deleteStoredSession(): void {
         sessionStorage.removeItem(STORAGE_SESSION_KEY);
     }
 
@@ -136,6 +140,7 @@ export class AuthService implements CanActivate {
         if (typeof str === 'string') {
             return LoginFactory.fromObject(JSON.parse(str));
         }
+        return null;
     }
 
     setRememberedCreds(creds: Login): void {
@@ -181,7 +186,7 @@ export class AuthService implements CanActivate {
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     const config = new AuthConfig({
         tokenName: STORAGE_SESSION_KEY,
-        tokenGetter: (() => AuthService.getSessionFromStorage().token),
+        tokenGetter: () => AuthService.getSessionToken(),
         globalHeaders: [{ 'Content-Type': 'application/json' }],
         // noJwtError: true, // true = if jwt is missing, then fallback to simple http
     });
