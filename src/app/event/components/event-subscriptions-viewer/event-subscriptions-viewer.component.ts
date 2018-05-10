@@ -57,7 +57,9 @@ export class EventSubscriptionsViewerComponent implements OnInit {
     }
 
     ngOnInit() {
+        // TODO isLoading is managed by the state
         this.isLoading = true;
+        // TODO can use => this._route.snapshot.params
         const routePath = window.location.pathname.replace('/events/', ''); // TODO find a better way to get the route id from Angular Router
         const curId = routePath.substring(0, routePath.indexOf('/'));
         this._evtSrvc.get(curId)

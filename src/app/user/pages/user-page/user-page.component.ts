@@ -49,6 +49,7 @@ export class UserPageComponent implements OnInit {
     ngOnInit(): void {
         this._route.params
             .subscribe( (routeData: Params) => {
+                // TODO can use : this._route.snapshot instead ?
                 this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id;
                 const subscrRqstCmd: FetchSubscriptionCmd = {
