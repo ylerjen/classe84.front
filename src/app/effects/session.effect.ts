@@ -30,11 +30,7 @@ export class SessionEffects {
             }
             return this._authSrvc.login(creds);
         })
-        .map((res: Session): ActionWithPayload<Session> => {
-            const act = new LoginFinishedAction(res);
-            console.log('Effect::login -> success', act);
-            return act;
-        })
+        .map((res: Session): ActionWithPayload<Session> => new LoginFinishedAction(res))
         .catch((err: Response): Observable<ActionWithPayload<Error>> => {
             let action: ActionWithPayload<Error>;
             if (err.status === 401) {
