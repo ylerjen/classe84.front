@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
@@ -10,7 +10,7 @@ import { Login, PasswordChangeObject, PasswordRecoveryObject } from '@models/Log
 import { Session } from '@models/Session';
 import { ENotificationType } from '@models/Notification';
 import { ActionWithPayload } from '@actions/app.actions';
-import { SessionActions, loginFinished, loginFailed, logoutFinished, logoutFailed } from '@actions/session.actions';
+import { SessionActions, loginFailed, logoutFinished, logoutFailed, LoginFinishedAction } from '@actions/session.actions';
 import { AuthService } from '../auth/services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 
@@ -30,13 +30,17 @@ export class SessionEffects {
             }
             return this._authSrvc.login(creds);
         })
-        .map((res: Session): ActionWithPayload<Session> => loginFinished(res))
+        .map((res: Session): ActionWithPayload<Session> => {
+            const act = new LoginFinishedAction(res);
+            console.log('Effect::login -> success', act);
+            return act;
+        })
         .catch((err: Response): Observable<ActionWithPayload<Error>> => {
             let action: ActionWithPayload<Error>;
             if (err.status === 401) {
                 action = loginFailed(new Error('Username or password was wrong'));
             } else {
-            action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
+                action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
             }
             return Observable.of(action);
         });
@@ -44,13 +48,15 @@ export class SessionEffects {
     @Effect()
     loginFinished$ = this.actions$
         .ofType(SessionActions.LoginFinished)
-        .map((act: ActionWithPayload<Session>): Action => {
-            this._route.params
-                .subscribe((data: Params) => {
-                    if (data.redirectTo) {
-                        this._router.navigate([data.redirectTo]);
-                    }
-                });
+        .map((act: ActionWithPayload<Session>) => {
+            // TODO replace this hack with ngrx/router-store
+            const path = window.location.pathname;
+            const redirectParamName = 'redirectTo=';
+            let redirectTo = path.substr(path.indexOf(redirectParamName) + redirectParamName.length);
+            if (redirectTo) {
+                redirectTo = decodeURIComponent(redirectTo);
+                this._router.navigate([redirectTo]);
+            }
             return { type: 'don t dispatch anything' };
         });
 

@@ -21,8 +21,9 @@ export function login(payload: Login): ActionWithPayload<Login> {
     return { type: SessionActions.Login, payload };
 }
 
-export function loginFinished(payload: Session): ActionWithPayload<Session> {
-    return { type: SessionActions.LoginFinished, payload };
+export class LoginFinishedAction implements Action {
+    public readonly type = SessionActions.LoginFinished;
+    constructor(public payload: Session) { }
 }
 
 export function loginFailed(payload: Error): ActionWithPayload<Error> {
