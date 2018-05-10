@@ -35,7 +35,7 @@ export class LoginFormComponent implements OnInit {
         this.createForm();
         this.compId = UUID.UUID();
         const creds = this._authSrvc.getRememberedCreds();
-        if (creds.email && creds.password) {
+        if (creds && creds.email && creds.password) {
             this.loginForm.setValue(creds);
         }
     }
@@ -53,8 +53,10 @@ export class LoginFormComponent implements OnInit {
     }
 
     login(): void {
-        const creds: Login = LoginFactory.fromObject(this.loginForm.value);
-        this.loginEvent.emit(creds);
+        if (this.loginForm.valid) {
+            const creds: Login = LoginFactory.fromObject(this.loginForm.value);
+            this.loginEvent.emit(creds);
+        }
     }
 
 }
