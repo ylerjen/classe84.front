@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Response } from '@angular/http';
+import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
 import { User } from 'app/models/User';
@@ -41,9 +42,10 @@ export class AuthService implements CanActivate {
 
     constructor(
         private _http: Http,
-        private _authHttp: AuthHttp,
+        private _authHttp: HttpClient,
         private _store: Store<IGlobalState>,
         private _router: Router,
+        public jwtHelper: JwtHelperService
     ) {
         this._store.select('sessionState')
             .subscribe((sessionState: ISessionState) => {
@@ -70,7 +72,7 @@ export class AuthService implements CanActivate {
      * Logout the user of the current session
      * @param successCb - a callback to execute when the logout succeed
      */
-    logout(): Observable<Response> {
+    logout(): Observable<{}> {
         const endpoint = `${authBaseRoute}/logout`;
         return this._authHttp.post(endpoint, {});
     }
@@ -80,8 +82,8 @@ export class AuthService implements CanActivate {
      */
     getAuthUser(): Observable<User> {
         const endpoint = `${authBaseRoute}/user`;
-        return this._authHttp.get(endpoint)
-            .map( resp => new User(resp.json().user));
+        return this._authHttp.get<Session>(endpoint)
+            .map( (body): User => new User(body.user));
     }
 
     /**
@@ -167,7 +169,7 @@ export class AuthService implements CanActivate {
      * @returns {boolean} - if the token is still valid
      */
     isTokenValid(token: string): boolean {
-        return tokenNotExpired(STORAGE_SESSION_KEY, token);
+        return !this.jwtHelper.isTokenExpired();
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -181,14 +183,4 @@ export class AuthService implements CanActivate {
          this._router.navigate(['login', { redirectTo }]);
         return false;
     }
-}
-
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-    const config = new AuthConfig({
-        tokenName: STORAGE_SESSION_KEY,
-        tokenGetter: () => AuthService.getSessionToken(),
-        globalHeaders: [{ 'Content-Type': 'application/json' }],
-        // noJwtError: true, // true = if jwt is missing, then fallback to simple http
-    });
-    return new AuthHttp(config, http, options);
 }

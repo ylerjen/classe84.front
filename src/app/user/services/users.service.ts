@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { AuthHttp } from 'angular2-jwt';
 
 import { environment as env } from '../../../environments/environment';
 import { IGlobalState } from 'app/stores/globalState';
@@ -29,13 +29,13 @@ export class UsersService {
     constructor(
         private _http: Http,
         private _store: Store<IGlobalState>,
-        private _authHttp: AuthHttp
+        private _authHttp: HttpClient
     ) { }
 
     fetchAll(): Observable<Array<User>> {
         this._store.dispatch( getUserListAsync() );
-        return this._http.get(BASE_URL)
-            .map((res: Response): Array<any> => res.json())
+        return this._authHttp.get(BASE_URL)
+            // .map((res: Response): Array<any> => res.json())
             .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)))
             .map( (userList): Array<User> => {
                 userList = userList.sort(User.sortByFullNameComparator);
@@ -46,26 +46,23 @@ export class UsersService {
 
     get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
-        return this._authHttp.get(endpoint)
-            .map( (resp: Response): User => resp.json());
+        return this._authHttp.get<User>(endpoint);
     }
 
-    create(user: User): Observable<Response> {
+    create(user: User): Observable<User> {
         console.error('add user from service, to verify');
         this._store.dispatch(addUser(user));
-        return this._authHttp.post(BASE_URL, user)
-            .map( (resp: Response) => resp.json());
+        return this._authHttp.post<User>(BASE_URL, user);
     }
 
-    update(user: User): Observable<Response> {
+    update(user: User): Observable<User> {
         const endpoint = `${BASE_URL}/${user.id}`;
         this._store.dispatch(updateUser(user));
         console.error('add user from service => not finished: request create api');
-        return this._authHttp.put(endpoint, user)
-            .map( (resp: Response) => resp.json());
+        return this._authHttp.put<User>(endpoint, user);
     }
 
-    save(user: User): Observable<Response>  {
+    save(user: User): Observable<User>  {
         if (user.id) {
             return this.update(user);
         } else {

@@ -4,7 +4,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -36,6 +35,7 @@ import { SubscriptionEffects } from './effects/subscription.effect';
 import { EventEffects } from './effects/event.effect';
 import { EventlistEffects } from './effects/eventlist.effect';
 import { NotificationEffects } from './effects/notification.effect';
+import { AuthService } from './auth/services/auth.service';
 
 
 @NgModule({
@@ -81,6 +81,7 @@ import { NotificationEffects } from './effects/notification.effect';
     ],
     providers: [
         AppService,
+        AuthService
     ],
     bootstrap: [ AppComponent ]
 })

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
-import { AuthHttp } from 'angular2-jwt';
+import { Store } from '@ngrx/store';
 
 import { environment as env } from 'app/../environments/environment';
 import { Event } from 'app/models/Event';
@@ -24,7 +24,7 @@ export class EventsService {
     constructor(
         private _http: Http,
         private _store: Store<IGlobalState>,
-        private _authHttp: AuthHttp
+        private _authHttp: HttpClient
     ) { }
 
     /**
@@ -41,26 +41,23 @@ export class EventsService {
      */
     get(id: string): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
-        return this._authHttp.get(endpoint)
-            .map( (resp: Response): any => resp.json() )
+        return this._authHttp.get<Event>(endpoint)
             .map( (evtAttr: any): Event => new Event(evtAttr) );
     }
 
-    create(event: Event): Observable<Response> {
+    create(event: Event): Observable<Event> {
         this._store.dispatch(addEvent(event));
-        return this._authHttp.post(BASE_URL, event)
-            .map( (resp: Response) => resp.json());
+        return this._authHttp.post<Event>(BASE_URL, event);
     }
 
-    update(event: Event): Observable<Response> {
+    update(event: Event): Observable<Event> {
         const endpoint = `${BASE_URL}/${event.id}`;
         this._store.dispatch(updateEvent(event));
         console.error('add event from service => not finished: request create api');
-        return this._authHttp.put(endpoint, event)
-            .map( (resp: Response) => resp.json());
+        return this._authHttp.put<Event>(endpoint, event);
     }
 
-    save(event: Event): Observable<Response>  {
+    save(event: Event): Observable<Event>  {
         if (event.id) {
             return this.update(event);
         } else {
@@ -79,8 +76,7 @@ export class EventsService {
      */
     getSubscribers(eventId: string): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${eventId}/users`)
-            .map((resp: Response): Array<Object> => resp.json())
-            .map((objArr): Array<Subscription> => (objArr.map(obj => new Subscription(obj))))
+            .map((objArr: Array<Subscription>): Array<Subscription> => (objArr.map(obj => new Subscription(obj))))
             .map((subscrList: Array<Subscription>): Array<Subscription> => subscrList.sort(Subscription.sortByFullNameComparator));
     }
 
@@ -93,8 +89,7 @@ export class EventsService {
             throw new Error(`Trying to subscribe to an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
         const route = `${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`;
-        return this._authHttp.post(route, {})
-            .map((resp: Response): Subscription => subscr);
+        return this._authHttp.post<Subscription>(route, {});
     }
 
     /**

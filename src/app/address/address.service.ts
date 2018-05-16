@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
+import { HttpClient } from '@angular/common/http';
 
 import { environment as env } from '../../environments/environment';
 import { UserAddressCmd } from '../actions/addresslist.actions';
+import { Address } from '@models/Address';
 
 const BASE_URL = `${env.API_URL}`;
 
@@ -13,15 +14,15 @@ export class AddressService {
 
     constructor(
         private _http: Http,
-        private _authHttp: AuthHttp
+        private _authHttp: HttpClient
     ) { }
 
-    getAllForUser(userId: string): Observable<Response> {
+    getAllForUser(userId: string): Observable<Array<Address>> {
         const route = `${BASE_URL}/users/${userId}/addresses`;
-        return this._authHttp.get(route);
+        return this._authHttp.get<Array<Address>>(route);
     }
 
-    setAsDefault(userAdress: UserAddressCmd) {
+    setAsDefault(userAdress: UserAddressCmd): Observable<{}> {
         const route = `${BASE_URL}/users/${userAdress.userId}/addresses/${userAdress.addressId}/default`;
         return this._authHttp.put(route, {});
     }

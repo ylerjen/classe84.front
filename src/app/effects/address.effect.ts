@@ -18,7 +18,7 @@ export class AddressEffects {
           return act.payload;
       })
       .switchMap(payload => this._addressService.getAllForUser(payload)
-        .map(res => getAddressListAsyncFinished(res.json()))
+        .map((addrList) => getAddressListAsyncFinished(addrList))
         .catch((err: Error) => Observable.of(getAddressListAsyncFailed(err)))
       );
 

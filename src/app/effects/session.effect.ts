@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
@@ -71,8 +71,8 @@ export class SessionEffects {
     @Effect()
     logout$ = this.actions$
         .ofType(SessionActions.Logout)
-        .switchMap((creds: Action): Observable<Response> => this._authSrvc.logout())
-        .map((res: Response): Action => logoutFinished())
+        .switchMap((creds: Action): Observable<{}> => this._authSrvc.logout())
+        .map((): Action => logoutFinished())
         .catch((err: Error): Observable<Action> => {
             let action: Action;
             if (err.message === 'No JWT present or has expired') {
@@ -149,5 +149,5 @@ export class SessionEffects {
         private _router: Router,
         private _authSrvc: AuthService,
         private _notifSrvc: NotificationService
-    ) {}
+    ) { }
 }
