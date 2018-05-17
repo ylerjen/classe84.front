@@ -10,19 +10,14 @@ import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
     selector: 'app-header',
-    host: {
-        '(document:click)': 'closeToggle($event)',
-    },
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
-    public isCollapsed = true;
-
-    public isAccountDropdownOpen = false;
-
     public session: Session;
+
+    public isCollapsed = true;
 
     constructor(
         private _elRef: ElementRef,
@@ -37,22 +32,6 @@ export class HeaderComponent implements OnInit {
                 (sState: ISessionState) => this.session = sState.session,
                 (err) => console.error('error', err)
             );
-    }
-
-    toggleCollapse(shouldCollapse: boolean | null = null): void {
-        this.isCollapsed = (typeof shouldCollapse === 'boolean') ? shouldCollapse : !this.isCollapsed;
-    }
-
-    closeToggle(event: Event): void {
-        if (!this._elRef.nativeElement.contains(event.target)) {
-            event.stopPropagation();
-            this.toggleCollapse(true);
-        }
-    }
-
-    toggleAccountDropdownState(evt: Event): void {
-        evt.preventDefault();
-        this.isAccountDropdownOpen = !this.isAccountDropdownOpen;
     }
 
     onLogout(event: Event): void {

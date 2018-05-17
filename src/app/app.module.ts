@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { BsDropdownModule, CollapseModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { environment } from '../environments/environment';
 import { AuthModule } from './auth/auth.module';
@@ -66,7 +67,11 @@ import { AuthService } from './auth/services/auth.service';
             EventlistEffects,
             EventEffects,
         ]),
-        StoreDevtoolsModule.instrument({    // for redux debug => storeDevtools instrument
+        // ngx-bootstrap declaration
+        CollapseModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        // for redux debug => storeDevtools instrument
+        StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production // Restrict extension to log-only mode
           }),

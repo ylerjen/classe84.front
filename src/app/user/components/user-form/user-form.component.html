@@ -78,12 +78,13 @@
     </div>
    <div class="form-group">
         <label for="user-birthdate">Birthdate</label>
-        <input
-            type="date"
-            class="form-control"
+        <input type="text"
             id="user-birthdate"
+            class="form-control"
+            placeholder="Your birthdate"
             formControlName="birthdate"
-            placeholder="Your birthdate" />
+            [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY', containerClass: 'theme-dark-blue' }"
+            bsDatepicker />
         <app-validation-error [errors]="userForm.get('birthdate').errors"></app-validation-error>
     </div>       
     <div class="form-group">

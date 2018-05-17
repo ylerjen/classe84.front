@@ -1,45 +1,75 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <a class="navbar-brand" routerLink="/">Classe 84</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler"
-        aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapse($event)">
+        aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" [ngClass]="{'show': !isCollapsed}" id="navbarToggler">
-        <div class="navbar-nav mr-auto mt-2 mt-md-0">
-            <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">
-                <i class="fa fa-group"></i> Users</a>
-            <a class="nav-item nav-link" routerLink="/events" routerLinkActive="active">
-                <i class="fa fa-calendar"></i> Events</a>
-            <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">
-                <i class="fa fa-info-circle"></i> About</a>
-            <a class="nav-item nav-link" routerLink="/contact" routerLinkActive="active">
-                <i class="fa fa-envelope"></i> Contact</a>
-            <a href="#" class="nav-item nav-link disabled">
-                <i class="fa fa-suitcase"></i> Administration</a>
-        </div>
-        <ul class="navbar-nav d-md-flex d-none flex-row ml-md-auto">
+    <div class="collapse navbar-collapse" [collapse]="isCollapsed" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/users">
+                    <i class="fa fa-group"></i> Users
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/events">
+                    <i class="fa fa-calendar"></i> Events
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/about">
+                    <i class="fa fa-info-circle"></i> About
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/contact">
+                    <i class="fa fa-envelope"></i> Contact
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a href="#" class="nav-link disabled">
+                    <i class="fa fa-suitcase"></i> Administration
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
             <li *ngIf="!session || !session.user">
                 <a class="btn btn-primary" routerLink="/login" routerLinkActive="active">
                     <i class="fa fa-sign-in"></i> Login
                 </a>
             </li>
-            <li *ngIf="session?.user" class="nav-item dropdown" [class.show]="isAccountDropdownOpen">
-                <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" (click)="toggleAccountDropdownState($event)">
+            <li *ngIf="session?.user" class="nav-item dropdown" dropdown>
+                <a class="dropdown-toggle nav-link" href="#" dropdownToggle (click)="false">
                     <img class="navbar-brand" src="http://www.gravatar.com/avatar/023da329ad0304e026ee0d41533a26f7?s=30" alt="User avatar" class="rounded-circle">
+                    <span class="caret"></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" [class.show]="isAccountDropdownOpen">
-                    <h6 class="dropdown-header">{{session?.user.fullname}}</h6>
-                    <a class="dropdown-item" href="/users/{{session?.user.id}}">
-                        <i class="fa fa-id-card-o"></i> My infos</a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-shield"></i> Change password</a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-bug"></i> Something else here</a>
-                    <a class="dropdown-item" href="/logout">
-                        <i class="fa fa-sign-out"></i> logout
-                    </a>
-                </div>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" *dropdownMenu>
+                    <li>
+                        <h6 class="dropdown-header">{{session?.user.fullname}}</h6>
+                    </li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" href="/users/{{session?.user.id}}">
+                            <i class="fa fa-id-card-o"></i> My infos
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-shield"></i> Change password
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-bug"></i> Something else here
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" href="/logout">
+                            <i class="fa fa-sign-out"></i> logout
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
