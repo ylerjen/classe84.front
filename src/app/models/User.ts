@@ -20,8 +20,8 @@ export class User {
     public fb_user_id: string;
     public fb_profile_name: string;
     public website: string;
-    public created_at: string;
-    public updated_at: string;
+    public created_at: Date;
+    public updated_at: Date;
     public permissions: Array<any>;
 
     get fullname(): string {
@@ -57,7 +57,7 @@ export class User {
         this.maiden_name = props.maiden_name;
         this.first_name = props.first_name;
         this.gender = props.gender;
-        this.birthdate = props.birthdate;
+        this.birthdate = props.birthdate ? new Date(props.birthdate) : null;
         this.is_active = props.is_active;
         this.email = props.email;
         this.phone = props.phone;
@@ -65,8 +65,8 @@ export class User {
         this.fb_user_id = props.fb_user_id;
         this.fb_profile_name = props.fb_profile_name;
         this.website = props.website;
-        this.created_at = props.created_at;
-        this.updated_at = props.updated_at;
+        this.created_at = props.created_at ? new Date(props.created_at) : null;
+        this.updated_at = props.updated_at ? new Date(props.updated_at) : null;
     }
 
     /**
