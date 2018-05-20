@@ -97,7 +97,6 @@ export class UsersService {
      */
     getSubscriptions(id: string): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${id}/events`)
-            .map( (resp: Response): Array<Event> => resp.json())
             .map( (events: Array<Event>) => events.map(
                 evt => {
                     const subscr = new Subscription();
