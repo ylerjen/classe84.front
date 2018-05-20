@@ -53,7 +53,7 @@ export class SessionEffects {
                 redirectTo = decodeURIComponent(redirectTo);
                 this._router.navigate([redirectTo]);
             }
-            return { type: 'don t dispatch anything' };
+            return { type: `don't dispatch anything` };
         });
 
     @Effect()
@@ -65,7 +65,7 @@ export class SessionEffects {
             this._authSrvc.deleteStoredSession();
             const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
             this._notifSrvc.notify(msg, ENotificationType.ERROR);
-            return { type: 'don t dispatch anything' };
+            return { type: `don't dispatch anything` };
         });
 
     @Effect()
@@ -78,7 +78,9 @@ export class SessionEffects {
             if (err.message === 'No JWT present or has expired') {
                 action = logoutFinished();
             } else {
-                action = logoutFailed(new Error(`Unhandled service error. ${err.message}`));
+                const error = new Error(`Unhandled service error. ${err.message}`);
+                action = logoutFailed(error);
+                console.error(error);
             }
             return Observable.of(action);
         });
@@ -90,7 +92,7 @@ export class SessionEffects {
             const msg = 'Successfuly logged out';
             this._notifSrvc.notify(msg, ENotificationType.SUCCESS);
             this._router.navigate(['login']);
-            return { type: 'don t dispatch anything' };
+            return { type: `don't dispatch anything` };
         });
 
     @Effect()
@@ -101,7 +103,7 @@ export class SessionEffects {
             console.error(err);
             const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
             this._notifSrvc.notify(msg, ENotificationType.ERROR);
-            return { type: 'don t dispatch anything' };
+            return { type: `don't dispatch anything` };
         });
 
     @Effect()
@@ -113,7 +115,7 @@ export class SessionEffects {
             if (resp.status === 404) {
                 this._notifSrvc.notifyError(`The given email is not registered for any user`);
             }
-            return Observable.of({ type: 'don t dispatch anything' });
+            return Observable.of({ type: `don't dispatch anything` });
         });
 
     @Effect()
@@ -125,7 +127,7 @@ export class SessionEffects {
             if (resp.status === 404) {
                 this._notifSrvc.notifyError(`The given email is not registered for any user`);
             }
-            return Observable.of({ type: 'don t dispatch anything' });
+            return Observable.of({ type: `don't dispatch anything` });
         });
 
 
@@ -140,7 +142,7 @@ export class SessionEffects {
         .catch((resp: Response): Observable<Action> => {
             console.error(resp);
             this._notifSrvc.notifyError('Error, see console');
-            return Observable.of({ type: 'don t dispatch anything' });
+            return Observable.of({ type: `don't dispatch anything` });
         });
 
     constructor(
