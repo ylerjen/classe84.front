@@ -21,7 +21,7 @@ export class LoginFormViewerComponent implements OnInit, OnDestroy {
 
     public isLoggingIn: boolean;
 
-    public errorMsg: string;
+    public errorMsg: Array<string>;
 
     constructor(
         private _store: Store<IGlobalState>,
@@ -33,6 +33,7 @@ export class LoginFormViewerComponent implements OnInit, OnDestroy {
                 (state: ISessionState) => {
                     this.session = state.session ? state.session : null;
                     this.isLoggingIn = state.isProcessing;
+                    this.errorMsg = state.errors;
                 }
             );
     }

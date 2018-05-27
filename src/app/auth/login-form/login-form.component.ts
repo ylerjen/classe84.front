@@ -12,24 +12,27 @@ import { AuthService } from '../services/auth.service';
 @Component({
     selector: 'app-login-form',
     templateUrl: './login-form.component.html',
-    styleUrls: ['./login-form.component.scss'],
+    styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-
+    private _globalErrors: Array<String> = [];
     @Input()
-    public isProcessing: boolean;
+    set globalErrors(errArr: Array<String>) {
+        this._globalErrors = Array.isArray(errArr) ? errArr : [];
+    }
+    get globalErrors() {
+        return this._globalErrors;
+    }
 
-    @Output()
-    public loginEvent = new EventEmitter();
+    @Input() public isProcessing: boolean;
+
+    @Output() public loginEvent = new EventEmitter();
 
     public compId: string;
 
     public loginForm: FormGroup;
 
-    constructor(
-        private _fb: FormBuilder,
-        private _authSrvc: AuthService,
-    ) { }
+    constructor(private _fb: FormBuilder, private _authSrvc: AuthService) {}
 
     ngOnInit(): void {
         this.createForm();
@@ -42,7 +45,10 @@ export class LoginFormComponent implements OnInit {
 
     createForm(): void {
         this.loginForm = this._fb.group({
-            email: ['', Validators.required],
+            email: [
+                '',
+                Validators.compose([Validators.required, Validators.email])
+            ],
             password: ['', Validators.required],
             remember: false
         });
@@ -56,7 +62,25 @@ export class LoginFormComponent implements OnInit {
         if (this.loginForm.valid) {
             const creds: Login = LoginFactory.fromObject(this.loginForm.value);
             this.loginEvent.emit(creds);
+        } else {
+            this.markAsTouched(this.loginForm);
         }
     }
 
+    isArray(obj: any) {
+        return Array.isArray(obj);
+    }
+
+    /**
+     * Mark all element of the formGroup as touched
+     * @param formGroup - the form group to set as touched
+     */
+    private markAsTouched(formGroup: FormGroup) {
+        (<any>Object).values(formGroup.controls).forEach(control => {
+            control.markAsTouched();
+            if (control.controls) {
+                control.controls.forEach(c => this.markAsTouched(c));
+            }
+        });
+    }
 }

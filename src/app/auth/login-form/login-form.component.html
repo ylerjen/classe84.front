@@ -6,7 +6,8 @@
             <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
             <ul class="invalid-feedback"
                 *ngIf="loginForm.get('email') && loginForm.get('email').touched && loginForm.get('email').errors">
-                <li>This field is required</li>
+                <li *ngIf="loginForm.get('email').hasError('required')">This field is required</li>
+                <li *ngIf="loginForm.get('email').hasError('email')">This email is invalid</li>
             </ul>
         </div>
         <div class="form-group">
@@ -25,13 +26,18 @@
                     formControlName="remember" /> Remember me
             </label>
         </div>
+        <div *ngIf="isArray(globalErrors) && globalErrors.length">
+            <ul class="alert alert-danger pl-5">
+                <li *ngFor="let err of globalErrors">{{err}}</li>
+            </ul>
+        </div>
         <div>
-            <button type="submit" class="btn btn-primary" [disabled]="isProcessing || !loginForm.valid">
+            <button type="submit" class="btn btn-primary" [disabled]="isProcessing">
                 <i class="fa fa-spinner fa-spin" *ngIf="isProcessing"></i> Log me in
             </button>
             <a routerLink="/login"
                 class="btn btn-link"
-                *ngIf="isProcessing"
+                *ngIf="!isProcessing"
                 [queryParams]="{ recovery: 'true' }"
                 >Password forgotten ?</a>
         </div>
