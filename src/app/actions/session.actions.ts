@@ -12,9 +12,23 @@ export enum SessionActions {
     LogoutFinished = '[Session] Logout finished',
     LogoutFailed = '[Session] Logout failed',
     SetExistingSession = '[Session] set Authenticated User',
-    SendPasswordRecoveryMail = 'sendPasswordRecoveryMail',
-    ChangePassword = 'ChangePassword',
-    ChangePasswordFromRecovery = 'ChangePasswordFromRecovery',
+    SendPasswordRecoveryMail = '[Session] sendPasswordRecoveryMail',
+    ChangePassword = '[Session] ChangePassword',
+    ChangePasswordFromRecovery = '[Session] ChangePasswordFromRecovery',
+    AddFormErrors = '[Session] add form errors',
+    EmptyFormErrors = '[Session] empty form errors'
+}
+
+export class AddFormErrorsAction implements Action {
+    public readonly type = SessionActions.AddFormErrors;
+    public payload: Array<string> = [];
+    constructor(...payload) {
+        this.payload = payload;
+    }
+}
+
+export class EmptyFormErrorsAction implements Action {
+    public readonly type = SessionActions.EmptyFormErrors;
 }
 
 export function login(payload: Login): ActionWithPayload<Login> {

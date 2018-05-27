@@ -4,45 +4,53 @@ import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/empty';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { tap, map, catchError, concatMap } from 'rxjs/operators';
 
 import { Login, PasswordChangeObject, PasswordRecoveryObject } from '@models/Login';
 import { Session } from '@models/Session';
 import { ENotificationType } from '@models/Notification';
 import { ActionWithPayload } from '@actions/app.actions';
-import { SessionActions, loginFailed, logoutFinished, logoutFailed, LoginFinishedAction } from '@actions/session.actions';
+import { SessionActions, loginFailed, logoutFinished, logoutFailed, LoginFinishedAction, AddFormErrorsAction } from '@actions/session.actions';
 import { AuthService } from '../auth/services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
+import { AuthenticationError } from '@models/AuthenticationError';
 
 @Injectable()
 export class SessionEffects {
 
     @Effect()
-    login$ = this.actions$
+    login$: Observable<Action> = this.actions$
         .ofType(SessionActions.Login)
-        .switchMap((act: ActionWithPayload<Login>): Observable<Session> => {
-            const creds: Login = act.payload;
-            if (creds.remember) {
-                // TODO create this part but with secure cred mgmt
-                this._authSrvc.setRememberedCreds(creds);
-            } else {
-                this._authSrvc.deleteRememberedCreds();
-            }
-            return this._authSrvc.login(creds);
-        })
-        .map((res: Session): ActionWithPayload<Session> => new LoginFinishedAction(res))
-        .catch((err: Response): Observable<ActionWithPayload<Error>> => {
-            let action: ActionWithPayload<Error>;
-            if (err.status === 401) {
-                action = loginFailed(new Error('Username or password was wrong'));
-            } else {
-                action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
-            }
-            return Observable.of(action);
-        });
+        .pipe(
+            tap(action => console.log('action triggered', action)),
+            concatMap((act: ActionWithPayload<Login>): Observable<Action> => {
+                const creds: Login = act.payload;
+                if (creds.remember) {
+                    // TODO create this part but with secure cred mgmt
+                    this._authSrvc.setRememberedCreds(creds);
+                } else {
+                    this._authSrvc.deleteRememberedCreds();
+                }
+                return this._authSrvc.login(creds).pipe(
+                    map((res: Session): ActionWithPayload<Session> => {
+                        return new LoginFinishedAction(res);
+                    }),
+                    catchError((err: Response): Observable<ActionWithPayload<Error>> => {
+                        let action: ActionWithPayload<Error>;
+                        if (err.status === 401) {
+                            action = loginFailed(new AuthenticationError(`Username/password doesn't match`));
+                        } else {
+                            action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
+                        }
+                        return Observable.of(action);
+                    })
+                );
+            })
+        );
 
     @Effect()
-    loginFinished$ = this.actions$
+    loginFinished$: Observable<Action> = this.actions$
         .ofType(SessionActions.LoginFinished)
         .map((act: ActionWithPayload<Session>) => {
             // TODO replace this hack with ngrx/router-store
@@ -57,19 +65,23 @@ export class SessionEffects {
         });
 
     @Effect()
-    loginFailed$ = this.actions$
+    loginFailed$: Observable<Action> = this.actions$
         .ofType(SessionActions.LoginFailed)
-        .map((act: ActionWithPayload<Error>): Action => {
+        .map( (act: ActionWithPayload<Error>) => {
             const err = act.payload;
             console.error(err);
+            let newAction = { type: `don't dispatch anything` };
             this._authSrvc.deleteStoredSession();
-            const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
-            this._notifSrvc.notify(msg, ENotificationType.ERROR);
-            return { type: `don't dispatch anything` };
+            if (err instanceof ProgressEvent) {
+                this._notifSrvc.notify(err.message, ENotificationType.ERROR);
+            } else {
+                newAction = new AddFormErrorsAction(err.message);
+            }
+            return newAction;
         });
 
     @Effect()
-    logout$ = this.actions$
+    logout$: Observable<Action> = this.actions$
         .ofType(SessionActions.Logout)
         .switchMap((creds: Action): Observable<{}> => this._authSrvc.logout())
         .map((): Action => logoutFinished())
@@ -86,7 +98,7 @@ export class SessionEffects {
         });
 
     @Effect()
-    logoutFinished$ = this.actions$
+    logoutFinished$: Observable<Action> = this.actions$
         .ofType(SessionActions.LogoutFinished)
         .map((act: Action): Action => {
             const msg = 'Successfuly logged out';
@@ -96,7 +108,7 @@ export class SessionEffects {
         });
 
     @Effect()
-    logoutFailed$ = this.actions$
+    logoutFailed$: Observable<Action> = this.actions$
         .ofType(SessionActions.LogoutFailed)
         .map((act: ActionWithPayload<Error>): Action => {
             const err = act.payload;

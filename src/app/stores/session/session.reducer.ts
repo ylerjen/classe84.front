@@ -9,12 +9,14 @@ export interface ISessionState {
     isLoggedIn: boolean;
     session: Session;
     isProcessing: boolean;
+    errors: Array<string>;
 }
 
 export const initialState: ISessionState = {
     isLoggedIn: false,
     session: null,
-    isProcessing: false
+    isProcessing: false,
+    errors: []
 };
 
 export function sessionReducer(state: ISessionState = initialState, action: Action): ISessionState {
@@ -35,6 +37,17 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
                 session: act.payload,
                 isProcessing: false
             });
+        }
+
+        case SessionActions.AddFormErrors:
+        {
+            const act = action as ActionWithPayload<Array<string>>;
+            return tassign(state, { errors: state.errors.concat(act.payload) });
+        }
+
+        case SessionActions.EmptyFormErrors:
+        {
+            return tassign( state, { errors: [] });
         }
 
         case SessionActions.Logout:
