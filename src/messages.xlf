@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="69ebe829d905bdcb3c0a153f59644e4811e2864e" datatype="html">
+        <source>About the classe 1984</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e34f0fd676f384a587339adb980f01231127a0fe" datatype="html">
+        <source>The committee</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="57d4bf3d52d34ecf28e08bb54400e843b19172ee" datatype="html">
+        <source>President</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1dcf243658f8fec464080bfc6e8938c953a62e24" datatype="html">
+        <source>Deputy Chairman &amp; Webmaster</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8395dc48206de695ba3debc35aca0f623905d2c7" datatype="html">
+        <source>Cashier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b4518ad1ef40bcabdb7523f05a099e7f02d89a6f" datatype="html">
+        <source>Secretary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="80fa90ce67552f3f8a824f756a94327e41d3fc49" datatype="html">
+        <source>Members</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e8144cdb0ceaff0b88fef188a0d0f855d7d2451c" datatype="html">
+        <source>All people marked as &quot;active member&quot; in the member list.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5fd92daaf1e82c6ffc70853248ae3624c176ad5b" datatype="html">
+        <source>The articles of association</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2118f33a0320fd4345bf14d7a696d79888167ad4" datatype="html">
+        <source>Banking information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cdfd4bf758f129ba17916e920b7495ad821cb3fb" datatype="html">
+        <source>Bank</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0d995da0ed19876315595d346f4d584b383b207b" datatype="html">
+        <source>Account owner</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="54f38294b5e75eef4039e24a46ad7d499ea833a9" datatype="html">
+        <source>Account number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="28af3457cd3b49706fb6bc8e35ba33838cf7109d" datatype="html">
+        <source>Clearing number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about-page/about.page.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a12efbcf6dccd44e99a1bc9adb6b5ab6efa0286f" datatype="html">
+        <source>Unauthorized</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/unauthorized/unauthorized.page.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1353dfa1e6fe2dd53eefd76bf13f391d2883c320" datatype="html">
+        <source>You&apos;ve no sufficient privilege to see this page.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/unauthorized/unauthorized.page.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="03354b2489337882c5a4fd033fec9b9f4b8d109f" datatype="html">
+        <source>Page Not Found</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/not-found/not-found.page.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="03d3460e4eb33aa627615619a352207aa3c6ebc4" datatype="html">
+        <source>The page you were looking for was not found. Please use the menu above to navigate to your desired page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/not-found/not-found.page.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="84190dd5c9646681a41459ee21e1cbba0b08219c" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Next birthday</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="065e1d8a510ba7bdfab4f16e05a3270b627e0051" datatype="html">
+        <source>The next birthday is
+                <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/><x id="INTERPOLATION" equiv-text="{{person.first_name}}"/> <x id="INTERPOLATION_1" equiv-text="{{person.last_name}}"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                on <x id="INTERPOLATION_2" equiv-text="{{nextBirthdayUsers[0].birthdate | date: &quot;d MMMM&quot;}}"/>.
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="00373296d9250508b01d9c15bed923ec71acff04" datatype="html">
+        <source>There is no next birthday to display.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="539ccbf0f1b992714657c473e60656d1414df30a" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Stats</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d69fc61d409d46fd835434f6328010fc51ede3b3" datatype="html">
+        <source>{VAR_PLURAL, plural, many {<x id="INTERPOLATION" equiv-text="{{totalMembers}}"/> members} other {<x id="INTERPOLATION" equiv-text="{{totalMembers}}"/> member} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8ee3dea39ddb44825a32d5f0e8f27b16eb773ba4" datatype="html">
+        <source>{VAR_PLURAL, plural, many {<x id="INTERPOLATION" equiv-text="{{totalMen}}"/> men} other {<x id="INTERPOLATION" equiv-text="{{totalMen}}"/> men} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c6868b37c071c32e516da9920c49eb376795e54e" datatype="html">
+        <source>{VAR_PLURAL, plural, many {<x id="INTERPOLATION" equiv-text="{{totalWomen}}"/> women} other {<x id="INTERPOLATION" equiv-text="{{totalWomen}}"/> women} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9f52926b24cb247b4d040bff6d225c435d1bfe3c" datatype="html">
+        <source>{VAR_PLURAL, plural, many {<x id="INTERPOLATION" equiv-text="{{totalActive}}"/> active members} other {<x id="INTERPOLATION" equiv-text="{{totalActive}}"/> active member} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-list-page/user-list-page.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6e995853aa16c6bb628eeacd29e5cb1596019bfa" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Subscriptions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-page/user-page.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e6b1768ca1a830fdd81d31459c043b72299d4fac" datatype="html">
+        <source>This user participated to <x id="ICU" equiv-text="{eventsSubscriptions.length, plural, =0 {...} other {...}}"/>.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-page/user-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="860c106d963342cfb4a6df517383bde80310b3b6" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {0 event} other {<x id="INTERPOLATION" equiv-text="{{eventsSubscriptions.length}}"/> events} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-page/user-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="746bc3d08e0fe93ccba8f04dfeaa202cbee0a2cc" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Go to full list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/pages/user-page/user-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f119360c2b745894b5432a4fd44af6fba1037752" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{usersList.length}}"/> listed members</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/users-list/users-list.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3cf574b479771cd910886e05856f97ddc5cd1b4e" datatype="html">
+        <source>Member since <x id="INTERPOLATION" equiv-text="{{user.created_at | date}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-detail/user-detail.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="61705f24d9f220c9c21e49d669d2efb350880c56" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Infos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-detail/user-detail.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dacf3b43c710156c13c6a3d35251abdafc5a6bfd" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>Not fullfilled<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-detail/user-detail.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-detail/user-detail.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-detail/user-detail.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-detail/user-detail.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-detail/user-detail.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="af4ec6d384a975013799ca4e9fb46c5a99a45d19" datatype="html">
+        <source>Active members only</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-list-filter/user-list-filter.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="003d4f5e4909ccf01b6a204c688fd6dab15c20bd" datatype="html">
+        <source>Gender</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b4856e835b3720799ac2be38bbbe73ba0b35ac42" datatype="html">
+        <source>
+                <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+                Male
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="36bcfad66da8afa81ecb8c8d38c897b9c98132f6" datatype="html">
+        <source>
+                <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+                Female
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b38714fa958eaae47696e2822d9ba80969385353" datatype="html">
+        <source>Lastname</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="276c656bf7d349a31dc70f0b70b3864f52a07f8d" datatype="html">
+        <source>Maidenname</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="adadf996dcd6f06c274f01f9ba766339a7ae6b21" datatype="html">
+        <source>Firstname</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="244aae9346da82b0922506c2d2581373a15641cc" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3cd47780a4905ceb2bb24ba1cf0b10990d668fc7" datatype="html">
+        <source>Birthdate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4bb31c2115998ba9ce8f6b4b545c8d77f3457b46" datatype="html">
+        <source>Mobile phone</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6934d8edd276d59e050006fe91b695ebad0218f8" datatype="html">
+        <source>Phone</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="afb605e735bef0cdd46dbff3c3d2be15960cdc2b" datatype="html">
+        <source>Website</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ef4fd4a324594305a253e4ae80531e82dfdeb319" datatype="html">
+        <source>Facebook profile name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c5ebe52f6ba4790eb7c395dcf27d9fc9eebc4f8a" datatype="html">
+        <source>Facebook identifier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ee077fb48c6e156ff2ef3d5667e56c921178aa6b" datatype="html">
+        <source>
+                <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+                Is an active member
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/components/user-form/user-form.component.ts</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
