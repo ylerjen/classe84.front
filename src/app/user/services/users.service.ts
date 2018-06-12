@@ -34,8 +34,8 @@ export class UsersService {
 
     fetchAll(): Observable<Array<User>> {
         this._store.dispatch( getUserListAsync() );
-        return this._authHttp.get(BASE_URL)
-            // .map((res: Response): Array<any> => res.json())
+        return this._http.get(BASE_URL)
+            .map((res: Response): Array<any> => res.json())
             .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)))
             .map( (userList): Array<User> => {
                 userList = userList.sort(User.sortByFullNameComparator);
