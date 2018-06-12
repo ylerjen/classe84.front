@@ -1,6 +1,6 @@
 <section class="user-list">
     <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
-    <div class="alert alert-info row">{{usersList.length}} membres listés</div>
+    <div class="alert alert-info row" i18n>{{usersList.length}} listed members</div>
     <ul class="row list-item">
         <li class="animation card-item col-xs-12 col-sm-6 col-lg-4"
             *ngFor="let user of usersList"

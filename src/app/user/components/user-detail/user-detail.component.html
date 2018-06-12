@@ -5,7 +5,7 @@
     <div class="user-title text-center">
         <h1>{{user.fullname}}</h1>
         <p>{{user.birthdate | date: 'dd.MM.yyyy'}}</p>
-        <p class="text-muted">Member since {{user.created_at | date}}</p>
+        <p class="text-muted" i18n>Member since {{user.created_at | date}}</p>
     </div>
     <div class="ribbon-wrapper">
         <div class="ribbon" [ngClass]="{inactiv : !user.is_active}">{{user.is_active ? "Actif" : "Inactif"}}</div>
@@ -19,32 +19,32 @@
         </button>
     </div>
     <section class="card-body">
-        <h2><i class="fa fa-address-book"></i> Infos</h2>
+        <h2 i18n><i class="fa fa-address-book"></i> Infos</h2>
         <div class="user-card">            
             <p ng-show="user.mobile">
                 <span class="text-separator"><i class="fa fa-mobile"></i></span>
                 <span *ngIf="user.mobile"><a href="tel:{{user.mobile}}">{{user.mobile | phoneNb}}</a></span>
-                <span *ngIf="!user.mobile"><i>Not fullfilled</i></span>
+                <span *ngIf="!user.mobile" i18n><i>Not fullfilled</i></span>
             </p>
             <p *ngIf="user.phone">
                 <span class="text-separator"><i class="fa fa-phone"></i></span>
                 <span *ngIf="user.phone"><a href="tel:{{user.phone}}">{{user.phone | phoneNb}}</a></span>
-                <span *ngIf="!user.phone"><i>Not fullfilled</i></span>
+                <span *ngIf="!user.phone" i18n><i>Not fullfilled</i></span>
             </p>
             <p *ngIf="user.email">
                 <span class="text-separator"><i class="fa fa-at"></i></span>
                 <span *ngIf="user.email"><a href="mailto:{{user.email}}">{{user.email}}</a></span>
-                <span *ngIf="!user.email"><i>Not fullfilled</i></span>
+                <span *ngIf="!user.email" i18n><i>Not fullfilled</i></span>
             </p>
             <p >
                 <span class="text-separator"><i class="fa fa-facebook-official"></i></span>
                 <span *ngIf="user.fb_profile_name"><a href="http://www.facebook.com/{{user.fb_profile_name}}">http://www.facebook.com/{{user.fb_profile_name}}</a></span>
-                <span *ngIf="!user.fb_profile_name"><i>Not fullfilled</i></span>
+                <span *ngIf="!user.fb_profile_name" i18n><i>Not fullfilled</i></span>
             </p>
             <p *ngIf="user.website">
                 <span class="text-separator"><i class="fa fa-globe"></i></span>
                 <span *ngIf="user.website"><a href="http://{{user.website}}" target="_blank">{{user.website}}</a></span>
-                <span *ngIf="!user.website"><i>Not fullfilled</i></span>
+                <span *ngIf="!user.website" i18n><i>Not fullfilled</i></span>
             </p>
         </div>
     </section>

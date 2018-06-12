@@ -10,9 +10,9 @@
     <h1>{{ user.fullname }}</h1>
     <input type="hidden" formControlName="id" />
     <div class="form-group">
-        <label>Gender</label>
+        <label i18n>Gender</label>
         <div class="form-check">
-            <label class="form-check-label">
+            <label class="form-check-label" i18n>
                 <input
                     type="radio"
                     class="form-check-input"
@@ -23,7 +23,7 @@
             </label>
         </div>
         <div class="form-check">
-            <label class="form-check-label">
+            <label class="form-check-label" i18n>
                 <input
                     type="radio"
                     class="form-check-input"
@@ -36,7 +36,7 @@
         <app-validation-error [errors]="userForm.get('gender').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="user-lastname">Lastname</label>
+        <label for="user-lastname" i18n>Lastname</label>
         <input
             type="text"
             id="user-lastname"
@@ -46,7 +46,7 @@
         <app-validation-error [errors]="userForm.get('last_name').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="user-maidenname">Maidenname</label>
+        <label for="user-maidenname" i18n>Maidenname</label>
         <input
             type="text"
             id="user-maidenname"
@@ -56,7 +56,7 @@
             <app-validation-error [errors]="userForm.get('maiden_name').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="user-firstname">Firstname</label>
+        <label for="user-firstname" i18n>Firstname</label>
         <input
             type="text"
             id="user-firstname"
@@ -66,7 +66,7 @@
         <app-validation-error [errors]="userForm.get('first_name').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="user-email">Email</label>
+        <label for="user-email" i18n>Email</label>
         <input
             type="text" 
             id="user-email"
@@ -77,7 +77,7 @@
         <app-validation-error [errors]="userForm.get('email').errors"></app-validation-error>
     </div>
    <div class="form-group">
-        <label for="user-birthdate">Birthdate</label>
+        <label for="user-birthdate" i18n>Birthdate</label>
         <input type="text"
             id="user-birthdate"
             class="form-control"
@@ -88,7 +88,7 @@
         <app-validation-error [errors]="userForm.get('birthdate').errors"></app-validation-error>
     </div>       
     <div class="form-group">
-        <label for="usr-mobile">Téléphone mobile</label>
+        <label for="usr-mobile" i18n>Mobile phone</label>
         <input
             type="tel"
             id="usr-mobile"
@@ -98,7 +98,7 @@
             <app-validation-error [errors]="userForm.get('mobile').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="usr-phone">Téléphone fixe</label>
+        <label for="usr-phone" i18n>Phone</label>
         <input
             type="tel"
             id="usr-phone"
@@ -108,7 +108,7 @@
         <app-validation-error [errors]="userForm.get('phone').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="usr-website">Site web</label>
+        <label for="usr-website" i18n>Website</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">http://</span>
@@ -123,7 +123,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="usr-fb-profile">Nom de profile Facebook</label>
+        <label for="usr-fb-profile" i18n>Facebook profile name</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">http://www.facebook.com/</span>
@@ -138,7 +138,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="usr-fb-id">Identifiant Facebook</label>
+        <label for="usr-fb-id" i18n>Facebook identifier</label>
         <input
             type="text"
             id="usr-fb-id"
@@ -149,12 +149,13 @@
     </div>
     <div class="form-group">
         <div class="checkbox">
-            <label for="user-is-activ">
+            <label for="user-is-activ" i18n>
                 <input
                     type="checkbox"
                     id="user-is-activ"
                     formControlName="is_active" />
-                Est membre actif de la classe</label>
+                Is an active member
+            </label>
         </div>
     </div>
     <div *ngIf="userForm.errors" class="alert alert-danger">
@@ -162,8 +163,8 @@
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-lg-offset-6">
-            <button type="submit" [disabled]="userForm.status !== 'VALID'" class="btn btn-primary">Save</button>
-            <a routerLink="/users/{{user?.id}}" class="btn btn-link">Cancel</a>
+            <button type="submit" [disabled]="userForm.status !== 'VALID'" class="btn btn-primary" i18n>Save</button>
+            <a routerLink="/users/{{user?.id}}" class="btn btn-link" i18n>Cancel</a>
         </div>
     </div>
     <p>Form value: {{ userForm.value | json }}</p>
