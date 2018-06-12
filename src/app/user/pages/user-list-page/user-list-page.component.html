@@ -14,11 +14,12 @@
     </section>
     <aside class="col-md-4">
         <app-panel>
-            <p class="title"><i class="fa fa-birthday-cake"></i> Next birthday</p>
-            <p class="text" *ngIf="nextBirthdayUsers.length > 0">The next birthday is
+            <p class="title" i18n><i class="fa fa-birthday-cake"></i> Next birthday</p>
+            <p class="text" *ngIf="nextBirthdayUsers.length" i18n>The next birthday is
                 <a routerLink="/users/{{person.id}}" *ngFor="let person of nextBirthdayUsers; ">{{person.first_name}} {{person.last_name}}</a>
                 on {{nextBirthdayUsers[0].birthdate | date: "d MMMM"}}.
             </p>
+            <p class="text" *ngIf="!nextBirthdayUsers.length" i18n>There is no next birthday to display.</p>
         </app-panel>        
         <app-panel *ngIf="top3SubscribersList && top3SubscribersList.length">
             <p class="title">
@@ -35,8 +36,13 @@
             </div>
         </app-panel>  
         <app-panel>
-            <p class="title"><i class="fa fa-bar-chart"></i> Stats</p>
-            <p class="text">{{totalMembers}} members <br />{{totalMen}} men<br />{{totalWomen}} women<br />{{totalActive}} active members</p>
+            <p class="title" i18n><i class="fa fa-bar-chart"></i> Stats</p>
+            <p class="text">
+                <span i18n>{totalMembers, plural, many {{{totalMembers}} members} other {{{totalMembers}} member}}</span><br />
+                <span i18n>{totalMen, plural, many {{{totalMen}} men} other {{{totalMen}} men}}</span><br />
+                <span i18n>{totalWomen, plural, many {{{totalWomen}} women} other {{{totalWomen}} women}}</span><br />
+                <span i18n>{totalActive, plural, many {{{totalActive}} active members} other {{{totalActive}} active member}}</span>
+            </p>
         </app-panel>
     </aside>
 </div>
