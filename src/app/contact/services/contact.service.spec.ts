@@ -1,12 +1,6 @@
 import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
-import {
-    HttpModule,
-    Http,
-    Response,
-    ResponseOptions,
-    XHRBackend
-} from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { Response, ResponseOptions, XHRBackend } from '@angular/http';
 
 import { ContactService } from './contact.service';
 import { Contact } from 'app/models/Contact';
@@ -19,7 +13,7 @@ describe('ContactService', () => {
                 ContactService
             ],
             imports: [
-                HttpModule
+                HttpClientModule
             ]
         });
         TestBed.compileComponents();
@@ -31,7 +25,6 @@ describe('ContactService', () => {
 
     describe('#sendContactMail', () => {
         it('should return an Observable', inject([ContactService, XHRBackend], (contactSrvc: ContactService, mockBackend) => {
-            
             const mockResponse = new Response(new ResponseOptions({
                 status: 204
             }));

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { GMAP_API_KEY } from 'app/config/settings';
@@ -11,7 +11,7 @@ const reverse_geocoding_url = 'https://maps.googleapis.com/maps/api/geocode/json
 export class GeoService {
 
     constructor(
-        private _http: Http,
+        private _http: HttpClient,
     ) { }
 
     /**
@@ -19,14 +19,13 @@ export class GeoService {
      * @param location - the address of the location
      */
     reverseGeocode(location: string): Observable<IReverseGeoCodeResponse> {
-        var params = {
-            format: 'json',
-            address: location,
-            sensor: false,
-            key: GMAP_API_KEY
-        };
-        return this._http.get(reverse_geocoding_url, { params })
-            .map((resp: Response): IReverseGeoCodeResponse => resp.json());
+        const params = new HttpParams();
+        params.set('format', 'json');
+        params.set('address', location);
+        params.set('sensor', 'false');
+        params.set('key', GMAP_API_KEY);
+
+        return this._http.get<IReverseGeoCodeResponse>(reverse_geocoding_url, { params });
     };
 
 }

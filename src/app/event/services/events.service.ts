@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
@@ -22,7 +21,6 @@ const BASE_URL = `${env.API_URL}/events`;
 export class EventsService {
 
     constructor(
-        private _http: Http,
         private _store: Store<IGlobalState>,
         private _authHttp: HttpClient
     ) { }
@@ -31,8 +29,7 @@ export class EventsService {
      * Fetch all events
      */
     fetchAll(): Observable<Array<Event>> {
-        return this._http.get(BASE_URL)
-            .map(res => res.json());
+        return this._authHttp.get<Array<Event>>(BASE_URL);
     }
 
     /**
@@ -101,8 +98,7 @@ export class EventsService {
             throw new Error(`Trying to unsubscribe from an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
         const route = `${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`;
-        return this._authHttp.delete(route)
-            .map((resp: Response): Subscription => subscr);
+        return this._authHttp.delete<Subscription>(route);
     }
 
     /**
@@ -111,7 +107,7 @@ export class EventsService {
      */
     getNextEvent(): Observable<Event> {
         const route = `${BASE_URL}/next`;
-        return this._http.get(route)
-            .map( (resp: Response) => new Event(resp.json()));
+        return this._authHttp.get<Event>(route)
+            .map( json => new Event(json));
     }
 }

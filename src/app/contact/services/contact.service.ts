@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { environment as env } from '../../../environments/environment';
@@ -11,14 +11,14 @@ const BASE_URL = `${env.API_URL}/contact`;
 @Injectable()
 export class ContactService {
 
-    constructor(private _http: Http) { }
+    constructor(private _http: HttpClient) { }
 
-    sendContactMail(contact: Contact): Observable<Response> {
-        let headers = new Headers();
+    sendContactMail(contact: Contact): Observable<Object> {
+        const headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         headers.append('x-mail-token', MAILER_TOKEN);
-        
-        let opts = new RequestOptions({ headers });
+
+        const opts = { headers };
         return this._http.post(BASE_URL, contact, opts);
     }
 }

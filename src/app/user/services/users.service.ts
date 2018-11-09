@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
@@ -27,15 +26,13 @@ const BASE_URL = `${env.API_URL}/users`;
 export class UsersService {
 
     constructor(
-        private _http: Http,
         private _store: Store<IGlobalState>,
-        private _authHttp: HttpClient
+        private _http: HttpClient
     ) { }
 
     fetchAll(): Observable<Array<User>> {
         this._store.dispatch( getUserListAsync() );
-        return this._http.get(BASE_URL)
-            .map((res: Response): Array<any> => res.json())
+        return this._http.get<Array<User>>(BASE_URL)
             .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)))
             .map( (userList): Array<User> => {
                 userList = userList.sort(User.sortByFullNameComparator);
@@ -46,20 +43,23 @@ export class UsersService {
 
     get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
-        return this._authHttp.get<User>(endpoint);
+        console.log(`request user ${id}`);
+        return this._http
+            .get<User>(endpoint)
+            .map(u => new User(u));
     }
 
     create(user: User): Observable<User> {
         console.error('add user from service, to verify');
         this._store.dispatch(addUser(user));
-        return this._authHttp.post<User>(BASE_URL, user);
+        return this._http.post<User>(BASE_URL, user);
     }
 
     update(user: User): Observable<User> {
         const endpoint = `${BASE_URL}/${user.id}`;
         this._store.dispatch(updateUser(user));
         console.error('add user from service => not finished: request create api');
-        return this._authHttp.put<User>(endpoint, user);
+        return this._http.put<User>(endpoint, user);
     }
 
     save(user: User): Observable<User>  {
@@ -87,8 +87,7 @@ export class UsersService {
      * Request the api to get the next users who have the birthday (can be multiple if born the same day)
      */
     fetchNextBirthday(): Observable<Array<User>> {
-        return this._http.get(`${BASE_URL}/next-birthday`)
-            .map((resp: Response): Array<User> => resp.json());
+        return this._http.get<Array<User>>(`${BASE_URL}/next-birthday`);
     }
 
     /**
@@ -96,7 +95,7 @@ export class UsersService {
      * @param id - the id of the user
      */
     getSubscriptions(id: string): Observable<Array<Subscription>> {
-        return this._authHttp.get(`${BASE_URL}/${id}/events`)
+        return this._http.get(`${BASE_URL}/${id}/events`)
             .map( (events: Array<Event>) => events.map(
                 evt => {
                     const subscr = new Subscription();
@@ -112,7 +111,6 @@ export class UsersService {
      * Get the top 3 users with the most participations to events
      */
     getTopSubscriptions(): Observable<Array<User>> {
-        return this._http.get(`${BASE_URL}/top-subscribers`)
-            .map((resp: Response): Array<User> => resp.json());
+        return this._http.get<Array<User>>(`${BASE_URL}/top-subscribers`);
     }
 }

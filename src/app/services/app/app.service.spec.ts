@@ -1,11 +1,6 @@
-import { TestBed, async, inject } from '@angular/core/testing';
-import {
-    HttpModule,
-    Http,
-    Response,
-    ResponseOptions,
-    XHRBackend
-} from '@angular/http';
+import { TestBed, inject } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 
 import { Version } from 'app/models/Version';
@@ -16,7 +11,7 @@ describe('AppService', () => {
     beforeEach(() => {
 
         TestBed.configureTestingModule({
-            imports: [HttpModule],
+            imports: [HttpClientModule],
             providers: [
                 AppService,
                 { provide: XHRBackend, useClass: MockBackend },

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -10,12 +10,12 @@ import { Version } from 'app/models/Version';
 export class AppService {
 
     constructor(
-        private _http: Http
+        private _http: HttpClient
     ) { }
 
     getApiVersion(): Observable<Version> {
         const endPoint = `${env.API_URL}/version`;
-        return this._http.get(endPoint)
-            .map(res => Version.fromObj(res.json()));
+        return this._http.get<Version>(endPoint)
+            .map(res => Version.fromObj(res));
     }
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
 import { environment as env } from '../../environments/environment';
@@ -13,7 +12,6 @@ const BASE_URL = `${env.API_URL}`;
 export class AddressService {
 
     constructor(
-        private _http: Http,
         private _authHttp: HttpClient
     ) { }
 

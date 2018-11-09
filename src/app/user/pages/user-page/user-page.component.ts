@@ -29,7 +29,6 @@ export class UserPageComponent implements OnInit {
         private _store: Store<IGlobalState>,
         private _route: ActivatedRoute,
         private _router: Router,
-        private _userSrv: UsersService,
     ) {
         this._store.select('userState')
             .subscribe(

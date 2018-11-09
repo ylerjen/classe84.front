@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -58,7 +57,7 @@ export class RestorePasswordComponent implements OnInit {
         );
 
         this._route.params
-            .switchMap( (routeData: Params): Observable<Response> => {
+            .switchMap( (routeData: Params): Observable<Object> => {
                 if (!routeData[RECOVERY_TOKEN_PARAM_NAME]) {
                     throw new Error(`no route param '${RECOVERY_TOKEN_PARAM_NAME}' found`);
                 }

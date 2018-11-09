@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { Response } from '@angular/http';
 
 import { RECAPTCHA_KEY } from 'app/config/settings';
 import { Contact } from 'app/models/Contact';
@@ -36,7 +35,7 @@ export class ContactPageComponent {
         this._contactSrvc.sendContactMail(contact)
             .finally(() => this.isSending = false)
             .subscribe(
-                (resp: Response) => {
+                () => {
                     this._notifSrvc.notifySuccess('Contact email sent');
                     this.contactForm.reset();
                 },

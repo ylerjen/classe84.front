@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -41,7 +40,6 @@ export class AuthService implements CanActivate {
     }
 
     constructor(
-        private _http: Http,
         private _authHttp: HttpClient,
         private _store: Store<IGlobalState>,
         private _router: Router,
@@ -61,9 +59,9 @@ export class AuthService implements CanActivate {
      */
     login(creds: Login, successCb?, errorCb?): Observable<Session> {
         const endpoint = `${authBaseRoute}/login`;
-        return this._http.post(endpoint, creds)
-            .map(res => {
-                const session: Session = new Session(res.json());
+        return this._authHttp.post<Session>(endpoint, creds)
+            .map(json => {
+                const session: Session = new Session(json);
                 this.storeSession(session);
                 return session;
             });
@@ -73,6 +71,9 @@ export class AuthService implements CanActivate {
      * @param successCb - a callback to execute when the logout succeed
      */
     logout(): Observable<{}> {
+        if (!this.isLoggedIn()) {
+            return Observable.of('loggedOut');
+        }
         const endpoint = `${authBaseRoute}/logout`;
         return this._authHttp.post(endpoint, {});
     }
@@ -90,7 +91,7 @@ export class AuthService implements CanActivate {
      * Recover an account password by sending an email to the user which own the email
      * @param email - is the email of the related user
      */
-    recoverPassword(email): Observable<Response> {
+    recoverPassword(email): Observable<Object> {
         const endpoint = `${authBaseRoute}/reset-password`;
         const recoveryRoute = `${window.location.origin}/${ROUTE.restorePassword};${RECOVERY_TOKEN_PARAM_NAME}=${RECOVERY_TOKEN_VAR_NAME}`;
         const param = {
@@ -98,31 +99,31 @@ export class AuthService implements CanActivate {
             frontUrl: recoveryRoute,
             tokenPlaceholder: RECOVERY_TOKEN_VAR_NAME
         };
-        return this._http.post(endpoint, param);
+        return this._authHttp.post(endpoint, param);
     }
 
     /**
      * Check if the recovery token is valid
      * @param recoveryToken - The recovery token to check
      */
-    isRecoveryTokenValid(recoveryToken: string): Observable<Response> {
+    isRecoveryTokenValid(recoveryToken: string): Observable<Object> {
         const endpoint = `${authBaseRoute}/check-recovery-token-validity`;
-        return this._http.post(endpoint, { recoveryToken });
+        return this._authHttp.post(endpoint, { recoveryToken });
     }
 
-    changePassword(info: PasswordChangeObject): Observable<Response> {
+    changePassword(info: PasswordChangeObject): Observable<Object> {
         const endpoint = `${authBaseRoute}/change-password`;
         throw 'not implemented yet';
-        // return this._http.post(endpoint, info);
+        // return this._authHttp.post(endpoint, info);
     }
 
     /**
      * Change the password of a user with a recovery token
      * @param info - are the infos that are needed for the password change request
      */
-    changePasswordFromRecovery(info: PasswordRecoveryObject): Observable<Response> {
+    changePasswordFromRecovery(info: PasswordRecoveryObject): Observable<Object> {
         const endpoint = `${authBaseRoute}/change-password-from-recovery`;
-        return this._http.post(endpoint, info);
+        return this._authHttp.post(endpoint, info);
     }
 
     getStoredSession(): Session {

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
@@ -121,9 +120,9 @@ export class SessionEffects {
     @Effect()
     sendPasswordRecoveryMail$ = this.actions$
         .ofType(SessionActions.SendPasswordRecoveryMail)
-        .switchMap((act: ActionWithPayload<string>): Observable<Response> => this._authSrvc.recoverPassword(act.payload))
-        .map((res: Response): void => this._notifSrvc.notifySuccess('Password recovery email successfully send to XXX'))
-        .catch((resp: Response): Observable<Action> => {
+        .switchMap((act: ActionWithPayload<string>): Observable<Object> => this._authSrvc.recoverPassword(act.payload))
+        .map((res): void => this._notifSrvc.notifySuccess('Password recovery email successfully send to XXX'))
+        .catch((resp): Observable<Action> => {
             if (resp.status === 404) {
                 this._notifSrvc.notifyError(`The given email is not registered for any user`);
             }
@@ -133,9 +132,9 @@ export class SessionEffects {
     @Effect()
     changePassword$ = this.actions$
         .ofType(SessionActions.ChangePassword)
-        .switchMap((act: ActionWithPayload<PasswordChangeObject>): Observable<Response> => this._authSrvc.changePassword(act.payload))
-        .map((res: Response): void => this._notifSrvc.notifySuccess('Password successfully changed'))
-        .catch((resp: Response): Observable<Action> => {
+        .switchMap((act: ActionWithPayload<PasswordChangeObject>): Observable<Object> => this._authSrvc.changePassword(act.payload))
+        .map((res): void => this._notifSrvc.notifySuccess('Password successfully changed'))
+        .catch((resp): Observable<Action> => {
             if (resp.status === 404) {
                 this._notifSrvc.notifyError(`The given email is not registered for any user`);
             }
@@ -147,7 +146,7 @@ export class SessionEffects {
     @Effect()
     changePasswordFromRecovery$ = this.actions$
         .ofType(SessionActions.ChangePasswordFromRecovery)
-        .switchMap((act: ActionWithPayload<PasswordRecoveryObject>): Observable<Response> =>
+        .switchMap((act: ActionWithPayload<PasswordRecoveryObject>): Observable<Object> =>
             this._authSrvc.changePasswordFromRecovery(act.payload)
         )
         .map((res: Response): void => this._notifSrvc.notifySuccess('Your new password was successfully setted'))
