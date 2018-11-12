@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { tassign } from 'tassign';
 
 import { Session } from 'app/models/Session';
 import { SessionActions } from 'app/actions/session.actions';
@@ -23,37 +22,52 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
     switch (action.type) {
         case SessionActions.Login:
         {
-            return tassign(state, {
-                isProcessing: true
-            });
+            return {
+                ...state,
+                isProcessing: true,
+                errors: []
+            };
         }
 
         case SessionActions.LoginFinished:
         case SessionActions.SetExistingSession:
         {
             const act = action as ActionWithPayload<Session>;
-            return tassign(state, {
+            return {
+                ...state,
                 isLoggedIn: true,
                 session: act.payload,
                 isProcessing: false
-            });
+            };
         }
 
         case SessionActions.AddFormErrors:
         {
             const act = action as ActionWithPayload<Array<string>>;
-            return tassign(state, { errors: state.errors.concat(act.payload) });
+            return {
+                ...state,
+                errors: state.errors.concat(act.payload)
+            };
         }
 
         case SessionActions.EmptyFormErrors:
         {
-            return tassign( state, { errors: [] });
+            return {
+                ...state,
+                errors: []
+            };
         }
 
         case SessionActions.Logout:
-        case SessionActions.LoginFailed:
+        {
             return initialState;
+        }
 
+        case SessionActions.LoginFailed:
+        {
+            const act = action as ActionWithPayload<AuthenticationError>;
+            return { ...initialState };
+        }
         default:
             return state;
     }
