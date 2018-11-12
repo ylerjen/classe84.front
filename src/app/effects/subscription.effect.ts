@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 import { ActionWithPayload } from '../actions/app.actions';
 import { UsersService } from 'app/user/services/users.service';
 import { EventsService } from 'app/event/services/events.service';
@@ -32,7 +33,7 @@ export class SubscriptionEffects {
             return this._eventSrvc.getSubscribers(act.payload.id);
         })
         .map(subscrList => getSubscriptionFinished(subscrList))
-        .catch((err: Error) => Observable.of(getSubscriptionFailed(err))
+        .catch((err: Error) => of(getSubscriptionFailed(err))
     );
 
     @Effect()
@@ -43,7 +44,7 @@ export class SubscriptionEffects {
               return this._eventSrvc.susbcribeToEvent(act.payload);
           })
           .map(subscrList => addSubscriptionFinished(subscrList))
-          .catch((err: Error) => Observable.of(addSubscriptionFailed(err))
+          .catch((err: Error) => of(addSubscriptionFailed(err))
       );
 
       @Effect()
@@ -54,7 +55,7 @@ export class SubscriptionEffects {
                 return this._eventSrvc.unsubscribeFromEvent(act.payload);
             })
             .map(subscr => deleteSubscriptionFinished(subscr))
-            .catch((err: Error) => Observable.of(deleteSubscriptionFailed(err))
+            .catch((err: Error) => of(deleteSubscriptionFailed(err))
         );
 
     constructor(

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
@@ -72,7 +73,7 @@ export class AuthService implements CanActivate {
      */
     logout(): Observable<{}> {
         if (!this.isLoggedIn()) {
-            return Observable.of('loggedOut');
+            return of('loggedOut');
         }
         const endpoint = `${authBaseRoute}/logout`;
         return this._authHttp.post(endpoint, {});

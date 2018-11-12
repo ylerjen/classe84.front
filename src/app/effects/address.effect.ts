@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 import 'rxjs/add/observable/of';
 import { addressActions, getAddressListAsyncFailed, getAddressListAsyncFinished, UserAddressCmd } from 'app/actions/addresslist.actions';
 import { ActionWithPayload } from '../actions/app.actions';
@@ -19,7 +20,7 @@ export class AddressEffects {
       })
       .switchMap(payload => this._addressService.getAllForUser(payload)
         .map((addrList) => getAddressListAsyncFinished(addrList))
-        .catch((err: Error) => Observable.of(getAddressListAsyncFailed(err)))
+        .catch((err: Error) => of(getAddressListAsyncFailed(err)))
       );
 
   @Effect()
@@ -31,7 +32,7 @@ export class AddressEffects {
       })
       .switchMap(payload => this._addressService.setAsDefault(payload)
         .map(res => ({type: 'defaultAddressSetted'}))
-        .catch((err: Error) => Observable.of({type: 'defaultAddressFailed'}))
+        .catch((err: Error) => of({type: 'defaultAddressFailed'}))
       );
 
     constructor(

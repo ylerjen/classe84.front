@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 import { ActionWithPayload } from '../actions/app.actions';
 import { EventActions, getEventFinished, getEventFailed } from '../actions/event.actions';
 import { addNotif } from '../actions/notifications.actions';
@@ -21,7 +22,7 @@ export class EventEffects {
         })
         .switchMap(payload => this._evtSrvc.get(payload))
         .map(event => getEventFinished(event))
-        .catch((err: Error) => Observable.of(getEventFailed(err))
+        .catch((err: Error) => of(getEventFailed(err))
     );
 
     @Effect()
@@ -33,7 +34,7 @@ export class EventEffects {
             const notif = new Notification(act.payload.name + ' : ' + act.payload.message);
             return addNotif(notif);
         })
-        .catch((err: Error) => Observable.of(getEventFailed(err))
+        .catch((err: Error) => of(getEventFailed(err))
     );
 
     constructor(

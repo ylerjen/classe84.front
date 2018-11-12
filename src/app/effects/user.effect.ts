@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 
 import { Notification, ENotificationType } from '@models/Notification';
 import { ActionWithPayload } from '@actions/app.actions';
@@ -17,7 +18,7 @@ export class UserEffects {
         .map((action: ActionWithPayload<number>): number => action.payload)
         .switchMap(payload => this._userService.get(payload))
         .map(user => getUserFinished(user))
-        .catch((err: Error): Observable<ActionWithPayload<Error>> => Observable.of(getUserFailed(err)));
+        .catch((err: Error): Observable<ActionWithPayload<Error>> => of(getUserFailed(err)));
 
   @Effect()
   getUserFailed$ = this.actions$

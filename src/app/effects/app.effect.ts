@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 import { AppActions, getApiVersionFinished } from 'app/actions/app.actions';
 import { addNotif } from 'app/actions/notifications.actions';
 import { AppService } from '../services/app/app.service';
@@ -17,7 +17,7 @@ export class AppEffects {
         .map((res: Version) => getApiVersionFinished(res))
         .catch((err: Error) => {
             const errNotif = new Notification(JSON.stringify(err), ENotificationType.ERROR);
-            return Observable.of(addNotif(errNotif));
+            return of(addNotif(errNotif));
         })
     );
 

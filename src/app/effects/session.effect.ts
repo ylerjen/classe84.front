@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { of } from 'rxjs';
 import { tap, map, catchError, concatMap } from 'rxjs/operators';
 
 import { Login, PasswordChangeObject, PasswordRecoveryObject } from '@models/Login';
@@ -42,7 +42,7 @@ export class SessionEffects {
                         } else {
                             action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
                         }
-                        return Observable.of(action);
+                        return of(action);
                     })
                 );
             })
@@ -93,7 +93,7 @@ export class SessionEffects {
                 action = logoutFailed(error);
                 console.error(error);
             }
-            return Observable.of(action);
+            return of(action);
         });
 
     @Effect()
@@ -126,7 +126,7 @@ export class SessionEffects {
             if (resp.status === 404) {
                 this._notifSrvc.notifyError(`The given email is not registered for any user`);
             }
-            return Observable.of({ type: `don't dispatch anything` });
+            return of({ type: `NO ACTION` });
         });
 
     @Effect()
@@ -138,7 +138,7 @@ export class SessionEffects {
             if (resp.status === 404) {
                 this._notifSrvc.notifyError(`The given email is not registered for any user`);
             }
-            return Observable.of({ type: `don't dispatch anything` });
+            return of({ type: `NO ACTION` });
         });
 
 
