@@ -65,6 +65,10 @@ export class AuthService implements CanActivate {
                 const session: Session = new Session(json);
                 this.storeSession(session);
                 return session;
+            })
+            .catch((err: Error): Observable<any> => {
+                this.deleteStoredSession();
+                throw err;
             });
     }
     /**
