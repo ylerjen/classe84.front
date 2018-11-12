@@ -6,7 +6,6 @@ import { User } from 'app/models/User';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { getUserStart } from 'app/actions/user.actions';
-import { UsersService } from '../../services/users.service';
 import { IUserState } from 'app/stores/user/user.reducer';
 import { getSubscriptionStart, SubscriptionType, FetchSubscriptionCmd } from 'app/actions/subscription.actions';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
