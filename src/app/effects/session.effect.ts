@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
@@ -35,7 +36,7 @@ export class SessionEffects {
                     map((res: Session): ActionWithPayload<Session> => {
                         return new LoginFinishedAction(res);
                     }),
-                    catchError((err: Response): Observable<ActionWithPayload<Error>> => {
+                    catchError((err: HttpErrorResponse): Observable<ActionWithPayload<Error>> => {
                         let action: ActionWithPayload<Error>;
                         if (err.status === 401) {
                             action = loginFailed(new AuthenticationError(`Username/password doesn't match`));
