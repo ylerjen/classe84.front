@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { Session } from 'app/models/Session';
 import { SessionActions } from 'app/actions/session.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
+import { AuthenticationError } from '@models/AuthenticationError';
 
 export interface ISessionState {
     isLoggedIn: boolean;
