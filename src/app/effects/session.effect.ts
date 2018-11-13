@@ -11,10 +11,16 @@ import { Login, PasswordChangeObject, PasswordRecoveryObject } from '@models/Log
 import { Session } from '@models/Session';
 import { ENotificationType } from '@models/Notification';
 import { ActionWithPayload } from '@actions/app.actions';
-import { SessionActions, loginFailed, logoutFinished, logoutFailed, LoginFinishedAction, AddFormErrorsAction } from '@actions/session.actions';
 import { AuthService } from '../auth/services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { AuthenticationError } from '@models/AuthenticationError';
+import {
+    SessionActions,
+    loginFailed,
+    logoutFinished,
+    logoutFailed,
+    LoginFinishedAction,
+    AddFormErrorsAction } from '@actions/session.actions';
 
 @Injectable()
 export class SessionEffects {
@@ -43,6 +49,7 @@ export class SessionEffects {
                         } else {
                             action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
                         }
+                        this._notifSrvc.notify(action.payload.message, ENotificationType.ERROR);
                         return of(action);
                     })
                 );
