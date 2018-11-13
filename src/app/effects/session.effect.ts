@@ -49,7 +49,7 @@ export class SessionEffects {
             })
         );
 
-    @Effect()
+    @Effect({dispatch: false})
     loginFinished$: Observable<Action> = this.actions$
         .ofType(SessionActions.LoginFinished)
         .map((act: ActionWithPayload<Session>) => {
@@ -61,7 +61,7 @@ export class SessionEffects {
                 redirectTo = decodeURIComponent(redirectTo);
                 this._router.navigate([redirectTo]);
             }
-            return { type: `don't dispatch anything` };
+            return { type: `NO ACTION` };
         });
 
     @Effect()
@@ -69,8 +69,7 @@ export class SessionEffects {
         .ofType(SessionActions.LoginFailed)
         .map( (act: ActionWithPayload<Error>) => {
             const err = act.payload;
-            console.error(err);
-            let newAction = { type: `don't dispatch anything` };
+            let newAction = { type: `NO ACTION` };
             this._authSrvc.deleteStoredSession();
             if (err instanceof ProgressEvent) {
                 this._notifSrvc.notify(err.message, ENotificationType.ERROR);
@@ -104,7 +103,7 @@ export class SessionEffects {
             const msg = 'Successfuly logged out';
             this._notifSrvc.notify(msg, ENotificationType.SUCCESS);
             this._router.navigate(['login']);
-            return { type: `don't dispatch anything` };
+            return { type: `NO ACTION` };
         });
 
     @Effect()
@@ -115,7 +114,7 @@ export class SessionEffects {
             console.error(err);
             const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
             this._notifSrvc.notify(msg, ENotificationType.ERROR);
-            return { type: `don't dispatch anything` };
+            return { type: `NO ACTION` };
         });
 
     @Effect()
@@ -154,12 +153,11 @@ export class SessionEffects {
         .catch((resp: Response): Observable<Action> => {
             console.error(resp);
             this._notifSrvc.notifyError('Error, see console');
-            return Observable.of({ type: `don't dispatch anything` });
+            return of({ type: `NO ACTION` });
         });
 
     constructor(
         private actions$: Actions,
-        private _route: ActivatedRoute,
         private _router: Router,
         private _authSrvc: AuthService,
         private _notifSrvc: NotificationService
