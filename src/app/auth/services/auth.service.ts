@@ -118,7 +118,7 @@ export class AuthService implements CanActivate {
 
     changePassword(info: PasswordChangeObject): Observable<Object> {
         const endpoint = `${authBaseRoute}/change-password`;
-        throw 'not implemented yet';
+        throw new Error('not implemented yet');
         // return this._authHttp.post(endpoint, info);
     }
 
