@@ -4,7 +4,6 @@ import { User } from '../models/User';
 import { ActionWithPayload } from './app.actions';
 
 export enum UserlistActions {
-
     GetListStart = '[Userlist] get start',
     GetListFinished = '[Userlist] get finished',
     GetListFailed = '[Userlist] get failed',
@@ -31,6 +30,13 @@ export function getUserListAsync(): Action {
 export function getUserListAsyncFinished(payload: Array<User>): ActionWithPayload<Array<User>> {
     return {
         type: UserlistActions.GetListFinished,
+        payload
+    }
+}
+
+export function getUserListAsyncFailed(payload: Error): ActionWithPayload<Error> {
+    return {
+        type: UserlistActions.GetListFailed,
         payload
     }
 }

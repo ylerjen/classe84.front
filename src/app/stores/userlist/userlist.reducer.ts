@@ -10,6 +10,7 @@ export interface IUserListState {
     isLoading: boolean;
     userFilter: string;
     dataDate: Date;
+    errors: Array<Error>
 }
 
 export const initialState: IUserListState = {
@@ -17,6 +18,7 @@ export const initialState: IUserListState = {
     isLoading: false,
     userFilter: '',
     dataDate: null,
+    errors: []
 };
 
 export function userlistReducer(state: IUserListState = initialState, action: Action): IUserListState {
@@ -34,6 +36,18 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
                 userList: act.payload.slice(),
                 dataDate: new Date(),
             });
+        }
+
+        case UserlistActions.GetListFailed:
+        {
+            const act = action as ActionWithPayload<Error>;
+            const newState: IUserListState = {
+                ...state,
+                isLoading: false,
+                dataDate: new Date()
+            };
+            newState.errors.push(act.payload);
+            return newState;
         }
 
         case UserlistActions.AddUserInList:

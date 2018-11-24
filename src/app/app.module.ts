@@ -32,6 +32,7 @@ import { AppEffects } from './effects/app.effect';
 import { SessionEffects } from './effects/session.effect';
 import { AddressEffects } from './effects/address.effect';
 import { UserEffects } from './effects/user.effect';
+import { UserlistEffects } from './effects/userlist.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
 import { EventEffects } from './effects/event.effect';
 import { EventlistEffects } from './effects/eventlist.effect';
@@ -62,6 +63,7 @@ import { AuthService } from './auth/services/auth.service';
             NotificationEffects,
             SessionEffects,
             UserEffects,
+            UserlistEffects,
             AddressEffects,
             SubscriptionEffects,
             EventlistEffects,
