@@ -28,11 +28,10 @@ export class UserListWrapperComponent implements OnInit {
     public isLoading = false;
     public usersList: User[] = [];
     public filteredList: User[] = [];
+    public errors: Array<Error> = [];
 
     constructor(
-        private _usersService: UsersService,
         private _store: Store<IGlobalState>,
-        private _notifSrvc: NotificationService,
         private _activeRoute: ActivatedRoute,
         private _router: Router
     ) { }
@@ -44,6 +43,7 @@ export class UserListWrapperComponent implements OnInit {
                     this.usersList = uState.userList;
                     this.filterList();
                     this.isLoading = uState.isLoading;
+                    this.errors = uState.errors;
                 }
             });
         this._store.dispatch(getUserListAsync());
