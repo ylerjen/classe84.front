@@ -4,19 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { environment as env } from '../../../environments/environment';
-import { IGlobalState } from 'app/stores/globalState';
 import { User } from 'app/models/User';
 import { Event } from 'app/models/Event';
-import {
-    addUser,
-    updateUser,
-    deleteUser,
-} from 'app/actions/user.actions';
-import {
-    changeFilter,
-    getUserListAsync,
-    getUserListAsyncFinished,
-} from 'app/actions/userlist.actions';
 import { Subscription } from 'app/models/Subscription';
 
 
@@ -26,19 +15,12 @@ const BASE_URL = `${env.API_URL}/users`;
 export class UsersService {
 
     constructor(
-        private _store: Store<IGlobalState>,
         private _http: HttpClient
     ) { }
 
     fetchAll(): Observable<Array<User>> {
-        this._store.dispatch( getUserListAsync() );
         return this._http.get<Array<User>>(BASE_URL)
-            .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)))
-            .map( (userList): Array<User> => {
-                userList = userList.sort(User.sortByFullNameComparator);
-                this._store.dispatch(getUserListAsyncFinished(userList));
-                return userList;
-            });
+            .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)));
     }
 
     get(id: number): Observable<User> {
@@ -51,13 +33,11 @@ export class UsersService {
 
     create(user: User): Observable<User> {
         console.error('add user from service, to verify');
-        this._store.dispatch(addUser(user));
         return this._http.post<User>(BASE_URL, user);
     }
 
     update(user: User): Observable<User> {
         const endpoint = `${BASE_URL}/${user.id}`;
-        this._store.dispatch(updateUser(user));
         console.error('add user from service => not finished: request create api');
         return this._http.put<User>(endpoint, user);
     }
@@ -71,16 +51,7 @@ export class UsersService {
     }
 
     delete(user: User) {
-        console.error('delete from service => not finished: request delete api');
-        this._store.dispatch(deleteUser(user));
-    }
-
-    /**
-     * Update the filter state of the user list in the store
-     * @param filter
-     */
-    updateFilter(filter: string) {
-        this._store.dispatch(changeFilter(filter));
+        throw new Error('delete from service => not implemented: request delete api');
     }
 
     /**
