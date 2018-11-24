@@ -12,6 +12,7 @@ import { UsersService } from 'app/user/services/users.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { getUserListAsyncFinished } from 'app/actions/userlist.actions';
 import { IGlobalState } from 'app/stores/globalState';
+import { getUserListAsync } from 'app/actions/userlist.actions';
 
 @Component({
     selector: 'app-user-list-wrapper',
@@ -45,7 +46,7 @@ export class UserListWrapperComponent implements OnInit {
                     this.isLoading = uState.isLoading;
                 }
             });
-        this.loadAll();
+        this._store.dispatch(getUserListAsync());
         this._activeRoute.queryParams.subscribe(
             (params: IUserListFilter) => {
                 if (params) {
@@ -65,21 +66,6 @@ export class UserListWrapperComponent implements OnInit {
 
             return checkNameSearch && checkActiveOnly;
         });
-    }
-
-    loadAll() {
-        this._usersService.fetchAll()
-            .catch( (error: Response) => {
-                let msg;
-                if (error.status === 0) {
-                    msg = 'API unreachable. Please contact the administrator.';
-                } else {
-                    msg = error.body || error.statusText;
-                }
-                this._notifSrvc.notifyError(msg);
-                return Observable.throw(error.body);
-            })
-            .subscribe(userlist => this._store.dispatch(getUserListAsyncFinished(userlist)));
     }
 
     onFilterChange(filter: IUserListFilter) {
