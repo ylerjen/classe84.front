@@ -28,8 +28,6 @@ export class UserListPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this._userSrvc.fetchAll();
-
         this._userSrvc.fetchNextBirthday()
             .subscribe( (userList: Array<User>) => this.nextBirthdayUsers = userList);
 
