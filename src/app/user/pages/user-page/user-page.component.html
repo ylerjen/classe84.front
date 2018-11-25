@@ -1,5 +1,6 @@
 <div class="row">
     <section class="col-md-8">
+        <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
          <router-outlet></router-outlet> 
     </section>
     <aside class="col-md-4">
