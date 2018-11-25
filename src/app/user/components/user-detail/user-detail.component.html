@@ -5,7 +5,7 @@
     <div class="user-title text-center">
         <h1>{{user.fullname}}</h1>
         <p>{{user.birthdate | date: 'dd.MM.yyyy'}}</p>
-        <p class="text-muted">Member since {{user.created_at | date}}</p>
+        <p class="text-muted">Created at {{user.created_at | date}}</p>
     </div>
     <div class="ribbon-wrapper">
         <div class="ribbon" [ngClass]="{inactiv : !user.is_active}">{{user.is_active ? "Actif" : "Inactif"}}</div>
