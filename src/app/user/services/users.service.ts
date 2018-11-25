@@ -25,20 +25,19 @@ export class UsersService {
 
     get(id: number): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
-        console.log(`request user ${id}`);
         return this._http
             .get<User>(endpoint)
             .map(u => new User(u));
     }
 
     create(user: User): Observable<User> {
-        console.error('add user from service, to verify');
+        console.warn('add user from service, to verify');
         return this._http.post<User>(BASE_URL, user);
     }
 
     update(user: User): Observable<User> {
         const endpoint = `${BASE_URL}/${user.id}`;
-        console.error('add user from service => not finished: request create api');
+        console.warn('add user from service => not finished: request create api');
         return this._http.put<User>(endpoint, user);
     }
 
