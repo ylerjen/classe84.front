@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 import { Event } from '@models/Event';
-import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
 import { EventsService } from '../../services/events.service';
 
 @Component({
@@ -16,7 +14,6 @@ export class EventlistPageComponent implements OnInit {
 
     constructor(
         private _evtSrvc: EventsService,
-        private _store: Store<IEventListState>,
     ) { }
 
     ngOnInit() {

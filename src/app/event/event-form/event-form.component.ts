@@ -24,7 +24,7 @@ export class EventFormComponent implements OnInit {
 
     public choosenResult: number;
 
-    public isLocationLoading: boolean = false;
+    public isLocationLoading = false;
 
     public isModalDisplayed: boolean;
 
@@ -59,7 +59,7 @@ export class EventFormComponent implements OnInit {
         this.eventForm = this._fb.group({
             id: [this.event.id || ''],
             title: [this.event.title || '', Validators.required ],
-            event_date: [this.event.event_date || '', Validators.required ],
+            start_date: [this.event.start_date || '', Validators.required ],
             description: [this.event.description || '', Validators.required ],
             latitude: [this.event.latitude || '', Validators.required ],
             longitude: [this.event.longitude || '', Validators.required ],

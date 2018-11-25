@@ -1,7 +1,8 @@
 export class Event {
     public id: string;
     public title: string;
-    public event_date: Date;
+    public start_date: Date;
+    public end_date: Date;
     public description: string;
     public organisator: string;
     public location: string;
@@ -16,7 +17,8 @@ export class Event {
     constructor(props: { [key: string]: any } = {}) {
         this.id = props.id;
         this.title = props.title;
-        this.event_date = props.event_date;
+        this.start_date = props.start_date;
+        this.end_date = props.end_date;
         this.description = props.description;
         this.latitude = props.latitude;
         this.longitude = props.longitude;

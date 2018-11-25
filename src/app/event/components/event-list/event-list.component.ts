@@ -18,9 +18,9 @@ export class EventListComponent {
     set eventList(list: Array<Evt>) {
         if (Array.isArray(list)) {
             this._eventList = list.sort( (evt1: Evt, evt2: Evt): number => {
-                if (evt1.event_date === evt2.event_date) {
+                if (evt1.start_date === evt2.start_date) {
                     return 0;
-                } else if (evt1.event_date > evt2.event_date) {
+                } else if (evt1.start_date > evt2.start_date) {
                     return -1;
                 } else {
                     return 1;
@@ -31,5 +31,4 @@ export class EventListComponent {
     get eventList(): Array<Evt> {
         return this._eventList;
     }
-
 }

@@ -1,16 +1,16 @@
 <section class="event-list">
     <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
-    <div class="alert alert-info">{{eventList.length}} évènements listés</div>
+    <div [hidden]="isLoading" class="alert alert-info">{{eventList.length}} évènements listés</div>
     <ul class="row list-item" *ngIf="!isLoading">                
         <li *ngFor="let event of eventList" class="col-md-12 col-lg-6">
             <a href="/events/{{event.id}}" class="card">
-                <div class="card-header">
-                    <h2>{{event.title}}</h2>
-                </div>
+                <!-- <div class="card-header">
+                </div> -->
                 <div class="card-body">
-                    <p class="date"><i class="fa fa-calendar text-separator"></i> {{ event.event_date | date: 'MM.dd.yyyy' }}</p>
-                    <p class="organisator"><i class="fa fa-bullhorn"></i> {{ event.organisator }}</p>
+                    <h2 class="title">{{event.title}}</h2>
+                    <p class="card-subtitle mb-2 text-muted">{{ event.start_date | date: 'MM.dd.yyyy' }}</p>
                     <p class="lieu"><i class="fa fa-map-marker"></i> {{ event.location }}</p>
+                    <p class="organisator"><i class="fa fa-bullhorn"></i> {{ event.organisator }}</p>
                     <p><i class="fa fa-users"></i> 18 participants</p>
                 </div>
             </a>
