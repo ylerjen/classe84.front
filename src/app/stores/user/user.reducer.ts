@@ -7,11 +7,13 @@ import { ActionWithPayload } from 'app/actions/app.actions';
 export interface IUserState {
     user: User;
     isLoading: boolean;
+    errors: Array<Error>
 }
 
 export const initialState: IUserState = {
     user: undefined,
-    isLoading: false
+    isLoading: false,
+    errors: []
 };
 
 export function userReducer(state: IUserState = initialState, action: Action): IUserState {
@@ -34,6 +36,18 @@ export function userReducer(state: IUserState = initialState, action: Action): I
                 user: act.payload,
                 isLoading: false
             };
+        }
+
+        case UserActions.getUserFailed:
+        {
+            const act = action as ActionWithPayload<Error>;
+            const newState = {
+                ...state,
+                user: undefined,
+                isLoading: false
+            };
+            newState.errors.push(act.payload);
+            return newState;
         }
 
         case UserActions.updateUser:
