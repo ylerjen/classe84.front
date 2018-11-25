@@ -31,14 +31,24 @@
             <app-validation-error [errors]="eventForm.get('organisator').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="date-{{compId}}">Date</label>
+        <label for="date-{{compId}}">Start date</label>
         <input
             type="date"
             id="date-{{compId}}"
             class="form-control"
-            formControlName="event_date"
+            formControlName="start_date"
             placeholder="Organisators" />
-            <app-validation-error [errors]="eventForm.get('event_date').errors"></app-validation-error>
+            <app-validation-error [errors]="eventForm.get('start_date').errors"></app-validation-error>
+    </div>
+    <div class="form-group">
+        <label for="date-{{compId}}">End date</label>
+        <input
+            type="date"
+            id="date-{{compId}}"
+            class="form-control"
+            formControlName="end_date"
+            placeholder="Organisators" />
+            <app-validation-error [errors]="eventForm.get('end_date').errors"></app-validation-error>
     </div>
     <div class="form-group">
         <label for="description-{{compId}}">Description</label>
