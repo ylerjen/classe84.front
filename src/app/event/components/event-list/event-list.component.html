@@ -11,7 +11,7 @@
                     <p class="card-subtitle mb-2 text-muted">{{ event.start_date | date: 'MM.dd.yyyy' }}</p>
                     <p class="lieu"><i class="fa fa-map-marker"></i> {{ event.location }}</p>
                     <p class="organisator"><i class="fa fa-bullhorn"></i> {{ event.organisator }}</p>
-                    <p><i class="fa fa-users"></i> 18 participants</p>
+                    <p><i class="fa fa-users"></i> {{event.subscriptionsNb}} participants</p>
                 </div>
             </a>
         </li>             

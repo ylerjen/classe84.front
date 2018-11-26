@@ -13,6 +13,7 @@ export class Event {
     public created_at: Date;
     public created_by: string;
     public updated_at: Date;
+    public subscriptionsNb: number
 
     constructor(props: { [key: string]: any } = {}) {
         this.id = props.id;
@@ -29,6 +30,7 @@ export class Event {
         this.created_at = multiTypeDateToDate(props.created_at);
         this.updated_at = multiTypeDateToDate(props.updated_at);
         this.created_by = props.created_by;
+        this.subscriptionsNb = props.subscriptionsNb;
     }
 }
 
