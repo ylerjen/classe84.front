@@ -2,10 +2,10 @@
     <section class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title">Membres</h1>
+                <h1 class="card-title">Members</h1>
                 <div class="global-actions">
                     <a href="#/user/add" class="btn btn-outline-primary">
-                        <i class="fa fa-user-plus"></i> <span class="d-none d-md-inline">New User</span>
+                        <i class="fa fa-user-plus"></i> <span class="d-none d-md-inline text-separator">New User</span>
                     </a>	
                 </div>
                 <app-user-list-wrapper></app-user-list-wrapper>
@@ -16,19 +16,19 @@
         <app-panel>
             <p class="title"><i class="fa fa-birthday-cake"></i> Next birthday</p>
             <p class="text" *ngIf="nextBirthdayUsers.length > 0">The next birthday is
-                <a routerLink="/users/{{person.id}}" *ngFor="let person of nextBirthdayUsers; ">{{person.first_name}} {{person.last_name}}</a>
+                <a routerLink="/users/{{person.id}}" *ngFor="let person of nextBirthdayUsers; ">
+                    {{person.first_name}} {{person.last_name}}<span *ngIf="nextBirthdayUsers.length > 1">, </span>
+                </a>
                 on {{nextBirthdayUsers[0].birthdate | date: "d MMMM"}}.
             </p>
         </app-panel>        
         <app-panel *ngIf="top3SubscribersList && top3SubscribersList.length">
-            <p class="title">
-                <i class="fa fa-trophy"></i> Hall of fame
-            </p>
+            <p class="title"><i class="fa fa-trophy"></i> Hall of fame</p>
             <div class="text">
                 <ol class="top3-list">
                     <li *ngFor="let user of top3SubscribersList; let i=index">
                         <i class="fa fa-trophy" [style.color]="(i==0) ? 'gold': (i==1) ? 'silver': '#CD7F32'"></i>
-                        <a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
+                        <a href="/users/{{user.id}}" class="text-separator">{{user.first_name}} {{user.last_name}}</a>
                         <span class="subscription-number">({{user.subscriptionsNb}} <i class="fa fa-calendar-check-o"></i>)</span>
                     </li>
                 </ol>
