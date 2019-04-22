@@ -1,15 +1,15 @@
 <section class="account-recovery-form-viewer card card-body align-self-center">
     <div *ngIf="isSending">
         <loaders-css [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
-        <p class="mt-3 alert alert-info">Processing the restore request...</p>
+        <p class="mt-3 alert alert-info">Requête de restauration du compte en cours...</p>
     </div>
     <div *ngIf="isSuccessful">
-        <h2>Restore process finished</h2>
-        <p class="alert alert-success">Please check your email or your spam folder to recover your account !</p>
+        <h2>Processus de restauration du compte terminé</h2>
+        <p class="alert alert-success">Veuillez consulter votre boite email pour valider la demande de restauration. S'il n'y a pas de nouveau courrier, vérifiez dans votre courrier indésirable.</p>
     </div>
     <div *ngIf="!isSending && !isSuccessful">
         <header>
-            <h1 class="card-title">Account recovery</h1>
+            <h1 class="card-title">Restaurer le compte</h1>
         </header>
         <app-account-recovery-form (recoverEvent)="sendREcoveryRequest($event)"></app-account-recovery-form>
     </div>

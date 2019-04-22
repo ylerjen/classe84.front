@@ -2,7 +2,7 @@
     <form *ngIf="isEditable">
         <div class="form-group">
             <label for="user-subscription-search">
-                <i class="fa fa-search" aria-labelledby="search"></i> <span>Subscribe member by their name</span>
+                <i class="fa fa-search" aria-labelledby="search"></i> <span>Inscrire des membres par leur nom</span>
             </label>
             <ng2-completer
                 inputId="user-subscription-search"
@@ -16,7 +16,7 @@
     </form>
     <div *ngIf="!subscribersList.length" class="alert alert-primary" role="alert">No subscription yet...</div>
     <div *ngIf="subscribersList.length">
-        <span *ngIf="!isTotalHidden">{{subscribersList.length}} users subscribed to this event.</span>
+        <span *ngIf="!isTotalHidden">{{subscribersList.length}} membres inscrits à cet évènement.</span>
         <ol>
             <li *ngFor="let subscr of subscribersList">
                 <i class="fa fa-spinner fa-spin" *ngIf="subscr.isStorePending"></i>

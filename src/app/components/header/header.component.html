@@ -9,22 +9,22 @@
         <ul class="navbar-nav mr-auto mt-2 mt-md-0">
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="/users">
-                    <i class="fa fa-group"></i> Users
+                    <i class="fa fa-group"></i> Membres
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="/events">
-                    <i class="fa fa-calendar"></i> Events
+                    <i class="fa fa-calendar"></i> Evenements
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="/about">
-                    <i class="fa fa-info-circle"></i> About
+                    <i class="fa fa-info-circle"></i> A propos...
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="/contact">
-                    <i class="fa fa-envelope"></i> Contact
+                    <i class="fa fa-envelope"></i> Contactez-nous
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
@@ -51,22 +51,17 @@
                     <li class="divider dropdown-divider"></li>
                     <li role="menuitem">
                         <a class="dropdown-item" href="/users/{{session?.user.id}}">
-                            <i class="fa fa-id-card-o"></i> My infos
+                            <i class="fa fa-id-card-o"></i> Mes infos
                         </a>
                     </li>
                     <li role="menuitem">
                         <a class="dropdown-item" href="#">
-                            <i class="fa fa-shield"></i> Change password
-                        </a>
-                    </li>
-                    <li role="menuitem">
-                        <a class="dropdown-item" href="#">
-                            <i class="fa fa-bug"></i> Something else here
+                            <i class="fa fa-shield"></i> Modifier le mot de passe
                         </a>
                     </li>
                     <li role="menuitem">
                         <a class="dropdown-item" href="/logout">
-                            <i class="fa fa-sign-out"></i> logout
+                            <i class="fa fa-sign-out"></i> Se déconnecter
                         </a>
                     </li>
                 </ul>

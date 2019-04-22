@@ -1,10 +1,10 @@
 <section class="login-form-viewer card card-body col align-self-center">
     <header>
-        <h1 class="card-title">Login</h1>
+        <h1 class="card-title">Connexion</h1>
     </header>
     <div *ngIf="session?.user">
-        <p>Hello {{session.user.fullname}} you're already logged in. Would you like to go to your profile page ?</p>
-        <p class="text-muted">Not {{session.user.first_name}} ? Please <a routerLink="/logout">log into your account</a>.</p>
+        <p>Bonjour, vous êtes déjà connecté en tant que {{session.user.fullname}}.</p>
+        <p class="text-muted">Vous n'êtes pas {{session.user.first_name}} ? Merci <a routerLink="/logout">de vous connecter avec vos identifiants</a>.</p>
     </div>
     <app-login-form [isProcessing]="isLoggingIn" (loginEvent)="onLogin($event)" *ngIf="!(session && session.user)" [globalErrors]="errorMsg"></app-login-form>
 </section>

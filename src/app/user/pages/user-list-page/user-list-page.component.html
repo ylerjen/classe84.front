@@ -2,10 +2,10 @@
     <section class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title">Members</h1>
+                <h1 class="card-title">Membres</h1>
                 <div class="global-actions">
                     <a href="#/user/add" class="btn btn-outline-primary">
-                        <i class="fa fa-user-plus"></i> <span class="d-none d-md-inline text-separator">New User</span>
+                        <i class="fa fa-user-plus"></i> <span class="d-none d-md-inline text-separator">Créer un membre</span>
                     </a>	
                 </div>
                 <app-user-list-wrapper></app-user-list-wrapper>
@@ -14,12 +14,12 @@
     </section>
     <aside class="col-md-4">
         <app-panel>
-            <p class="title"><i class="fa fa-birthday-cake"></i> Next birthday</p>
-            <p class="text" *ngIf="nextBirthdayUsers.length > 0">The next birthday is
+            <p class="title"><i class="fa fa-birthday-cake"></i> Prochain anniversaire</p>
+            <p class="text" *ngIf="nextBirthdayUsers.length > 0">Le prochain anniversaire est
                 <a routerLink="/users/{{person.id}}" *ngFor="let person of nextBirthdayUsers; ">
                     {{person.first_name}} {{person.last_name}}<span *ngIf="nextBirthdayUsers.length > 1">, </span>
                 </a>
-                on {{nextBirthdayUsers[0].birthdate | date: "d MMMM"}}.
+                le {{nextBirthdayUsers[0].birthdate | date: "d MMMM"}}.
             </p>
         </app-panel>        
         <app-panel *ngIf="top3SubscribersList && top3SubscribersList.length">
@@ -36,7 +36,7 @@
         </app-panel>  
         <app-panel>
             <p class="title"><i class="fa fa-bar-chart"></i> Stats</p>
-            <p class="text">{{totalMembers}} members <br />{{totalMen}} men<br />{{totalWomen}} women<br />{{totalActive}} active members</p>
+            <p class="text">{{totalMembers}} membres <br />{{totalMen}} hommes<br />{{totalWomen}} femmes<br />{{totalActive}} actifs</p>
         </app-panel>
     </aside>
 </div>
