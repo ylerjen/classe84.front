@@ -2,10 +2,10 @@
     <section class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title">Events</h1>
+                <h1 class="card-title">Evènements</h1>
                 <div class="global-actions">
                     <a href="#/event/add" class="btn btn-outline-primary">
-                        <i class="fa fa-calendar-plus-o"></i> <span class="d-none d-md-inline">New Event</span>
+                        <i class="fa fa-calendar-plus-o"></i> <span class="d-none d-md-inline"> Créer un évènement</span>
                     </a>	
                 </div>
                 <app-event-list-wrapper></app-event-list-wrapper>
@@ -14,7 +14,7 @@
     </section>
     <aside class="col-md-4">
         <app-panel *ngIf="nextEvent">
-            <p class="title"><i class="fa fa-plane"></i> Event planned !</p>
+            <p class="title"><i class="fa fa-plane"></i> Evènement plannifié !</p>
             <p class="text">Le prochain évènement est <a href="/events/{{nextEvent.id}}">{{nextEvent.title}}</a> agendé au {{nextEvent.start_date | date: 'dd.MM.yyyy'}} à {{nextEvent.location}}</p>
         </app-panel>
         <app-panel>
