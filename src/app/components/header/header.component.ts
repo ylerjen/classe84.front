@@ -1,12 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Session } from 'app/models/Session';
 import { IGlobalState } from 'app/stores/globalState';
-import { logout } from '@actions/session.actions';
+import { LogoutAction } from '@actions/session.actions';
 import { ISessionState } from 'app/stores/session/session.reducer';
-import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -20,10 +18,7 @@ export class HeaderComponent implements OnInit {
     public isCollapsed = true;
 
     constructor(
-        private _elRef: ElementRef,
         private _store: Store<IGlobalState>,
-        private _authSrvc: AuthService,
-        private _router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -36,6 +31,6 @@ export class HeaderComponent implements OnInit {
 
     onLogout(event: Event): void {
         event.preventDefault();
-        this._store.dispatch(logout());
+        this._store.dispatch(new LogoutAction());
     }
 }

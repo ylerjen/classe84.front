@@ -16,9 +16,9 @@ import { NotificationService } from '@shared/services/notification/notification.
 import { AuthenticationError } from '@models/AuthenticationError';
 import {
     SessionActions,
-    loginFailed,
-    logoutFinished,
-    logoutFailed,
+    LoginFailedAction,
+    LogoutFinishedAction,
+    LogoutFailedAction,
     LoginFinishedAction,
     AddFormErrorsAction } from '@actions/session.actions';
 
@@ -45,9 +45,9 @@ export class SessionEffects {
                     catchError((err: HttpErrorResponse): Observable<ActionWithPayload<Error>> => {
                         let action: ActionWithPayload<Error>;
                         if (err.status === 401) {
-                            action = loginFailed(new AuthenticationError(`Username/password doesn't match`));
+                            action = new LoginFailedAction(new AuthenticationError(`Username/password doesn't match`));
                         } else {
-                            action = loginFailed(new Error('Unhandled service error. Please report this to the web admin !'));
+                            action = new LoginFailedAction(new Error('Unhandled service error. Please report this to the web admin !'));
                         }
                         this._notifSrvc.notify(action.payload.message, ENotificationType.ERROR);
                         return of(action);
@@ -90,14 +90,14 @@ export class SessionEffects {
     logout$: Observable<Action> = this.actions$
         .ofType(SessionActions.Logout)
         .switchMap((creds: Action): Observable<{}> => this._authSrvc.logout())
-        .map((): Action => logoutFinished())
+        .map((): Action => new LogoutFinishedAction())
         .catch((err: Error): Observable<Action> => {
             let action: Action;
             if (err.message === 'No JWT present or has expired') {
-                action = logoutFinished();
+                action = new LogoutFinishedAction();
             } else {
                 const error = new Error(`Unhandled service error. ${err.message}`);
-                action = logoutFailed(error);
+                action = new LogoutFailedAction(error);
                 console.error(error);
             }
             return of(action);

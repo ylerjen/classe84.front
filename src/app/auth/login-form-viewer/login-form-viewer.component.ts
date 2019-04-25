@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { ISessionState } from 'app/stores/session/session.reducer';
-import { login } from 'app/actions/session.actions';
+import { LoginAction } from 'app/actions/session.actions';
 import { Session } from 'app/models/Session';
 import { Login } from 'app/models/Login';
 import { IGlobalState } from 'app/stores/globalState';
@@ -42,6 +42,6 @@ export class LoginFormViewerComponent implements OnInit, OnDestroy {
     }
 
     onLogin(creds: Login) {
-        this._store.dispatch(login(creds));
+        this._store.dispatch(new LoginAction(creds));
     }
 }
