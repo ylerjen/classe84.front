@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { tassign } from 'tassign';
 
 import { Subscription } from 'app/models/Subscription';
 import { SubscriptionActions } from 'app/actions/subscription.actions';
@@ -20,34 +19,40 @@ export const initialState: ISubscriptionState = {
 export function subscriptionsReducer(state: ISubscriptionState = initialState, action?: Action): ISubscriptionState {
     switch (action.type) {
         case SubscriptionActions.getSubscriptionListStart:
-            return tassign(state, { isLoading: true });
+        return {
+            ...state,
+            isLoading: true
+        };
 
         case SubscriptionActions.getSubscriptionListFinished:
         {
             const act = action as ActionWithPayload<Array<Subscription>>;
-            return tassign(state, {
+            return {
+                ...state,
                 subscriptionList: act.payload,
                 isLoading: false,
                 dataDate: new Date()
-            });
+            };
         }
 
         case SubscriptionActions.addSubscription:
         {
             const act = action as ActionWithPayload<Subscription>;
             act.payload.isStorePending = true;
-            return tassign(state, {
+            return {
+                ...state,
                 subscriptionList: [
                     ...state.subscriptionList,
                     act.payload
                 ]
-            });
+            };
         }
 
         case SubscriptionActions.addSubscriptionFinished:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return tassign(state, {
+            return {
+                ...state,
                 subscriptionList: state.subscriptionList.map( subsc => {
                     if (subsc.user_id === act.payload.user_id
                         && subsc.event_id === act.payload.event_id) {
@@ -57,27 +62,28 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
                     }
                     return subsc;
                 })
-            });
+            };
         }
 
         case SubscriptionActions.updateSubscrList:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return tassign(state, {
+            return {
+                ...state,
                 subscriptionList: [
                     ...state.subscriptionList.map(
                         (subscr) => (subscr.user_id === act.payload.user_id && subscr.event_id === act.payload.event_id)
                         ? act.payload
                         : subscr)
                     ]
+            };
                 }
-            );
-        }
 
         case SubscriptionActions.deleteSubscription:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return tassign(state, {
+            return {
+                ...state,
                 subscriptionList: state.subscriptionList.map( subsc => {
                     if (subsc.user_id === act.payload.user_id
                         && subsc.event_id === act.payload.event_id) {
@@ -87,21 +93,24 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
                     }
                     return subsc;
                 })
-            });
+            };
         }
 
         case SubscriptionActions.deleteSubscriptionFinished:
         {
             const act = action as ActionWithPayload<Subscription>;
-            return tassign(state, {
+            return {
+                ...state,
                 subscriptionList: state.subscriptionList.filter(
                     subscr => !(subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id)
                 )
-            });
+            };
         }
 
         case SubscriptionActions.resetSubscriptionState:
-            return tassign(initialState);
+        {
+            return { ...initialState };
+        }
 
         default:
             return state;
