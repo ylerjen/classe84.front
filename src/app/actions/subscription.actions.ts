@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Subscription } from '../models/Subscription';
 import { ActionWithPayload } from './app.actions';
+import { ErrorWithContext } from '@models/ErrorWithContext';
 
 /**
  * This is the type of subscription we want to retrieve
@@ -62,7 +63,7 @@ export function addSubscriptionFinished(payload: Subscription): ActionWithPayloa
     };
 }
 
-export function addSubscriptionFailed(payload: Error): ActionWithPayload<Error> {
+export function addSubscriptionFailed(payload: ErrorWithContext<Subscription>): ActionWithPayload<ErrorWithContext<Subscription>> {
     return {
         type: SubscriptionActions.addSubscriptionFailed,
         payload

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { environment as env } from 'app/../environments/environment';
 import { Event } from 'app/models/Event';
@@ -14,6 +16,8 @@ import {
 import {
     deleteEventFromList,
 } from 'app/actions/eventlist.actions';
+import { addSubscription, updateSubscription, deleteSubscriptionFinished, addSubscriptionFailed } from '@actions/subscription.actions';
+import { ErrorWithContext } from '@models/ErrorWithContext';
 
 const BASE_URL = `${env.API_URL}/events`;
 
@@ -73,20 +77,31 @@ export class EventsService {
      */
     getSubscribers(eventId: string): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${eventId}/users`)
-            .map((objArr: Array<Subscription>): Array<Subscription> => (objArr.map(obj => new Subscription(obj))))
-            .map((subscrList: Array<Subscription>): Array<Subscription> => subscrList.sort(Subscription.sortByFullNameComparator));
+            .pipe(
+                map((objArr: Array<Subscription>): Array<Subscription> => (objArr.map(obj => new Subscription(obj)))),
+                map((subscrList: Array<Subscription>): Array<Subscription> => subscrList.sort(Subscription.sortByFullNameComparator))
+            );
     }
 
     /**
      * Subscribe a user to an event
      * @param subscr - the subscription with info about the event and the user
      */
-    susbcribeToEvent(subscr: Subscription): Observable<Subscription> {
+    susbcribeToEvent(subscr: Subscription): Observable<Subscription|ErrorWithContext<Subscription>> {
         if (!subscr.event_id || !subscr.user_id) {
             throw new Error(`Trying to subscribe to an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
         const route = `${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`;
-        return this._authHttp.post<Subscription>(route, {});
+        return this._authHttp.post<Subscription>(route, {})
+            .pipe(
+                map(resp => new Subscription(resp)),
+                // If the service failed, we return the error and the subscription to create
+                catchError(err => {
+                    console.log('Handling error locally and rethrowing it...', err);
+                    const actionPayload = new ErrorWithContext<Subscription>(err, subscr);
+                    return throwError(actionPayload);
+                })
+            );
     }
 
     /**
@@ -98,7 +113,17 @@ export class EventsService {
             throw new Error(`Trying to unsubscribe from an event, but userId ${subscr.user_id} or eventId ${subscr.event_id} is missing.`);
         }
         const route = `${BASE_URL}/${subscr.event_id}/users/${subscr.user_id}`;
-        return this._authHttp.delete<Subscription>(route);
+        return this._authHttp.delete<Subscription>(route)
+            .pipe(
+                // Delete will return a 204 (No content). So we return the created subscription instead of the empty body.
+                map(() => subscr),
+                // If the service failed, we return the error and the subscription to delete
+                catchError(err => {
+                    console.log('Handling error locally and rethrowing it...', err);
+                    const actionPayload = new ErrorWithContext<Subscription>(err, subscr);
+                    return throwError(actionPayload);
+                })
+            );
     }
 
     /**
@@ -108,6 +133,8 @@ export class EventsService {
     getNextEvent(): Observable<Event> {
         const route = `${BASE_URL}/next`;
         return this._authHttp.get<Event>(route)
-            .map( json => new Event(json));
+            .pipe(
+                map( json => new Event(json))
+            );
     }
 }

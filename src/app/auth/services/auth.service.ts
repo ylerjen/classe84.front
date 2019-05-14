@@ -58,7 +58,7 @@ export class AuthService implements CanActivate {
      * @param successCb - the callback to call on success
      * @param errorCb - the callback to call on success
      */
-    login(creds: Login, successCb?, errorCb?): Observable<Session> {
+    login(creds: Login, successCb?: () => void, errorCb?: () => void): Observable<Session> {
         const endpoint = `${authBaseRoute}/login`;
         return this._authHttp.post<Session>(endpoint, creds)
             .map(json => {

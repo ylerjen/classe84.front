@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { Subscription } from 'app/models/Subscription';
 import { SubscriptionActions } from 'app/actions/subscription.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
+import { ErrorWithContext } from '@models/ErrorWithContext';
 
 export interface ISubscriptionState {
     subscriptionList: Array<Subscription>;
@@ -51,59 +52,69 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         case SubscriptionActions.addSubscriptionFinished:
         {
             const act = action as ActionWithPayload<Subscription>;
+            const subscriptionList = state.subscriptionList.map( subsc => {
+                if (subsc.user_id === act.payload.user_id
+                    && subsc.event_id === act.payload.event_id) {
+                        const newSub = new Subscription(subsc);
+                        newSub.isStorePending = false;
+                        return newSub;
+                }
+                return subsc;
+            })
             return {
                 ...state,
-                subscriptionList: state.subscriptionList.map( subsc => {
-                    if (subsc.user_id === act.payload.user_id
-                        && subsc.event_id === act.payload.event_id) {
-                            const newSub = new Subscription(subsc);
-                            newSub.isStorePending = false;
-                            return newSub;
-                    }
-                    return subsc;
-                })
+                subscriptionList
+            };
+        }
+
+        case SubscriptionActions.addSubscriptionFailed:
+        {
+            const act = action as ActionWithPayload<ErrorWithContext<Subscription>>;
+            return {
+                ...state,
+                subscriptionList: state.subscriptionList.filter(subsc => subsc.user_id !== act.payload.context.user_id)
             };
         }
 
         case SubscriptionActions.updateSubscrList:
         {
             const act = action as ActionWithPayload<Subscription>;
+            const subscriptionList = state.subscriptionList.map(
+                (subscr) => (subscr.user_id === act.payload.user_id && subscr.event_id === act.payload.event_id)
+                ? act.payload
+                : subscr
+            );
+
             return {
                 ...state,
-                subscriptionList: [
-                    ...state.subscriptionList.map(
-                        (subscr) => (subscr.user_id === act.payload.user_id && subscr.event_id === act.payload.event_id)
-                        ? act.payload
-                        : subscr)
-                    ]
+                subscriptionList
             };
-                }
+        }
 
         case SubscriptionActions.deleteSubscription:
         {
             const act = action as ActionWithPayload<Subscription>;
+            const subscriptionList = state.subscriptionList.filter(
+                subscr => !(subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id)
+            );
+
             return {
                 ...state,
-                subscriptionList: state.subscriptionList.map( subsc => {
-                    if (subsc.user_id === act.payload.user_id
-                        && subsc.event_id === act.payload.event_id) {
-                            const newSub = new Subscription(subsc);
-                            newSub.isStorePending = true;
-                            return newSub;
-                    }
-                    return subsc;
-                })
+                subscriptionList
             };
         }
 
-        case SubscriptionActions.deleteSubscriptionFinished:
+        case SubscriptionActions.deleteSubscriptionFailed:
         {
             const act = action as ActionWithPayload<Subscription>;
+            const subscriptionList = [
+                ...state.subscriptionList,
+                act.payload
+            ];
+
             return {
                 ...state,
-                subscriptionList: state.subscriptionList.filter(
-                    subscr => !(subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id)
-                )
+                subscriptionList
             };
         }
 

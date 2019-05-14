@@ -107,34 +107,12 @@ export class EventSubscriptionsViewerComponent implements OnInit {
             event_id: this.event.id,
             isStorePending: true
         });
-        // already dispatch the add with optimistic mgmt
+
         this._store.dispatch(addSubscription(subscr));
-        this._evtSrvc.susbcribeToEvent(subscr)
-            .subscribe(
-                (respBody) => {
-                    subscr.isStorePending = false;
-                    this._store.dispatch(updateSubscription(subscr));
-                },
-                (err) => {
-                    this._store.dispatch(deleteSubscription(subscr));
-                    alert('subscr was removed');
-                }
-            );
     }
 
     onDeleteSubscription(subscr: Subscription) {
-        // already dispatch the delete with optimistic mgmt
         this._store.dispatch(deleteSubscription(subscr));
-        this._evtSrvc.unsubscribeFromEvent(subscr)
-            .subscribe(
-                (respBody) => {
-                    alert('deleted');
-                },
-                (err) => {
-                    this._store.dispatch(addSubscription(subscr));
-                    alert('subscr was removed');
-                }
-            );
     }
 
 }

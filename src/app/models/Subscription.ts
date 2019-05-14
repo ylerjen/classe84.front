@@ -6,7 +6,6 @@ export class Subscription {
     public user_id: string;
     public has_paid: number;
     public created_at: Date;
-    public updated_at: Date;
     public user: User | null;
     public event: Event | null;
 
@@ -37,7 +36,6 @@ export class Subscription {
         this.event_id = props.event ? props.event.id : props.event_id;
         this.has_paid = props.has_paid;
         this.created_at = props.created_at;
-        this.updated_at = props.updated_at;
         this.isStorePending = typeof props.isStorePending === 'undefined' ? false : props.isStorePending;
     }
 }
