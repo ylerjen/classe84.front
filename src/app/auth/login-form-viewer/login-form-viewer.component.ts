@@ -28,7 +28,7 @@ export class LoginFormViewerComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.subscription$ = this._store.select('sessionState')
+        this.subscription$ = this._store.select(store => store.sessionState)
             .subscribe(
                 (state: ISessionState) => {
                     this.session = state.session ? state.session : null;

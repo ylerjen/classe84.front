@@ -37,7 +37,7 @@ export class UserListWrapperComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this._store.select('userlistState')
+        this._store.select(store => store.userlistState)
             .subscribe( (uState: IUserListState) => {
                 if (uState) {
                     this.usersList = uState.userList;

@@ -36,16 +36,16 @@ export class EventSubscriptionsViewerComponent implements OnInit {
         private _evtSrvc: EventsService,
         private _userSrvc: UsersService
     ) {
-        this._store.select('eventState')
+        this._store.select(store => store.eventState)
             .subscribe((eventState: IEventState) => {
                 this.event = new EventModel(eventState.event);
             });
-        this._store.select('userlistState')
+        this._store.select(store => store.userlistState)
             .subscribe((userListState: IUserListState) => {
                 this.subscribableUserList = userListState.userList;
                 this.refreshSearchableList();
             });
-        this._store.select('subscriptionsState')
+        this._store.select(store => store.subscriptionsState)
             .subscribe((subscrState: ISubscriptionState) => {
                     this.subscribersList = subscrState.subscriptionList.map(
                         sub => new Subscription(sub)

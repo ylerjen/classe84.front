@@ -29,9 +29,8 @@
                 </section>
                 <section class="card-body">
                     <h2>Location</h2>
-                    <agm-map class="gmap" [latitude]="event.latitude" [longitude]="event.longitude">
-                        <agm-marker [latitude]="event.latitude" [longitude]="event.longitude"></agm-marker>
-                    </agm-map>
+                    <p>{{staticMapSrc}}</p>
+                    <img [src]="staticMapSrc" alt="The place to be">
                 </section>
             </div>
         </section>

@@ -29,7 +29,7 @@ export class UserPageComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
     ) {
-        this._store.select('userState')
+        this._store.select(store => store.userState)
             .subscribe(
                 (resp: IUserState) => {
                     this.isLoading = resp.isLoading;
@@ -37,7 +37,7 @@ export class UserPageComponent implements OnInit {
                 },
                 (error: any) => this._router.navigate(['unauthorized'])
             );
-        this._store.select('subscriptionsState')
+        this._store.select(store => store.subscriptionsState)
             .subscribe(
                 (subscrState: ISubscriptionState) => this.eventsSubscriptions = subscrState.subscriptionList,
                 (err: Error) => console.error(err)

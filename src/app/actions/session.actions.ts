@@ -3,12 +3,16 @@ import { Action } from '@ngrx/store';
 import { Session } from '../models/Session';
 import { Login, PasswordChangeObject, PasswordRecoveryObject } from '../models/Login';
 import { ActionWithPayload } from './app.actions';
+import { User } from '@models/User';
 
 export enum SessionActions {
     Login = '[Session] Login',
     Logout = '[Session] Logout',
     LoginFinished = '[Session] Login finished',
     LoginFailed = '[Session] Login failed',
+    FetchUser = '[Session] Fetch logged user',
+    FetchUserFailed = '[Session] Fetch logged user failed',
+    FetchUserFinished = '[Session] Fetch logged user finished',
     LogoutFinished = '[Session] Logout finished',
     LogoutFailed = '[Session] Logout failed',
     SetExistingSession = '[Session] set Authenticated User',
@@ -31,8 +35,9 @@ export class EmptyFormErrorsAction implements Action {
     public readonly type = SessionActions.EmptyFormErrors;
 }
 
-export function login(payload: Login): ActionWithPayload<Login> {
-    return { type: SessionActions.Login, payload };
+export class LoginAction implements Action {
+    public readonly type = SessionActions.Login;
+    constructor(public payload: Login) { }
 }
 
 export class LoginFinishedAction implements Action {
@@ -40,20 +45,36 @@ export class LoginFinishedAction implements Action {
     constructor(public payload: Session) { }
 }
 
-export function loginFailed(payload: Error): ActionWithPayload<Error> {
-    return { type: SessionActions.LoginFailed, payload };
+export class LoginFailedAction implements Action {
+    public readonly type = SessionActions.LoginFailed;
+    constructor(public payload: Error) { }
 }
 
-export function logout(): Action {
-    return { type: SessionActions.Logout };
+export class FetchLoggedUserAction implements Action {
+    public readonly type = SessionActions.FetchUser;
 }
 
-export function logoutFinished(): Action {
-    return { type: SessionActions.LogoutFinished };
+export class FetchLoggedUserFinishedAction implements Action {
+    public readonly type = SessionActions.FetchUserFinished;
+    constructor(public payload: User) { }
 }
 
-export function logoutFailed(payload: Error): ActionWithPayload<Error> {
-    return { type: SessionActions.LogoutFailed, payload };
+export class FetchLoggedUserFailedAction implements Action {
+    public readonly type = SessionActions.FetchUserFailed;
+    constructor(public payload: Error) { }
+}
+
+export class LogoutAction implements Action {
+    public readonly type = SessionActions.Logout;
+}
+
+export class LogoutFinishedAction implements Action {
+    public readonly type = SessionActions.LogoutFinished;
+}
+
+export class LogoutFailedAction implements Action {
+    public readonly type = SessionActions.LogoutFailed;
+    constructor(public payload: Error) { }
 }
 
 export function setExistingSession(payload: Session): ActionWithPayload<Session> {

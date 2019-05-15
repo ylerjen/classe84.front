@@ -13,6 +13,7 @@ import { IGlobalState } from 'app/stores/globalState';
 import { IEventState } from 'app/stores/event/event.reducer';
 import { ISessionState } from 'app/stores/session/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { EventsService } from 'app/event/services/events.service';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -40,11 +41,12 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
 
     constructor(
         private _store: Store<IGlobalState>,
-        private _router: Router
+        private _router: Router,
+        private _eventSrvc: EventsService,
     ) {
-        this.eventState$ = this._store.select('eventState');
-        this.sessionState$ = this._store.select('sessionState');
-        this.evtSubscrState$ = this._store.select('subscriptionsState');
+        this.eventState$ = this._store.select(store => store.eventState);
+        this.sessionState$ = this._store.select(store => store.sessionState);
+        this.evtSubscrState$ = this._store.select(store => store.subscriptionsState);
     }
 
     ngOnInit(): void {

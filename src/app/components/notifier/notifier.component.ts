@@ -16,7 +16,7 @@ export class NotifierComponent {
     public _notifStore$: Observable<Array<Notification>>;
 
     constructor(private _store: Store<IGlobalState>) {
-        this._notifStore$ = this._store.select('notificationState');
+        this._notifStore$ = this._store.select(store => store.notificationState);
     }
 
     removeNotif($event, payload: Notification) {

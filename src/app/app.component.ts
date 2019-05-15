@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
         private _store: Store<IGlobalState>,
         private _authSrvc: AuthService,
     ) {
-        this._store.select('appState')
+        this._store.select(store => store.appState)
             .subscribe(
                 (resp) => this.version = resp.version,
                 (err: Error) => console.error(err)

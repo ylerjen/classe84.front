@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this._store.select('sessionState')
+        this._store.select(store => store.sessionState)
             .subscribe(
                 (sState: ISessionState) => this.session = sState.session,
                 (err) => console.error('error', err)

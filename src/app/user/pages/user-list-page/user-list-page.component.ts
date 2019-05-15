@@ -34,7 +34,7 @@ export class UserListPageComponent implements OnInit {
         this._userSrvc.getTopSubscriptions()
             .subscribe( (userList: Array<User>) => this.top3SubscribersList = userList);
 
-        this._store.select('userlistState')
+        this._store.select(store => store.userlistState)
             .subscribe( (uState: IUserListState) => {
                 if (uState) {
                     const usersList = uState.userList;

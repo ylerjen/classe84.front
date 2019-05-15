@@ -33,7 +33,7 @@ export class EventListWrapperComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this._store.select('eventlistState')
+        this._store.select(store => store.eventlistState)
             .subscribe( (evtState: IEventListState) => {
                 if (evtState) {
                     this.eventsList = evtState.eventList;

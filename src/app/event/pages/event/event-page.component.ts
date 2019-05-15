@@ -26,7 +26,7 @@ export class EventPageComponent implements OnInit {
         private _router: Router,
         private _evtSrvc: EventsService,
     ) {
-        this._store.select('subscriptionsState')
+        this._store.select(store => store.subscriptionsState)
             .subscribe(
                 (subscrState: ISubscriptionState) => this.subscriberList = subscrState.subscriptionList
             );

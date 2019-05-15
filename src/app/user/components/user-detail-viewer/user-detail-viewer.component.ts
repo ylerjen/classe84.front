@@ -33,8 +33,8 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         private _store: Store<IGlobalState>,
         private _router: Router
     ) {
-        this.storeUser$ = this._store.select('userState');
-        this.storeAddr$ = this._store.select('addressListState');
+        this.storeUser$ = this._store.select(store => store.userState);
+        this.storeAddr$ = this._store.select(store => store.addressListState);
     }
 
     ngOnInit(): void {

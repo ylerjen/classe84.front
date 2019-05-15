@@ -29,11 +29,11 @@ export class EventFormViewerComponent {
         private _notifSrvc: NotificationService,
         private _router: Router
     ) {
-        this._store.select('eventState')
+        this._store.select(store => store.eventState)
             .subscribe((eventState: IEventState) => {
                 this.event = new EventModel(eventState.event);
             });
-        this._store.select('sessionState')
+        this._store.select(store => store.sessionState)
             .subscribe( (sessionState: ISessionState) => {
                 console.log(sessionState);
             });

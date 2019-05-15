@@ -46,7 +46,7 @@ export class AuthService implements CanActivate {
         private _router: Router,
         public jwtHelper: JwtHelperService
     ) {
-        this._store.select('sessionState')
+        this._store.select(store => store.sessionState)
             .subscribe((sessionState: ISessionState) => {
                 this._isLoggedIn = sessionState.isLoggedIn;
             });

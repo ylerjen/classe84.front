@@ -26,7 +26,7 @@ export class UserFormViewerComponent {
         private _notifSrvc: NotificationService,
         private _router: Router
     ) {
-        this._store.select('userState')
+        this._store.select(store => store.userState)
             .subscribe((userState: IUserState) => {
                 if (userState.user) {
                     this.user = new User(userState.user);
