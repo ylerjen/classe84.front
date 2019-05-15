@@ -63,18 +63,17 @@ export class UsersService {
     /**
      * Request the api to get all the events subscribed by the user
      * @param id - the id of the user
+     * @returns the list of event at which the user attended
      */
     getSubscriptions(id: string): Observable<Array<Subscription>> {
         return this._http.get(`${BASE_URL}/${id}/events`)
-            .map( (events: Array<Event>) => events.map(
-                evt => {
-                    const subscr = new Subscription();
-                    subscr.event = evt;
-                    subscr.event_id = evt.id;
-                    subscr.user_id = id;
-                    return subscr;
-                })
-            );
+            .map( (events: Array<any>): Array<Subscription> => events.map(evt => {
+                const sub = new Subscription(evt);
+                sub.user_id = id;
+                sub.event = evt;
+                sub.event_id = evt.id;
+                return sub;
+            }));
     }
 
     /**

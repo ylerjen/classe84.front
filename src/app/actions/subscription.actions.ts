@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { Subscription } from '../models/Subscription';
 import { ActionWithPayload } from './app.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
+import { User } from '@models/User';
 
 /**
  * This is the type of subscription we want to retrieve

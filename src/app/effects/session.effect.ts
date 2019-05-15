@@ -60,6 +60,7 @@ export class SessionEffects {
     loginFinished$: Observable<Action> = this.actions$
         .ofType(SessionActions.LoginFinished)
         .map((act: ActionWithPayload<Session>) => {
+            console.log('loginFinished', act);
             // TODO replace this hack with ngrx/router-store
             const path = window.location.pathname;
             const redirectParamName = 'redirectTo=';

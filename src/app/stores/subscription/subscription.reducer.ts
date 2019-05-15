@@ -1,18 +1,21 @@
 import { Action } from '@ngrx/store';
 
-import { Subscription } from 'app/models/Subscription';
-import { SubscriptionActions } from 'app/actions/subscription.actions';
+import { User } from '@models/User';
+import { Subscription } from '@models/Subscription';
+import { SubscriptionActions, FetchSubscriptionCmd } from 'app/actions/subscription.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 
 export interface ISubscriptionState {
     subscriptionList: Array<Subscription>;
+    eventId: string;
     isLoading: boolean;
     dataDate: Date;
 }
 
 export const initialState: ISubscriptionState = {
     subscriptionList: [],
+    eventId: '',
     isLoading: false,
     dataDate: undefined
 };
@@ -20,10 +23,15 @@ export const initialState: ISubscriptionState = {
 export function subscriptionsReducer(state: ISubscriptionState = initialState, action?: Action): ISubscriptionState {
     switch (action.type) {
         case SubscriptionActions.getSubscriptionListStart:
-        return {
-            ...state,
-            isLoading: true
-        };
+        {
+            const act = action as ActionWithPayload<FetchSubscriptionCmd>;
+
+            return {
+                ...state,
+                isLoading: true,
+                eventId: act.payload.id
+            };
+        }
 
         case SubscriptionActions.getSubscriptionListFinished:
         {
@@ -40,6 +48,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
         {
             const act = action as ActionWithPayload<Subscription>;
             act.payload.isStorePending = true;
+
             return {
                 ...state,
                 subscriptionList: [

@@ -28,24 +28,19 @@ export class SubscriptionEffects {
         .ofType(SubscriptionActions.getSubscriptionListStart)
         .switchMap((action: Action) => {
             const act = action as ActionWithPayload<FetchSubscriptionCmd>;
-            if (act.payload.type === SubscriptionType.User) {
-                return this._userSrvc.getSubscriptions(act.payload.id);
-            }
             return this._eventSrvc.getSubscribers(act.payload.id);
         })
-        .map( (subscrList: Subscription[]) => getSubscriptionFinished(subscrList))
+        .map( (subscrList: Array<Subscription>) => getSubscriptionFinished(subscrList))
         .catch((err: Error) => of(getSubscriptionFailed(err)));
 
     @Effect()
     addSubscription$ = this.actions$
         .ofType(SubscriptionActions.addSubscription)
-        .switchMap((action: Action) => {
+        .mergeMap((action: Action) => {
             const act = action as ActionWithPayload<Subscription>;
             return this._eventSrvc.susbcribeToEvent(act.payload);
         })
-        .map( (subscr: Subscription) => { debugger;
-            return addSubscriptionFinished(subscr);
-        })
+        .map( (subscr: Subscription) => addSubscriptionFinished(subscr))
         .catch((errorWithContext: ErrorWithContext<Subscription>) => {
             const action = addSubscriptionFailed(errorWithContext);
             return of(action);
@@ -54,7 +49,7 @@ export class SubscriptionEffects {
     @Effect()
     deleteSubscription$ = this.actions$
         .ofType(SubscriptionActions.deleteSubscription)
-        .switchMap((action: Action) => {
+        .mergeMap((action: Action) => {
             const act = action as ActionWithPayload<Subscription>;
             return this._eventSrvc.unsubscribeFromEvent(act.payload);
         })

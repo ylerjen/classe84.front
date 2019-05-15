@@ -3,6 +3,7 @@ import { CompleterData, CompleterService, CompleterItem } from 'ng2-completer';
 
 import { Subscription } from 'app/models/Subscription';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { User } from '@models/User';
 
 @Component({
     selector: 'app-event-subscriptions',
@@ -17,7 +18,7 @@ export class EventSubscriptionsComponent implements OnInit {
 
     @Input() public isEditable = false;
 
-    @Input() public subscribersList: Array<Subscription>;
+    @Input() public subscribersList: Array<User>;
 
     /**
      * List used as a result for the autocomplete

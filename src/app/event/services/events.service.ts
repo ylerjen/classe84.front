@@ -18,6 +18,7 @@ import {
 } from 'app/actions/eventlist.actions';
 import { addSubscription, updateSubscription, deleteSubscriptionFinished, addSubscriptionFailed } from '@actions/subscription.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
+import { User } from '@models/User';
 
 const BASE_URL = `${env.API_URL}/events`;
 
@@ -78,7 +79,13 @@ export class EventsService {
     getSubscribers(eventId: string): Observable<Array<Subscription>> {
         return this._authHttp.get(`${BASE_URL}/${eventId}/users`)
             .pipe(
-                map((objArr: Array<Subscription>): Array<Subscription> => (objArr.map(obj => new Subscription(obj)))),
+                map((objArr: Array<User>): Array<Subscription> => (objArr.map(user => {
+                    const sub = new Subscription(user);
+                    sub.event_id = eventId;
+                    sub.user = new User(user);
+                    sub.user_id = user.id;
+                    return sub;
+                }))),
                 map((subscrList: Array<Subscription>): Array<Subscription> => subscrList.sort(Subscription.sortByFullNameComparator))
             );
     }
