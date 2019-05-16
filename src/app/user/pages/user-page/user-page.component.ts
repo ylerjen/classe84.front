@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { User } from 'app/models/User';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
-import { getUserStart } from 'app/actions/user.actions';
+import { GetUserStart } from 'app/actions/user.actions';
 import { IUserState } from 'app/stores/user/user.reducer';
 import { getSubscriptionStart, SubscriptionType, FetchSubscriptionCmd } from 'app/actions/subscription.actions';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
@@ -54,7 +54,7 @@ export class UserPageComponent implements OnInit {
                     id: this._id,
                     type: SubscriptionType.User
                 };
-                this._store.dispatch(getUserStart(this._id));
+                this._store.dispatch(new GetUserStart(this._id));
                 this._store.dispatch(getSubscriptionStart(subscrRqstCmd));
             });
     }

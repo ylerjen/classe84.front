@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { Notification, ENotificationType } from '@models/Notification';
 import { ActionWithPayload } from '@actions/app.actions';
 import { addNotif } from '@actions/notifications.actions';
-import { getUserFinished, getUserFailed, UserActions } from '@actions/user.actions';
+import { GetUserFinished, GetUserFailed, UserActions } from '@actions/user.actions';
 import { UsersService } from 'app/user/services/users.service';
 
 @Injectable()
@@ -17,8 +17,8 @@ export class UserEffects {
         .ofType(UserActions.getUserStart)
         .map((action: ActionWithPayload<number>): number => action.payload)
         .switchMap(payload => this._userService.get(payload))
-        .map(user => getUserFinished(user))
-        .catch((err: Error): Observable<ActionWithPayload<Error>> => of(getUserFailed(err)));
+        .map(user => new GetUserFinished(user))
+        .catch((err: Error): Observable<ActionWithPayload<Error>> => of(new GetUserFailed(err)));
 
   @Effect()
   getUserFailed$ = this.actions$

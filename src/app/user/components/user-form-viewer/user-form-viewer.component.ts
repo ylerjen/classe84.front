@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { IUserState } from 'app/stores/user/user.reducer';
 import { User } from 'app/models/User';
-import { updateUser } from 'app/actions/user.actions';
+import { UpdateUser } from 'app/actions/user.actions';
 import { UsersService } from 'app/user/services/users.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 
@@ -39,7 +39,7 @@ export class UserFormViewerComponent {
         this._userSrvc.save(user)
             .subscribe(
                 (resp) => {
-                    this._store.dispatch(updateUser(user));
+                    this._store.dispatch(new UpdateUser(user));
                     this._notifSrvc.notifySuccess('User saved');
                     this.goToDetails(user.id);
                 },
