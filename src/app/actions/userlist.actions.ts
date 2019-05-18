@@ -14,47 +14,35 @@ export enum UserlistActions {
 }
 
 
-export function changeFilter(payload: string): ActionWithPayload<string> {
-    return {
-        type: UserlistActions.ChangeFilter,
-        payload
-    };
+export class ChangeFilter implements Action {
+    readonly type = UserlistActions.ChangeFilter;
+    constructor(public payload: string) {}
 }
 
-export function getUserListAsync(): Action {
-    return {
-        type: UserlistActions.GetListStart
-    };
+export class GetUserListAsync implements Action {
+    readonly type = UserlistActions.GetListStart;
 }
 
-export function getUserListAsyncFinished(payload: Array<User>): ActionWithPayload<Array<User>> {
-    return {
-        type: UserlistActions.GetListFinished,
-        payload
-    }
+export class GetUserListAsyncFinished implements Action {
+    readonly type = UserlistActions.GetListFinished;
+    constructor(public payload: Array<User>) {}
 }
 
-export function getUserListAsyncFailed(payload: Error): ActionWithPayload<Error> {
-    return {
-        type: UserlistActions.GetListFailed,
-        payload
-    }
+export class GetUserListAsyncFailed implements Action {
+    readonly type = UserlistActions.GetListFailed;
+    constructor(public payload: Error) {}
 }
 
-export function addUserInList(payload: User): ActionWithPayload<User> {
-    return {
-        type: UserlistActions.AddUserInList,
-        payload
-    };
+export class AddUserInList implements Action {
+    readonly type = UserlistActions.AddUserInList;
+    constructor(public payload: User) {}
 }
 
-export function deleteUserFromList(payload: User): ActionWithPayload<User> {
-    return {
-        type: UserlistActions.DeleteUserFromList,
-        payload
-    };
+export class DeleteUserFromList implements Action {
+    readonly type = UserlistActions.DeleteUserFromList;
+    constructor(public payload: User) {}
 }
 
-export function emptyUserList(): Action {
-    return { type: UserlistActions.ResetState };
+export class EmptyUserList implements Action {
+    readonly type = UserlistActions.ResetState;
 }

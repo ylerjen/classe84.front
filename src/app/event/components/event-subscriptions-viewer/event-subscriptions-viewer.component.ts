@@ -8,11 +8,7 @@ import { Event as EventModel } from 'app/models/Event';
 import { IEventState } from 'app/stores/event/event.reducer';
 import { IUserListState } from 'app/stores/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { EventsService } from '../../services/events.service';
-import { User } from 'app/models/User';
-import { UsersService } from 'app/user/services/users.service';
-import { addSubscription, updateSubscription, deleteSubscription } from 'app/actions/subscription.actions';
-import { IGlobalState } from 'app/stores/globalState';
+import { GetUserListAsync } from '@actions/userlist.actions';
 
 @Component({
     selector: 'app-event-subscriptions-viewer',
@@ -57,26 +53,18 @@ export class EventSubscriptionsViewerComponent implements OnInit {
     }
 
     ngOnInit() {
-        // TODO isLoading is managed by the state
-        this.isLoading = true;
-        // TODO can use => this._route.snapshot.params
-        const routePath = window.location.pathname.replace('/events/', ''); // TODO find a better way to get the route id from Angular Router
-        const curId = routePath.substring(0, routePath.indexOf('/'));
-        this._evtSrvc.get(curId)
-            .subscribe( (event: EventModel) => {
-                this.event = event;
-                this._evtSrvc.getSubscribers(this.event.id.toString())
-                    .subscribe(
-                        (subscriptionList: Array<Subscription>) => {
-                            this.subscribersList = subscriptionList.map(
-                                sub => new Subscription(sub)
-                            );
                             this.isLoading = false;
-                            this.refreshSearchableList();
+        this._route.params
+            .subscribe( (routeData: Params) => {
+                this._store.dispatch(new GetUserListAsync());
+                const id = routeData.id;
+                if (!id) {
+                    throw new Error('id of the current route is not defined');
                         }
-                    );
+
+                this._store.dispatch(getEventStart(id));
+                this._store.dispatch(getSubscriptionStart(id));
                 });
-        this._userSrvc.fetchAll().subscribe();
     }
 
     /**
@@ -114,5 +102,4 @@ export class EventSubscriptionsViewerComponent implements OnInit {
     onDeleteSubscription(subscr: Subscription) {
         this._store.dispatch(deleteSubscription(subscr));
     }
-
 }

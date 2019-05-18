@@ -12,7 +12,7 @@ import { UsersService } from 'app/user/services/users.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { getUserListAsyncFinished } from 'app/actions/userlist.actions';
 import { IGlobalState } from 'app/stores/globalState';
-import { getUserListAsync } from 'app/actions/userlist.actions';
+import { GetUserListAsync } from 'app/actions/userlist.actions';
 
 @Component({
     selector: 'app-user-list-wrapper',
@@ -46,7 +46,7 @@ export class UserListWrapperComponent implements OnInit {
                     this.errors = uState.errors;
                 }
             });
-        this._store.dispatch(getUserListAsync());
+        this._store.dispatch(new GetUserListAsync());
         this._activeRoute.queryParams.subscribe(
             (params: IUserListFilter) => {
                 if (params) {
