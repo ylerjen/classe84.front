@@ -3,23 +3,6 @@ import { Action } from '@ngrx/store';
 import { Subscription } from '../models/Subscription';
 import { ActionWithPayload } from './app.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
-import { User } from '@models/User';
-
-/**
- * This is the type of subscription we want to retrieve
- * as the store is the same for the EventSubscriptions and
- * the UserSubscriptions
- */
-export enum SubscriptionType {
-    /**
-     * Subscriptions of a user
-     */
-    User,
-    /**
-     * Subscriptions to an event
-     */
-    Event,
-}
 
 export enum SubscriptionActions {
     getSubscriptionListStart    = '[Subscription] get Start',
@@ -33,15 +16,6 @@ export enum SubscriptionActions {
     deleteSubscriptionFailed    = '[Subscription] delete Failed',
     updateSubscrList            = '[Subscription] update list',
     resetSubscriptionState      = '[Subscription] reset state',
-}
-
-/**
- * The contract to pass to the action when we
- * want to retrieve the subscriptions
- */
-export interface FetchSubscriptionCmd {
-    id: string;
-    type: SubscriptionType;
 }
 
 export function resetSubscriptionState(): Action {
@@ -99,7 +73,7 @@ export function deleteSubscriptionFailed(payload: Error): ActionWithPayload<Erro
     };
 }
 
-export function getSubscriptionStart(payload: FetchSubscriptionCmd): ActionWithPayload<FetchSubscriptionCmd> {
+export function getSubscriptionStart(payload: string): ActionWithPayload<string> {
     return {
         type: SubscriptionActions.getSubscriptionListStart,
         payload

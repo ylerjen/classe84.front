@@ -12,8 +12,6 @@ import {
     getSubscriptionFinished,
     getSubscriptionFailed,
     SubscriptionActions,
-    FetchSubscriptionCmd,
-    SubscriptionType,
     addSubscriptionFinished,
     addSubscriptionFailed,
     deleteSubscriptionFinished,
@@ -27,8 +25,8 @@ export class SubscriptionEffects {
     getSubscrStart$ = this.actions$
         .ofType(SubscriptionActions.getSubscriptionListStart)
         .switchMap((action: Action) => {
-            const act = action as ActionWithPayload<FetchSubscriptionCmd>;
-            return this._eventSrvc.getSubscribers(act.payload.id);
+            const act = action as ActionWithPayload<string>;
+            return this._eventSrvc.getSubscribers(act.payload);
         })
         .map( (subscrList: Array<Subscription>) => getSubscriptionFinished(subscrList))
         .catch((err: Error) => of(getSubscriptionFailed(err)));

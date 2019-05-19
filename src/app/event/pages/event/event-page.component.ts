@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { getEventStart } from 'app/actions/event.actions';
-import { getSubscriptionStart, FetchSubscriptionCmd, SubscriptionType } from 'app/actions/subscription.actions';
-import { EventsService } from '../../services/events.service';
+import { getSubscriptionStart } from 'app/actions/subscription.actions';
 
 @Component({
     selector: 'app-event-page',
@@ -16,15 +15,11 @@ import { EventsService } from '../../services/events.service';
 })
 export class EventPageComponent implements OnInit {
 
-    public isLoading: boolean;
-
     public subscriberList: Array<Subscription>;
 
     constructor(
         private _store: Store<IGlobalState>,
         private _route: ActivatedRoute,
-        private _router: Router,
-        private _evtSrvc: EventsService,
     ) {
         this._store.select(store => store.subscriptionsState)
             .subscribe(
@@ -33,16 +28,11 @@ export class EventPageComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isLoading = true;
         this._route.params
             .subscribe( (routeData: Params) => {
                 const id = routeData.id;
-                const subscrRqstCmd: FetchSubscriptionCmd = {
-                    id,
-                    type: SubscriptionType.Event
-                };
                 this._store.dispatch(getEventStart(id));
-                this._store.dispatch(getSubscriptionStart(subscrRqstCmd));
+                this._store.dispatch(getSubscriptionStart(id));
             });
     }
 }

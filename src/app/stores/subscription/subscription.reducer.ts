@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { User } from '@models/User';
 import { Subscription } from '@models/Subscription';
-import { SubscriptionActions, FetchSubscriptionCmd } from 'app/actions/subscription.actions';
+import { SubscriptionActions } from 'app/actions/subscription.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 
@@ -24,12 +24,12 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
     switch (action.type) {
         case SubscriptionActions.getSubscriptionListStart:
         {
-            const act = action as ActionWithPayload<FetchSubscriptionCmd>;
+            const act = action as ActionWithPayload<string>;
 
             return {
                 ...state,
                 isLoading: true,
-                eventId: act.payload.id
+                eventId: act.payload
             };
         }
 
