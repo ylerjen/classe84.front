@@ -114,7 +114,6 @@ export class EventFormComponent implements OnInit {
     }
 
     defineEndDate(e): void {
-        debugger;
         const startDate = this.eventForm.get('start_date').value;
         const endDateCtrl = this.eventForm.get('end_date')
         const endDate = endDateCtrl.value;
