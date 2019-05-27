@@ -1,8 +1,8 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
-import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { GMAP_API_KEY } from 'app/config/settings';
 import { SharedModule } from 'app/shared/shared.module';
@@ -44,7 +44,6 @@ const userRoutes = [
         AgmCoreModule.forRoot({
             apiKey: GMAP_API_KEY
         }),
-        BsDatepickerModule.forRoot(),
     ],
     declarations: [
         UserListPageComponent,

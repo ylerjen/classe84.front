@@ -67,26 +67,31 @@
     </div>
     <div class="form-group">
         <label for="user-email">Email</label>
-        <input
-            type="text" 
+        <input type="email" 
             id="user-email"
             class="form-control"
             formControlName="email" 
-            placeholder="Your email address">
+            placeholder="ejohn.doh@gmail.com">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         <app-validation-error [errors]="userForm.get('email').errors"></app-validation-error>
     </div>
    <div class="form-group">
         <label for="user-birthdate">Birthdate</label>
-        <input type="text"
-            id="user-birthdate"
-            class="form-control"
-            placeholder="Your birthdate"
-            formControlName="birthdate"
-            [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY', containerClass: 'theme-dark-blue' }"
-            bsDatepicker />
+        <div class="input-group">
+            <input type="text"
+                id="user-birthdate"
+                class="form-control"
+                placeholder="31.12.1984"
+                formControlName="birthdate"
+                [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY', containerClass: 'theme-dark-blue' }"
+                #dp="bsDatepicker"
+                bsDatepicker />
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"><i class="fa fa-calendar"></i></button>
+            </div>
+        </div>
         <app-validation-error [errors]="userForm.get('birthdate').errors"></app-validation-error>
-    </div>       
+    </div>
     <div class="form-group">
         <label for="usr-mobile">Téléphone mobile</label>
         <input
@@ -94,7 +99,9 @@
             id="usr-mobile"
             class="form-control"
             formControlName="mobile"
-            placeholder="079 123 45 67" />
+            placeholder="079 123 45 67"
+            mask="000 000 00 00"
+            inputmode="tel" />
             <app-validation-error [errors]="userForm.get('mobile').errors"></app-validation-error>
     </div>
     <div class="form-group">
@@ -104,7 +111,9 @@
             id="usr-phone"
             class="form-control"
             formControlName="phone"
-            placeholder="027 123 45 67" />
+            placeholder="027 123 45 67"
+            mask="000 000 00 00" 
+            inputmode="tel"/>
         <app-validation-error [errors]="userForm.get('phone').errors"></app-validation-error>
     </div>
     <div class="form-group">

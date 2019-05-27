@@ -2,7 +2,7 @@
     <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
 </div>
 <form
-    *ngIf="event"
+    *ngIf="event && eventForm"
     class="card-body" 
     [formGroup]="eventForm" 
     (ngSubmit)="onSubmit($event)" 
@@ -11,7 +11,7 @@
     <h1>{{ event.title }}</h1>
     <input type="hidden" formControlName="id" />
     <div class="form-group">
-        <label for="title--{{compId}}">Title</label>
+        <label for="title--{{compId}}">Titre</label>
         <input
             type="text"
             id="title-{{compId}}"
@@ -21,7 +21,7 @@
         <app-validation-error [errors]="eventForm.get('title').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="organisator-{{compId}}">Organisator</label>
+        <label for="organisator-{{compId}}">Organisateur</label>
         <input
             type="text"
             id="organisator-{{compId}}"
@@ -31,24 +31,38 @@
             <app-validation-error [errors]="eventForm.get('organisator').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="date-{{compId}}">Start date</label>
-        <input
-            type="date"
-            id="date-{{compId}}"
-            class="form-control"
-            formControlName="start_date"
-            placeholder="Organisators" />
-            <app-validation-error [errors]="eventForm.get('start_date').errors"></app-validation-error>
+        <label for="date-{{compId}}">Date de début</label>
+        <div class="input-group">
+            <input type="text"
+                id="date-{{compId}}"
+                class="form-control"
+                formControlName="start_date"
+                placeholder="31.12.2000"
+                [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY', containerClass: 'theme-dark-blue' }"
+                #dp="bsDatepicker"
+                bsDatepicker />
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"><i class="fa fa-calendar"></i></button>
+            </div>
+        </div>
+        <app-validation-error [errors]="eventForm.get('start_date').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="date-{{compId}}">End date</label>
-        <input
-            type="date"
-            id="date-{{compId}}"
-            class="form-control"
-            formControlName="end_date"
-            placeholder="Organisators" />
-            <app-validation-error [errors]="eventForm.get('end_date').errors"></app-validation-error>
+        <label for="date-{{compId}}">Date de fin</label>
+        <div class="input-group">
+            <input type="text"
+                id="date-{{compId}}"
+                class="form-control"
+                formControlName="end_date"
+                placeholder="31.12.2000"
+                [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY', containerClass: 'theme-dark-blue' }"
+                #dp="bsDatepicker"
+                bsDatepicker />
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"><i class="fa fa-calendar"></i></button>
+            </div>
+        </div>
+        <app-validation-error [errors]="eventForm.get('end_date').errors"></app-validation-error>
     </div>
     <div class="form-group">
         <label for="description-{{compId}}">Description</label>
@@ -57,21 +71,25 @@
             formControlName="description"
             [placeholder]="'Enter the description here...'"
             [spellcheck]="true"></app-ngx-editor>
-            <app-validation-error [errors]="eventForm.get('description').errors"></app-validation-error>
+            <app-validation-error [errors]="eventForm?.get('description').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="location-{{compId}}">Location</label>
-        <input
-            type="text"
-            id="location-{{compId}}"
-            class="form-control"
-            formControlName="location"
-            placeholder="location" />
-            <button (click)="searchLocation($event)">Search position</button>
-            <app-validation-error [errors]="eventForm.get('location').errors"></app-validation-error>
+        <label for="location-{{compId}}">Lieux</label>
+        <div class="input-group">
+            <input
+                type="text"
+                id="location-{{compId}}"
+                class="form-control"
+                formControlName="location"
+                placeholder="Place Fédéral, Berne" />
+            <div class="input-group-append">
+                <button (click)="searchLocation($event)" class="btn btn-outline-dark">Génère Lat/Lng</button>
+            </div>
+        </div>
+            <app-validation-error [errors]="eventForm?.get('location').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="latitude-{{compId}}">Latitude</label>
+        <label for="latitude-{{compId}}">Latitude (Lat)</label>
         <input
             type="text"
             id="latitude-{{compId}}"
@@ -81,7 +99,7 @@
             <app-validation-error [errors]="eventForm.get('latitude').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="longitude-{{compId}}">Longitude</label>
+        <label for="longitude-{{compId}}">Longitude (Lng)</label>
         <input
             type="text"
             id="longitude-{{compId}}"
@@ -91,7 +109,7 @@
             <app-validation-error [errors]="eventForm.get('longitude').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="link-{{compId}}">Link</label>
+        <label for="link-{{compId}}">Lien</label>
         <input
             type="url"
             id="link-{{compId}}"
@@ -101,7 +119,7 @@
             <app-validation-error [errors]="eventForm.get('link').errors"></app-validation-error>
     </div>
     <div class="form-group">
-        <label for="price-{{compId}}">Price</label>
+        <label for="price-{{compId}}">Prix</label>
         <input
             type="text"
             id="price-{{compId}}"
@@ -115,11 +133,11 @@
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-lg-offset-6">
-            <button type="submit" [disabled]="eventForm.status !== 'VALID'" class="btn btn-primary">Save</button>
-            <a routerLink="/events/{{event?.id}}" class="btn btn-link">Cancel</a>
+            <button type="submit" [disabled]="eventForm.status !== 'VALID'" class="btn btn-primary">Enregistrer</button>
+            <a routerLink="/events/{{event?.id}}" class="btn btn-link">Annuler</a>
         </div>
     </div>
-    <p>Form value: {{ eventForm.value | json }}</p>
+    <pre>Form value: {{ eventForm.value | json }}</pre>
     <p>Form status: {{ eventForm.status | json }}</p>
 </form>
 <app-modal *ngIf="isModalDisplayed" [isDisplayed]="isModalDisplayed" (onSubmitModal)="onGeoResultsChoosen($event)" (onCloseModal)="onCloseModal($event)">

@@ -6,6 +6,7 @@ import { UUID } from 'angular2-uuid';
 import { Event as EventModel } from 'app/models/Event';
 import { GeoService, IReverseGeoCodeResponse, IReverseGeoCodeResult } from '@shared/services/geo/geo.service';
 import { Coordinates } from 'app/models/Coordinates';
+import { CustomValidators } from '@shared/validators/CustomValidators';
 
 @Component({
     selector: 'app-event-form',
@@ -27,6 +28,8 @@ export class EventFormComponent implements OnInit {
     public isLocationLoading = false;
 
     public isModalDisplayed: boolean;
+
+    public minEndDate: Date = null;
 
     @Input()
     set event(val: EventModel) {
@@ -56,18 +59,23 @@ export class EventFormComponent implements OnInit {
         if (!this.event) {
             return;
         }
-        this.eventForm = this._fb.group({
-            id: [this.event.id || ''],
-            title: [this.event.title || '', Validators.required ],
-            start_date: [this.event.start_date || '', Validators.required ],
-            description: [this.event.description || '', Validators.required ],
-            latitude: [this.event.latitude || '', Validators.required ],
-            longitude: [this.event.longitude || '', Validators.required ],
-            location: [this.event.location || '', Validators.required],
-            link: [this.event.link || ''],
-            price: [this.event.price || ''],
-            organisator: [this.event.organisator || '', Validators.required]
-        });
+        this.eventForm = this._fb.group(
+            {
+                id: [this.event.id || ''],
+                title: [this.event.title || '', Validators.required ],
+                start_date: [this.event.start_date || '', Validators.required ],
+                end_date: [this.event.end_date || '', Validators.required ],
+                description: [this.event.description || '', Validators.required ],
+                latitude: [this.event.latitude || '', Validators.required ],
+                longitude: [this.event.longitude || '', Validators.required ],
+                location: [this.event.location || '', Validators.required],
+                link: [this.event.link || ''],
+                price: [this.event.price || ''],
+                organisator: [this.event.organisator || '', Validators.required]
+            }, {
+                validator: CustomValidators.endDateIsGreaterOrEqualThanStartDateValidator('start_date', 'end_date')
+            }
+        );
     }
 
     onSubmit(event: Event): void {
@@ -103,6 +111,10 @@ export class EventFormComponent implements OnInit {
     setLatLng(coord: Coordinates): void {
         this.eventForm.controls.latitude.setValue(coord.lat);
         this.eventForm.controls.longitude.setValue(coord.lng);
+    }
+
+    setEndDateMinValue(minDate: Date) {
+         
     }
 
     displayModalWithGeoResult(): void {
