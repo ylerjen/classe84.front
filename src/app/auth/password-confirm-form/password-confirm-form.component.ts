@@ -22,6 +22,15 @@ export class PasswordConfirmFormComponent implements OnInit {
      */
     @Input() public parent: FormGroup;
 
+    static getFormGroup(): FormGroup {
+        return new FormGroup({
+                password: new FormControl('', Validators.required),
+                confirmPassword: new FormControl('', Validators.required),
+            },
+            CustomValidators.sameFieldsContentValidator('password', 'confirmPassword')
+        );
+    }
+
     constructor(
         private _fb: FormBuilder,
     ) { }
@@ -29,13 +38,4 @@ export class PasswordConfirmFormComponent implements OnInit {
     ngOnInit() {
         this.compId = UUID.UUID();
     }
-
-    static getFormGroup(): FormGroup {
-        return new FormGroup({
-                password: new FormControl('', Validators.required),
-                confirmPassword: new FormControl('', Validators.required),
-            },
-            CustomValidators.sameFieldsContent('password', 'confirmPassword')
-        );
-    }   
 }
