@@ -18,8 +18,8 @@ export class Event {
     constructor(props: { [key: string]: any } = {}) {
         this.id = props.id;
         this.title = props.title;
-        this.start_date = props.start_date;
-        this.end_date = props.end_date;
+        this.start_date = props.start_date ? new Date(props.start_date) : null;
+        this.end_date = props.end_date ? new Date(props.end_date) : null;
         this.description = props.description;
         this.latitude = props.latitude;
         this.longitude = props.longitude;
