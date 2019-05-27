@@ -90,7 +90,7 @@ export class SessionEffects {
     @Effect()
     logout$: Observable<Action> = this.actions$
         .ofType(SessionActions.Logout)
-        .switchMap((creds: Action): Observable<{}> => this._authSrvc.logout())
+        .switchMap((): Observable<Object> => this._authSrvc.logout())
         .map((): Action => new LogoutFinishedAction())
         .catch((err: Error): Observable<Action> => {
             let action: Action;

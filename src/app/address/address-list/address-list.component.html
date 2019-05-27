@@ -1,8 +1,10 @@
-<ul class="address-list">
-    <li *ngFor="let address of addressList" class="col-12">
+<ul class="address-list row">
+    <li *ngFor="let address of addressList" class="col-12 col-md-6">
         <app-address-detail
             [address]="address"
             (setFavoriteEmitter)="onSetFavoriteAddress($event)"
+            (editEmitter)="onEditAddress($event)"
+            (deleteEmitter)="onDeleteAddress($event)"
         ></app-address-detail>
     </li>
     <li *ngIf="!addressList.length"

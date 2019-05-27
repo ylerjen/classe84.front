@@ -6,7 +6,7 @@ import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { getEventStart } from 'app/actions/event.actions';
-import { getSubscriptionStart } from 'app/actions/subscription.actions';
+import { GetSubscriptionStart } from 'app/actions/subscription.actions';
 
 @Component({
     selector: 'app-event-page',
@@ -32,7 +32,7 @@ export class EventPageComponent implements OnInit {
             .subscribe( (routeData: Params) => {
                 const id = routeData.id;
                 this._store.dispatch(getEventStart(id));
-                this._store.dispatch(getSubscriptionStart(id));
+                this._store.dispatch(new GetSubscriptionStart(id));
             });
     }
 }

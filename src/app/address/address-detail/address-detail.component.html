@@ -1,4 +1,4 @@
-<div class="card block-card content">
+<div class="card block-card content address-item">
     <div *ngIf="address.latitude && address.longitude" class="img-top">
         <agm-map class="gmap" [latitude]="address.latitude" [longitude]="address.longitude">
             <agm-marker [latitude]="address.latitude" [longitude]="address.longitude"></agm-marker>
@@ -21,5 +21,11 @@
             <p>{{ address.npa }} {{ address.city }}</p>
             <p>{{ address.state }} - {{ address.country }}</p>
         </div>
+    </div>
+    <div class="card-footer filled-card-part">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="edit($event)"><i class="fa fa-pencil"></i></button>
+            <button type="button" class="btn btn-danger" (click)="delete($event)"><i class="fa fa-trash"></i></button>
+          </div>
     </div>
 </div>

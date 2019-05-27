@@ -113,8 +113,14 @@ export class EventFormComponent implements OnInit {
         this.eventForm.controls.longitude.setValue(coord.lng);
     }
 
-    setEndDateMinValue(minDate: Date) {
-         
+    defineEndDate(e): void {
+        debugger;
+        const startDate = this.eventForm.get('start_date').value;
+        const endDateCtrl = this.eventForm.get('end_date')
+        const endDate = endDateCtrl.value;
+        if (!endDate) {
+            endDateCtrl.setValue(startDate);
+        }
     }
 
     displayModalWithGeoResult(): void {

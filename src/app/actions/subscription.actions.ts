@@ -18,78 +18,56 @@ export enum SubscriptionActions {
     resetSubscriptionState      = '[Subscription] reset state',
 }
 
-export function resetSubscriptionState(): Action {
-    return {
-        type: SubscriptionActions.resetSubscriptionState
-    };
+export class ResetSubscriptionState implements Action {
+    readonly type = SubscriptionActions.resetSubscriptionState;
 }
 
-export function addSubscription(payload: Subscription): ActionWithPayload<Subscription> {
-    return {
-        type: SubscriptionActions.addSubscription,
-        payload
-    };
+export class AddSubscription implements Action {
+    readonly type = SubscriptionActions.addSubscription;
+    constructor(public payload: Subscription) {}
 }
 
-export function addSubscriptionFinished(payload: Subscription): ActionWithPayload<Subscription> {
-    return {
-        type: SubscriptionActions.addSubscriptionFinished,
-        payload
-    };
+export class AddSubscriptionFinished implements Action {
+    readonly type = SubscriptionActions.addSubscriptionFinished;
+    constructor(public payload: Subscription) {}
 }
 
-export function addSubscriptionFailed(payload: ErrorWithContext<Subscription>): ActionWithPayload<ErrorWithContext<Subscription>> {
-    return {
-        type: SubscriptionActions.addSubscriptionFailed,
-        payload
-    };
+export class AddSubscriptionFailed implements Action {
+    readonly type = SubscriptionActions.addSubscriptionFailed;
+    constructor(public payload: ErrorWithContext<Subscription>) {}
 }
 
-export function updateSubscription(payload: Subscription): ActionWithPayload<Subscription> {
-    return {
-        type: SubscriptionActions.updateSubscrList,
-        payload
-    };
+export class UpdateSubscription implements Action {
+    readonly type = SubscriptionActions.updateSubscrList;
+    constructor(public payload: Subscription) {}
 }
 
-export function deleteSubscription(payload: Subscription): ActionWithPayload<Subscription> {
-    return {
-        type: SubscriptionActions.deleteSubscription,
-        payload
-    };
+export class DeleteSubscription implements Action {
+    readonly type = SubscriptionActions.deleteSubscription;
+    constructor(public payload: Subscription) {}
 }
 
-export function deleteSubscriptionFinished(payload: Subscription): ActionWithPayload<Subscription> {
-    return {
-        type: SubscriptionActions.deleteSubscriptionFinished,
-        payload
-    };
+export class DeleteSubscriptionFinished implements Action {
+    readonly type = SubscriptionActions.deleteSubscriptionFinished;
+    constructor(public payload: Subscription) {}
 }
 
-export function deleteSubscriptionFailed(payload: Error): ActionWithPayload<Error> {
-    return {
-        type: SubscriptionActions.deleteSubscriptionFailed,
-        payload
-    };
+export class DeleteSubscriptionFailed implements Action {
+    readonly type = SubscriptionActions.deleteSubscriptionFailed;
+    constructor(public payload: Error) {}
 }
 
-export function getSubscriptionStart(payload: string): ActionWithPayload<string> {
-    return {
-        type: SubscriptionActions.getSubscriptionListStart,
-        payload
-    };
+export class GetSubscriptionStart implements Action {
+    readonly type = SubscriptionActions.getSubscriptionListStart;
+    constructor(public payload: string) {}
 }
 
-export function getSubscriptionFinished(payload: Array<Subscription>): ActionWithPayload<Array<Subscription>> {
-    return {
-        type: SubscriptionActions.getSubscriptionListFinished,
-        payload
-    };
+export class GetSubscriptionFinished implements Action {
+    readonly type = SubscriptionActions.getSubscriptionListFinished;
+    constructor(public payload: Array<Subscription>) {}
 }
 
-export function getSubscriptionFailed(payload: Error): ActionWithPayload<Error> {
-    return {
-        type: SubscriptionActions.getSubscriptionListFailed,
-        payload
-    };
+export class GetSubscriptionFailed implements Action {
+    readonly type = SubscriptionActions.getSubscriptionListFailed;
+    constructor(public payload: Error) {}
 }

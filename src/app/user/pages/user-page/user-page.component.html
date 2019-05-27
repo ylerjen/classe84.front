@@ -4,18 +4,17 @@
          <router-outlet></router-outlet> 
     </section>
     <aside class="col-md-4">
-        <app-panel *ngIf="user && !isEditMode">
-            <span class="title"><i class="fa fa-ticket"></i> Subscriptions</span>
-            {{ eventsSubscriptions | json}}
+        <app-panel *ngIf="userParticipations && !isEditMode">
+            <span class="title"><i class="fa fa-ticket"></i> Participations</span>
             <span class="text">
-                <p>This user participated to {{eventsSubscriptions.length}} events.</p>
+                <p>Ce membre a participé à {{userParticipations.length}} évènements.</p>
                 <ul>
-                    <li *ngFor="let subscr of eventsSubscriptions">
+                    <li *ngFor="let subscr of userParticipations">
                         <a routerLink="/events/{{subscr.event.id}}">{{subscr.event.title}}</a>
                     </li>
                 </ul>
-                <div *ngIf="eventsSubscriptions.length">
-                    <a routerLink="/users/{{user.id}}/subscriptions" class="btn btn-link"><i class="fa fa-list"></i> Go to full list</a>
+                <div *ngIf="userParticipations.length">
+                    <a routerLink="/users/{{user.id}}/subscriptions" class="btn btn-link"><i class="fa fa-list"></i> Voir la liste complète</a>
                 </div>
             </span>
         </app-panel>        

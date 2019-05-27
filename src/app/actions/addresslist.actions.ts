@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
 import { Address } from 'app/models/Address';
-import { ActionWithPayload } from './app.actions';
 
 export enum addressActions {
     asyncAddresslistStart = '[AddressList] get',
@@ -19,55 +18,41 @@ export interface UserAddressCmd {
     addressId: string;
 }
 
-export function getAddressListAsync(userId: string): ActionWithPayload<string> {
-    return {
-        type: addressActions.asyncAddresslistStart,
-        payload: userId
-    };
+export class GetAddressListAsync implements Action {
+    readonly type = addressActions.asyncAddresslistStart;
+    constructor(public payload: string) {}
 }
 
-export function getAddressListAsyncFinished(payload: Array<Address>): ActionWithPayload<Array<Address>> {
-    return {
-        type: addressActions.asyncAddresslistFinished,
-        payload
-    };
+export class GetAddressListAsyncFinished implements Action {
+    readonly type = addressActions.asyncAddresslistFinished;
+    constructor(public payload: Array<Address>) {}
 }
 
-export function getAddressListAsyncFailed(payload: Error): ActionWithPayload<Error> {
-    return {
-        type: addressActions.asyncAddresslistFailed,
-        payload
-    };
+export class GetAddressListAsyncFailed implements Action {
+    readonly type = addressActions.asyncAddresslistFailed;
+    constructor(public payload: Error) {}
 }
 
-export function addAddressInList(payload: Address): ActionWithPayload<Address> {
-    return {
-        type: addressActions.addAddressInAddresslist,
-        payload
-    };
+export class AddAddressInList implements Action {
+    readonly type = addressActions.addAddressInAddresslist;
+    constructor(public payload: Address) {}
 }
 
-export function updateAddressInList(payload: Address): ActionWithPayload<Address> {
-    return {
-        type: addressActions.updateAddressInAddresslist,
-        payload
-    };
+export class UpdateAddressInList implements Action {
+    readonly type = addressActions.updateAddressInAddresslist;
+    constructor(public payload: Address) {}
 }
 
-export function deleteAddressFromList(payload: Address): ActionWithPayload<Address> {
-    return {
-        type: addressActions.deleteAddressFromAddresslist,
-        payload
-    };
+export class DeleteAddressFromList implements Action {
+    readonly type = addressActions.deleteAddressFromAddresslist;
+    constructor(public payload: Address) {}
 }
 
-export function emptyAddressList(): Action {
-    return { type: addressActions.resetAddresslist };
+export class EmptyAddressList implements Action {
+    readonly type = addressActions.resetAddresslist;
 }
 
-export function setFavoriteAddress(payload: UserAddressCmd): ActionWithPayload<UserAddressCmd> {
-    return {
-        type: addressActions.setFavoriteAddress,
-        payload
-    };
+export class SetFavoriteAddress implements Action {
+    readonly type = addressActions.setFavoriteAddress;
+    constructor(public payload: UserAddressCmd) {}
 }

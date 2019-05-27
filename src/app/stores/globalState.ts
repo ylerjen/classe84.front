@@ -8,6 +8,7 @@ import { IEventListState, eventlistReducer } from 'app/stores/eventlist/eventlis
 import { ISubscriptionState, subscriptionsReducer } from 'app/stores/subscription/subscription.reducer';
 import { appReducer, AppState } from './app/app.reducer';
 import { addresslistReducer, IAddressListState } from './addresslist/addresslist.reducer';
+import { participationsReducer } from './participation/participation.reducer';
 
 export interface IGlobalState {
     appState: AppState;
@@ -19,6 +20,7 @@ export interface IGlobalState {
     eventState: IEventState;
     eventlistState: IEventListState;
     subscriptionsState: ISubscriptionState;
+    participationsState: ISubscriptionState;
 }
 
 export const globalState = {
@@ -31,4 +33,5 @@ export const globalState = {
     eventState: eventReducer,
     eventlistState: eventlistReducer,
     subscriptionsState: subscriptionsReducer,
+    participationsState: participationsReducer
 };

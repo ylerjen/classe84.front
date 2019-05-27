@@ -1,13 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { CompleterItem } from 'ng2-completer';
 import { Store } from '@ngrx/store';
 
-import { Subscription } from 'app/models/Subscription';
-import { Event as EventModel } from 'app/models/Event';
+import { User } from '@models/User';
+import { Subscription } from '@models/Subscription';
+import { Event as EventModel } from '@models/Event';
+import { IGlobalState } from 'app/stores/globalState';
 import { IEventState } from 'app/stores/event/event.reducer';
 import { IUserListState } from 'app/stores/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { getEventStart } from '@actions/event.actions';
+import {
+    AddSubscription,
+    DeleteSubscription,
+    GetSubscriptionStart
+} from 'app/actions/subscription.actions';
 import { GetUserListAsync } from '@actions/userlist.actions';
 
 @Component({
@@ -29,8 +37,6 @@ export class EventSubscriptionsViewerComponent implements OnInit {
     constructor(
         private _route: ActivatedRoute,
         private _store: Store<IGlobalState>,
-        private _evtSrvc: EventsService,
-        private _userSrvc: UsersService
     ) {
         this._store.select(store => store.eventState)
             .subscribe((eventState: IEventState) => {
@@ -46,25 +52,24 @@ export class EventSubscriptionsViewerComponent implements OnInit {
                     this.subscribersList = subscrState.subscriptionList.map(
                         sub => new Subscription(sub)
                     );
-                    this.isLoading = false;
                     this.refreshSearchableList();
                 }
             );
     }
 
     ngOnInit() {
-                            this.isLoading = false;
+        this.isLoading = false;
         this._route.params
             .subscribe( (routeData: Params) => {
                 this._store.dispatch(new GetUserListAsync());
                 const id = routeData.id;
                 if (!id) {
                     throw new Error('id of the current route is not defined');
-                        }
+                }
 
                 this._store.dispatch(getEventStart(id));
-                this._store.dispatch(getSubscriptionStart(id));
-                });
+                this._store.dispatch(new GetSubscriptionStart(id));
+            });
     }
 
     /**
@@ -96,10 +101,10 @@ export class EventSubscriptionsViewerComponent implements OnInit {
             isStorePending: true
         });
 
-        this._store.dispatch(addSubscription(subscr));
+        this._store.dispatch(new AddSubscription(subscr));
     }
 
     onDeleteSubscription(subscr: Subscription) {
-        this._store.dispatch(deleteSubscription(subscr));
+        this._store.dispatch(new DeleteSubscription(subscr));
     }
 }

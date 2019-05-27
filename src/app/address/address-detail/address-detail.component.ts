@@ -14,8 +14,24 @@ export class AddressDetailComponent {
     @Output()
     public setFavoriteEmitter = new EventEmitter<string>();
 
+    @Output()
+    public editEmitter = new EventEmitter<string>();
+
+    @Output()
+    public deleteEmitter = new EventEmitter<string>();
+
     setFavorite(evt: Event) {
         evt.preventDefault();
         this.setFavoriteEmitter.emit(this.address.id.toString());
+    }
+
+    edit(evt: Event) {
+        evt.preventDefault();
+        this.editEmitter.emit(this.address.id.toString());
+    }
+
+    delete(evt: Event) {
+        evt.preventDefault();
+        this.deleteEmitter.emit(this.address.id.toString());
     }
 }

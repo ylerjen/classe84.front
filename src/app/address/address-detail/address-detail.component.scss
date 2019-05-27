@@ -1,20 +1,8 @@
-@import '../../../sass/partials/config/variables';
-
-
-.address-item {
-	display: flex;
-	flex-direction: row;
-    justify-content: space-between;
-    padding: 4 * $space-step;
-}
-
 .address-item__logo {
-	text-align: right;
+	float: right;
 }
 
-.address-item__detail {
-	flex-grow: 2;
-
+.address-item__detail {	
 	p {
 		margin: 0;
 	}
@@ -27,4 +15,18 @@
 
 .favorite-address {
 	color: gold;
+}
+
+.filled-card-part {
+	padding: 0;
+	
+	.btn-group {
+		display: block;
+
+		.btn {
+			border-radius: 0;
+    		margin: 0;
+			width: 50%;
+		}
+	}
 }

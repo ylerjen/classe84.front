@@ -8,7 +8,7 @@ import { ROUTE_URL } from 'app/config/router.config';
 import { Session } from 'app/models/Session';
 import { Event } from 'app/models/Event';
 import { Subscription as EventSubscription, Subscription } from 'app/models/Subscription';
-import { addSubscription, deleteSubscription } from 'app/actions/subscription.actions';
+import { AddSubscription, DeleteSubscription } from 'app/actions/subscription.actions';
 import { IGlobalState } from 'app/stores/globalState';
 import { IEventState } from 'app/stores/event/event.reducer';
 import { ISessionState } from 'app/stores/session/session.reducer';
@@ -125,7 +125,7 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
             user: this.session.user,
             event: this.event,
         });
-        this._store.dispatch(addSubscription(subscr));
+        this._store.dispatch(new AddSubscription(subscr));
     }
 
     unsubscribe(): void {
@@ -139,6 +139,6 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
             user: this.session.user,
             event: this.event,
         });
-        this._store.dispatch(deleteSubscription(subscr));
+        this._store.dispatch(new DeleteSubscription(subscr));
     }
 }

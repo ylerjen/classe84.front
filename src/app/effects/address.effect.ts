@@ -4,7 +4,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs';
 import 'rxjs/add/observable/of';
-import { addressActions, getAddressListAsyncFailed, getAddressListAsyncFinished, UserAddressCmd } from 'app/actions/addresslist.actions';
+import { addressActions, GetAddressListAsyncFailed, GetAddressListAsyncFinished, UserAddressCmd } from 'app/actions/addresslist.actions';
 import { ActionWithPayload } from '../actions/app.actions';
 import { AddressService } from 'app/address/address.service';
 
@@ -19,8 +19,8 @@ export class AddressEffects {
           return act.payload;
       })
       .switchMap(payload => this._addressService.getAllForUser(payload)
-        .map((addrList) => getAddressListAsyncFinished(addrList))
-        .catch((err: Error) => of(getAddressListAsyncFailed(err)))
+        .map((addrList) => new GetAddressListAsyncFinished(addrList))
+        .catch((err: Error) => of(new GetAddressListAsyncFailed(err)))
       );
 
   @Effect()

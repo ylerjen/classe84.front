@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { LoadersCssModule } from 'angular2-loaders-css';
 
@@ -16,6 +18,8 @@ import { ModalComponent } from './modal/modal.component';
     imports: [
         CommonModule,
         LoadersCssModule,
+        BsDatepickerModule.forRoot(),
+        NgxMaskModule.forRoot(),
     ],
     providers: [
         GeoService,
@@ -32,6 +36,7 @@ import { ModalComponent } from './modal/modal.component';
     exports: [
         CommonModule,
         LoadersCssModule,
+        BsDatepickerModule,
         PanelComponent,
         PhoneNbPipe,
         ValidationErrorComponent,

@@ -8,52 +8,54 @@ import { EventsService } from 'app/event/services/events.service';
 import { Subscription } from '@models/Subscription';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 import {
-    GetSubscriptionFinished,
-    GetSubscriptionFailed,
-    SubscriptionActions,
-    AddSubscriptionFinished,
-    AddSubscriptionFailed,
-    DeleteSubscriptionFinished,
-    DeleteSubscriptionFailed,
-} from '../actions/subscription.actions';
+    ParticipationActions,
+    GetParticipationListFinished,
+    GetParticipationListFailed,
+    AddParticipationFinished,
+    AddParticipationFailed,
+    DeleteParticipationFinished,
+    DeleteParticipationFailed
+} from '../actions/participations.actions';
+import { UsersService } from 'app/user/services/users.service';
 
 @Injectable()
-export class SubscriptionEffects {
+export class ParticipationEffects {
 
     @Effect()
-    getSubscrStart$ = this.actions$
-        .ofType(SubscriptionActions.getSubscriptionListStart)
+    getParticipationStart$ = this.actions$
+        .ofType(ParticipationActions.getParticipationListStart)
         .switchMap((action: Action) => {
             const act = action as ActionWithPayload<string>;
-            return this._eventSrvc.getSubscribers(act.payload);
+            return this._usersSrvc.getParticipations(act.payload);
         })
-        .map( (subscrList: Array<Subscription>) => new GetSubscriptionFinished(subscrList))
-        .catch((err: Error) => of(new GetSubscriptionFailed(err)));
+        .map( (subscrList: Array<Subscription>) => new GetParticipationListFinished(subscrList))
+        .catch((err: Error) => of(new GetParticipationListFailed(err)));
 
     @Effect()
     addSubscription$ = this.actions$
-        .ofType(SubscriptionActions.addSubscription)
+        .ofType(ParticipationActions.addParticipation)
         .switchMap((action: Action) => {
             const act = action as ActionWithPayload<Subscription>;
             return this._eventSrvc.susbcribeToEvent(act.payload);
         })
-        .map( (subscr: Subscription) => new AddSubscriptionFinished(subscr))
+        .map( (subscr: Subscription) => new AddParticipationFinished(subscr))
         .catch((errorWithContext: ErrorWithContext<Subscription>) => {
-            const action = new AddSubscriptionFailed(errorWithContext);
+            const action = new AddParticipationFailed(errorWithContext);
             return of(action);
         });
 
     @Effect()
     deleteSubscription$ = this.actions$
-        .ofType(SubscriptionActions.deleteSubscription)
+        .ofType(ParticipationActions.deleteParticipation)
         .switchMap((action: Action) => {
             const act = action as ActionWithPayload<Subscription>;
             return this._eventSrvc.unsubscribeFromEvent(act.payload);
         })
-        .map(subscr => new DeleteSubscriptionFinished(subscr))
-        .catch((err: Error) => of(new DeleteSubscriptionFailed(err)));
+        .map(subscr => new DeleteParticipationFinished(subscr))
+        .catch((err: Error) => of(new DeleteParticipationFailed(err)));
 
     constructor(
+        private _usersSrvc: UsersService,
         private _eventSrvc: EventsService,
         private actions$: Actions
     ) { }

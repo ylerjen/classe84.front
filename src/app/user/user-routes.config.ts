@@ -10,15 +10,20 @@ export const userRoutes: Routes = [
     {
         path: ROUTE_URL.users,
         children: [
-            { path: ROUTE_URL.default, component: UserDetailViewerComponent },
             {
+                path: ROUTE_URL.default,
+                component: UserDetailViewerComponent
+            }, {
                 path: ROUTE_URL.byId,
                 component: UserPageComponent,
-                // canActivate: [ AuthService ],
-                // children: [
-                //     { path: ROUTE_URL.edit, component: UserFormViewerComponent }
-                // ]
-            },
+                canActivate: [ AuthService ],
+                children: [
+                    {
+                        path: ROUTE_URL.edit,
+                        component: UserFormViewerComponent
+                    }
+                ]
+            }
         ]
     },
 ];

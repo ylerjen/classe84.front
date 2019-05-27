@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
 
 import { environment as env } from '../../../environments/environment';
-import { User } from 'app/models/User';
-import { Event } from 'app/models/Event';
-import { Subscription } from 'app/models/Subscription';
+import { User } from '@models/User';
+import { Subscription } from '@models/Subscription';
 
 
 const BASE_URL = `${env.API_URL}/users`;
@@ -23,7 +21,7 @@ export class UsersService {
             .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)));
     }
 
-    get(id: number): Observable<User> {
+    get(id: string): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
         return this._http
             .get<User>(endpoint)
@@ -65,7 +63,7 @@ export class UsersService {
      * @param id - the id of the user
      * @returns the list of event at which the user attended
      */
-    getSubscriptions(id: string): Observable<Array<Subscription>> {
+    getParticipations(id: string): Observable<Array<Subscription>> {
         return this._http.get(`${BASE_URL}/${id}/events`)
             .map( (events: Array<any>): Array<Subscription> => events.map(evt => {
                 const sub = new Subscription(evt);

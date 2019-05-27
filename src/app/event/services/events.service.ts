@@ -9,14 +9,8 @@ import { environment as env } from 'app/../environments/environment';
 import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
-import {
-    addEvent,
-    updateEvent,
-} from 'app/actions/event.actions';
-import {
-    deleteEventFromList,
-} from 'app/actions/eventlist.actions';
-import { addSubscription, updateSubscription, deleteSubscriptionFinished, addSubscriptionFailed } from '@actions/subscription.actions';
+import { addEvent, updateEvent} from 'app/actions/event.actions';
+import { deleteEventFromList } from 'app/actions/eventlist.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 import { User } from '@models/User';
 

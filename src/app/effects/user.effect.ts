@@ -15,7 +15,7 @@ export class UserEffects {
   @Effect()
   getUserStart$ = this.actions$
         .ofType(UserActions.getUserStart)
-        .map((action: ActionWithPayload<number>): number => action.payload)
+        .map((action: ActionWithPayload<string>): string => action.payload)
         .switchMap(payload => this._userService.get(payload))
         .map(user => new GetUserFinished(user))
         .catch((err: Error): Observable<ActionWithPayload<Error>> => of(new GetUserFailed(err)));

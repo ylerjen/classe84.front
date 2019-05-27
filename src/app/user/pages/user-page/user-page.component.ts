@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { User } from 'app/models/User';
-import { Subscription } from 'app/models/Subscription';
+import { User } from '@models/User';
+import { Subscription } from '@models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { GetUserStart } from 'app/actions/user.actions';
 import { IUserState } from 'app/stores/user/user.reducer';
-import { getSubscriptionStart } from 'app/actions/subscription.actions';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { GetAddressListAsync } from '@actions/addresslist.actions';
+import { GetParticipationListStart } from '@actions/participations.actions';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -22,7 +23,7 @@ export class UserPageComponent implements OnInit {
     public isLoading: boolean;
     public isEditMode: boolean;
     public user: User;
-    public eventsSubscriptions: Array<Subscription> = [];
+    public userParticipations: Array<Subscription> = [];
 
     constructor(
         private _store: Store<IGlobalState>,
@@ -37,9 +38,9 @@ export class UserPageComponent implements OnInit {
                 },
                 (error: any) => this._router.navigate(['unauthorized'])
             );
-        this._store.select(store => store.subscriptionsState)
+        this._store.select(store => store.participationsState)
             .subscribe(
-                (subscrState: ISubscriptionState) => this.eventsSubscriptions = subscrState.subscriptionList,
+                (subscrState: ISubscriptionState) => this.userParticipations = subscrState.subscriptionList,
                 (err: Error) => console.error(err)
             );
     }
@@ -51,12 +52,12 @@ export class UserPageComponent implements OnInit {
                 this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id as string;
                 this._store.dispatch(new GetUserStart(this._id));
-                this._store.dispatch(getSubscriptionStart(this._id));
+                this._store.dispatch(new GetAddressListAsync(this._id));
+                this._store.dispatch(new GetParticipationListStart(this._id));
             });
     }
 
     deleteRequest(userId: number): void {
         throw new Error('Not implemented yet');
     }
-
 }

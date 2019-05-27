@@ -75,7 +75,8 @@ export class AuthService implements CanActivate {
      * Logout the user of the current session
      * @param successCb - a callback to execute when the logout succeed
      */
-    logout(): Observable<{}> {
+    logout(): Observable<Object> {
+        this.deleteStoredSession();
         if (!this.isLoggedIn()) {
             return of('loggedOut');
         }
@@ -174,8 +175,9 @@ export class AuthService implements CanActivate {
      * @param token - the jwt token
      * @returns {boolean} - if the token is still valid
      */
-    isTokenValid(token: string): boolean {
-        return !this.jwtHelper.isTokenExpired();
+    isTokenValid(token: string, offsetSeconds?: number): boolean {
+        return true; //todo fixme qpi timezone then use real helper
+        return !this.jwtHelper.isTokenExpired(token, offsetSeconds);
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
