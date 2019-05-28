@@ -108,12 +108,20 @@ export class EventFormComponent implements OnInit {
             });
     }
 
+    /**
+     * Set the lat/lng coordinates values in the form
+     * @param coord - are the lat/lng coordinates to set in the form
+     */
     setLatLng(coord: Coordinates): void {
         this.eventForm.controls.latitude.setValue(coord.lat);
         this.eventForm.controls.longitude.setValue(coord.lng);
     }
 
-    defineEndDate(e): void {
+    /**
+     * When the start date changes, we have to set that date as default in the endDate if empty
+     * @param newDate - is the new date defined in the start date
+     */
+    onStartDateChanged(newDate: Date): void {
         const startDate = this.eventForm.get('start_date').value;
         const endDateCtrl = this.eventForm.get('end_date')
         const endDate = endDateCtrl.value;

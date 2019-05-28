@@ -11,7 +11,6 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../auth/services/auth.service';
 import { EventsService } from './services/events.service';
 import { EventlistPageComponent } from './pages/eventlist/eventlist-page.component';
-import { EventPageComponent } from './pages/event/event-page.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { EventListWrapperComponent } from './components/event-list-wrapper/event-list-wrapper.component';
@@ -23,18 +22,17 @@ import { GeoresultFormComponent } from './components/georesult-form/georesult-fo
 import { EventSubscriptionsComponent } from './components/event-subscriptions/event-subscriptions.component';
 import { EventSubscriptionsViewerComponent } from './components/event-subscriptions-viewer/event-subscriptions-viewer.component';
 import { EventControlsComponent } from './components/event-controls/event-controls.component';
+import { EventFormLayoutComponent } from './layouts/event-form-layout/event-form-layout.component';
+import { EventDetailLayoutComponent } from './layouts/event-detail-layout/event-detail-layout.component';
 
 const eventRoutes: Routes = [
     { path: 'events', component: EventlistPageComponent },
+    { path: 'events/:id', component: EventDetailLayoutComponent, canActivate: [ AuthService ] },
+    { path: 'events/:id/edit', component: EventFormLayoutComponent, canActivate: [ AuthService ] },
     {
-        path: 'events/:id',
-        component: EventPageComponent,
+        path: 'events/:id/subscriptions',
+        component: EventSubscriptionsViewerComponent,
         canActivate: [ AuthService ],
-        children: [
-            { path: '', component: EventDetailViewerComponent },
-            { path: 'edit', component: EventFormViewerComponent },
-            { path: 'subscriptions', component: EventSubscriptionsViewerComponent },
-        ]
     }
 ];
 
@@ -53,7 +51,6 @@ const eventRoutes: Routes = [
     ],
     declarations: [
         EventlistPageComponent,
-        EventPageComponent,
         EventControlsComponent,
         EventListComponent,
         EventDetailComponent,
@@ -65,6 +62,8 @@ const eventRoutes: Routes = [
         GeoresultFormComponent,
         EventSubscriptionsComponent,
         EventSubscriptionsViewerComponent,
+        EventFormLayoutComponent,
+        EventDetailLayoutComponent,
     ],
     providers: [
         EventsService

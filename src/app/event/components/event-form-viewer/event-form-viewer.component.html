@@ -1,3 +1,5 @@
+<h1>{{event?.id ? 'Modifier' : 'Créer'}} un évènement</h1>
+
 <app-event-form
     [event]="event"
     (saveEvent)="saveEvent($event)"

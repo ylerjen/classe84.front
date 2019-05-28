@@ -1,0 +1,44 @@
+<div class="row">
+    <section class="col-md-8">
+        <app-event-detail-viewer></app-event-detail-viewer>
+    </section>
+    <aside class="col-md-4">
+        <app-panel>
+            <span class="title"><i class="fa fa-magic"></i> Actions</span>
+            <div class="card" *ngIf="event">
+                <app-event-controls class="card-body"
+                    [isSubscribed]="isSubscribed"
+                    [isSubscribable]="isSubscribable"
+                    [isAdmin]="isAdmin"
+                    (goToEditEvent)="goToEdit()"
+                    (deleteEvent)="delete()"
+                    (subscribeToEvent)="subscribe()"
+                    (unsubscribeFromEvent)="unsubscribe()"
+                ></app-event-controls>
+            </div>
+        </app-panel>
+        <app-panel>
+            <span class="title"
+                ><i class="fa fa-ticket"></i>
+                {{
+                    subscriberList ? subscriberList.length : ''
+                }}
+                Subscribers</span
+            >
+            <span class="text" *ngIf="subscriberList && subscriberList.length">
+                <app-event-subscriptions
+                    isTotalHidden="true"
+                    [subscribersList]="subscriberList"
+                ></app-event-subscriptions>
+            </span>
+        </app-panel>
+        <app-panel>
+            <span class="title"
+                ><i class="fa fa-pie-chart"></i> Success ratio</span
+            >
+            <span class="text"
+                >15% of active members are attending to this event !</span
+            >
+        </app-panel>
+    </aside>
+</div>

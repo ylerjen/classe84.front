@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -11,17 +11,19 @@ import { NotificationService } from '@shared/services/notification/notification.
 
 import { ROUTE_URL } from 'app/config/router.config';
 import { IGlobalState } from 'app/stores/globalState';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-event-form-viewer',
     templateUrl: './event-form-viewer.component.html',
     styleUrls: ['./event-form-viewer.component.scss']
 })
-export class EventFormViewerComponent {
+export class EventFormViewerComponent implements OnInit, OnDestroy {
 
     private _sessionState: ISessionState;
 
     public event: EventModel;
+    private subs: Subscription;
 
     constructor(
         private _store: Store<IGlobalState>,
@@ -29,14 +31,17 @@ export class EventFormViewerComponent {
         private _notifSrvc: NotificationService,
         private _router: Router
     ) {
-        this._store.select(store => store.eventState)
+    }
+
+    ngOnInit(): void {
+        this.subs = this._store.select(store => store.eventState)
             .subscribe((eventState: IEventState) => {
                 this.event = new EventModel(eventState.event);
             });
-        this._store.select(store => store.sessionState)
-            .subscribe( (sessionState: ISessionState) => {
-                console.log(sessionState);
-            });
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe()
     }
 
     saveEvent(event: EventModel) {

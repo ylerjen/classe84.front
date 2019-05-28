@@ -6,8 +6,8 @@
                 <h1 class="card-title module-title">{{event.title}}</h1>
             </div>
             <div class="content">
-                <a href="/events/{{event.id}}/subscriptions" class="btn">Manage subscriptions</a>
-                <p class="text-muted module-meta">Created by {{event.created_by}} at {{event.created_at}}</p>
+                <a href="/events/{{event.id}}/subscriptions" class="btn">Gérer les inscriptions</a>
+                <p class="text-muted module-meta">Créé par {{event.created_by}} le {{event.created_at | date}}</p>
                 <section class="card-body">
                     <p>
                         <span class="text-separator"><i class="fa fa-calendar-o"></i></span>
@@ -29,7 +29,7 @@
                     <p>{{event.organisator}}</p>
                 </section>
                 <section class="card-body">
-                    <h2>Location</h2>
+                    <h2>Lieu</h2>
                     <p>{{staticMapSrc}}</p>
                     <img [src]="staticMapSrc" alt="The place to be">
                 </section>
