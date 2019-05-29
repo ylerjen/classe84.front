@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { getEventStart } from 'app/actions/event.actions';
+import { GetEventStart } from 'app/actions/event.actions';
 import { GetSubscriptionStart } from 'app/actions/subscription.actions';
 
 @Component({
@@ -31,7 +31,7 @@ export class EventDetailLayoutComponent implements OnInit {
       this._route.params
           .subscribe( (routeData: Params) => {
               const id = routeData.id;
-              this._store.dispatch(getEventStart(id));
+              this._store.dispatch(new GetEventStart(id));
               this._store.dispatch(new GetSubscriptionStart(id));
           });
   }

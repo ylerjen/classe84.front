@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Event } from '../models/Event';
-import { ActionWithPayload } from './app.actions';
+import { Event } from '@models/Event';
 
 export enum EventActions {
     getEventStart = '[Event] get start',
@@ -15,43 +14,31 @@ export enum EventActions {
 
 // ==== List of Actions Fn ====
 
-export function resetEventState(): Action {
-    return {
-        type: EventActions.resetEventState
-    };
+export class ResetEventState implements Action {
+    readonly type = EventActions.resetEventState;
 }
 
-export function addEvent(payload: Event): ActionWithPayload<Event> {
-    return {
-        type: EventActions.addEvent,
-        payload
-    };
+export class AddEvent implements Action {
+    readonly type = EventActions.addEvent;
+    constructor(public payload: Event) {}
 }
 
-export function updateEvent(payload: Event): ActionWithPayload<Event> {
-    return {
-        type: EventActions.updateEvent,
-        payload
-    };
+export class UpdateEvent implements Action {
+    readonly type = EventActions.updateEvent;
+    constructor(public payload: Event) {}
 }
 
-export function getEventStart(payload: string): ActionWithPayload<string> {
-    return {
-        type: EventActions.getEventStart,
-        payload
-    };
+export class GetEventStart implements Action {
+    readonly type = EventActions.getEventStart;
+    constructor(public payload: string) { }
 }
 
-export function getEventFinished(payload: Event): ActionWithPayload<Event> {
-    return {
-        type: EventActions.getEventFinished,
-        payload
-    };
+export class GetEventFinished implements Action {
+    readonly type = EventActions.getEventFinished;
+    constructor(public payload: Event) {}
 }
 
-export function getEventFailed(payload: Error): ActionWithPayload<Error> {
-    return {
-        type: EventActions.getEventFailed,
-        payload
-    };
+export class GetEventFailed implements Action {
+    readonly type = EventActions.getEventFailed;
+    constructor(public payload: Error) {}
 }

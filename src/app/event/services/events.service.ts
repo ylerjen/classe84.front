@@ -9,7 +9,7 @@ import { environment as env } from 'app/../environments/environment';
 import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
-import { addEvent, updateEvent} from 'app/actions/event.actions';
+import { AddEvent, UpdateEvent} from 'app/actions/event.actions';
 import { deleteEventFromList } from 'app/actions/eventlist.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 import { User } from '@models/User';
@@ -42,13 +42,13 @@ export class EventsService {
     }
 
     create(event: Event): Observable<Event> {
-        this._store.dispatch(addEvent(event));
+        this._store.dispatch(new AddEvent(event));
         return this._authHttp.post<Event>(BASE_URL, event);
     }
 
     update(event: Event): Observable<Event> {
         const endpoint = `${BASE_URL}/${event.id}`;
-        this._store.dispatch(updateEvent(event));
+        this._store.dispatch(new UpdateEvent(event));
         console.error('add event from service => not finished: request create api');
         return this._authHttp.put<Event>(endpoint, event);
     }

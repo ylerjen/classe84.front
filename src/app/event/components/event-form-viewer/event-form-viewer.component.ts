@@ -6,7 +6,7 @@ import { ISessionState } from 'app/stores/session/session.reducer';
 import { IEventState } from 'app/stores/event/event.reducer';
 import { EventsService } from '../../services/events.service';
 import { Event as EventModel } from 'app/models/Event';
-import { updateEvent } from 'app/actions/event.actions';
+import { UpdateEvent } from 'app/actions/event.actions';
 import { NotificationService } from '@shared/services/notification/notification.service';
 
 import { ROUTE_URL } from 'app/config/router.config';
@@ -51,7 +51,7 @@ export class EventFormViewerComponent implements OnInit, OnDestroy {
         this._evtSrvc.save(event)
             .subscribe(
                 (resp) => {
-                    this._store.dispatch(updateEvent(event));
+                    this._store.dispatch(new UpdateEvent(event));
                     this._notifSrvc.notifySuccess('Event saved');
                     this.goToDetails(event.id);
                 },

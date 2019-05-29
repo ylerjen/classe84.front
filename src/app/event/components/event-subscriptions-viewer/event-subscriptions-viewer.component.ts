@@ -10,7 +10,7 @@ import { IGlobalState } from 'app/stores/globalState';
 import { IEventState } from 'app/stores/event/event.reducer';
 import { IUserListState } from 'app/stores/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { getEventStart } from '@actions/event.actions';
+import { GetEventStart } from '@actions/event.actions';
 import {
     AddSubscription,
     DeleteSubscription,
@@ -67,7 +67,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
                     throw new Error('id of the current route is not defined');
                 }
 
-                this._store.dispatch(getEventStart(id));
+                this._store.dispatch(new GetEventStart(id));
                 this._store.dispatch(new GetSubscriptionStart(id));
             });
     }

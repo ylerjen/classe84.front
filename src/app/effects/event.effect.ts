@@ -4,7 +4,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs';
 import { ActionWithPayload } from '../actions/app.actions';
-import { EventActions, getEventFinished, getEventFailed } from '../actions/event.actions';
+import { EventActions, GetEventFinished, GetEventFailed } from '../actions/event.actions';
 import { addNotif } from '../actions/notifications.actions';
 import { Notification } from '../models/Notification';
 import { EventsService } from '../event/services/events.service';
@@ -21,8 +21,8 @@ export class EventEffects {
             return act.payload;
         })
         .switchMap(payload => this._evtSrvc.get(payload))
-        .map(event => getEventFinished(event))
-        .catch((err: Error) => of(getEventFailed(err))
+        .map(event => new GetEventFinished(event))
+        .catch((err: Error) => of(new GetEventFailed(err))
     );
 
     @Effect()
@@ -34,7 +34,7 @@ export class EventEffects {
             const notif = new Notification(act.payload.name + ' : ' + act.payload.message);
             return addNotif(notif);
         })
-        .catch((err: Error) => of(getEventFailed(err))
+        .catch((err: Error) => of(new GetEventFailed(err))
     );
 
     constructor(

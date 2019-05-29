@@ -15,10 +15,11 @@ import { SharedModule } from './shared/shared.module';
 import { ContactModule } from './contact/contact.module';
 import { UserModule } from './user/user.module';
 import { EventModule } from './event/event.module';
-import { AppComponent } from './app.component';
 import { appRoutes } from './config/router.config';
+import { AppComponent } from './app.component';
 import { globalState } from './stores/globalState';
 import { AppService } from './services/app/app.service';
+import { AuthService } from './auth/services/auth.service';
 import { HomePage } from './pages/home-page/home.page';
 import { LoginPageComponent } from './pages/login-page/login.page';
 import { AboutPage } from './pages/about-page/about.page';
@@ -37,7 +38,6 @@ import { SubscriptionEffects } from './effects/subscription.effect';
 import { EventEffects } from './effects/event.effect';
 import { EventlistEffects } from './effects/eventlist.effect';
 import { NotificationEffects } from './effects/notification.effect';
-import { AuthService } from './auth/services/auth.service';
 
 
 @NgModule({
@@ -87,7 +87,7 @@ import { AuthService } from './auth/services/auth.service';
     ],
     providers: [
         AppService,
-        AuthService
+        AuthService,
     ],
     bootstrap: [ AppComponent ],
     exports: [
