@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/catch';
+
 
 import { User } from 'app/models/User';
 import { IUserListState } from 'app/stores/userlist/userlist.reducer';

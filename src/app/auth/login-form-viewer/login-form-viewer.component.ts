@@ -6,7 +6,7 @@ import { LoginAction } from 'app/actions/session.actions';
 import { Session } from 'app/models/Session';
 import { Login } from 'app/models/Login';
 import { IGlobalState } from 'app/stores/globalState';
-import { ISubscription } from 'rxjs/Subscription';
+import { SubscriptionLike as ISubscription } from 'rxjs';
 
 @Component({
     selector: 'app-login-form-viewer',

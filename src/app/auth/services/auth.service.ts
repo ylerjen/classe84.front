@@ -1,9 +1,10 @@
+
+import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs';
+import { Observable ,  of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
@@ -60,16 +61,17 @@ export class AuthService implements CanActivate {
      */
     login(creds: Login, successCb?: () => void, errorCb?: () => void): Observable<Session> {
         const endpoint = `${authBaseRoute}/login`;
-        return this._authHttp.post<Session>(endpoint, creds)
-            .map(json => {
+        return this._authHttp.post<Session>(endpoint, creds).pipe(
+            map(json => {
                 const session: Session = new Session(json);
                 this.storeSession(session);
                 return session;
-            })
-            .catch((err: Error): Observable<any> => {
+            }),
+            catchError((err: Error): Observable<any> => {
                 this.deleteStoredSession();
                 throw err;
-            });
+            }),
+        );
     }
     /**
      * Logout the user of the current session
@@ -89,8 +91,8 @@ export class AuthService implements CanActivate {
      */
     getAuthUser(): Observable<User> {
         const endpoint = `${authBaseRoute}/user`;
-        return this._authHttp.get<Session>(endpoint)
-            .map( (body): User => new User(body.user));
+        return this._authHttp.get<Session>(endpoint).pipe(
+            map( (body): User => new User(body.user)));
     }
 
     /**

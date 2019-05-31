@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Subscription as RxjsSubscriptions } from 'rxjs/Subscription';
+import { Observable ,  Subscription as RxjsSubscriptions } from 'rxjs';
 
 import { ROUTE_URL } from 'app/config/router.config';
 import { Session } from 'app/models/Session';

@@ -1,40 +1,41 @@
+
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
-import { Actions, Effect } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+
 import { ActionWithPayload } from '../actions/app.actions';
 import { EventActions, GetEventFinished, GetEventFailed } from '../actions/event.actions';
 import { addNotif } from '../actions/notifications.actions';
 import { Notification } from '../models/Notification';
 import { EventsService } from '../event/services/events.service';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class EventEffects {
-
-  @Effect()
-  getEventStart$ = this.actions$
-        .ofType(EventActions.getEventStart)
-        .map((action: Action) => {
+    @Effect()
+    getEventStart$ = this.actions$.pipe(
+        ofType(EventActions.getEventStart),
+        switchMap((action: Action) => {
             const act = action as ActionWithPayload<string>;
-            return act.payload;
-        })
-        .switchMap(payload => this._evtSrvc.get(payload))
-        .map(event => new GetEventFinished(event))
-        .catch((err: Error) => of(new GetEventFailed(err))
+            const id = act.payload;
+            return this._evtSrvc.get(id);
+        }),
+        map(event => new GetEventFinished(event)),
+        catchError((err: Error) => of(new GetEventFailed(err)))
     );
 
     @Effect()
-    getEventFailed$ = this.actions$
-        .ofType(EventActions.getEventFailed)
-        .map((action: Action) => {
+    getEventFailed$ = this.actions$.pipe(
+        ofType(EventActions.getEventFailed),
+        map((action: Action) => {
             const act = action as ActionWithPayload<Error>;
             this._router.navigate(['unauthorized']);
             const notif = new Notification(act.payload.name + ' : ' + act.payload.message);
             return addNotif(notif);
-        })
-        .catch((err: Error) => of(new GetEventFailed(err))
+        }),
+        catchError((err: Error) => of(new GetEventFailed(err)))
     );
 
     constructor(

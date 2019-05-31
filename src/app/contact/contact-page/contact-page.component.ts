@@ -33,13 +33,13 @@ export class ContactPageComponent {
 
     sendContactMail(contact: Contact) {
         this._contactSrvc.sendContactMail(contact)
-            .finally(() => this.isSending = false)
             .subscribe(
                 () => {
                     this._notifSrvc.notifySuccess('Contact email sent');
                     this.contactForm.reset();
                 },
-                (err) => this._notifSrvc.notifyError('An error prevent your contact mail to be sent')
+                err => this._notifSrvc.notifyError('An error prevent your contact mail to be sent'),
+                () => this.isSending = false
             );
     }
 }

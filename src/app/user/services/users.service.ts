@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { environment as env } from '../../../environments/environment';
 import { User } from '@models/User';
@@ -17,15 +19,15 @@ export class UsersService {
     ) { }
 
     fetchAll(): Observable<Array<User>> {
-        return this._http.get<Array<User>>(BASE_URL)
-            .map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj)));
+        return this._http.get<Array<User>>(BASE_URL).pipe(
+            map( (objList: Array<any>): Array<User> => objList.map( obj => new User(obj))));
     }
 
     get(id: string): Observable<User> {
         const endpoint = `${BASE_URL}/${id}`;
         return this._http
-            .get<User>(endpoint)
-            .map(u => new User(u));
+            .get<User>(endpoint).pipe(
+            map(u => new User(u)));
     }
 
     create(user: User): Observable<User> {
@@ -64,14 +66,14 @@ export class UsersService {
      * @returns the list of event at which the user attended
      */
     getParticipations(id: string): Observable<Array<Subscription>> {
-        return this._http.get(`${BASE_URL}/${id}/events`)
-            .map( (events: Array<any>): Array<Subscription> => events.map(evt => {
+        return this._http.get(`${BASE_URL}/${id}/events`).pipe(
+            map( (events: Array<any>): Array<Subscription> => events.map(evt => {
                 const sub = new Subscription(evt);
                 sub.user_id = id;
                 sub.event = evt;
                 sub.event_id = evt.id;
                 return sub;
-            }));
+            })));
     }
 
     /**

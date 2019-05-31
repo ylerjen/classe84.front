@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { throwError } from 'rxjs';
+import { Observable ,  throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment as env } from 'app/../environments/environment';
@@ -37,8 +36,8 @@ export class EventsService {
      */
     get(id: string): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
-        return this._authHttp.get<Event>(endpoint)
-            .map( (evtAttr: any): Event => new Event(evtAttr) );
+        return this._authHttp.get<Event>(endpoint).pipe(
+            map( (evtAttr: any): Event => new Event(evtAttr) ));
     }
 
     create(event: Event): Observable<Event> {

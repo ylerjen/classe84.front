@@ -1,10 +1,13 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {finalize, catchError, switchMap} from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/finally';
+
+
 import { UUID } from 'angular2-uuid';
 
 import { IGlobalState } from 'app/stores/globalState';
@@ -56,15 +59,15 @@ export class RestorePasswordComponent implements OnInit {
             }
         );
 
-        this._route.params
-            .switchMap( (routeData: Params): Observable<Object> => {
+        this._route.params.pipe(
+            switchMap( (routeData: Params): Observable<Object> => {
                 if (!routeData[RECOVERY_TOKEN_PARAM_NAME]) {
                     throw new Error(`no route param '${RECOVERY_TOKEN_PARAM_NAME}' found`);
                 }
                 this.recoveryToken = routeData[RECOVERY_TOKEN_PARAM_NAME];
                 return this._authSrvc.isRecoveryTokenValid(this.recoveryToken);
-            })
-            .catch((error: any) => {
+            }),
+            catchError((error: any) => {
                 if (error instanceof Error) {
                     this._notifSrvc.notifyError(error.message);
                 } else {
@@ -73,12 +76,12 @@ export class RestorePasswordComponent implements OnInit {
                         this._notifSrvc.notifyError('The token has expired');
                         // TODO redirect to password recovery request page
                     } else if (error.status < 400 ||  error.status === 500) {
-                        return Observable.throw(new Error(error.status));
+                        return observableThrowError(new Error(error.status));
                     }
                 }
                 this.isLoading = false;
-            })
-            .finally(() => {console.log('putain'); this.isLoading = false; })
+            }),
+            finalize(() => {console.log('putain'); this.isLoading = false; }),)
             .subscribe(
                 val => {
                     this.isTokenValid = true;
