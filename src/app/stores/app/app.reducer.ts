@@ -31,7 +31,10 @@ export function appReducer(state: AppState = initialState, action: Action): AppS
             const act = action as ActionWithPayload<Version>;
             state = tassign(state);
             version = tassign(state.version, { api: act.payload});
-            return tassign(state, { version });
+            return {
+                ...state,
+                version
+            };
         }
 
         case AppActions.getFrontVersion:
@@ -39,7 +42,10 @@ export function appReducer(state: AppState = initialState, action: Action): AppS
             const act = action as ActionWithPayload<Version>;
             state = tassign(state);
             version = tassign(state.version, { front: act.payload});
-            return tassign(state, { version });
+            return {
+                ...state,
+                version
+            };
         }
 
         default:

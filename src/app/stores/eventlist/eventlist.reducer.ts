@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { tassign } from 'tassign';
 
 import { EventlistActions } from 'app/actions/eventlist.actions';
 import { Event } from 'app/models/Event';
@@ -21,52 +20,58 @@ export const initialState: IEventListState = {
 export function eventlistReducer(state: IEventListState = initialState, action: Action): IEventListState {
     switch (action.type) {
         case EventlistActions.getEventlistAsyncStart:
-            return tassign(state, {
+            return {
+                ...state,
                 isLoading: true
-            });
+            };
 
         case EventlistActions.getEventlistAsyncFinished:
         {
             const act = action as ActionWithPayload<Array<Event>>;
-            return tassign(state, {
+            return {
+                ...state,
                 isLoading: false,
                 eventList: act.payload.slice()
-            });
+            };
         }
 
         case EventlistActions.addEventInList:
         {
             const act = action as ActionWithPayload<Event>;
-            return tassign(state, {
+            return {
+                ...state,
                 isLoading: false,
                 eventList: [
                     ...state.eventList,
                     act.payload
                 ]
-            });
+            };
         }
 
         case EventlistActions.deleteEventFromList:
         {
             const act = action as ActionWithPayload<Event>;
-            return tassign(state, {
+            return {
+                ...state,
                 isLoading: false,
                 eventList: state.eventList.filter(event => event.id !== act.payload.id)
-            });
+            };
         }
 
         case EventlistActions.resetEventlistState:
-            return tassign(state, {
+            return {
+                ...state,
                 isLoading: false,
                 eventList: []
-            });
+            };
 
         case EventlistActions.changeFilter:
         {
             const act = action as ActionWithPayload<IEventListFilter>;
-            return tassign(state, {
+            return {
+                ...state,
                 eventFilter: act.payload
-            });
+            };
         }
 
         default:
