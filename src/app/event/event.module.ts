@@ -24,12 +24,23 @@ import { EventSubscriptionsViewerComponent } from './components/event-subscripti
 import { EventControlsComponent } from './components/event-controls/event-controls.component';
 import { EventFormLayoutComponent } from './layouts/event-form-layout/event-form-layout.component';
 import { EventDetailLayoutComponent } from './layouts/event-detail-layout/event-detail-layout.component';
+import { EventResolverService } from './resolvers/event-resolver.service';
 
 const eventRoutes: Routes = [
-    { path: 'events', component: EventlistPageComponent },
-    { path: 'events/:id', component: EventDetailLayoutComponent, canActivate: [ AuthService ] },
-    { path: 'events/:id/edit', component: EventFormLayoutComponent, canActivate: [ AuthService ] },
     {
+        path: 'events',
+        component: EventlistPageComponent
+    }, {
+        path: 'events/:id',
+        component: EventDetailLayoutComponent,
+        canActivate: [ AuthService ],
+        resolve: EventResolverService,
+    }, {
+        path: 'events/:id/edit',
+        component: EventFormLayoutComponent,
+        canActivate: [ AuthService ],
+        resolve: EventResolverService,
+    }, {
         path: 'events/:id/subscriptions',
         component: EventSubscriptionsViewerComponent,
         canActivate: [ AuthService ],
@@ -66,7 +77,8 @@ const eventRoutes: Routes = [
         EventDetailLayoutComponent,
     ],
     providers: [
-        EventsService
+        EventsService,
+        EventResolverService,
     ]
 })
 export class EventModule { }
