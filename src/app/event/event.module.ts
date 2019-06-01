@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { NgxEditorModule } from 'ngx-editor';
-import { Ng2CompleterModule } from 'ng2-completer';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { GMAP_API_KEY } from '../config/settings';
 import { SharedModule } from '../shared/shared.module';
@@ -52,13 +52,13 @@ const eventRoutes: Routes = [
         CommonModule,
         SharedModule,
         RouterModule.forChild(eventRoutes),
-        Ng2CompleterModule,
         FormsModule,
         ReactiveFormsModule,
         NgxEditorModule,
         AgmCoreModule.forRoot({
             apiKey: GMAP_API_KEY
         }),
+        TypeaheadModule.forRoot(),
     ],
     declarations: [
         EventlistPageComponent,

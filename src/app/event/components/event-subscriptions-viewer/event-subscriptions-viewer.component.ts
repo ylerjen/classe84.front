@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { CompleterItem } from 'ng2-completer';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { User } from '@models/User';
 import { Subscription } from '@models/Subscription';
@@ -30,7 +30,13 @@ export class EventSubscriptionsViewerComponent implements OnInit {
     public subscribersList: Array<Subscription>;
     private subscribableUserList: Array<User>;
 
-    public searchableList: Array<CompleterItem>;
+    public asyncSelected: string;
+
+    public typeaheadLoading: boolean;
+
+    public typeaheadNoResults: boolean;
+
+    public searchableList;
 
     public isLoading: boolean;
 
@@ -85,12 +91,12 @@ export class EventSubscriptionsViewerComponent implements OnInit {
                     (user: User) => !this.subscribersList.find( subscr => subscr.user_id === user.id )
                 )
                 .map(
-                    (user: User): CompleterItem => ({ title: user.fullname, originalObject: user })
+                    (user: User) => ({ title: user.fullname, originalObject: user })
                 );
         }
     }
 
-    onAddSubscription(selectedItem: CompleterItem) {
+    onAddSubscription(selectedItem) {
         const user = selectedItem.originalObject as User;
 
         const subscr = new Subscription({

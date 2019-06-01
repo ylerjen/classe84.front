@@ -91,7 +91,7 @@ import { NotificationEffects } from './effects/notification.effect';
     ],
     bootstrap: [ AppComponent ],
     exports: [
-        BsDropdownModule
+        BsDropdownModule,
     ]
 })
 export class AppModule { }

@@ -22,9 +22,10 @@
               "src/.htaccess"
             ],
             "styles": [
-              "node_modules/font-awesome/css/font-awesome.min.css",
-              "node_modules/loaders.css/loaders.min.css",
-              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/font-awesome/css/font-awesome.min.css",
+              "./node_modules/loaders.css/loaders.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/sass/externals.scss",
               "src/sass/custom.scss"
             ],
@@ -76,6 +77,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/loaders.css/loaders.min.css",
               "src/sass/externals.scss",

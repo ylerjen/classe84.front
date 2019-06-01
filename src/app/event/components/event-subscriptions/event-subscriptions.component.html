@@ -1,17 +1,20 @@
 <section *ngIf="subscribersList">
-    <form *ngIf="isEditable">
+    <form *ngIf="isEditable" autocomplete="off">
         <div class="form-group">
             <label for="user-subscription-search">
                 <i class="fa fa-search" aria-labelledby="search"></i> <span>Inscrire des membres par leur nom</span>
             </label>
-            <ng2-completer
-                inputId="user-subscription-search"
-                inputClass="form-control"
-                clearSelected="true"
-                [datasource]="dataService"
-                [minSearchLength]="0"
-                (selected)="addUserSubscription($event)"
-                ></ng2-completer>
+            <input [(ngModel)]="searchStr" name="user-subscription-search"
+                [typeahead]="searchableList"
+                [typeaheadMinLength]="2"
+                id="user-subscription-search"
+                class="form-control"
+                typeaheadOptionField="title"
+                [adaptivePosition]="true"
+                (typeaheadOnSelect)="addUserSubscription($event)"
+                />
+            <div class="alert alert-danger" *ngIf="noResult">Aucun résultat pour cette recherche</div>
+
         </div>
     </form>
     <div *ngIf="!subscribersList.length" class="alert alert-primary" role="alert">No subscription yet...</div>

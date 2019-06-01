@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { RECAPTCHA_KEY } from 'app/config/settings';
 import { Contact } from 'app/models/Contact';
 import { ContactService } from '../services/contact.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
@@ -13,18 +12,15 @@ import { ContactFormComponent } from '../contact-form/contact-form.component';
 })
 export class ContactPageComponent {
 
-    @ViewChild(ContactFormComponent) contactForm: ContactFormComponent;
-
-    public recaptchaApiKey: string;
+    @ViewChild(ContactFormComponent, {static: false})
+    contactForm: ContactFormComponent;
 
     public isSending: boolean;
 
     constructor(
         private _contactSrvc: ContactService,
         private _notifSrvc: NotificationService,
-    ) {
-        this.recaptchaApiKey = RECAPTCHA_KEY;
-    }
+    ) {}
 
     onSubmitContactForm(contact) {
         this.isSending = true;

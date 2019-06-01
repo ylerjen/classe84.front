@@ -1,46 +1,55 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CompleterData, CompleterService, CompleterItem } from 'ng2-completer';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
-import { Subscription } from 'app/models/Subscription';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { User } from '@models/User';
+import { UsersService } from 'app/user/services/users.service';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 
 @Component({
     selector: 'app-event-subscriptions',
     templateUrl: './event-subscriptions.component.html',
     styleUrls: ['./event-subscriptions.component.scss']
 })
-export class EventSubscriptionsComponent implements OnInit {
+export class EventSubscriptionsComponent {
 
+    /**
+     * The value given in the form as search criteria
+     */
     protected searchStr: string;
 
-    protected dataService: CompleterData;
+    @Input()
+    public isEditable = false;
 
-    @Input() public isEditable = false;
-
-    @Input() public subscribersList: Array<User>;
+    /**
+     * List of user that have subscribed to the event
+     */
+    @Input()
+    public subscribersList: Array<string>;
 
     /**
      * List used as a result for the autocomplete
      */
-    @Input() public searchableList: Array<CompleterItem>;
+    @Input()
+    public searchableList: Array<User> = [];
 
-    @Output() public addSubscriptionEmitter = new EventEmitter<any>();
-    @Output() public removeSubscriptionEmitter = new EventEmitter<string>();
+    @Output()
+    public addSubscriptionEmitter = new EventEmitter<any>();
 
-    constructor(
-        private completerService: CompleterService
-    ) { }
+    @Output()
+    public removeSubscriptionEmitter = new EventEmitter<string>();
 
-    ngOnInit() {
-        this.dataService = this.completerService.local(this.searchableList, 'title', 'title');
+    @ViewChild('user-subscription-search', { static: false })
+    searchField: ElementRef;
+    setFocus(): void {
+        this.searchField.nativeElement.focus();
     }
 
-    addUserSubscription(selectedValue: CompleterItem) {
-        if (typeof selectedValue === 'undefined') {
+    addUserSubscription(selectedValue: TypeaheadMatch): void {
+        this.searchStr = '';
+        if (typeof selectedValue.value === 'undefined') {
             return;
         }
-        this.addSubscriptionEmitter.emit(selectedValue.originalObject);
+        this.addSubscriptionEmitter.emit(selectedValue.item);
+        this.setFocus();
     }
 
     removeUserSubscription(id: string) {

@@ -1,5 +1,4 @@
-import { FormGroup } from '@angular/forms';
-import { ValidatorFn } from '@angular/forms/src/directives/validators';
+import { FormGroup, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
     /**
