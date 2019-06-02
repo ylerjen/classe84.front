@@ -47,6 +47,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
         this._store.select(store => store.eventState)
             .subscribe((eventState: IEventState) => {
                 this.event = new EventModel(eventState.event);
+                this.isLoading = eventState.isLoading;
             });
         this._store.select(store => store.userlistState)
             .subscribe((userListState: IUserListState) => {
@@ -55,18 +56,17 @@ export class EventSubscriptionsViewerComponent implements OnInit {
             });
         this._store.select(store => store.subscriptionsState)
             .subscribe((subscrState: ISubscriptionState) => {
-                    this.subscribersList = subscrState.subscriptionList.map(
-                        sub => new Subscription(sub)
-                    );
-                    this.refreshSearchableList();
-                }
-            );
+                this.subscribersList = subscrState.subscriptionList.map(
+                    sub => new Subscription(sub)
+                );
+                this.refreshSearchableList();
+            });
     }
 
     ngOnInit() {
         this.isLoading = false;
         this._route.params
-            .subscribe( (routeData: Params) => {
+            .subscribe((routeData: Params) => {
                 this._store.dispatch(new GetUserListAsync());
                 const id = routeData.id;
                 if (!id) {
@@ -88,7 +88,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
         } else {
             this.searchableList = this.subscribableUserList
                 .filter(
-                    (user: User) => !this.subscribersList.find( subscr => subscr.user_id === user.id )
+                    (user: User) => !this.subscribersList.find(subscr => subscr.user_id === user.id)
                 )
                 .map(
                     (user: User) => ({ title: user.fullname, originalObject: user })
