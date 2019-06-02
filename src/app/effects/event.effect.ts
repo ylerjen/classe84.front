@@ -11,6 +11,10 @@ import { EventActions, GetEventFinished, GetEventFailed } from '../actions/event
 import { addNotif } from '../actions/notifications.actions';
 import { Notification } from '../models/Notification';
 import { EventsService } from '../event/services/events.service';
+import { ROUTE_URL } from 'app/config/router.config';
+import { ForbiddenError } from '@models/ForbiddenError';
+import { UnauthorizedError } from '@models/UnauthorizedError';
+import { NotificationService } from '@shared/services/notification/notification.service';
 
 @Injectable()
 export class EventEffects {
@@ -31,9 +35,11 @@ export class EventEffects {
         ofType(EventActions.getEventFailed),
         map((action: Action) => {
             const act = action as ActionWithPayload<Error>;
-            this._router.navigate(['unauthorized']);
-            const notif = new Notification(act.payload.name + ' : ' + act.payload.message);
-            return addNotif(notif);
+            if ( !(act.payload instanceof UnauthorizedError || act.payload instanceof ForbiddenError )) {
+                this._notifSrvc.notifyError(`Une erreur s'est produite. Veuillez recharger la page.
+                    Si le problème persiste, contactez un administrateur du site`);
+            }
+            return of({ type: `NO ACTION` });
         }),
         catchError((err: Error) => of(new GetEventFailed(err)))
     );
@@ -41,6 +47,6 @@ export class EventEffects {
     constructor(
         private _evtSrvc: EventsService,
         private actions$: Actions,
-        private _router: Router,
+        private _notifSrvc: NotificationService,
     ) { }
 }

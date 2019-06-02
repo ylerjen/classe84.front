@@ -37,7 +37,8 @@ export class EventsService {
     get(id: string): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
         return this._authHttp.get<Event>(endpoint).pipe(
-            map( (evtAttr: any): Event => new Event(evtAttr) ));
+            map( (evtAttr: any): Event => new Event(evtAttr))
+        );
     }
 
     create(event: Event): Observable<Event> {

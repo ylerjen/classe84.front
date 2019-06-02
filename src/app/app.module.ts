@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Router } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +38,9 @@ import { SubscriptionEffects } from './effects/subscription.effect';
 import { EventEffects } from './effects/event.effect';
 import { EventlistEffects } from './effects/eventlist.effect';
 import { NotificationEffects } from './effects/notification.effect';
+import { HttpErrorInterceptor } from '@shared/interceptors/http-error.interceptor';
+import { NotificationService } from '@shared/services/notification/notification.service';
+import { ForbiddenPage } from './pages/forbidden/forbidden.page';
 
 
 @NgModule({
@@ -52,6 +55,7 @@ import { NotificationEffects } from './effects/notification.effect';
         UnauthorizedPage,
         NotFoundPage,
         LogoutPageComponent,
+        ForbiddenPage,
     ],
     imports: [
         BrowserModule,
@@ -88,6 +92,12 @@ import { NotificationEffects } from './effects/notification.effect';
     providers: [
         AppService,
         AuthService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: HttpErrorInterceptor,
+          multi: true,
+          deps: [ Router ]
+        }
     ],
     bootstrap: [ AppComponent ],
     exports: [

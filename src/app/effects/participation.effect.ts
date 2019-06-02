@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, concatMap } from 'rxjs/operators';
 
 import { ActionWithPayload } from '../actions/app.actions';
 import { EventsService } from 'app/event/services/events.service';
@@ -36,7 +36,7 @@ export class ParticipationEffects {
     @Effect()
     addSubscription$ = this.actions$.pipe(
         ofType(ParticipationActions.addParticipation),
-        switchMap((action: Action) => {
+        concatMap((action: Action) => {
             const act = action as ActionWithPayload<Subscription>;
             return this._eventSrvc.susbcribeToEvent(act.payload);
         }),
@@ -50,7 +50,7 @@ export class ParticipationEffects {
     @Effect()
     deleteSubscription$ = this.actions$.pipe(
         ofType(ParticipationActions.deleteParticipation),
-        switchMap((action: Action) => {
+        concatMap((action: Action) => {
             const act = action as ActionWithPayload<Subscription>;
             return this._eventSrvc.unsubscribeFromEvent(act.payload);
         }),
