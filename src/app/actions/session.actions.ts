@@ -20,11 +20,12 @@ export enum SessionActions {
     ChangePassword = '[Session] ChangePassword',
     ChangePasswordFromRecovery = '[Session] ChangePasswordFromRecovery',
     AddFormErrors = '[Session] add form errors',
-    EmptyFormErrors = '[Session] empty form errors'
+    EmptyFormErrors = '[Session] empty form errors',
+    SessionExpired = '[Session] expired',
 }
 
 export class AddFormErrorsAction implements Action {
-    public readonly type = SessionActions.AddFormErrors;
+    readonly type = SessionActions.AddFormErrors;
     public payload: Array<string> = [];
     constructor(...payload) {
         this.payload = payload;
@@ -32,49 +33,53 @@ export class AddFormErrorsAction implements Action {
 }
 
 export class EmptyFormErrorsAction implements Action {
-    public readonly type = SessionActions.EmptyFormErrors;
+    readonly type = SessionActions.EmptyFormErrors;
 }
 
 export class LoginAction implements Action {
-    public readonly type = SessionActions.Login;
+    readonly type = SessionActions.Login;
     constructor(public payload: Login) { }
 }
 
 export class LoginFinishedAction implements Action {
-    public readonly type = SessionActions.LoginFinished;
+    readonly type = SessionActions.LoginFinished;
     constructor(public payload: Session) { }
 }
 
 export class LoginFailedAction implements Action {
-    public readonly type = SessionActions.LoginFailed;
+    readonly type = SessionActions.LoginFailed;
     constructor(public payload: Error) { }
 }
 
 export class FetchLoggedUserAction implements Action {
-    public readonly type = SessionActions.FetchUser;
+    readonly type = SessionActions.FetchUser;
 }
 
 export class FetchLoggedUserFinishedAction implements Action {
-    public readonly type = SessionActions.FetchUserFinished;
+    readonly type = SessionActions.FetchUserFinished;
     constructor(public payload: User) { }
 }
 
 export class FetchLoggedUserFailedAction implements Action {
-    public readonly type = SessionActions.FetchUserFailed;
+    readonly type = SessionActions.FetchUserFailed;
     constructor(public payload: Error) { }
 }
 
 export class LogoutAction implements Action {
-    public readonly type = SessionActions.Logout;
+    readonly type = SessionActions.Logout;
 }
 
 export class LogoutFinishedAction implements Action {
-    public readonly type = SessionActions.LogoutFinished;
+    readonly type = SessionActions.LogoutFinished;
 }
 
 export class LogoutFailedAction implements Action {
-    public readonly type = SessionActions.LogoutFailed;
+    readonly type = SessionActions.LogoutFailed;
     constructor(public payload: Error) { }
+}
+
+export class SessionExpiredAction implements Action {
+    readonly type = SessionActions.SessionExpired;
 }
 
 export function setExistingSession(payload: Session): ActionWithPayload<Session> {

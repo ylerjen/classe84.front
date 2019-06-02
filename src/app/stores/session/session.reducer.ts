@@ -21,8 +21,7 @@ export const initialState: ISessionState = {
 
 export function sessionReducer(state: ISessionState = initialState, action: Action): ISessionState {
     switch (action.type) {
-        case SessionActions.Login:
-        {
+        case SessionActions.Login: {
             return {
                 ...state,
                 isProcessing: true,
@@ -31,8 +30,7 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
         }
 
         case SessionActions.LoginFinished:
-        case SessionActions.SetExistingSession:
-        {
+        case SessionActions.SetExistingSession: {
             const act = action as ActionWithPayload<Session>;
             return {
                 ...state,
@@ -42,8 +40,7 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
             };
         }
 
-        case SessionActions.AddFormErrors:
-        {
+        case SessionActions.AddFormErrors: {
             const act = action as ActionWithPayload<Array<string>>;
             return {
                 ...state,
@@ -51,8 +48,7 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
             };
         }
 
-        case SessionActions.EmptyFormErrors:
-        {
+        case SessionActions.EmptyFormErrors: {
             return {
                 ...state,
                 errors: []
@@ -60,12 +56,11 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
         }
 
         case SessionActions.Logout:
-        {
+        case SessionActions.SessionExpired: {
             return initialState;
         }
 
-        case SessionActions.LoginFailed:
-        {
+        case SessionActions.LoginFailed: {
             const act = action as ActionWithPayload<AuthenticationError>;
             return { ...initialState };
         }
