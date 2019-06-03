@@ -15,7 +15,7 @@ export class AppEffects {
     @Effect()
     getApiVersion$ = this.actions$.pipe(
         ofType(AppActions.getApiVersion),
-        switchMap(payload => this._appSrvc.getApiVersion()),
+        switchMap(() => this._appSrvc.getApiVersion()),
         map((res: Version) => getApiVersionFinished(res)),
         catchError((err: Error) => {
             const errNotif = new Notification(JSON.stringify(err), ENotificationType.ERROR);
