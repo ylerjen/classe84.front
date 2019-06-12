@@ -1,6 +1,6 @@
 
 export const environment = {
   production: true,
-  API_URL: 'http://api.classe84.org', // 'http://tr5lgwfdu.preview.infomaniak.website/api',
+  API_URL: 'https://api.classe84.org/api',
   version: '1.0.0-alpha01'
 };
