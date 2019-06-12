@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 
 import { Event as EventModel } from 'app/models/Event';
-import { GeoService, IReverseGeoCodeResponse, IReverseGeoCodeResult } from '@shared/services/geo/geo.service';
-import { Coordinates } from 'app/models/Coordinates';
+import { GeoService } from '@shared/services/geo/geo.service';
 import { CustomValidators } from '@shared/validators/CustomValidators';
+import { MapquestResultPayload, MapquestResult, MapquestResultLocations } from '@shared/services/geo/Mapquest';
+import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
 
 @Component({
     selector: 'app-event-form',
@@ -21,7 +22,7 @@ export class EventFormComponent implements OnInit {
 
     public eventForm: FormGroup;
 
-    public georesults: Array<IReverseGeoCodeResult>;
+    public georesults: Array<MapquestResult>;
 
     public choosenResult: number;
 
@@ -92,14 +93,14 @@ export class EventFormComponent implements OnInit {
         event.preventDefault();
         const location = this.eventForm.value.location;
         this.isLocationLoading = true;
-        this._geoSrvc.reverseGeocode(location)
-            .subscribe((geoResp: IReverseGeoCodeResponse) => {
+        this._geoSrvc.reverseGeocodeMapQuest(location)
+            .subscribe((geoResp: MapquestResultPayload) => {
                 this.georesults = geoResp.results;
                 console.log(this.georesults);
                 if (Array.isArray(this.georesults) && this.georesults.length) {
                     if (this.georesults.length === 1) {
-                        const geo1 = this.georesults[0] as IReverseGeoCodeResult;
-                        const coord = geo1.geometry.location;
+                        const geo1 = this.georesults[0] as MapquestResult;
+                        const coord = geo1.locations[0].latLng;
                         this.setLatLng(coord);
                     } else {
                         this.displayModalWithGeoResult()
@@ -112,7 +113,7 @@ export class EventFormComponent implements OnInit {
      * Set the lat/lng coordinates values in the form
      * @param coord - are the lat/lng coordinates to set in the form
      */
-    setLatLng(coord: Coordinates): void {
+    setLatLng(coord: MapquestCoordinates): void {
         this.eventForm.controls.latitude.setValue(coord.lat);
         this.eventForm.controls.longitude.setValue(coord.lng);
     }
@@ -134,10 +135,10 @@ export class EventFormComponent implements OnInit {
         this.isModalDisplayed = true;
     }
 
-    onGeoResultsChoosen(result: IReverseGeoCodeResult): void {
+    onGeoResultsChoosen(result: MapquestResultLocations): void {
         this.onCloseModal();
         if (result) {
-            this.setLatLng(result.geometry.location);
+            this.setLatLng(result.latLng);
         }
     }
 

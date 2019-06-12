@@ -1,6 +1,6 @@
 <div *ngIf="loginForm">
     <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
-    <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+    <form [formGroup]="loginForm" (ngSubmit)="login($event)" novalidate>
         <div class="form-group">
             <label for="email-{{compId}}" class="center-block">Email</label>
             <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />

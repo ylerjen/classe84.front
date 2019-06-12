@@ -54,11 +54,9 @@ export class LoginFormComponent implements OnInit {
         });
     }
 
-    resetForm(): void {
-        this.loginForm.reset();
-    }
+    login($event: Event): void {
+        $event.preventDefault();
 
-    login(): void {
         if (this.loginForm.valid) {
             const creds: Login = LoginFactory.fromObject(this.loginForm.value);
             this.loginEvent.emit(creds);

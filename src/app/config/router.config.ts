@@ -3,10 +3,11 @@ import { Routes } from '@angular/router';
 import { LoginPageComponent } from '../pages/login-page/login.page';
 import { HomePage } from '../pages/home-page/home.page';
 import { AboutPage } from '../pages/about-page/about.page';
-import { ContactPageComponent } from '../contact/contact-page/contact-page.component';
 import { NotFoundPage } from '../pages/not-found/not-found.page';
 import { UnauthorizedPage } from '../pages/unauthorized/unauthorized.page';
 import { LogoutPageComponent } from '../pages/logout-page/logout-page.component';
+import { ForbiddenPage } from '../pages/forbidden/forbidden.page';
+import { ContactPageComponent } from '../contact/contact-page/contact-page.component';
 
 export const ROUTE_URL: { [key: string]: string } = {
     default: '',
@@ -19,7 +20,8 @@ export const ROUTE_URL: { [key: string]: string } = {
     edit: 'edit',
     address: 'addresses',
     contact: 'contact',
-    unauthorized: 'unauthorized'
+    unauthorized: 'unauthorized',
+    forbidden: 'forbidden',
 };
 
 export const appRoutes: Routes = [
@@ -29,6 +31,9 @@ export const appRoutes: Routes = [
     }, {
         path: ROUTE_URL.unauthorized,
         component: UnauthorizedPage
+    }, {
+        path: ROUTE_URL.forbidden,
+        component: ForbiddenPage
     }, {
         path: ROUTE_URL.about,
         component: AboutPage

@@ -1,39 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { GetEventStart } from 'app/actions/event.actions';
-import { GetSubscriptionStart } from 'app/actions/subscription.actions';
+import { IEventState } from 'app/stores/event/event.reducer';
+import { Subscription } from '@models/Subscription';
 
 @Component({
-  selector: 'app-event-detail-layout',
-  templateUrl: './event-detail-layout.component.html',
-  styleUrls: ['./event-detail-layout.component.scss']
+    selector: 'app-event-detail-layout',
+    templateUrl: './event-detail-layout.component.html',
+    styleUrls: ['./event-detail-layout.component.scss']
 })
 export class EventDetailLayoutComponent implements OnInit {
 
-  public subscriberList: Array<Subscription>;
+    public event$: Observable<IEventState>;
+    public eventSubscr$: Observable<ISubscriptionState>;
+    public eventSubscriptions: Array<Subscription>
 
-  constructor(
-      private _store: Store<IGlobalState>,
-      private _route: ActivatedRoute,
-  ) {
-      this._store.select(store => store.subscriptionsState)
-          .subscribe(
-              (subscrState: ISubscriptionState) => this.subscriberList = subscrState.subscriptionList
-          );
-  }
+    constructor(
+        private store: Store<IGlobalState>,
+    ) {}
 
-  ngOnInit() {
-      this._route.params
-          .subscribe( (routeData: Params) => {
-              const id = routeData.id;
-              this._store.dispatch(new GetEventStart(id));
-              this._store.dispatch(new GetSubscriptionStart(id));
-          });
-  }
+    ngOnInit() {
+        this.event$ = this.store.select(s => s.eventState);
+        this.eventSubscr$ = this.store.select(s => s.subscriptionsState);
+
+        this.eventSubscr$.subscribe({
+            next: s => this.eventSubscriptions = s.subscriptionList,
+        });
+    }
 
 }

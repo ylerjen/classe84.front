@@ -112,32 +112,4 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         console.log('delete', id);
         throw new Error('not implemented yet');
     }
-
-    subscribe(): void {
-        if (!this.event) {
-            throw new Error('no valid Event is referenced');
-        }
-        if (!this.session || !this.session.user || !this.session.user.id) {
-            throw new Error('no valid session user id referenced');
-        }
-        const subscr = new Subscription({
-            user: this.session.user,
-            event: this.event,
-        });
-        this._store.dispatch(new AddSubscription(subscr));
-    }
-
-    unsubscribe(): void {
-        if (!this.event) {
-            throw new Error('no valid Event is referenced');
-        }
-        if (!this.session || !this.session.user || !this.session.user.id) {
-            throw new Error('no valid session user id referenced');
-        }
-        const subscr = new Subscription({
-            user: this.session.user,
-            event: this.event,
-        });
-        this._store.dispatch(new DeleteSubscription(subscr));
-    }
 }

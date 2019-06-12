@@ -33,8 +33,10 @@ const eventRoutes: Routes = [
     }, {
         path: 'events/:id',
         component: EventDetailLayoutComponent,
-        canActivate: [ AuthService ],
-        resolve: EventResolverService,
+        //canActivate: [ AuthService ],
+        resolve: {
+            dispatcher: EventResolverService
+        },
     }, {
         path: 'events/:id/edit',
         component: EventFormLayoutComponent,

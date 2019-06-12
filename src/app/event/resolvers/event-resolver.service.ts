@@ -7,6 +7,7 @@ import { take, map, filter } from 'rxjs/operators';
 import { Event } from '@models/Event';
 import { IGlobalState } from 'app/stores/globalState';
 import { GetEventStart } from '@actions/event.actions';
+import { GetSubscriptionStart } from '@actions/subscription.actions';
 
 
 @Injectable()
@@ -18,7 +19,6 @@ export class EventResolverService implements Resolve<Event>  {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Event> | Observable<never> {
         const id = route.paramMap.get('id');
-        debugger;
         console.info({ place: 'resolver', id });
         this.initEventData(id);
         return this.waitForEventDataToLoad();
@@ -27,9 +27,9 @@ export class EventResolverService implements Resolve<Event>  {
     initEventData(id: string): void {
         this.store.pipe(take(1))
             .subscribe(store => {
-                debugger;
                 if (!store.eventState.event) {
                     this.store.dispatch(new GetEventStart(id));
+                    this.store.dispatch(new GetSubscriptionStart(id));
                 }
             });
     }
