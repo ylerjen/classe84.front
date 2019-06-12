@@ -54,17 +54,20 @@ export class SessionEffects {
     @Effect({dispatch: false})
     loginFinished$: Observable<Action> = this.actions$.pipe(
         ofType(SessionActions.LoginFinished),
-        map((act: ActionWithPayload<Session>) => {
+        tap((act: ActionWithPayload<Session>) => {
             console.log('loginFinished', act);
             // TODO replace this hack with ngrx/router-store
             const path = window.location.pathname;
             const redirectParamName = 'redirectTo=';
-            let redirectTo = path.substr(path.indexOf(redirectParamName) + redirectParamName.length);
-            if (redirectTo) {
-                redirectTo = decodeURIComponent(redirectTo);
-                this._router.navigate([redirectTo]);
+            if (path.indexOf(redirectParamName) >= 0) {
+                let redirectTo = path.substr(path.indexOf(redirectParamName) + redirectParamName.length);
+                if (redirectTo) {
+                    redirectTo = decodeURIComponent(redirectTo);
+                    this._router.navigate([redirectTo]);
+                }
+            } else {
+                this._router.navigate(['']);
             }
-            return { type: `NO ACTION` };
         })
     );
 
@@ -102,26 +105,24 @@ export class SessionEffects {
         })
     );
 
-    @Effect()
+    @Effect({dispatch: false})
     logoutFinished$: Observable<Action> = this.actions$.pipe(
         ofType(SessionActions.LogoutFinished),
-        map((act: Action): Action => {
+        tap((act: Action): void => {
             const msg = 'Successfuly logged out';
             this._notifSrvc.notify(msg, ENotificationType.SUCCESS);
             this._router.navigate(['login']);
-            return { type: `NO ACTION` };
         })
     );
 
-    @Effect()
+    @Effect({dispatch: false})
     logoutFailed$: Observable<Action> = this.actions$.pipe(
         ofType(SessionActions.LogoutFailed),
-        map((act: ActionWithPayload<Error>): Action => {
+        tap((act: ActionWithPayload<Error>): void => {
             const err = act.payload;
             console.error(err);
             const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
             this._notifSrvc.notify(msg, ENotificationType.ERROR);
-            return { type: `NO ACTION` };
         })
     );
 
