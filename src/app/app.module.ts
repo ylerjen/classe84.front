@@ -96,7 +96,7 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
           provide: HTTP_INTERCEPTORS,
           useClass: HttpErrorInterceptor,
           multi: true,
-          deps: [ Router ]
+          deps: [ Router, NotificationService ]
         }
     ],
     bootstrap: [ AppComponent ],
