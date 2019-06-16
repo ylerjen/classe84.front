@@ -30,10 +30,14 @@ const eventRoutes: Routes = [
     {
         path: 'events',
         component: EventlistPageComponent
+    },
+    {
+        path: 'events/add',
+        component: EventFormLayoutComponent,
     }, {
         path: 'events/:id',
         component: EventDetailLayoutComponent,
-        //canActivate: [ AuthService ],
+        canActivate: [ AuthService ],
         resolve: {
             dispatcher: EventResolverService
         },
@@ -41,7 +45,9 @@ const eventRoutes: Routes = [
         path: 'events/:id/edit',
         component: EventFormLayoutComponent,
         canActivate: [ AuthService ],
-        resolve: EventResolverService,
+        resolve: {
+            dispatcher: EventResolverService,
+        }
     }, {
         path: 'events/:id/subscriptions',
         component: EventSubscriptionsViewerComponent,

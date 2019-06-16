@@ -23,6 +23,7 @@ import { UserFormViewerComponent } from './components/user-form-viewer/user-form
 
 const userRoutes = [
     { path: 'users', component: UserListPageComponent },
+    { path: 'users/add', component: UserFormViewerComponent },
     {
         path: 'users/:id',
         component: UserPageComponent,
