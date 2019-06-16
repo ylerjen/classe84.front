@@ -6,7 +6,7 @@ import { UUID } from 'angular2-uuid';
 
 import { PasswordChangeObject } from '@models/Login';
 import { IGlobalState } from 'app/stores/globalState';
-import { changePassword } from '@actions/session.actions';
+import { ChangePassword } from '@actions/session.actions';
 import { PasswordConfirmFormComponent } from '../password-confirm-form/password-confirm-form.component';
 
 /**
@@ -45,6 +45,6 @@ export class ChangePasswordComponent implements OnInit {
     changePassword($event: Event): void {
         const values = this.changePasswordForm.value as PasswordChangeObject;
         console.log('change password with', values);
-        this._store.dispatch(changePassword(values));
+        this._store.dispatch(new ChangePassword(values));
     }
 }

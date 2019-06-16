@@ -82,20 +82,24 @@ export class SessionExpiredAction implements Action {
     readonly type = SessionActions.SessionExpired;
 }
 
-export function setExistingSession(payload: Session): ActionWithPayload<Session> {
-    return { type: SessionActions.SetExistingSession, payload };
+export class SetExistingSession implements Action {
+    readonly type = SessionActions.SetExistingSession;
+    constructor(public payload: Session) {}
 }
 
 // Action for effects only (no data in store)
 
-export function sendPasswordRecoveryMail(payload: string): ActionWithPayload<string> {
-    return { type: SessionActions.SendPasswordRecoveryMail, payload };
+export class SendPasswordRecoveryMail implements Action {
+    readonly type = SessionActions.SendPasswordRecoveryMail;
+    constructor(public payload: string) {}
 }
 
-export function changePassword(payload: PasswordChangeObject): ActionWithPayload<PasswordChangeObject> {
-    return { type: SessionActions.ChangePassword, payload };
+export class ChangePassword implements Action {
+    readonly type = SessionActions.ChangePassword;
+    constructor(public payload: PasswordChangeObject) {}
 }
 
-export function changePasswordFromRecovery(payload: PasswordRecoveryObject): ActionWithPayload<PasswordRecoveryObject> {
-    return { type: SessionActions.ChangePasswordFromRecovery, payload };
+export class ChangePasswordFromRecovery implements Action {
+    readonly type = SessionActions.ChangePasswordFromRecovery;
+    constructor(public payload: PasswordRecoveryObject) {}
 }

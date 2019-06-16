@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { sendPasswordRecoveryMail } from '@actions/session.actions';
+import { SendPasswordRecoveryMail } from '@actions/session.actions';
 import { Store } from '@ngrx/store';
 import { IGlobalState } from '../../stores/globalState';
 
@@ -20,6 +20,7 @@ export class AccountRecoveryViewerComponent {
     ) { }
 
     sendREcoveryRequest(formValues) {
-        this._store.dispatch(sendPasswordRecoveryMail(formValues.email));
+        console.log('dispatch', formValues);
+        this._store.dispatch(new SendPasswordRecoveryMail(formValues.email));
     }
 }

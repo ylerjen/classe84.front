@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { UUID } from 'angular2-uuid';
 
 import { IGlobalState } from 'app/stores/globalState';
-import { changePasswordFromRecovery } from '@actions/session.actions';
+import { ChangePasswordFromRecovery } from '@actions/session.actions';
 import { AuthService, RECOVERY_TOKEN_PARAM_NAME } from '../services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { CustomValidators } from '@shared/validators/CustomValidators';
@@ -81,7 +81,7 @@ export class RestorePasswordComponent implements OnInit {
                 }
                 this.isLoading = false;
             }),
-            finalize(() => {console.log('putain'); this.isLoading = false; }),)
+            finalize(() => {console.log('putain'); this.isLoading = false; }))
             .subscribe(
                 val => {
                     this.isTokenValid = true;
@@ -96,6 +96,6 @@ export class RestorePasswordComponent implements OnInit {
         // TODO manage the isProcessing from the applicationStore
         this.isProcessing = true;
         const values = this.restoreForm.value;
-        this._store.dispatch(changePasswordFromRecovery(values));
+        this._store.dispatch(new ChangePasswordFromRecovery(values));
     }
 }

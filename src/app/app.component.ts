@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { Version } from './models/Version';
 import { IGlobalState } from './stores/globalState';
-import { setExistingSession } from './actions/session.actions';
+import { SetExistingSession } from './actions/session.actions';
 import { AppVersion } from './stores/app/app.reducer';
 import { storeFrontVersion, getApiVersion } from './actions/app.actions';
 import { AuthService } from './auth/services/auth.service';
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
         const session = this._authSrvc.getStoredSession();
         if (session && this._authSrvc.isTokenValid(session.token)) {
-            this._store.dispatch(setExistingSession(session));
+            this._store.dispatch(new SetExistingSession(session));
         }
     }
 }
