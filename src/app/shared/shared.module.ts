@@ -43,6 +43,7 @@ import { ModalComponent } from './modal/modal.component';
         FlipComponent,
         DropdownComponent,
         ModalComponent,
+        NgxMaskModule
     ],
 })
 export class SharedModule { }
