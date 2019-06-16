@@ -24,4 +24,9 @@ export class AddressService {
         const route = `${BASE_URL}/users/${userAdress.userId}/addresses/${userAdress.addressId}/default`;
         return this._authHttp.put(route, {});
     }
+
+    deleteById(id: string): Observable<Object> {
+        const route = `${BASE_URL}/addresses/${id}`;
+        return this._authHttp.delete(route);
+    }
 }

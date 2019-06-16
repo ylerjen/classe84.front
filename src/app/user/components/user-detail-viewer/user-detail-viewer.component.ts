@@ -8,7 +8,7 @@ import { IUserState } from 'app/stores/user/user.reducer';
 import { User } from 'app/models/User';
 import { ROUTE_URL } from 'app/config/router.config';
 import { Address } from 'app/models/Address';
-import { GetAddressListAsync, SetFavoriteAddress } from 'app/actions/addresslist.actions';
+import { SetFavoriteAddress, DeleteAddressById, UserAddressCmd } from 'app/actions/addresslist.actions';
 import { IGlobalState } from 'app/stores/globalState';
 import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 
@@ -78,6 +78,6 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     }
 
     onDeleteAddress(addressId: string) {
-        throw new Error(`delete address ${addressId} not implemented yet`);
+        this._store.dispatch(new DeleteAddressById(addressId));
     }
 }

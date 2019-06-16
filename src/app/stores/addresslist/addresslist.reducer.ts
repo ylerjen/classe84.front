@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Address } from 'app/models/Address';
-import { addressActions, UserAddressCmd } from 'app/actions/addresslist.actions';
+import { addressActions, UserAddressCmd, DeleteAddressById } from 'app/actions/addresslist.actions';
 import { ActionWithPayload } from 'app/actions/app.actions';
 
 export interface IAddressListState {
@@ -16,14 +16,14 @@ export const initialState: IAddressListState = {
 
 export function addresslistReducer(state: IAddressListState = initialState, action: Action): IAddressListState {
     switch (action.type) {
-        case addressActions.asyncAddresslistStart:
+        case addressActions.asyncAddresslistStart: {
             return {
                 ...state,
                 isLoading: true
             };
+        }
 
-        case addressActions.asyncAddresslistFinished:
-        {
+        case addressActions.asyncAddresslistFinished: {
             const act = action as ActionWithPayload<Array<Address>>;
             return {
                 ...state,
@@ -32,8 +32,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
             };
         }
 
-        case addressActions.addAddressInAddresslist:
-        {
+        case addressActions.addAddressInAddresslist: {
             const act = action as ActionWithPayload<Address>;
             return {
                 ...state,
@@ -45,8 +44,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
             };
         }
 
-        case addressActions.updateAddressInAddresslist:
-        {
+        case addressActions.updateAddressInAddresslist: {
             const act = action as ActionWithPayload<Address>;
             return {
                 ...state,
@@ -58,13 +56,12 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
             };
         }
 
-        case addressActions.deleteAddressFromAddresslist:
-        {
-            const act = action as ActionWithPayload<Address>;
+        case addressActions.deleteAddressFromAddresslist: {
+            const act = action as DeleteAddressById;
             return {
                 ...state,
                 isLoading: false,
-                addressList: state.addressList.filter(addr => addr.id !== act.payload.id)
+                addressList: state.addressList.filter(addr => addr.id !== act.payload)
             };
         }
 

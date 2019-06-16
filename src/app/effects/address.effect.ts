@@ -5,7 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { addressActions, GetAddressListAsyncFailed, GetAddressListAsyncFinished, UserAddressCmd } from 'app/actions/addresslist.actions';
+import { addressActions, GetAddressListAsyncFailed, GetAddressListAsyncFinished, UserAddressCmd, DeleteAddressById } from 'app/actions/addresslist.actions';
 import { ActionWithPayload } from '../actions/app.actions';
 import { AddressService } from 'app/address/address.service';
 
@@ -35,6 +35,19 @@ export class AddressEffects {
         switchMap(payload => this._addressService.setAsDefault(payload).pipe(
             map(res => ({ type: 'defaultAddressSetted' })),
             catchError((err: Error) => of({ type: 'defaultAddressFailed' }))
+        ))
+    );
+
+    @Effect()
+    deleteAddress$ = this.actions$.pipe(
+        ofType(addressActions.deleteAddressFromAddresslist),
+        map((action: Action) => {
+            const act = action as DeleteAddressById;
+            return act.payload;
+        }),
+        switchMap(payload => this._addressService.deleteById(payload).pipe(
+            map(res => ({ type: 'addressDeleted' })),
+            catchError((err: Error) => of({ type: 'addressDeletionFailed' }))
         ))
     );
 

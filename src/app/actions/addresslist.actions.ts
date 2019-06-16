@@ -43,9 +43,12 @@ export class UpdateAddressInList implements Action {
     constructor(public payload: Address) {}
 }
 
-export class DeleteAddressFromList implements Action {
+/**
+ * Action to delete an address by its id
+ */
+export class DeleteAddressById implements Action {
     readonly type = addressActions.deleteAddressFromAddresslist;
-    constructor(public payload: Address) {}
+    constructor(public payload: string) {}
 }
 
 export class EmptyAddressList implements Action {
