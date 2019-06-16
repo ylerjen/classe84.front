@@ -14,6 +14,7 @@ import { ISessionState } from 'app/stores/session/session.reducer';
 import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from 'app/models/Login';
 import { Session } from '@models/Session';
 import { ROUTE } from '../auth-route.config';
+import { ResetPasswordResponse } from '@models/ResetPasswordResponse';
 
 export const RECOVERY_TOKEN_VAR_NAME = '${token}';
 export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
@@ -99,7 +100,7 @@ export class AuthService implements CanActivate {
      * Recover an account password by sending an email to the user which own the email
      * @param email - is the email of the related user
      */
-    recoverPassword(email): Observable<Object> {
+    recoverPassword(email): Observable<ResetPasswordResponse> {
         const endpoint = `${authBaseRoute}/reset-password`;
         const recoveryRoute = `${window.location.origin}/${ROUTE.restorePassword};${RECOVERY_TOKEN_PARAM_NAME}=${RECOVERY_TOKEN_VAR_NAME}`;
         const param = {
@@ -107,7 +108,7 @@ export class AuthService implements CanActivate {
             frontUrl: recoveryRoute,
             tokenPlaceholder: RECOVERY_TOKEN_VAR_NAME
         };
-        return this._authHttp.post(endpoint, param);
+        return this._authHttp.post<ResetPasswordResponse>(endpoint, param);
     }
 
     /**
