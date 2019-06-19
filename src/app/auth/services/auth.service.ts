@@ -1,10 +1,10 @@
 
-import {catchError, map} from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable ,  of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
@@ -93,7 +93,7 @@ export class AuthService implements CanActivate {
     getAuthUser(): Observable<User> {
         const endpoint = `${authBaseRoute}/user`;
         return this._authHttp.get<Session>(endpoint).pipe(
-            map( (body): User => new User(body.user)));
+            map((body): User => new User(body.user)));
     }
 
     /**
@@ -189,9 +189,9 @@ export class AuthService implements CanActivate {
         }
 
         const redirectTo = state.url;
-         // FIXME ROUTE_URL POSE PROBLEME LORSQU'IL EST UTILISE ICI. ERROR => Token is not defined!
-         // this._router.navigate([ROUTE_URL.login, { redirectTo }]);
-         this._router.navigate(['login', { redirectTo }]);
+        // FIXME ROUTE_URL POSE PROBLEME LORSQU'IL EST UTILISE ICI. ERROR => Token is not defined!
+        // this._router.navigate([ROUTE_URL.login, { redirectTo }]);
+        this._router.navigate(['login', { redirectTo }]);
         return false;
     }
 }
