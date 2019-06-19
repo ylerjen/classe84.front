@@ -78,13 +78,13 @@ export class AuthService implements CanActivate {
      * Logout the user of the current session
      * @param successCb - a callback to execute when the logout succeed
      */
-    logout(): Observable<Object> {
+    logout(): Observable<string> {
         this.deleteStoredSession();
         if (!this.isLoggedIn()) {
             return of('loggedOut');
         }
         const endpoint = `${authBaseRoute}/logout`;
-        return this._authHttp.post(endpoint, {});
+        return this._authHttp.post<string>(endpoint, {});
     }
 
     /**
@@ -120,7 +120,7 @@ export class AuthService implements CanActivate {
         return this._authHttp.post(endpoint, { recoveryToken });
     }
 
-    changePassword(info: PasswordChangeObject): Observable<Object> {
+    changePassword(info: PasswordChangeObject): Observable<Error> {
         const endpoint = `${authBaseRoute}/change-password`;
         throw new Error('not implemented yet');
         // return this._authHttp.post(endpoint, info);

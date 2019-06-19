@@ -1,8 +1,10 @@
-import { Action } from '@ngrx/store';
-
 import { User } from 'app/models/User';
-import { UserlistActions } from 'app/actions/userlist.actions';
-import { ActionWithPayload } from 'app/actions/app.actions';
+import { UserlistActionTypes,
+    UserlistActions,
+    GetUserListAsyncFinished,
+    GetUserListAsyncFailed,
+    AddUserInList,
+    DeleteUserFromList } from 'app/actions/userlist.actions';
 
 export interface IUserListState {
     userList: User[];
@@ -20,9 +22,9 @@ export const initialState: IUserListState = {
     errors: []
 };
 
-export function userlistReducer(state: IUserListState = initialState, action: Action): IUserListState {
+export function userlistReducer(state: IUserListState = initialState, action: UserlistActions): IUserListState {
     switch (action.type) {
-        case UserlistActions.GetListStart:
+        case UserlistActionTypes.GetListStart:
         {
             return {
                 ...state,
@@ -30,9 +32,9 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             };
         }
 
-        case UserlistActions.GetListFinished:
+        case UserlistActionTypes.GetListFinished:
         {
-            const act = action as ActionWithPayload<Array<User>>;
+            const act = action as GetUserListAsyncFinished;
             return {
                 ...state,
                 isLoading: false,
@@ -41,9 +43,9 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             };
         }
 
-        case UserlistActions.GetListFailed:
+        case UserlistActionTypes.GetListFailed:
         {
-            const act = action as ActionWithPayload<Error>;
+            const act = action as GetUserListAsyncFailed;
             const newState: IUserListState = {
                 ...state,
                 isLoading: false,
@@ -53,9 +55,9 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             return newState;
         }
 
-        case UserlistActions.AddUserInList:
+        case UserlistActionTypes.AddUserInList:
         {
-            const act = action as ActionWithPayload<User>;
+            const act = action as AddUserInList;
             return {
                 ...state,
                 isLoading: false,
@@ -66,9 +68,9 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             };
         }
 
-        case UserlistActions.DeleteUserFromList:
+        case UserlistActionTypes.DeleteUserFromList:
         {
-            const act = action as ActionWithPayload<User>;
+            const act = action as DeleteUserFromList;
             return {
                 ...state,
                 isLoading: false,
@@ -78,7 +80,7 @@ export function userlistReducer(state: IUserListState = initialState, action: Ac
             };
         }
 
-        case UserlistActions.ResetState:
+        case UserlistActionTypes.ResetState:
             return initialState;
 
         default:

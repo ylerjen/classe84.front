@@ -10,9 +10,10 @@ import {
     GetAddressListAsyncFailed,
     GetAddressListAsyncFinished,
     UserAddressCmd,
-    DeleteAddressById
+    DeleteAddressById,
+    GetAddressListAsync,
+    SetFavoriteAddress
 } from 'app/actions/addresslist.actions';
-import { ActionWithPayload } from '../actions/app.actions';
 import { AddressService } from 'app/address/address.service';
 
 @Injectable()
@@ -22,7 +23,7 @@ export class AddressEffects {
     getAddressList$ = this.actions$.pipe(
         ofType(addressActions.asyncAddresslistStart),
         map((action: Action) => {
-            const act = action as ActionWithPayload<string>;
+            const act = action as GetAddressListAsync;
             return act.payload;
         }),
         switchMap(payload => this._addressService.getAllForUser(payload).pipe(
@@ -35,7 +36,7 @@ export class AddressEffects {
     setDefaultAddress$ = this.actions$.pipe(
         ofType(addressActions.setFavoriteAddress),
         map((action: Action) => {
-            const act = action as ActionWithPayload<UserAddressCmd>;
+            const act = action as SetFavoriteAddress;
             return act.payload;
         }),
         switchMap(payload => this._addressService.setAsDefault(payload).pipe(

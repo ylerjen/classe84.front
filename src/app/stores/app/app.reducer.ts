@@ -1,7 +1,4 @@
-import { Action } from '@ngrx/store';
-import { tassign } from 'tassign';
-
-import { ActionWithPayload, AppActions } from 'app/actions/app.actions';
+import { AppActionsClass, AppActions, GetApiVersionFinished, StoreFrontVersion } from 'app/actions/app.actions';
 import { Version } from 'app/models/Version';
 
 
@@ -23,14 +20,17 @@ export const initialState: AppState = {
     }
 };
 
-export function appReducer(state: AppState = initialState, action: Action): AppState {
+export function appReducer(state: AppState = initialState, action: AppActionsClass): AppState {
     let version: AppVersion;
     switch (action.type) {
         case AppActions.getApiVersionFinished:
         {
-            const act = action as ActionWithPayload<Version>;
-            state = tassign(state);
-            version = tassign(state.version, { api: act.payload});
+            const act = action as GetApiVersionFinished;
+            state = { ...state };
+            version = {
+                ...state.version,
+                api: act.payload
+            };
             return {
                 ...state,
                 version
@@ -39,9 +39,12 @@ export function appReducer(state: AppState = initialState, action: Action): AppS
 
         case AppActions.getFrontVersion:
         {
-            const act = action as ActionWithPayload<Version>;
-            state = tassign(state);
-            version = tassign(state.version, { front: act.payload});
+            const act = action as StoreFrontVersion;
+            state = { ...state };
+            version = {
+                ...state.version,
+                front: act.payload
+            };
             return {
                 ...state,
                 version

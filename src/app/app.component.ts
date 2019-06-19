@@ -7,7 +7,7 @@ import { Version } from './models/Version';
 import { IGlobalState } from './stores/globalState';
 import { SetExistingSession } from './actions/session.actions';
 import { AppVersion } from './stores/app/app.reducer';
-import { storeFrontVersion, getApiVersion } from './actions/app.actions';
+import { StoreFrontVersion, GetApiVersion } from './actions/app.actions';
 import { AuthService } from './auth/services/auth.service';
 
 @Component({
@@ -34,8 +34,8 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._store.dispatch(storeFrontVersion(new Version(environment.version)));
-        this._store.dispatch(getApiVersion());
+        this._store.dispatch(new StoreFrontVersion(new Version(environment.version)));
+        this._store.dispatch(new GetApiVersion());
 
         const session = this._authSrvc.getStoredSession();
         if (session && this._authSrvc.isTokenValid(session.token)) {

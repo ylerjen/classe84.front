@@ -6,12 +6,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { ActionWithPayload } from '../actions/app.actions';
-import { EventActions, GetEventFinished, GetEventFailed } from '../actions/event.actions';
-import { addNotif } from '../actions/notifications.actions';
-import { Notification } from '../models/Notification';
+import { EventActions, GetEventFinished, GetEventFailed, GetEventStart } from '../actions/event.actions';
 import { EventsService } from '../event/services/events.service';
-import { ROUTE_URL } from 'app/config/router.config';
 import { ForbiddenError } from '@models/ForbiddenError';
 import { UnauthorizedError } from '@models/UnauthorizedError';
 import { NotificationService } from '@shared/services/notification/notification.service';
@@ -22,7 +18,7 @@ export class EventEffects {
     getEventStart$ = this.actions$.pipe(
         ofType(EventActions.getEventStart),
         switchMap((action: Action) => {
-            const act = action as ActionWithPayload<string>;
+            const act = action as GetEventStart;
             const id = act.payload;
             return this._evtSrvc.get(id);
         }),
@@ -34,7 +30,7 @@ export class EventEffects {
     getEventFailed$ = this.actions$.pipe(
         ofType(EventActions.getEventFailed),
         map((action: Action) => {
-            const act = action as ActionWithPayload<Error>;
+            const act = action as GetEventFailed;
             if ( !(act.payload instanceof UnauthorizedError || act.payload instanceof ForbiddenError )) {
                 this._notifSrvc.notifyError(`Une erreur s'est produite. Veuillez recharger la page.
                     Si le problème persiste, contactez un administrateur du site`);

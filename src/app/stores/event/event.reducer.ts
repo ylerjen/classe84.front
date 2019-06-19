@@ -1,8 +1,5 @@
-import { Action } from '@ngrx/store';
-
 import { Event } from 'app/models/Event';
-import { ActionWithPayload } from 'app/actions/app.actions';
-import { EventActions } from 'app/actions/event.actions';
+import { EventActions, GetEventFinished, UpdateEvent, EventActionsClass } from 'app/actions/event.actions';
 
 export interface IEventState {
     event: Event;
@@ -14,7 +11,7 @@ export const initialState: IEventState = {
     isLoading: false
 };
 
-export function eventReducer(state: IEventState = initialState, action?: Action): IEventState {
+export function eventReducer(state: IEventState = initialState, action?: EventActionsClass): IEventState {
     switch (action.type) {
         case EventActions.getEventStart:
             return {
@@ -24,7 +21,7 @@ export function eventReducer(state: IEventState = initialState, action?: Action)
 
         case EventActions.getEventFinished:
         {
-            const act = action as ActionWithPayload<Event>;
+            const act = action as GetEventFinished;
             return {
                 ...state,
                 event: act.payload,
@@ -34,7 +31,7 @@ export function eventReducer(state: IEventState = initialState, action?: Action)
 
         case EventActions.updateEvent:
         {
-            const act = action as ActionWithPayload<Event>;
+            const act = action as UpdateEvent;
             return {
                 ...state,
                 event: act.payload

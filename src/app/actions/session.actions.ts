@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 
 import { Session } from '../models/Session';
 import { Login, PasswordChangeObject, PasswordRecoveryObject } from '../models/Login';
-import { ActionWithPayload } from './app.actions';
 import { User } from '@models/User';
 
 export enum SessionActions {

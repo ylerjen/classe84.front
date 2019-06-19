@@ -66,4 +66,5 @@ export type AddressListActions = GetAddressListAsync
     | AddAddressInList
     | UpdateAddressInList
     | EmptyAddressList
-    | SetFavoriteAddress;
+    | SetFavoriteAddress
+    | DeleteAddressById;

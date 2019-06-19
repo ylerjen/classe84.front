@@ -1,9 +1,11 @@
-import { Action } from '@ngrx/store';
-
-import { EventlistActions } from 'app/actions/eventlist.actions';
 import { Event } from 'app/models/Event';
-import { ActionWithPayload } from 'app/actions/app.actions';
+import { ChangeEventListFilter } from '@actions/eventlist.actions';
 import { IEventListFilter } from '../../event/components/event-list-filter/event-list-filter.component';
+import { EventlistActionTypes,
+    EventlistActions,
+    GetEventListAsyncFinished,
+    AddEventInlist,
+    DeleteEventFromList } from 'app/actions/eventlist.actions';
 
 export interface IEventListState {
     eventList: Event[];
@@ -17,17 +19,17 @@ export const initialState: IEventListState = {
     eventFilter: { name: '', year: '' }
 };
 
-export function eventlistReducer(state: IEventListState = initialState, action: Action): IEventListState {
+export function eventlistReducer(state: IEventListState = initialState, action: EventlistActions): IEventListState {
     switch (action.type) {
-        case EventlistActions.getEventlistAsyncStart:
+        case EventlistActionTypes.getEventlistAsyncStart:
             return {
                 ...state,
                 isLoading: true
             };
 
-        case EventlistActions.getEventlistAsyncFinished:
+        case EventlistActionTypes.getEventlistAsyncFinished:
         {
-            const act = action as ActionWithPayload<Array<Event>>;
+            const act = action as GetEventListAsyncFinished;
             return {
                 ...state,
                 isLoading: false,
@@ -35,9 +37,9 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
             };
         }
 
-        case EventlistActions.addEventInList:
+        case EventlistActionTypes.addEventInList:
         {
-            const act = action as ActionWithPayload<Event>;
+            const act = action as AddEventInlist;
             return {
                 ...state,
                 isLoading: false,
@@ -48,9 +50,9 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
             };
         }
 
-        case EventlistActions.deleteEventFromList:
+        case EventlistActionTypes.deleteEventFromList:
         {
-            const act = action as ActionWithPayload<Event>;
+            const act = action as DeleteEventFromList;
             return {
                 ...state,
                 isLoading: false,
@@ -58,16 +60,18 @@ export function eventlistReducer(state: IEventListState = initialState, action: 
             };
         }
 
-        case EventlistActions.resetEventlistState:
+        case EventlistActionTypes.resetEventlistState:
+        {
             return {
                 ...state,
                 isLoading: false,
                 eventList: []
             };
+        }
 
-        case EventlistActions.changeFilter:
+        case EventlistActionTypes.changeFilter:
         {
-            const act = action as ActionWithPayload<IEventListFilter>;
+            const act = action as ChangeEventListFilter;
             return {
                 ...state,
                 eventFilter: act.payload

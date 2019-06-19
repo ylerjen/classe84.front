@@ -5,20 +5,19 @@ import { catchError, switchMap, map } from 'rxjs/operators';
 
 import { User } from 'app/models/User';
 import { UsersService } from 'app/user/services/users.service';
-import { ActionWithPayload } from '@actions/app.actions';
-import { UserlistActions, GetUserListAsyncFinished, GetUserListAsyncFailed } from '@actions/userlist.actions';
+import { UserlistActionTypes, GetUserListAsyncFinished, GetUserListAsyncFailed } from '@actions/userlist.actions';
 
 @Injectable()
 export class UserlistEffects {
     @Effect()
     getUserStart$ = this.actions$.pipe(
-        ofType(UserlistActions.GetListStart),
+        ofType(UserlistActionTypes.GetListStart),
         switchMap(() => this._userService.fetchAll()),
         map((userList: Array<User>)  => {
             userList = userList.sort(User.sortByFullNameComparator);
             return new GetUserListAsyncFinished(userList);
         }),
-        catchError((err: Error): Observable<ActionWithPayload<Error>> => of(new GetUserListAsyncFailed(err)))
+        catchError((err: Error): Observable<GetUserListAsyncFailed> => of(new GetUserListAsyncFailed(err)))
     );
 
     constructor(

@@ -1,10 +1,14 @@
-import { Action } from '@ngrx/store';
-
-import { User } from '@models/User';
 import { Subscription } from '@models/Subscription';
-import { SubscriptionActions } from 'app/actions/subscription.actions';
-import { ActionWithPayload } from 'app/actions/app.actions';
-import { ErrorWithContext } from '@models/ErrorWithContext';
+import { SubscriptionActionTypes,
+    GetSubscriptionStart,
+    GetSubscriptionFinished,
+    AddSubscription,
+    AddSubscriptionFinished,
+    AddSubscriptionFailed,
+    UpdateSubscription,
+    DeleteSubscription,
+    DeleteSubscriptionFailed,
+    SubscriptionActions } from 'app/actions/subscription.actions';
 
 export interface ISubscriptionState {
     subscriptionList: Array<Subscription>;
@@ -20,11 +24,11 @@ export const initialState: ISubscriptionState = {
     dataDate: undefined
 };
 
-export function subscriptionsReducer(state: ISubscriptionState = initialState, action?: Action): ISubscriptionState {
+export function subscriptionsReducer(state: ISubscriptionState = initialState, action?: SubscriptionActions): ISubscriptionState {
     switch (action.type) {
-        case SubscriptionActions.getSubscriptionListStart:
+        case SubscriptionActionTypes.getSubscriptionListStart:
         {
-            const act = action as ActionWithPayload<string>;
+            const act = action as GetSubscriptionStart;
 
             return {
                 ...state,
@@ -33,9 +37,9 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             };
         }
 
-        case SubscriptionActions.getSubscriptionListFinished:
+        case SubscriptionActionTypes.getSubscriptionListFinished:
         {
-            const act = action as ActionWithPayload<Array<Subscription>>;
+            const act = action as GetSubscriptionFinished;
             return {
                 ...state,
                 subscriptionList: act.payload,
@@ -44,9 +48,9 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             };
         }
 
-        case SubscriptionActions.addSubscription:
+        case SubscriptionActionTypes.addSubscription:
         {
-            const act = action as ActionWithPayload<Subscription>;
+            const act = action as AddSubscription;
             act.payload.isStorePending = true;
 
             return {
@@ -58,9 +62,9 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             };
         }
 
-        case SubscriptionActions.addSubscriptionFinished:
+        case SubscriptionActionTypes.addSubscriptionFinished:
         {
-            const act = action as ActionWithPayload<Subscription>;
+            const act = action as AddSubscriptionFinished;
             const subscriptionList = state.subscriptionList.map( subsc => {
                 if (subsc.user_id === act.payload.user_id
                     && subsc.event_id === act.payload.event_id) {
@@ -76,18 +80,18 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             };
         }
 
-        case SubscriptionActions.addSubscriptionFailed:
+        case SubscriptionActionTypes.addSubscriptionFailed:
         {
-            const act = action as ActionWithPayload<ErrorWithContext<Subscription>>;
+            const act = action as AddSubscriptionFailed;
             return {
                 ...state,
                 subscriptionList: state.subscriptionList.filter(subsc => subsc.user_id !== act.payload.context.user_id)
             };
         }
 
-        case SubscriptionActions.updateSubscrList:
+        case SubscriptionActionTypes.updateSubscrList:
         {
-            const act = action as ActionWithPayload<Subscription>;
+            const act = action as UpdateSubscription;
             const subscriptionList = state.subscriptionList.map(
                 (subscr) => (subscr.user_id === act.payload.user_id && subscr.event_id === act.payload.event_id)
                 ? act.payload
@@ -100,9 +104,9 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             };
         }
 
-        case SubscriptionActions.deleteSubscription:
+        case SubscriptionActionTypes.deleteSubscription:
         {
-            const act = action as ActionWithPayload<Subscription>;
+            const act = action as DeleteSubscription;
             const subscriptionList = state.subscriptionList.filter(
                 subscr => !(subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id)
             );
@@ -113,12 +117,13 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             };
         }
 
-        case SubscriptionActions.deleteSubscriptionFailed:
+        case SubscriptionActionTypes.deleteSubscriptionFailed:
         {
-            const act = action as ActionWithPayload<Subscription>;
+            const act = action as DeleteSubscriptionFailed;
+
             const subscriptionList = [
                 ...state.subscriptionList,
-                act.payload
+                act.payload.context
             ];
 
             return {
@@ -127,7 +132,7 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
             };
         }
 
-        case SubscriptionActions.resetSubscriptionState:
+        case SubscriptionActionTypes.resetSubscriptionState:
         {
             return { ...initialState };
         }

@@ -9,7 +9,7 @@ import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
 import { IGlobalState } from 'app/stores/globalState';
 import { AddEvent, UpdateEvent} from 'app/actions/event.actions';
-import { deleteEventFromList } from 'app/actions/eventlist.actions';
+import { DeleteEventFromList } from 'app/actions/eventlist.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 import { User } from '@models/User';
 
@@ -37,7 +37,7 @@ export class EventsService {
     get(id: string): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
         return this._authHttp.get<Event>(endpoint).pipe(
-            map( (evtAttr: any): Event => new Event(evtAttr))
+            map( (evtAttr: Object): Event => new Event(evtAttr))
         );
     }
 
@@ -63,7 +63,7 @@ export class EventsService {
 
     delete(event: Event) {
         console.error('delete from service => not finished: request delete api');
-        this._store.dispatch(deleteEventFromList(event));
+        this._store.dispatch(new DeleteEventFromList(event));
     }
 
     /**

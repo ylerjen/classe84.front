@@ -4,7 +4,7 @@ import { Event as EventModel} from '../models/Event';
 import { ActionWithPayload } from './app.actions';
 import { IEventListFilter } from '../event/components/event-list-filter/event-list-filter.component';
 
-export enum EventlistActions {
+export enum EventlistActionTypes {
     resetEventlistState = '[Eventlist] reset state',
     changeFilter = '[Eventlist] change filter',
     getEventlistAsyncStart = '[Eventlist] get Async Start',
@@ -14,50 +14,43 @@ export enum EventlistActions {
     deleteEventFromList = '[Eventlist] delete From List',
 }
 
-
-export function changeEventListFilter(payload: IEventListFilter): ActionWithPayload<IEventListFilter> {
-    return {
-        type: EventlistActions.changeFilter,
-        payload
-    };
+export class ChangeEventListFilter implements Action {
+    readonly type = EventlistActionTypes.changeFilter;
+    constructor(public payload: IEventListFilter) { }
 }
 
-export function addEventInlist(payload: EventModel): ActionWithPayload<EventModel> {
-    return {
-        type: EventlistActions.addEventInList,
-        payload
-    };
+export class AddEventInlist implements Action {
+    readonly type = EventlistActionTypes.addEventInList;
+    constructor(public payload: EventModel) { }
 }
 
-export function deleteEventFromList(payload: EventModel): ActionWithPayload<EventModel> {
-    return {
-        type: EventlistActions.deleteEventFromList,
-        payload
-    };
+export class DeleteEventFromList implements Action {
+    readonly type = EventlistActionTypes.deleteEventFromList;
+    constructor(public payload: EventModel) { }
 }
 
-export function emptyEventList(): Action {
-    return {
-        type: EventlistActions.resetEventlistState
-    };
+export class EmptyEventList implements Action {
+    readonly type = EventlistActionTypes.resetEventlistState;
 }
 
-export function getEventListAsyncStart(): Action {
-    return {
-        type: EventlistActions.getEventlistAsyncStart
-    };
+export class GetEventListAsyncStart implements Action {
+    readonly type = EventlistActionTypes.getEventlistAsyncStart;
 }
 
-export function getEventListAsyncFinished(payload: Array<EventModel>): ActionWithPayload<Array<EventModel>> {
-    return {
-        type: EventlistActions.getEventlistAsyncFinished,
-        payload
-    };
+export class GetEventListAsyncFinished implements Action {
+    readonly type = EventlistActionTypes.getEventlistAsyncFinished;
+    constructor(public payload: Array<EventModel>) { }
 }
 
-export function getEventListAsyncFailed(payload: Error): ActionWithPayload<Error> {
-    return {
-        type: EventlistActions.getEventlistAsyncFinished,
-        payload
-    };
+export class GetEventListAsyncFailed implements Action {
+    readonly type = EventlistActionTypes.getEventlistAsyncFinished;
+    constructor(public payload: Error) { }
 }
+
+export type EventlistActions = AddEventInlist
+    | DeleteEventFromList
+    | ChangeEventListFilter
+    | EmptyEventList
+    | GetEventListAsyncStart
+    | GetEventListAsyncFinished
+    | GetEventListAsyncFailed;

@@ -42,3 +42,8 @@ export class GetEventFailed implements Action {
     readonly type = EventActions.getEventFailed;
     constructor(public payload: Error) {}
 }
+
+export type EventActionsClass = GetEventFinished
+    | UpdateEvent
+    | GetEventStart
+    | ResetEventState;

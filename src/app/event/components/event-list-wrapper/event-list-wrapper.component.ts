@@ -6,7 +6,7 @@ import { Event } from 'app/models/Event';
 import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { IGlobalState } from 'app/stores/globalState';
-import { changeEventListFilter, getEventListAsyncStart } from 'app/actions/eventlist.actions';
+import { ChangeEventListFilter, GetEventListAsyncStart } from 'app/actions/eventlist.actions';
 
 @Component({
     selector: 'app-event-list-wrapper',
@@ -50,7 +50,7 @@ export class EventListWrapperComponent implements OnInit {
                 }
             }
         );
-        this._store.dispatch(getEventListAsyncStart());
+        this._store.dispatch(new GetEventListAsyncStart());
     }
 
     filterList() {
@@ -63,7 +63,7 @@ export class EventListWrapperComponent implements OnInit {
 
     onFilterChange(filter: IEventListFilter) {
         console.log(filter);
-        this._store.dispatch(changeEventListFilter(filter));
+        this._store.dispatch(new ChangeEventListFilter(filter));
     }
 
     updateCurrentRoute() {
