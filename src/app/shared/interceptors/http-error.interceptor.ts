@@ -7,14 +7,24 @@ import { ROUTE_URL } from 'app/config/router.config';
 import { ForbiddenError } from '@models/ForbiddenError';
 import { UnauthorizedError } from '@models/UnauthorizedError';
 import { NotificationService } from '@shared/services/notification/notification.service';
+import { HTTP_STATUS_CODE } from '@models/Constants';
 
+const excludeUrl = [
+    ROUTE_URL.login,
+];
 
-const HTTP_STATUS_CODE = {
-    ServerDown: 0,
-    Unauthorized: 401,
-    Forbidden: 403,
-    NotFound: 404,
-    ServerError: 500,
+/**
+ * Check if the current request url is excluded from the current interceptor
+ * @param requestUrl is the url of the current request
+ */
+function isExcluded(requestUrl: string): boolean {
+    for (let i = 0, iMax = excludeUrl.length; i < iMax; i++) {
+        const url = excludeUrl[i];
+        if (requestUrl.search(`/${url}/gi`) === -1 ) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -22,15 +32,19 @@ const HTTP_STATUS_CODE = {
  */
 export class HttpErrorInterceptor implements HttpInterceptor {
 
+
     constructor(
         private _router: Router,
         private _notificationService: NotificationService,
     ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (isExcluded(request.url)) {
+            return next.handle(request);
+        }
+
         return next.handle(request)
             .pipe(
-                // retry(1),
                 catchError((error: HttpErrorResponse) => {
                     let errorMessage = 'http request error.';
                     if (error.status === HTTP_STATUS_CODE.ServerDown) {
@@ -38,7 +52,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         indisponible. Si le problème persiste, contactez un administrateur du site.`);
                     } else if (error.status === HTTP_STATUS_CODE.Unauthorized) {
                         this._notificationService.notifyError(`Veuillez vous connecter pour pouvoir accéder à cette page.`);
-                        this._router.navigate([ROUTE_URL.unauthorized]);
+                        this._router.navigate([ROUTE_URL.login]);
                         return throwError(new UnauthorizedError(errorMessage, error));
                     } else if (error.status === HTTP_STATUS_CODE.Forbidden) {
                         this._notificationService.notifyError(`Vous n'avez pas les droits suffisant pour pouvoir accéder
