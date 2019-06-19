@@ -20,6 +20,7 @@ import {
     LogoutFailedAction,
     LoginFinishedAction,
     AddFormErrorsAction } from '@actions/session.actions';
+import { HTTP_STATUS_CODE } from '@models/Constants';
 
 @Injectable()
 export class SessionEffects {
@@ -28,7 +29,7 @@ export class SessionEffects {
     login$: Observable<Action> = this.actions$.pipe(
         ofType(SessionActions.Login),
         tap(action => console.log('action triggered', action)),
-        concatMap((act: ActionWithPayload<Login>): Observable<Session> => {
+        concatMap((act: ActionWithPayload<Login>): Observable<ActionWithPayload<Session | Error>> => {
             const creds: Login = act.payload;
             if (creds.remember) {
                 // TODO create this part but with secure cred mgmt
@@ -36,26 +37,25 @@ export class SessionEffects {
             } else {
                 this._authSrvc.deleteRememberedCreds();
             }
-            return this._authSrvc.login(creds);
+            return this._authSrvc.login(creds).pipe(
+                map((res: Session): ActionWithPayload<Session> => new LoginFinishedAction(res)),
+                catchError((err: HttpErrorResponse): Observable<ActionWithPayload<Error>> => {
+                    let action: ActionWithPayload<Error>;
+                    if (err.status === HTTP_STATUS_CODE.Unauthorized) {
+                        action = new LoginFailedAction(new AuthenticationError(`Le login a échoué, vérifiez votre saisie.`));
+                    } else {
+                        action = new LoginFailedAction(new Error(`Erreur non gérée, veuillez contacter l'administrateur du site !`));
+                    }
+                    return of(action);
+                })
+            );
         }),
-        map((res: Session): ActionWithPayload<Session> => new LoginFinishedAction(res)),
-        catchError((err: HttpErrorResponse): Observable<ActionWithPayload<Error>> => {
-            let action: ActionWithPayload<Error>;
-            if (err.status === 401) {
-                action = new LoginFailedAction(new AuthenticationError(`Username/password doesn't match`));
-            } else {
-                action = new LoginFailedAction(new Error('Unhandled service error. Please report this to the web admin !'));
-            }
-            this._notifSrvc.notify(action.payload.message, ENotificationType.ERROR);
-            return of(action);
-        })
     );
 
     @Effect({dispatch: false})
     loginFinished$: Observable<Action> = this.actions$.pipe(
         ofType(SessionActions.LoginFinished),
         tap((act: ActionWithPayload<Session>) => {
-            console.log('loginFinished', act);
             // TODO replace this hack with ngrx/router-store
             const path = window.location.pathname;
             const redirectParamName = 'redirectTo=';
