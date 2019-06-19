@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { addNotif } from 'app/actions/notifications.actions';
+import { AddNotif } from 'app/actions/notifications.actions';
 import { Notification, ENotificationType } from 'app/models/Notification';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class NotificationService {
 
     notify(msg: string, type: ENotificationType): void {
         const n = new Notification(msg, type);
-        this._store.dispatch(addNotif(n));
+        this._store.dispatch(new AddNotif(n));
     }
 
 }

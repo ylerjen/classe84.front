@@ -1,9 +1,8 @@
 import { Action } from '@ngrx/store';
 
 import { User } from '../models/User';
-import { ActionWithPayload } from './app.actions';
 
-export enum UserlistActions {
+export enum UserlistActionTypes {
     GetListStart = '[Userlist] get start',
     GetListFinished = '[Userlist] get finished',
     GetListFailed = '[Userlist] get failed',
@@ -13,36 +12,43 @@ export enum UserlistActions {
     ChangeFilter = '[Userlist] change filter',
 }
 
-
 export class ChangeFilter implements Action {
-    readonly type = UserlistActions.ChangeFilter;
+    readonly type = UserlistActionTypes.ChangeFilter;
     constructor(public payload: string) {}
 }
 
 export class GetUserListAsync implements Action {
-    readonly type = UserlistActions.GetListStart;
+    readonly type = UserlistActionTypes.GetListStart;
 }
 
 export class GetUserListAsyncFinished implements Action {
-    readonly type = UserlistActions.GetListFinished;
+    readonly type = UserlistActionTypes.GetListFinished;
     constructor(public payload: Array<User>) {}
 }
 
 export class GetUserListAsyncFailed implements Action {
-    readonly type = UserlistActions.GetListFailed;
+    readonly type = UserlistActionTypes.GetListFailed;
     constructor(public payload: Error) {}
 }
 
 export class AddUserInList implements Action {
-    readonly type = UserlistActions.AddUserInList;
+    readonly type = UserlistActionTypes.AddUserInList;
     constructor(public payload: User) {}
 }
 
 export class DeleteUserFromList implements Action {
-    readonly type = UserlistActions.DeleteUserFromList;
+    readonly type = UserlistActionTypes.DeleteUserFromList;
     constructor(public payload: User) {}
 }
 
 export class EmptyUserList implements Action {
-    readonly type = UserlistActions.ResetState;
+    readonly type = UserlistActionTypes.ResetState;
 }
+
+export type UserlistActions = ChangeFilter
+    | GetUserListAsync
+    | GetUserListAsyncFinished
+    | GetUserListAsyncFailed
+    | AddUserInList
+    | DeleteUserFromList
+    | EmptyUserList;

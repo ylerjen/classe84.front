@@ -1,8 +1,12 @@
-import { Action } from '@ngrx/store';
-
 import { Address } from 'app/models/Address';
-import { addressActions, UserAddressCmd, DeleteAddressById } from 'app/actions/addresslist.actions';
-import { ActionWithPayload } from 'app/actions/app.actions';
+import {
+    addressActions,
+    DeleteAddressById,
+    GetAddressListAsyncFinished,
+    AddAddressInList,
+    UpdateAddressInList,
+    SetFavoriteAddress,
+    AddressListActions } from 'app/actions/addresslist.actions';
 
 export interface IAddressListState {
     addressList: Address[];
@@ -14,7 +18,7 @@ export const initialState: IAddressListState = {
     isLoading: false
 };
 
-export function addresslistReducer(state: IAddressListState = initialState, action: Action): IAddressListState {
+export function addresslistReducer(state: IAddressListState = initialState, action: AddressListActions): IAddressListState {
     switch (action.type) {
         case addressActions.asyncAddresslistStart: {
             return {
@@ -24,7 +28,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
         }
 
         case addressActions.asyncAddresslistFinished: {
-            const act = action as ActionWithPayload<Array<Address>>;
+            const act = action as GetAddressListAsyncFinished;
             return {
                 ...state,
                 isLoading: false,
@@ -33,7 +37,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
         }
 
         case addressActions.addAddressInAddresslist: {
-            const act = action as ActionWithPayload<Address>;
+            const act = action as AddAddressInList;
             return {
                 ...state,
                 isLoading: false,
@@ -45,7 +49,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
         }
 
         case addressActions.updateAddressInAddresslist: {
-            const act = action as ActionWithPayload<Address>;
+            const act = action as UpdateAddressInList;
             return {
                 ...state,
                 isLoading: false,
@@ -74,7 +78,7 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
 
         case addressActions.setFavoriteAddress:
         {
-            const act = action as ActionWithPayload<UserAddressCmd>;
+            const act = action as SetFavoriteAddress;
             return {
                 ...state,
                 isLoading: false,

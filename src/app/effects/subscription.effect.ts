@@ -4,18 +4,21 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, mergeMap } from 'rxjs/operators';
 
-import { ActionWithPayload } from '../actions/app.actions';
 import { EventsService } from 'app/event/services/events.service';
 import { Subscription } from '@models/Subscription';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 import {
     GetSubscriptionFinished,
     GetSubscriptionFailed,
-    SubscriptionActions,
+    SubscriptionActionTypes,
     AddSubscriptionFinished,
     AddSubscriptionFailed,
     DeleteSubscriptionFinished,
     DeleteSubscriptionFailed,
+    GetSubscriptionStart,
+    AddSubscription,
+    DeleteSubscription,
+    SubscriptionActions,
 } from '../actions/subscription.actions';
 
 @Injectable()
@@ -23,9 +26,9 @@ export class SubscriptionEffects {
 
     @Effect()
     getSubscrStart$ = this.actions$.pipe(
-        ofType(SubscriptionActions.getSubscriptionListStart),
+        ofType(SubscriptionActionTypes.getSubscriptionListStart),
         switchMap((action: Action) => {
-            const act = action as ActionWithPayload<string>;
+            const act = action as GetSubscriptionStart;
             return this._eventSrvc.getSubscribers(act.payload);
         }),
         map((subscrList: Array<Subscription>) => new GetSubscriptionFinished(subscrList)),
@@ -34,9 +37,9 @@ export class SubscriptionEffects {
 
     @Effect()
     addSubscription$ = this.actions$.pipe(
-        ofType(SubscriptionActions.addSubscription),
+        ofType(SubscriptionActionTypes.addSubscription),
         mergeMap((action: Action) => {
-            const act = action as ActionWithPayload<Subscription>;
+            const act = action as AddSubscription;
             return this._eventSrvc.susbcribeToEvent(act.payload);
         }),
         map( (subscr: Subscription) => new AddSubscriptionFinished(subscr)),
@@ -48,13 +51,13 @@ export class SubscriptionEffects {
 
     @Effect()
     deleteSubscription$ = this.actions$.pipe(
-        ofType(SubscriptionActions.deleteSubscription),
-        mergeMap((action: Action) => {
-            const act = action as ActionWithPayload<Subscription>;
+        ofType(SubscriptionActionTypes.deleteSubscription),
+        mergeMap((action: SubscriptionActions) => {
+            const act = action as DeleteSubscription;
             return this._eventSrvc.unsubscribeFromEvent(act.payload);
         }),
         map(subscr => new DeleteSubscriptionFinished(subscr)),
-        catchError((err: Error) => of(new DeleteSubscriptionFailed(err)))
+        catchError((err: ErrorWithContext<Subscription>) => of(new DeleteSubscriptionFailed(err)))
     );
 
     constructor(

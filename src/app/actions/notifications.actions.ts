@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { Notification } from '../models/Notification';
-import { ActionWithPayload } from './app.actions';
 
 export enum NotificationActions {
     AddNotification = '[Notification] Add',
@@ -8,12 +7,18 @@ export enum NotificationActions {
     ClearNotification = '[Notification] Clear',
 }
 
-export function addNotif(payload: Notification): ActionWithPayload<Notification> {
-    return { type: NotificationActions.AddNotification, payload };
+export class AddNotif implements Action {
+    readonly type = NotificationActions.AddNotification;
+    constructor(public payload: Notification) { }
 }
-export function deleteNotif(payload: Notification): ActionWithPayload<Notification> {
-    return { type: NotificationActions.DeleteNotification, payload };
+export class DeleteNotif implements Action {
+    readonly type = NotificationActions.DeleteNotification;
+    constructor(public payload: Notification) { }
 }
-export function clearNotif(): Action {
-    return { type: NotificationActions.DeleteNotification };
+export class ClearNotif implements Action {
+    readonly type = NotificationActions.ClearNotification;
 }
+
+export type NotifActions = AddNotif
+    | DeleteNotif
+    | ClearNotif;

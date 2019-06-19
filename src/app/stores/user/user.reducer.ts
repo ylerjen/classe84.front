@@ -1,8 +1,5 @@
-import { Action } from '@ngrx/store';
-
 import { User } from 'app/models/User';
-import { UserActions } from 'app/actions/user.actions';
-import { ActionWithPayload } from 'app/actions/app.actions';
+import { UserActionTypes, UserActions, GetUserFinished, GetUserFailed, UpdateUser } from 'app/actions/user.actions';
 
 export interface IUserState {
     user: User;
@@ -16,10 +13,10 @@ export const initialState: IUserState = {
     errors: []
 };
 
-export function userReducer(state: IUserState = initialState, action: Action): IUserState {
+export function userReducer(state: IUserState = initialState, action: UserActions): IUserState {
     switch (action.type) {
 
-        case UserActions.getUserStart:
+        case UserActionTypes.getUserStart:
         {
             return {
                 ...state,
@@ -28,9 +25,9 @@ export function userReducer(state: IUserState = initialState, action: Action): I
             };
         }
 
-        case UserActions.getUserFinished:
+        case UserActionTypes.getUserFinished:
         {
-            const act = action as ActionWithPayload<User>;
+            const act = action as GetUserFinished;
             return {
                 ...state,
                 user: act.payload,
@@ -38,9 +35,9 @@ export function userReducer(state: IUserState = initialState, action: Action): I
             };
         }
 
-        case UserActions.getUserFailed:
+        case UserActionTypes.getUserFailed:
         {
-            const act = action as ActionWithPayload<Error>;
+            const act = action as GetUserFailed;
             const newState = {
                 ...state,
                 user: undefined,
@@ -50,22 +47,22 @@ export function userReducer(state: IUserState = initialState, action: Action): I
             return newState;
         }
 
-        case UserActions.updateUser:
+        case UserActionTypes.updateUser:
         {
-            const act = action as ActionWithPayload<User>;
+            const act = action as UpdateUser;
             return {
                 ...state,
                 user: act.payload
             };
         }
 
-        case UserActions.deleteUser:
+        case UserActionTypes.deleteUser:
             return {
                 ...state,
                 user: undefined
             };
 
-        case UserActions.resetUserState:
+        case UserActionTypes.resetUserState:
             return initialState;
 
         default:

@@ -1,9 +1,10 @@
-import { Action } from '@ngrx/store';
-
 import { Session } from 'app/models/Session';
-import { SessionActions } from 'app/actions/session.actions';
-import { ActionWithPayload } from 'app/actions/app.actions';
-import { AuthenticationError } from '@models/AuthenticationError';
+import { SessionActionTypes,
+    AddFormErrorsAction,
+    LoginFailedAction,
+    SessionActions,
+    SetExistingSession,
+    LoginFinishedAction } from 'app/actions/session.actions';
 
 export interface ISessionState {
     isLoggedIn: boolean;
@@ -19,9 +20,9 @@ export const initialState: ISessionState = {
     errors: []
 };
 
-export function sessionReducer(state: ISessionState = initialState, action: Action): ISessionState {
+export function sessionReducer(state: ISessionState = initialState, action: SessionActions): ISessionState {
     switch (action.type) {
-        case SessionActions.Login: {
+        case SessionActionTypes.Login: {
             return {
                 ...state,
                 isProcessing: true,
@@ -29,9 +30,9 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
             };
         }
 
-        case SessionActions.LoginFinished:
-        case SessionActions.SetExistingSession: {
-            const act = action as ActionWithPayload<Session>;
+        case SessionActionTypes.LoginFinished:
+        case SessionActionTypes.SetExistingSession: {
+            const act = action as LoginFinishedAction | SetExistingSession;
             return {
                 ...state,
                 isLoggedIn: true,
@@ -40,28 +41,28 @@ export function sessionReducer(state: ISessionState = initialState, action: Acti
             };
         }
 
-        case SessionActions.AddFormErrors: {
-            const act = action as ActionWithPayload<Array<string>>;
+        case SessionActionTypes.AddFormErrors: {
+            const act = action as AddFormErrorsAction;
             return {
                 ...state,
                 errors: state.errors.concat(act.payload)
             };
         }
 
-        case SessionActions.EmptyFormErrors: {
+        case SessionActionTypes.EmptyFormErrors: {
             return {
                 ...state,
                 errors: []
             };
         }
 
-        case SessionActions.Logout:
-        case SessionActions.SessionExpired: {
+        case SessionActionTypes.Logout:
+        case SessionActionTypes.SessionExpired: {
             return initialState;
         }
 
-        case SessionActions.LoginFailed: {
-            const act = action as ActionWithPayload<AuthenticationError>;
+        case SessionActionTypes.LoginFailed: {
+            const act = action as LoginFailedAction;
             return { ...initialState };
         }
         default:

@@ -8,18 +8,20 @@ export enum AppActions {
     getFrontVersion = '[app] get front version'
 }
 
-export interface ActionWithPayload<T> extends Action {
-    payload: T;
+export class GetApiVersion implements Action {
+    readonly type = AppActions.getApiVersion;
 }
 
-export function getApiVersion(): Action {
-    return { type: AppActions.getApiVersion };
+export class GetApiVersionFinished implements Action {
+    readonly type = AppActions.getApiVersionFinished;
+    constructor(public payload: Version) { }
 }
 
-export function getApiVersionFinished(payload: Version): ActionWithPayload<Version> {
-    return { type: AppActions.getApiVersionFinished, payload };
+export class StoreFrontVersion implements Action {
+    readonly type = AppActions.getFrontVersion;
+    constructor(public payload: Version) { }
 }
 
-export function storeFrontVersion(payload: Version): ActionWithPayload<Version> {
-    return { type: AppActions.getFrontVersion, payload };
-}
+export type AppActionsClass = GetApiVersion
+    | GetApiVersionFinished
+    | StoreFrontVersion;

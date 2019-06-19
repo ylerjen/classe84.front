@@ -6,30 +6,33 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { tap, map, catchError, concatMap, switchMap } from 'rxjs/operators';
 
-import { Login, PasswordChangeObject, PasswordRecoveryObject } from '@models/Login';
+import { HTTP_STATUS_CODE } from '@models/Constants';
+import { Login } from '@models/Login';
 import { Session } from '@models/Session';
 import { ENotificationType } from '@models/Notification';
-import { ActionWithPayload } from '@actions/app.actions';
 import { AuthService } from '../auth/services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { AuthenticationError } from '@models/AuthenticationError';
 import {
-    SessionActions,
+    SessionActionTypes,
     LoginFailedAction,
     LogoutFinishedAction,
     LogoutFailedAction,
     LoginFinishedAction,
-    AddFormErrorsAction } from '@actions/session.actions';
-import { HTTP_STATUS_CODE } from '@models/Constants';
+    AddFormErrorsAction,
+    LoginAction,
+    SendPasswordRecoveryMail,
+    ChangePassword,
+    ChangePasswordFromRecovery} from '@actions/session.actions';
 
 @Injectable()
 export class SessionEffects {
 
     @Effect()
     login$: Observable<Action> = this.actions$.pipe(
-        ofType(SessionActions.Login),
+        ofType(SessionActionTypes.Login),
         tap(action => console.log('action triggered', action)),
-        concatMap((act: ActionWithPayload<Login>): Observable<ActionWithPayload<Session | Error>> => {
+        concatMap((act: LoginAction): Observable<LoginFinishedAction | LoginFailedAction> => {
             const creds: Login = act.payload;
             if (creds.remember) {
                 // TODO create this part but with secure cred mgmt
@@ -38,9 +41,9 @@ export class SessionEffects {
                 this._authSrvc.deleteRememberedCreds();
             }
             return this._authSrvc.login(creds).pipe(
-                map((res: Session): ActionWithPayload<Session> => new LoginFinishedAction(res)),
-                catchError((err: HttpErrorResponse): Observable<ActionWithPayload<Error>> => {
-                    let action: ActionWithPayload<Error>;
+                map((res: Session): LoginFinishedAction => new LoginFinishedAction(res)),
+                catchError((err: HttpErrorResponse): Observable<LoginFailedAction> => {
+                    let action: LoginFailedAction;
                     if (err.status === HTTP_STATUS_CODE.Unauthorized) {
                         action = new LoginFailedAction(new AuthenticationError(`Le login a échoué, vérifiez votre saisie.`));
                     } else {
@@ -54,8 +57,8 @@ export class SessionEffects {
 
     @Effect({dispatch: false})
     loginFinished$: Observable<Action> = this.actions$.pipe(
-        ofType(SessionActions.LoginFinished),
-        tap((act: ActionWithPayload<Session>) => {
+        ofType(SessionActionTypes.LoginFinished),
+        tap((act: LoginFinishedAction) => {
             // TODO replace this hack with ngrx/router-store
             const path = window.location.pathname;
             const redirectParamName = 'redirectTo=';
@@ -73,8 +76,8 @@ export class SessionEffects {
 
     @Effect()
     loginFailed$: Observable<Action> = this.actions$.pipe(
-        ofType(SessionActions.LoginFailed),
-        map( (act: ActionWithPayload<Error>) => {
+        ofType(SessionActionTypes.LoginFailed),
+        map( (act: LoginFailedAction) => {
             const err = act.payload;
             let newAction = { type: `NO ACTION` };
             this._authSrvc.deleteStoredSession();
@@ -89,7 +92,7 @@ export class SessionEffects {
 
     @Effect()
     logout$: Observable<Action> = this.actions$.pipe(
-        ofType(SessionActions.Logout),
+        ofType(SessionActionTypes.Logout),
         switchMap((): Observable<Object> => this._authSrvc.logout()),
         map((): Action => new LogoutFinishedAction()),
         catchError((err: Error): Observable<Action> => {
@@ -107,7 +110,7 @@ export class SessionEffects {
 
     @Effect({dispatch: false})
     logoutFinished$: Observable<Action> = this.actions$.pipe(
-        ofType(SessionActions.LogoutFinished),
+        ofType(SessionActionTypes.LogoutFinished),
         tap((act: Action): void => {
             const msg = 'Successfuly logged out';
             this._notifSrvc.notify(msg, ENotificationType.SUCCESS);
@@ -117,8 +120,8 @@ export class SessionEffects {
 
     @Effect({dispatch: false})
     logoutFailed$: Observable<Action> = this.actions$.pipe(
-        ofType(SessionActions.LogoutFailed),
-        tap((act: ActionWithPayload<Error>): void => {
+        ofType(SessionActionTypes.LogoutFailed),
+        tap((act: LogoutFailedAction): void => {
             const err = act.payload;
             console.error(err);
             const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
@@ -128,8 +131,8 @@ export class SessionEffects {
 
     @Effect()
     sendPasswordRecoveryMail$ = this.actions$.pipe(
-        ofType(SessionActions.SendPasswordRecoveryMail),
-        switchMap((act: ActionWithPayload<string>): Observable<Object> => this._authSrvc.recoverPassword(act.payload)),
+        ofType(SessionActionTypes.SendPasswordRecoveryMail),
+        switchMap((act: SendPasswordRecoveryMail): Observable<Object> => this._authSrvc.recoverPassword(act.payload)),
         map((res): void => this._notifSrvc.notifySuccess('Password recovery email successfully send to XXX')),
         catchError((resp): Observable<Action> => {
             if (resp.status === 404) {
@@ -141,8 +144,8 @@ export class SessionEffects {
 
     @Effect()
     changePassword$ = this.actions$.pipe(
-        ofType(SessionActions.ChangePassword),
-        switchMap((act: ActionWithPayload<PasswordChangeObject>): Observable<Object> => this._authSrvc.changePassword(act.payload)),
+        ofType(SessionActionTypes.ChangePassword),
+        switchMap((act: ChangePassword): Observable<Object> => this._authSrvc.changePassword(act.payload)),
         map((res): void => this._notifSrvc.notifySuccess('Password successfully changed')),
         catchError((resp): Observable<Action> => {
             if (resp.status === 404) {
@@ -154,8 +157,8 @@ export class SessionEffects {
 
     @Effect()
     changePasswordFromRecovery$ = this.actions$.pipe(
-        ofType(SessionActions.ChangePasswordFromRecovery),
-        switchMap((act: ActionWithPayload<PasswordRecoveryObject>): Observable<Object> =>
+        ofType(SessionActionTypes.ChangePasswordFromRecovery),
+        switchMap((act: ChangePasswordFromRecovery): Observable<Object> =>
             this._authSrvc.changePasswordFromRecovery(act.payload)
         ),
         map((res: Response): void => this._notifSrvc.notifySuccess('Your new password was successfully setted')),
