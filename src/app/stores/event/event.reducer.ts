@@ -1,5 +1,5 @@
 import { Event } from 'app/models/Event';
-import { EventActions, GetEventFinished, UpdateEvent, EventActionsClass } from 'app/actions/event.actions';
+import { EventActionTypes, GetEventFinished, UpdateEvent, EventActions } from 'app/actions/event.actions';
 
 export interface IEventState {
     event: Event;
@@ -11,15 +11,15 @@ export const initialState: IEventState = {
     isLoading: false
 };
 
-export function eventReducer(state: IEventState = initialState, action?: EventActionsClass): IEventState {
+export function eventReducer(state: IEventState = initialState, action?: EventActions): IEventState {
     switch (action.type) {
-        case EventActions.getEventStart:
+        case EventActionTypes.getEventStart:
             return {
                 ...state,
                 isLoading: true
             };
 
-        case EventActions.getEventFinished:
+        case EventActionTypes.getEventFinished:
         {
             const act = action as GetEventFinished;
             return {
@@ -29,7 +29,7 @@ export function eventReducer(state: IEventState = initialState, action?: EventAc
             };
         }
 
-        case EventActions.updateEvent:
+        case EventActionTypes.updateEvent:
         {
             const act = action as UpdateEvent;
             return {
@@ -38,7 +38,7 @@ export function eventReducer(state: IEventState = initialState, action?: EventAc
             };
         }
 
-        case EventActions.resetEventState:
+        case EventActionTypes.resetEventState:
             return {
                 ...initialState
             };

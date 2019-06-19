@@ -1,4 +1,4 @@
-import { AppActionsClass, AppActions, GetApiVersionFinished, StoreFrontVersion } from 'app/actions/app.actions';
+import { AppActions, AppActionTypes, GetApiVersionFinished, StoreFrontVersion } from 'app/actions/app.actions';
 import { Version } from 'app/models/Version';
 
 
@@ -20,10 +20,10 @@ export const initialState: AppState = {
     }
 };
 
-export function appReducer(state: AppState = initialState, action: AppActionsClass): AppState {
+export function appReducer(state: AppState = initialState, action: AppActions): AppState {
     let version: AppVersion;
     switch (action.type) {
-        case AppActions.getApiVersionFinished:
+        case AppActionTypes.getApiVersionFinished:
         {
             const act = action as GetApiVersionFinished;
             state = { ...state };
@@ -37,7 +37,7 @@ export function appReducer(state: AppState = initialState, action: AppActionsCla
             };
         }
 
-        case AppActions.getFrontVersion:
+        case AppActionTypes.getFrontVersion:
         {
             const act = action as StoreFrontVersion;
             state = { ...state };

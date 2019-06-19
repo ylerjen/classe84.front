@@ -6,7 +6,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { EventActions, GetEventFinished, GetEventFailed, GetEventStart } from '../actions/event.actions';
+import { EventActionTypes, GetEventFinished, GetEventFailed, GetEventStart } from '../actions/event.actions';
 import { EventsService } from '../event/services/events.service';
 import { ForbiddenError } from '@models/ForbiddenError';
 import { UnauthorizedError } from '@models/UnauthorizedError';
@@ -16,7 +16,7 @@ import { NotificationService } from '@shared/services/notification/notification.
 export class EventEffects {
     @Effect()
     getEventStart$ = this.actions$.pipe(
-        ofType(EventActions.getEventStart),
+        ofType(EventActionTypes.getEventStart),
         switchMap((action: Action) => {
             const act = action as GetEventStart;
             const id = act.payload;
@@ -28,7 +28,7 @@ export class EventEffects {
 
     @Effect()
     getEventFailed$ = this.actions$.pipe(
-        ofType(EventActions.getEventFailed),
+        ofType(EventActionTypes.getEventFailed),
         map((action: Action) => {
             const act = action as GetEventFailed;
             if ( !(act.payload instanceof UnauthorizedError || act.payload instanceof ForbiddenError )) {

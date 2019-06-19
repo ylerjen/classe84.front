@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Event } from '@models/Event';
 
-export enum EventActions {
+export enum EventActionTypes {
     getEventStart = '[Event] get start',
     getEventFinished = '[Event] get finished',
     getEventFailed = '[Event] get failed',
@@ -15,35 +15,35 @@ export enum EventActions {
 // ==== List of Actions Fn ====
 
 export class ResetEventState implements Action {
-    readonly type = EventActions.resetEventState;
+    readonly type = EventActionTypes.resetEventState;
 }
 
 export class AddEvent implements Action {
-    readonly type = EventActions.addEvent;
+    readonly type = EventActionTypes.addEvent;
     constructor(public payload: Event) {}
 }
 
 export class UpdateEvent implements Action {
-    readonly type = EventActions.updateEvent;
+    readonly type = EventActionTypes.updateEvent;
     constructor(public payload: Event) {}
 }
 
 export class GetEventStart implements Action {
-    readonly type = EventActions.getEventStart;
+    readonly type = EventActionTypes.getEventStart;
     constructor(public payload: string) { }
 }
 
 export class GetEventFinished implements Action {
-    readonly type = EventActions.getEventFinished;
+    readonly type = EventActionTypes.getEventFinished;
     constructor(public payload: Event) {}
 }
 
 export class GetEventFailed implements Action {
-    readonly type = EventActions.getEventFailed;
+    readonly type = EventActionTypes.getEventFailed;
     constructor(public payload: Error) {}
 }
 
-export type EventActionsClass = GetEventFinished
+export type EventActions = GetEventFinished
     | UpdateEvent
     | GetEventStart
     | ResetEventState;
