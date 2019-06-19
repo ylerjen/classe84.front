@@ -59,3 +59,11 @@ export class SetFavoriteAddress implements Action {
     readonly type = addressActions.setFavoriteAddress;
     constructor(public payload: UserAddressCmd) {}
 }
+
+export type AddressListActions = GetAddressListAsync
+    | GetAddressListAsyncFinished
+    | GetAddressListAsyncFailed
+    | AddAddressInList
+    | UpdateAddressInList
+    | EmptyAddressList
+    | SetFavoriteAddress;
