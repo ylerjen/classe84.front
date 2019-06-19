@@ -5,7 +5,13 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { addressActions, GetAddressListAsyncFailed, GetAddressListAsyncFinished, UserAddressCmd, DeleteAddressById } from 'app/actions/addresslist.actions';
+import {
+    addressActions,
+    GetAddressListAsyncFailed,
+    GetAddressListAsyncFinished,
+    UserAddressCmd,
+    DeleteAddressById
+} from 'app/actions/addresslist.actions';
 import { ActionWithPayload } from '../actions/app.actions';
 import { AddressService } from 'app/address/address.service';
 
