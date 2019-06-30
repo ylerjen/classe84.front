@@ -1,8 +1,8 @@
 
-import {map, delay} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { map, delay } from 'rxjs/operators';
 
 
 import { DEFAULT_NOTIF_DURATION } from '@models/Notification';
@@ -12,8 +12,8 @@ import { NotificationActions, DeleteNotif, AddNotif } from '@actions/notificatio
 export class NotificationEffects {
 
     @Effect()
-    AddNotification$ = this.actions$
-        .ofType(NotificationActions.AddNotification).pipe(
+    AddNotification$ = this.actions$.pipe(
+        ofType(NotificationActions.AddNotification),
         delay(DEFAULT_NOTIF_DURATION),
         map((action: Action) => {
             const act = action as AddNotif;
