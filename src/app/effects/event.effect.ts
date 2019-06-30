@@ -1,6 +1,5 @@
 
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
