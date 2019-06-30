@@ -4,16 +4,12 @@
         <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
         <ul *ngIf="recoveryForm.controls.email.invalid && (recoveryForm.controls.email.dirty || recoveryForm.controls.email.touched)"
             class="invalid-feedback">
-            <li *ngIf="recoveryForm.controls.email.errors.required">
-                Email is required.
-            </li>
-            <li *ngIf="recoveryForm.controls.email.errors.email">
-                Email format is not valid.
-            </li>
+            <li *ngIf="recoveryForm.controls.email.errors.required">L'email est requis.</li>
+            <li *ngIf="recoveryForm.controls.email.errors.email">Le format de l'email est invalide.</li>
         </ul>
     </div>
     <div>
-        <button type="button" class="btn btn-primary" (click)="recover($event)" [disabled]="!recoveryForm.valid">Recover your account</button>
-        <a routerLink="/login" class="btn btn-link">Go to login</a>
+        <button type="button" class="btn btn-primary" (click)="recover($event)" [disabled]="!recoveryForm.valid">Récupérer le compte</button>
+        <a routerLink="/login" class="btn btn-link">Aller vers le login</a>
     </div>
 </form>
