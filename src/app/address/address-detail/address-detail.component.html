@@ -1,6 +1,8 @@
 <div class="card block-card content address-item">
     <div *ngIf="address.latitude && address.longitude" class="img-top">
-        <img src="https://www.mapquestapi.com/staticmap/v5/map?key={{mapQuestKey}}&center={{address.latitude}},{{address.longitude}}" alt="Map for coordinates {{address.latitude}},{{address.longitude}}">
+        <img class="img-fluid"
+            src="https://www.mapquestapi.com/staticmap/v5/map?key={{mapQuestKey}}&center={{address.latitude}},{{address.longitude}}"
+            alt="Map for coordinates {{address.latitude}},{{address.longitude}}">
     </div>
     <div class="card-body">
         <div class="address-item__logo">
