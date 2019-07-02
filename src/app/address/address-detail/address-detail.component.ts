@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Address } from 'app/models/Address';
+import { mapQuestKey } from 'app/shared/services/geo/geo.service';
 
 @Component({
     selector: 'app-address-detail',
@@ -19,6 +20,8 @@ export class AddressDetailComponent {
 
     @Output()
     public deleteEmitter = new EventEmitter<string>();
+
+    public mapQuestKey = mapQuestKey;
 
     setFavorite(evt: Event) {
         evt.preventDefault();

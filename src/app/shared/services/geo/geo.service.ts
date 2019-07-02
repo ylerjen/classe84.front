@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { MapquestResultPayload } from './Mapquest';
 
-const mapQuestKey = '2fUpwSXT0FPFJQSZG3quuUa282RBNhh7';
+export const mapQuestKey = '2fUpwSXT0FPFJQSZG3quuUa282RBNhh7';
 const mapQuestUrl = 'https://www.mapquestapi.com/geocoding/v1/address';
 
 @Injectable()
