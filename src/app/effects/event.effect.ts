@@ -25,7 +25,7 @@ export class EventEffects {
         catchError((err: Error) => of(new GetEventFailed(err)))
     );
 
-    @Effect()
+    @Effect({dispatch: false})
     getEventFailed$ = this.actions$.pipe(
         ofType(EventActionTypes.getEventFailed),
         map((action: Action) => {
@@ -34,7 +34,6 @@ export class EventEffects {
                 this._notifSrvc.notifyError(`Une erreur s'est produite. Veuillez recharger la page.
                     Si le problème persiste, contactez un administrateur du site`);
             }
-            return of({ type: `NO ACTION` });
         }),
         catchError((err: Error) => of(new GetEventFailed(err)))
     );
