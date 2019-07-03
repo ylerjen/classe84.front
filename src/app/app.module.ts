@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -96,7 +96,7 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
           provide: HTTP_INTERCEPTORS,
           useClass: HttpErrorInterceptor,
           multi: true,
-          deps: [ Router, NotificationService ]
+          deps: [ Router, ActivatedRoute, NotificationService ]
         }
     ],
     bootstrap: [ AppComponent ],

@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -20,7 +20,7 @@ const excludeUrl = [
 function isExcluded(requestUrl: string): boolean {
     for (let i = 0, iMax = excludeUrl.length; i < iMax; i++) {
         const url = excludeUrl[i];
-        if (requestUrl.search(`/${url}/gi`) === -1 ) {
+        if (requestUrl.search(`/${url}/gi`) >= 0 ) {
             return true;
         }
     }
@@ -32,9 +32,9 @@ function isExcluded(requestUrl: string): boolean {
  */
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-
     constructor(
         private _router: Router,
+        private _activatedRoute: ActivatedRoute,
         private _notificationService: NotificationService,
     ) {}
 
@@ -52,7 +52,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         indisponible. Si le problème persiste, contactez un administrateur du site.`);
                     } else if (error.status === HTTP_STATUS_CODE.Unauthorized) {
                         this._notificationService.notifyError(`Veuillez vous connecter pour pouvoir accéder à cette page.`);
-                        this._router.navigate([ROUTE_URL.login]);
+                        const redirectTo = this._activatedRoute.snapshot['_routerState'].url;
+                        this._router.navigate([ROUTE_URL.login, { redirectTo }]);
                         return throwError(new UnauthorizedError(errorMessage, error));
                     } else if (error.status === HTTP_STATUS_CODE.Forbidden) {
                         this._notificationService.notifyError(`Vous n'avez pas les droits suffisant pour pouvoir accéder
