@@ -49,7 +49,6 @@ export class EventsService {
     update(event: Event): Observable<Event> {
         const endpoint = `${BASE_URL}/${event.id}`;
         this._store.dispatch(new UpdateEvent(event));
-        console.error('add event from service => not finished: request create api');
         return this._authHttp.put<Event>(endpoint, event);
     }
 
