@@ -30,8 +30,9 @@
                 </section>
                 <section class="card-body">
                     <h2>Lieu</h2>
-                    <p>{{staticMapSrc}}</p>
-                    <img [src]="staticMapSrc" alt="The place to be">
+                    <img class="img-fluid"
+                        src="https://www.mapquestapi.com/staticmap/v5/map?key={{mapQuestKey}}&center={{event.latitude}},{{event.longitude}}"
+                        alt="Map for coordinates {{event.latitude}},{{event.longitude}}">
                 </section>
             </div>
         </section>
