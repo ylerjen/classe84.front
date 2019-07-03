@@ -179,7 +179,6 @@ export class AuthService implements CanActivate {
      * @returns {boolean} - if the token is still valid
      */
     isTokenValid(token: string, offsetSeconds?: number): boolean {
-        return true; //todo fixme qpi timezone then use real helper
         return !this.jwtHelper.isTokenExpired(token, offsetSeconds);
     }
 
