@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { User } from '@models/User';
 import { Subscription } from '@models/Subscription';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { GetUserStart } from 'app/actions/user.actions';
 import { IUserState } from 'app/stores/user/user.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
@@ -26,7 +26,7 @@ export class UserPageComponent implements OnInit {
     public userParticipations: Array<Subscription> = [];
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _route: ActivatedRoute,
         private _router: Router,
     ) {

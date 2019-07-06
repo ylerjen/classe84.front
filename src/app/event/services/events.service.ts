@@ -7,7 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment as env } from 'app/../environments/environment';
 import { Event } from 'app/models/Event';
 import { Subscription } from 'app/models/Subscription';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { AddEvent, UpdateEvent} from 'app/actions/event.actions';
 import { DeleteEventFromList } from 'app/actions/eventlist.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
@@ -19,7 +19,7 @@ const BASE_URL = `${env.API_URL}/events`;
 export class EventsService {
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _authHttp: HttpClient
     ) { }
 

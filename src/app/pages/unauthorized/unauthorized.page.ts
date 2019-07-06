@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { IGlobalState } from '../../stores/globalState';
+import { GlobalState } from '../../stores/globalState';
 import { SessionExpiredAction } from '@actions/session.actions';
 
 @Component({
@@ -14,7 +14,7 @@ import { SessionExpiredAction } from '@actions/session.actions';
 export class UnauthorizedPage implements OnInit {
 
     constructor(
-        private store: Store<IGlobalState>,
+        private store: Store<GlobalState>,
     ) { }
 
     ngOnInit() {

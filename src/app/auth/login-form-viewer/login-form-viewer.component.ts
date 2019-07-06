@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { ISessionState } from 'app/stores/session/session.reducer';
+import { SessionState } from 'app/stores/session/session.reducer';
 import { LoginAction } from 'app/actions/session.actions';
 import { Session } from 'app/models/Session';
 import { Login } from 'app/models/Login';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { SubscriptionLike as ISubscription } from 'rxjs';
 
 @Component({
@@ -24,13 +24,13 @@ export class LoginFormViewerComponent implements OnInit, OnDestroy {
     public errorMsg: Array<string>;
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
     ) { }
 
     ngOnInit() {
         this.subscription$ = this._store.select(store => store.sessionState)
             .subscribe(
-                (state: ISessionState) => {
+                (state: SessionState) => {
                     this.session = state.session ? state.session : null;
                     this.isLoggingIn = state.isProcessing;
                     this.errorMsg = state.errors;

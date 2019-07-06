@@ -6,21 +6,21 @@ import { SessionActionTypes,
     SetExistingSession,
     LoginFinishedAction } from 'app/actions/session.actions';
 
-export interface ISessionState {
+export interface SessionState {
     isLoggedIn: boolean;
     session: Session;
     isProcessing: boolean;
     errors: Array<string>;
 }
 
-export const initialState: ISessionState = {
+export const initialState: SessionState = {
     isLoggedIn: false,
     session: null,
     isProcessing: false,
     errors: []
 };
 
-export function sessionReducer(state: ISessionState = initialState, action: SessionActions): ISessionState {
+export function sessionReducer(state: SessionState = initialState, action: SessionActions): SessionState {
     switch (action.type) {
         case SessionActionTypes.Login: {
             return {

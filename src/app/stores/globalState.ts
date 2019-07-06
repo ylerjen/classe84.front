@@ -1,23 +1,23 @@
 import { Notification } from '../models/Notification';
 import { notificationReducer } from './notifications/notifications.reducer';
-import { ISessionState, sessionReducer  } from './session/session.reducer';
+import { SessionState, sessionReducer  } from './session/session.reducer';
 import { IUserState, userReducer } from './user/user.reducer';
 import { IUserListState, userlistReducer } from './userlist/userlist.reducer';
-import { IEventState, eventReducer } from 'app/stores/event/event.reducer';
+import { EventState, eventReducer } from 'app/stores/event/event.reducer';
 import { IEventListState, eventlistReducer } from 'app/stores/eventlist/eventlist.reducer';
 import { ISubscriptionState, subscriptionsReducer } from 'app/stores/subscription/subscription.reducer';
 import { appReducer, AppState } from './app/app.reducer';
 import { addresslistReducer, IAddressListState } from './addresslist/addresslist.reducer';
 import { participationsReducer } from './participation/participation.reducer';
 
-export interface IGlobalState {
+export interface GlobalState {
     appState: AppState;
     addressListState: IAddressListState;
     notificationState: Array<Notification>;
-    sessionState: ISessionState;
+    sessionState: SessionState;
     userlistState: IUserListState;
     userState: IUserState;
-    eventState: IEventState;
+    eventState: EventState;
     eventlistState: IEventListState;
     subscriptionsState: ISubscriptionState;
     participationsState: ISubscriptionState;

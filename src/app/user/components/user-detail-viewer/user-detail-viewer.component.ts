@@ -9,7 +9,7 @@ import { User } from 'app/models/User';
 import { ROUTE_URL } from 'app/config/router.config';
 import { Address } from 'app/models/Address';
 import { SetFavoriteAddress, DeleteAddressById, UserAddressCmd } from 'app/actions/addresslist.actions';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 
 @Component({
@@ -29,7 +29,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     private subAddress: Subscription;
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _router: Router
     ) {
         this.userStore$ = this._store.select(store => store.userState);

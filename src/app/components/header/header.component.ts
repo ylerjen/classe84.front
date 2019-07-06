@@ -2,9 +2,9 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Session } from 'app/models/Session';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { LogoutAction } from '@actions/session.actions';
-import { ISessionState } from 'app/stores/session/session.reducer';
+import { SessionState } from 'app/stores/session/session.reducer';
 
 @Component({
     selector: 'app-header',
@@ -18,13 +18,13 @@ export class HeaderComponent implements OnInit {
     public isCollapsed = true;
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
     ) { }
 
     ngOnInit(): void {
         this._store.select(store => store.sessionState)
             .subscribe(
-                (sState: ISessionState) => this.session = sState.session,
+                (sState: SessionState) => this.session = sState.session,
                 (err) => console.error('error', err)
             );
     }

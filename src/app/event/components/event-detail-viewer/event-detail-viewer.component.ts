@@ -6,13 +6,11 @@ import { Observable ,  Subscription as RxjsSubscriptions } from 'rxjs';
 import { ROUTE_URL } from 'app/config/router.config';
 import { Session } from 'app/models/Session';
 import { Event } from 'app/models/Event';
-import { Subscription as EventSubscription, Subscription } from 'app/models/Subscription';
-import { AddSubscription, DeleteSubscription } from 'app/actions/subscription.actions';
-import { IGlobalState } from 'app/stores/globalState';
-import { IEventState } from 'app/stores/event/event.reducer';
-import { ISessionState } from 'app/stores/session/session.reducer';
+import { Subscription as EventSubscription } from 'app/models/Subscription';
+import { GlobalState } from 'app/stores/globalState';
+import { EventState } from 'app/stores/event/event.reducer';
+import { SessionState } from 'app/stores/session/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { EventsService } from 'app/event/services/events.service';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -24,8 +22,8 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
     private subscrList: Array<EventSubscription> = [];
     private session: Session;
     private rxjsSubscriptions: RxjsSubscriptions;
-    private eventState$: Observable<IEventState>;
-    private sessionState$: Observable<ISessionState>;
+    private eventState$: Observable<EventState>;
+    private sessionState$: Observable<SessionState>;
     private evtSubscrState$: Observable<ISubscriptionState>;
 
     public event: Event;
@@ -39,9 +37,8 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
     public isAdmin = true;
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _router: Router,
-        private _eventSrvc: EventsService,
     ) {
         this.eventState$ = this._store.select(store => store.eventState);
         this.sessionState$ = this._store.select(store => store.sessionState);
@@ -51,7 +48,7 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.isLoading = true;
         this.rxjsSubscriptions = this.eventState$.subscribe(
-            (eventState: IEventState) => this.onEventStateChanged(eventState),
+            (eventState: EventState) => this.onEventStateChanged(eventState),
             (err) => console.error(err)
         );
         this.rxjsSubscriptions.add(
@@ -74,6 +71,10 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         );
     }
 
+    ngOnDestroy(): void {
+        this.rxjsSubscriptions.unsubscribe();
+    }
+
     defineSubscriptionState() {
         if (!this.session || !this.session.user.id || !Array.isArray(this.subscrList)) {
             this.isSubscribable = false;
@@ -83,15 +84,11 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         }
     }
 
-    onEventStateChanged(state: IEventState) {
+    onEventStateChanged(state: EventState) {
         if (state.event) {
             this.event = new Event(state.event);
             this.isLoading = state.isLoading;
         }
-    }
-
-    ngOnDestroy(): void {
-        this.rxjsSubscriptions.unsubscribe();
     }
 
     goToEdit(): void {

@@ -60,6 +60,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         à cette page. Si c'est une erreur, adressez-vous à l'administrateur de l'application.`);
                         this._router.navigate([ROUTE_URL.Forbidden]);
                         return throwError(new ForbiddenError(errorMessage, error));
+                    } else if (error.status === HTTP_STATUS_CODE.TooManyRequests) {
+                        this._notificationService.notifyError(`Taux d'accès trop fréquents. Veuillez réessayer plus tard.`);
+                        this._router.navigate(['/']);
                     } else if (error.error instanceof ErrorEvent) {
                         // client-side error
                         errorMessage = `Error: ${error.error.message}`;

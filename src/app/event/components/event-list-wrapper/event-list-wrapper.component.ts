@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Event } from 'app/models/Event';
 import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { ChangeEventListFilter, GetEventListAsyncStart } from 'app/actions/eventlist.actions';
 
 @Component({
@@ -27,7 +27,7 @@ export class EventListWrapperComponent implements OnInit {
     public filteredList: Array<Event> = [];
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _activeRoute: ActivatedRoute,
         private _router: Router
     ) { }

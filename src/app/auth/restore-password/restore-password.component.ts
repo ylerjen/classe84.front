@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 
 import { UUID } from 'angular2-uuid';
 
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { ChangePasswordFromRecovery } from '@actions/session.actions';
 import { AuthService, RECOVERY_TOKEN_PARAM_NAME } from '../services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
@@ -41,7 +41,7 @@ export class RestorePasswordComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private _route: ActivatedRoute,
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _authSrvc: AuthService,
         private _notifSrvc: NotificationService,
     ) { }

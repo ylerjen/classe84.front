@@ -1,46 +1,47 @@
 import { Event } from 'app/models/Event';
-import { EventActionTypes, GetEventFinished, UpdateEvent, EventActions } from 'app/actions/event.actions';
+import { EventActionTypes, GetEventSuccess, UpdateEvent, EventActions } from 'app/actions/event.actions';
 
-export interface IEventState {
+export interface EventState {
     event: Event;
     isLoading: boolean;
+    loadTime: Date;
 }
 
-export const initialState: IEventState = {
+export const initialState: EventState = {
     event: undefined,
-    isLoading: false
+    isLoading: false,
+    loadTime: null,
 };
 
-export function eventReducer(state: IEventState = initialState, action?: EventActions): IEventState {
+export function eventReducer(state: EventState = initialState, action?: EventActions): EventState {
     switch (action.type) {
-        case EventActionTypes.getEventStart:
+        case EventActionTypes.getEvent:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
             };
 
-        case EventActionTypes.getEventFinished:
-        {
-            const act = action as GetEventFinished;
+        case EventActionTypes.getEventSuccess: {
+            const act = action as GetEventSuccess;
             return {
                 ...state,
                 event: act.payload,
-                isLoading: false
+                isLoading: false,
+                loadTime: new Date(),
             };
         }
 
-        case EventActionTypes.updateEvent:
-        {
+        case EventActionTypes.updateEvent: {
             const act = action as UpdateEvent;
             return {
                 ...state,
-                event: act.payload
+                event: act.payload,
             };
         }
 
         case EventActionTypes.resetEventState:
             return {
-                ...initialState
+                ...initialState,
             };
 
         default:

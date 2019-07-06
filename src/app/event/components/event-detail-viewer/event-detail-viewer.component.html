@@ -1,6 +1,7 @@
 <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
 <div class="card" *ngIf="event">
     <app-event-controls class="card-body"
+        [eventId]="event.id"
         [isSubscribed]="isSubscribed"
         [isSubscribable]="isSubscribable"
         [isAdmin]="isAdmin"

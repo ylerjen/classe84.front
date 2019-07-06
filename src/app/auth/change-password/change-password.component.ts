@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { UUID } from 'angular2-uuid';
 
 import { PasswordChangeObject } from '@models/Login';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { ChangePassword } from '@actions/session.actions';
 import { PasswordConfirmFormComponent } from '../password-confirm-form/password-confirm-form.component';
 
@@ -29,7 +29,7 @@ export class ChangePasswordComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private _route: ActivatedRoute,
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
     ) { }
 
     ngOnInit() {

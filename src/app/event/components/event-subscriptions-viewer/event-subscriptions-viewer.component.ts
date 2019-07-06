@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
 import { User } from '@models/User';
 import { Subscription } from '@models/Subscription';
 import { Event as EventModel } from '@models/Event';
-import { IGlobalState } from 'app/stores/globalState';
-import { IEventState } from 'app/stores/event/event.reducer';
+import { GlobalState } from 'app/stores/globalState';
+import { EventState } from 'app/stores/event/event.reducer';
 import { IUserListState } from 'app/stores/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { GetEventStart } from '@actions/event.actions';
+import { GetEvent } from '@actions/event.actions';
 import {
     AddSubscription,
     DeleteSubscription,
@@ -42,10 +42,10 @@ export class EventSubscriptionsViewerComponent implements OnInit {
 
     constructor(
         private _route: ActivatedRoute,
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
     ) {
         this._store.select(store => store.eventState)
-            .subscribe((eventState: IEventState) => {
+            .subscribe((eventState: EventState) => {
                 this.event = new EventModel(eventState.event);
                 this.isLoading = eventState.isLoading;
             });
@@ -73,7 +73,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
                     throw new Error('id of the current route is not defined');
                 }
 
-                this._store.dispatch(new GetEventStart(id));
+                this._store.dispatch(new GetEvent(id));
                 this._store.dispatch(new GetSubscriptionStart(id));
             });
     }

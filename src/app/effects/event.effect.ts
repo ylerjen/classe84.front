@@ -1,11 +1,11 @@
 
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { Effect, ofType } from '@ngrx/effects';
+import { of, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { EventActionTypes, GetEventFinished, GetEventFailed, GetEventStart } from '../actions/event.actions';
+import { EventActionTypes, GetEventSuccess, GetEventFailed, GetEvent, EventActions } from '../actions/event.actions';
 import { EventsService } from '../event/services/events.service';
 import { ForbiddenError } from '@models/ForbiddenError';
 import { UnauthorizedError } from '@models/UnauthorizedError';
@@ -14,24 +14,23 @@ import { NotificationService } from '@shared/services/notification/notification.
 @Injectable()
 export class EventEffects {
     @Effect()
-    getEventStart$ = this.actions$.pipe(
-        ofType(EventActionTypes.getEventStart),
-        switchMap((action: Action) => {
-            const act = action as GetEventStart;
-            const id = act.payload;
-            return this._evtSrvc.get(id);
+    getEvent$ = this.actions.pipe(
+        ofType(EventActionTypes.getEvent),
+        switchMap((action: GetEvent) => {
+            const id = action.payload;
+            return this.evtSrvc.get(id);
         }),
-        map(event => new GetEventFinished(event)),
+        map(event => new GetEventSuccess(event)),
         catchError((err: Error) => of(new GetEventFailed(err)))
     );
 
     @Effect({dispatch: false})
-    getEventFailed$ = this.actions$.pipe(
+    getEventFailed$ = this.actions.pipe(
         ofType(EventActionTypes.getEventFailed),
         map((action: Action) => {
             const act = action as GetEventFailed;
             if ( !(act.payload instanceof UnauthorizedError || act.payload instanceof ForbiddenError )) {
-                this._notifSrvc.notifyError(`Une erreur s'est produite. Veuillez recharger la page.
+                this.notifSrvc.notifyError(`Une erreur s'est produite. Veuillez recharger la page.
                     Si le problème persiste, contactez un administrateur du site`);
             }
         }),
@@ -39,8 +38,8 @@ export class EventEffects {
     );
 
     constructor(
-        private _evtSrvc: EventsService,
-        private actions$: Actions,
-        private _notifSrvc: NotificationService,
+        private evtSrvc: EventsService,
+        private actions: Observable<EventActions>,
+        private notifSrvc: NotificationService,
     ) { }
 }

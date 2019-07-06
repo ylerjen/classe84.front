@@ -4,11 +4,12 @@ import { Store } from '@ngrx/store';
 
 import { environment } from '../environments/environment';
 import { Version } from './models/Version';
-import { IGlobalState } from './stores/globalState';
+import { GlobalState } from './stores/globalState';
 import { SetExistingSession } from './actions/session.actions';
 import { AppVersion } from './stores/app/app.reducer';
 import { StoreFrontVersion, GetApiVersion } from './actions/app.actions';
 import { AuthService } from './auth/services/auth.service';
+import { Router, NavigationError, NavigationCancel, NavigationEnd, NavigationStart, RouterEvent } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -17,13 +18,12 @@ import { AuthService } from './auth/services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-    public _version: AppVersion;
-
-    set version(val) { this._version = val; }
+    private _version: AppVersion;
+    set version(val) { this._version = val; }
     get version() { return this._version; }
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _authSrvc: AuthService,
     ) {
         this._store.select(store => store.appState)

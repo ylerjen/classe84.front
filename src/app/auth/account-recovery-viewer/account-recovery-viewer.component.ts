@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { SendPasswordRecoveryMail } from '@actions/session.actions';
 import { Store } from '@ngrx/store';
-import { IGlobalState } from '../../stores/globalState';
+import { GlobalState } from '../../stores/globalState';
 
 @Component({
     selector: 'app-account-recovery-viewer',
@@ -16,7 +16,7 @@ export class AccountRecoveryViewerComponent {
     public isSuccessful: boolean;
 
     constructor(
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
     ) { }
 
     sendREcoveryRequest(formValues) {

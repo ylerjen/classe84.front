@@ -1,35 +1,31 @@
 <div class="row">
-    <ng-template #loader>Loading..</ng-template>
+    <ng-template #loader>Loading...</ng-template>
     <section class="col-md-8">
         <app-event-detail-viewer></app-event-detail-viewer>
     </section>
+    {{dispatcher | json}}
     <aside class="col-md-4">
-        <app-panel>
-            <div *ngIf="(eventSubscr$ | async).isLoading;else loader">
-                <span class="title"><i class="fa fa-magic"></i> Actions</span>
-                <div class="card">
-                    <app-event-controls class="card-body"
-                        [isSubscribed]="isSubscribed"
-                        [isSubscribable]="isSubscribable"
-                        [isAdmin]="isAdmin"
-                        (goToEditEvent)="goToEdit()"
-                        (deleteEvent)="delete()"
-                        (subscribeToEvent)="subscribe()"
-                        (unsubscribeFromEvent)="unsubscribe()"
-                    ></app-event-controls>
-                </div>
-            </div>
+        <app-panel *ngIf="!isLoading; else loader">
+            <span class="title"><i class="fa fa-magic"></i> Actions</span>
+            <app-event-controls class="text card-body"
+                [eventId]="eventId"
+                [isSubscribed]="isSubscribed"
+                [isSubscribable]="isSubscribable"
+                [isAdmin]="isAdmin"
+                (goToEditEvent)="goToEdit()"
+                (deleteEvent)="delete()"
+                (subscribeToEvent)="subscribe()"
+                (unsubscribeFromEvent)="unsubscribe()"
+            ></app-event-controls>
         </app-panel>
-        <app-panel>
-            <div *ngIf="(eventSubscr$ | async).isLoading;else loader">
-                <span class="title"><i class="fa fa-ticket"></i> {{ eventSubscriptions ? eventSubscriptions.length : '' }} Subscribers</span>
-                <span class="text" *ngIf="eventSubscriptions && eventSubscriptions.length">
-                    <app-event-subscriptions
-                        isTotalHidden="true"
-                        [subscribersList]="eventSubscriptions"
-                    ></app-event-subscriptions>
-                </span>
-            </div>
+        <app-panel *ngIf="!isLoading;else loader">
+            <span class="title"><i class="fa fa-ticket"></i> {{ eventSubscriptions ? eventSubscriptions.length : '' }} inscrits</span>
+            <span class="text" *ngIf="eventSubscriptions && eventSubscriptions.length">
+                <app-event-subscriptions
+                    isTotalHidden="true"
+                    [subscribersList]="eventSubscriptions"
+                ></app-event-subscriptions>
+            </span>
         </app-panel>
         <app-panel>
             <span class="title"><i class="fa fa-pie-chart"></i> Success ratio</span>

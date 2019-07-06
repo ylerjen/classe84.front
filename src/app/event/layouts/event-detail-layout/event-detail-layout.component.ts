@@ -1,34 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription as ObsSubscr } from 'rxjs';
 
-import { IGlobalState } from 'app/stores/globalState';
-import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { IEventState } from 'app/stores/event/event.reducer';
+import { GlobalState } from 'app/stores/globalState';
+import { EventState } from 'app/stores/event/event.reducer';
 import { Subscription } from '@models/Subscription';
+import { ActivatedRoute } from '@angular/router';
+import { Session } from '@models/Session';
 
 @Component({
     selector: 'app-event-detail-layout',
     templateUrl: './event-detail-layout.component.html',
     styleUrls: ['./event-detail-layout.component.scss']
 })
-export class EventDetailLayoutComponent implements OnInit {
+export class EventDetailLayoutComponent implements OnInit, OnDestroy {
 
-    public event$: Observable<IEventState>;
-    public eventSubscr$: Observable<ISubscriptionState>;
-    public eventSubscriptions: Array<Subscription>
+    public subscriptions: ObsSubscr;
+    public eventSubscriptions: Array<Subscription>;
+    public isAdmin: boolean;
+    public isLoading = true;
+    public eventId: string;
 
     constructor(
-        private store: Store<IGlobalState>,
+        private _route: ActivatedRoute,
+        private store$: Store<GlobalState>,
     ) {}
 
     ngOnInit() {
-        this.event$ = this.store.select(s => s.eventState);
-        this.eventSubscr$ = this.store.select(s => s.subscriptionsState);
+        this.eventId = this._route.snapshot.data.currentEvent.id;
+        this.subscriptions = this.store$.select(s => s.subscriptionsState)
+            .subscribe({
+                next: s => {
+                    this.eventSubscriptions = s.subscriptionList;
+                    this.isLoading = s.isLoading;
+                }
+            });
 
-        this.eventSubscr$.subscribe({
-            next: s => this.eventSubscriptions = s.subscriptionList,
-        });
+        this.subscriptions.add(this.store$.select(s => s.sessionState)
+            .subscribe({
+                next: s => this.isAdmin = s.session.isAdmin,
+            }))
     }
 
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
+    }
 }

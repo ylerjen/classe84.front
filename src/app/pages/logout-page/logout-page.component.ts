@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IGlobalState } from 'app/stores/globalState';
+import { GlobalState } from 'app/stores/globalState';
 import { LogoutAction } from '@actions/session.actions';
 
 @Component({
@@ -9,7 +9,7 @@ import { LogoutAction } from '@actions/session.actions';
     styleUrls: ['./logout-page.component.scss']
 })
 export class LogoutPageComponent implements OnInit {
-    constructor(private _store: Store<IGlobalState>) {}
+    constructor(private _store: Store<GlobalState>) {}
 
     ngOnInit() {
         this._store.dispatch(new LogoutAction());

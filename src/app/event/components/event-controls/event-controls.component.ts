@@ -8,6 +8,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class EventControlsComponent {
 
     @Input()
+    public eventId: string;
+
+    @Input()
     public isAdmin: boolean;
 
     @Input()

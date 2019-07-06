@@ -5,8 +5,8 @@ import { Observable, of, EMPTY } from 'rxjs';
 import { take, map, filter } from 'rxjs/operators';
 
 import { Event } from '@models/Event';
-import { IGlobalState } from 'app/stores/globalState';
-import { GetEventStart } from '@actions/event.actions';
+import { GlobalState } from 'app/stores/globalState';
+import { GetEvent } from '@actions/event.actions';
 import { GetSubscriptionStart } from '@actions/subscription.actions';
 
 
@@ -14,7 +14,7 @@ import { GetSubscriptionStart } from '@actions/subscription.actions';
 export class EventResolverService implements Resolve<Event>  {
 
     constructor(
-        private store: Store<IGlobalState>,
+        private store: Store<GlobalState>,
     ) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Event> | Observable<never> {
@@ -27,7 +27,7 @@ export class EventResolverService implements Resolve<Event>  {
         this.store.pipe(take(1))
             .subscribe(store => {
                 if (!store.eventState.event) {
-                    this.store.dispatch(new GetEventStart(id));
+                    this.store.dispatch(new GetEvent(id));
                     this.store.dispatch(new GetSubscriptionStart(id));
                 }
             });

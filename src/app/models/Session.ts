@@ -9,6 +9,7 @@ export class Session {
     public tokenType: string;
     public expiresIn: number;
     public user: User;
+    public isAdmin: boolean;
 
     constructor(opts: { [key: string]:  any }) {
         this.loginTime = opts.loginTime || new Date();
@@ -16,5 +17,6 @@ export class Session {
         this.tokenType = opts.tokenType
         this.expiresIn = opts.expiresIn;
         this.user = opts.user ? new User(opts.user) : null;
+        this.isAdmin = opts.isAdmin;
     }
 }

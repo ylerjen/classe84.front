@@ -39,7 +39,7 @@ const eventRoutes: Routes = [
         component: EventDetailLayoutComponent,
         canActivate: [ AuthService ],
         resolve: {
-            dispatcher: EventResolverService
+            currentEvent: EventResolverService
         },
     }, {
         path: 'events/:id/edit',

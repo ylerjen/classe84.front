@@ -9,8 +9,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
 import { User } from 'app/models/User';
-import { IGlobalState } from 'app/stores/globalState';
-import { ISessionState } from 'app/stores/session/session.reducer';
+import { GlobalState } from 'app/stores/globalState';
+import { SessionState } from 'app/stores/session/session.reducer';
 import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from 'app/models/Login';
 import { Session } from '@models/Session';
 import { ROUTE } from '../auth-route.config';
@@ -44,12 +44,12 @@ export class AuthService implements CanActivate {
 
     constructor(
         private _authHttp: HttpClient,
-        private _store: Store<IGlobalState>,
+        private _store: Store<GlobalState>,
         private _router: Router,
         public jwtHelper: JwtHelperService
     ) {
         this._store.select(store => store.sessionState)
-            .subscribe((sessionState: ISessionState) => {
+            .subscribe((sessionState: SessionState) => {
                 this._isLoggedIn = sessionState.isLoggedIn;
             });
     }
