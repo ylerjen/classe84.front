@@ -100,8 +100,5 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
         }
     ],
     bootstrap: [ AppComponent ],
-    exports: [
-        BsDropdownModule,
-    ]
 })
 export class AppModule { }
