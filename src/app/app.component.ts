@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 
@@ -10,37 +10,41 @@ import { AppVersion } from './stores/app/app.reducer';
 import { StoreFrontVersion, GetApiVersion } from './actions/app.actions';
 import { AuthService } from './auth/services/auth.service';
 import { Router, NavigationError, NavigationCancel, NavigationEnd, NavigationStart, RouterEvent } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
     private _version: AppVersion;
+    private subs$: Subscription;
+
     set version(val) { this._version = val; }
     get version() { return this._version; }
 
     public isLoading: boolean;
 
     constructor(
+        private cdRef:ChangeDetectorRef,
         private _store: Store<GlobalState>,
         private _authSrvc: AuthService,
-        router: Router,
+        private router: Router,
     ) {
-        router.events.subscribe((routerEvent: RouterEvent) => {
+    }
+
+    ngOnInit(): void {
+        this.router.events.subscribe((routerEvent: RouterEvent) => {
             this.checkRouterEvent(routerEvent);
         });
 
-        this._store.select(store => store.appState)
+        this.subs$ = this._store.select(store => store.appState)
             .subscribe(
                 (resp) => this.version = resp.version,
                 (err: Error) => console.error(err)
             );
-    }
-
-    ngOnInit(): void {
         this._store.dispatch(new StoreFrontVersion(new Version(environment.version)));
         this._store.dispatch(new GetApiVersion());
 
@@ -50,6 +54,9 @@ export class AppComponent implements OnInit {
         }
     }
 
+    ngOnDestroy(): void {
+        this.subs$.unsubscribe();
+    }
 
     checkRouterEvent(routerEvent: RouterEvent): void {
         if (routerEvent instanceof NavigationStart) {
@@ -61,5 +68,6 @@ export class AppComponent implements OnInit {
             routerEvent instanceof NavigationError) {
             this.isLoading = false;
         }
+        this.cdRef.detectChanges();
     }
 }
