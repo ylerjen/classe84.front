@@ -2,6 +2,11 @@
     <app-header></app-header>
     <app-notifier></app-notifier>
     <main class="main-content container">
+        <loaders-css
+            *ngIf="isLoading"
+            [loader]="'ball-scale-multiple'"
+            [loaderClass]="'my-loader'"
+        ></loaders-css>
         <router-outlet></router-outlet>
     </main>
     <app-footer [version]="version"></app-footer>

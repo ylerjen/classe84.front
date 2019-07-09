@@ -22,10 +22,17 @@ export class AppComponent implements OnInit {
     set version(val) { this._version = val; }
     get version() { return this._version; }
 
+    public isLoading: boolean;
+
     constructor(
         private _store: Store<GlobalState>,
         private _authSrvc: AuthService,
+        router: Router,
     ) {
+        router.events.subscribe((routerEvent: RouterEvent) => {
+            this.checkRouterEvent(routerEvent);
+        });
+
         this._store.select(store => store.appState)
             .subscribe(
                 (resp) => this.version = resp.version,
@@ -40,6 +47,19 @@ export class AppComponent implements OnInit {
         const session = this._authSrvc.getStoredSession();
         if (session && this._authSrvc.isTokenValid(session.token)) {
             this._store.dispatch(new SetExistingSession(session));
+        }
+    }
+
+
+    checkRouterEvent(routerEvent: RouterEvent): void {
+        if (routerEvent instanceof NavigationStart) {
+            this.isLoading = true;
+        }
+
+        if (routerEvent instanceof NavigationEnd ||
+            routerEvent instanceof NavigationCancel ||
+            routerEvent instanceof NavigationError) {
+            this.isLoading = false;
         }
     }
 }
