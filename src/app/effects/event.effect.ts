@@ -1,8 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Effect, ofType } from '@ngrx/effects';
-import { of, Observable } from 'rxjs';
+import { Effect, Actions, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { EventActionTypes, GetEventSuccess, GetEventFailed, GetEvent, EventActions } from '../actions/event.actions';
@@ -39,7 +39,7 @@ export class EventEffects {
 
     constructor(
         private evtSrvc: EventsService,
-        private actions$: Observable<EventActions>,
+        private actions$: Actions,
         private notifSrvc: NotificationService,
     ) { }
 }
