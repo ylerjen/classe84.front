@@ -20,6 +20,9 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserDetailViewerComponent } from './components/user-detail-viewer/user-detail-viewer.component';
 import { UserFormViewerComponent } from './components/user-form-viewer/user-form-viewer.component';
+import { EffectsModule } from '@ngrx/effects';
+import { UserlistEffects } from 'app/effects/userlist.effect';
+import { UserEffects } from 'app/effects/user.effect';
 
 const userRoutes = [
     { path: 'users', component: UserListPageComponent },
@@ -40,6 +43,10 @@ const userRoutes = [
         SharedModule,
         AddressModule,
         RouterModule.forChild(userRoutes),
+        EffectsModule.forFeature([
+            UserEffects,
+            UserlistEffects,
+        ]),
         FormsModule,
         ReactiveFormsModule,
         AgmCoreModule.forRoot({

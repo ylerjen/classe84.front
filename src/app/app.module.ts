@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 
 import { environment } from '../environments/environment';
 import { AuthModule } from './auth/auth.module';
@@ -32,11 +31,7 @@ import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 import { AppEffects } from './effects/app.effect';
 import { SessionEffects } from './effects/session.effect';
 import { AddressEffects } from './effects/address.effect';
-import { UserEffects } from './effects/user.effect';
-import { UserlistEffects } from './effects/userlist.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
-import { EventEffects } from './effects/event.effect';
-import { EventlistEffects } from './effects/eventlist.effect';
 import { NotificationEffects } from './effects/notification.effect';
 import { HttpErrorInterceptor } from '@shared/interceptors/http-error.interceptor';
 import { NotificationService } from '@shared/services/notification/notification.service';
@@ -66,15 +61,9 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
             AppEffects,
             NotificationEffects,
             SessionEffects,
-            UserEffects,
-            UserlistEffects,
             AddressEffects,
             SubscriptionEffects,
-            EventlistEffects,
-            EventEffects,
         ]),
-        // ngx-bootstrap declaration
-        CollapseModule.forRoot(),
         // for redux debug => storeDevtools instrument
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states

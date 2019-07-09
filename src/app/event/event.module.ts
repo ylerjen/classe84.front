@@ -25,6 +25,9 @@ import { EventControlsComponent } from './components/event-controls/event-contro
 import { EventFormLayoutComponent } from './layouts/event-form-layout/event-form-layout.component';
 import { EventDetailLayoutComponent } from './layouts/event-detail-layout/event-detail-layout.component';
 import { EventResolverService } from './resolvers/event-resolver.service';
+import { EffectsModule } from '@ngrx/effects';
+import { EventEffects } from 'app/effects/event.effect';
+import { EventlistEffects } from 'app/effects/eventlist.effect';
 
 const eventRoutes: Routes = [
     {
@@ -62,6 +65,10 @@ const eventRoutes: Routes = [
         RouterModule.forChild(eventRoutes),
         FormsModule,
         ReactiveFormsModule,
+        EffectsModule.forFeature([
+            EventlistEffects,
+            EventEffects,
+        ]),
         NgxEditorModule,
         AgmCoreModule.forRoot({
             apiKey: GMAP_API_KEY
