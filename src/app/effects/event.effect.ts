@@ -14,7 +14,7 @@ import { NotificationService } from '@shared/services/notification/notification.
 @Injectable()
 export class EventEffects {
     @Effect()
-    getEvent$ = this.actions.pipe(
+    getEvent$ = this.actions$.pipe(
         ofType(EventActionTypes.getEvent),
         switchMap((action: GetEvent) => {
             const id = action.payload;
@@ -25,7 +25,7 @@ export class EventEffects {
     );
 
     @Effect({dispatch: false})
-    getEventFailed$ = this.actions.pipe(
+    getEventFailed$ = this.actions$.pipe(
         ofType(EventActionTypes.getEventFailed),
         map((action: Action) => {
             const act = action as GetEventFailed;
@@ -39,7 +39,7 @@ export class EventEffects {
 
     constructor(
         private evtSrvc: EventsService,
-        private actions: Observable<EventActions>,
+        private actions$: Observable<EventActions>,
         private notifSrvc: NotificationService,
     ) { }
 }

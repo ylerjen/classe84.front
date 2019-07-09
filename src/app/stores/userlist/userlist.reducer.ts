@@ -6,7 +6,7 @@ import { UserlistActionTypes,
     AddUserInList,
     DeleteUserFromList } from 'app/actions/userlist.actions';
 
-export interface IUserListState {
+export interface UserListState {
     userList: User[];
     isLoading: boolean;
     userFilter: string;
@@ -14,7 +14,7 @@ export interface IUserListState {
     errors: Array<Error>
 }
 
-export const initialState: IUserListState = {
+export const initialState: UserListState = {
     userList: [],
     isLoading: false,
     userFilter: '',
@@ -22,7 +22,7 @@ export const initialState: IUserListState = {
     errors: []
 };
 
-export function userlistReducer(state: IUserListState = initialState, action: UserlistActions): IUserListState {
+export function userlistReducer(state: UserListState = initialState, action: UserlistActions): UserListState {
     switch (action.type) {
         case UserlistActionTypes.GetListStart:
         {
@@ -46,7 +46,7 @@ export function userlistReducer(state: IUserListState = initialState, action: Us
         case UserlistActionTypes.GetListFailed:
         {
             const act = action as GetUserListAsyncFailed;
-            const newState: IUserListState = {
+            const newState: UserListState = {
                 ...state,
                 isLoading: false,
                 dataDate: new Date()

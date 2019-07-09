@@ -8,7 +8,7 @@ import { Subscription } from '@models/Subscription';
 import { Event as EventModel } from '@models/Event';
 import { GlobalState } from 'app/stores/globalState';
 import { EventState } from 'app/stores/event/event.reducer';
-import { IUserListState } from 'app/stores/userlist/userlist.reducer';
+import { UserListState } from 'app/stores/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { GetEvent } from '@actions/event.actions';
 import {
@@ -50,7 +50,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
                 this.isLoading = eventState.isLoading;
             });
         this._store.select(store => store.userlistState)
-            .subscribe((userListState: IUserListState) => {
+            .subscribe((userListState: UserListState) => {
                 this.subscribableUserList = userListState.userList;
                 this.refreshSearchableList();
             });

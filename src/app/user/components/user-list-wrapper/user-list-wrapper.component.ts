@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 
 import { User } from 'app/models/User';
-import { IUserListState } from 'app/stores/userlist/userlist.reducer';
+import { UserListState } from 'app/stores/userlist/userlist.reducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { GlobalState } from 'app/stores/globalState';
 import { GetUserListAsync } from 'app/actions/userlist.actions';
@@ -34,7 +34,7 @@ export class UserListWrapperComponent implements OnInit {
 
     ngOnInit(): void {
         this._store.select(store => store.userlistState)
-            .subscribe( (uState: IUserListState) => {
+            .subscribe( (uState: UserListState) => {
                 if (uState) {
                     this.usersList = uState.userList;
                     this.filterList();

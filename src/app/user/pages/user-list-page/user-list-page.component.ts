@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { User, EGender } from 'app/models/User';
-import { IUserListState } from 'app/stores/userlist/userlist.reducer';
+import { UserListState } from 'app/stores/userlist/userlist.reducer';
 import { UsersService } from 'app/user/services/users.service';
 import { GlobalState } from 'app/stores/globalState';
 
@@ -35,7 +35,7 @@ export class UserListPageComponent implements OnInit {
             .subscribe( (userList: Array<User>) => this.top3SubscribersList = userList);
 
         this._store.select(store => store.userlistState)
-            .subscribe( (uState: IUserListState) => {
+            .subscribe( (uState: UserListState) => {
                 if (uState) {
                     const usersList = uState.userList;
                     this.totalMembers = usersList.length;
