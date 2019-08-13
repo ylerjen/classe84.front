@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { GlobalState } from '../../stores/globalState';
-import { SessionExpiredAction } from '@actions/session.actions';
+import { SessionExpired } from '@actions/session.actions';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -18,7 +18,7 @@ export class UnauthorizedPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.store.dispatch(new SessionExpiredAction());
+        this.store.dispatch(new SessionExpired());
     }
 
 }

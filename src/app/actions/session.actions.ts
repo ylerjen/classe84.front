@@ -77,7 +77,7 @@ export class LogoutFailedAction implements Action {
     constructor(public payload: Error) { }
 }
 
-export class SessionExpiredAction implements Action {
+export class SessionExpired implements Action {
     readonly type = SessionActionTypes.SessionExpired;
 }
 
@@ -110,4 +110,4 @@ export type SessionActions = LoginAction
     | AddFormErrorsAction
     | EmptyFormErrorsAction
     | SetExistingSession
-    | SessionExpiredAction;
+    | SessionExpired;

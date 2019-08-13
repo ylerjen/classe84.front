@@ -15,6 +15,7 @@ import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } fro
 import { Session } from '@models/Session';
 import { ROUTE } from '../auth-route.config';
 import { ResetPasswordResponse } from '@models/ResetPasswordResponse';
+import { SessionExpired } from '@actions/session.actions';
 
 export const RECOVERY_TOKEN_VAR_NAME = '${token}';
 export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
@@ -183,8 +184,12 @@ export class AuthService implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if (this.isLoggedIn()) {
-            return true;
+        const session = this.getStoredSession();
+        if (session) {
+            if (this.isTokenValid(session.token)) {
+                return true;
+            }
+            this._store.dispatch(new SessionExpired());
         }
 
         const redirectTo = state.url;
