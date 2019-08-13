@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { MapquestResultPayload } from './Mapquest';
 
 export const mapQuestKey = '2fUpwSXT0FPFJQSZG3quuUa282RBNhh7';
-const mapQuestUrl = 'https://www.mapquestapi.com/geocoding/v1/address';
+export const mapQuestMapUrl = 'https://www.mapquestapi.com/staticmap/v5/map';
+const mapQuestGeocodingUrl = 'https://www.mapquestapi.com/geocoding/v1/address';
 
 @Injectable()
 export class GeoService {
@@ -19,7 +20,7 @@ export class GeoService {
      * @param location - the address of the location
      */
     reverseGeocodeMapQuest(location: string): Observable<MapquestResultPayload> {
-        const url = new URL(mapQuestUrl);
+        const url = new URL(mapQuestGeocodingUrl);
         let params = new HttpParams();
         params = params.set('key', mapQuestKey);
         params = params.set('location', location);
