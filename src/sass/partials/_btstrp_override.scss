@@ -13,6 +13,11 @@
 label.input-group-prepend {
   margin-bottom: 0;
 }
+// to use btn as group append (ex: datepicker trigger button)
+.input-group-append .btn {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 .navbar-dark .navbar-nav .show > .nav-link,
 .navbar-dark .navbar-nav .active > .nav-link,
 .navbar-dark .navbar-nav .nav-link.show,
