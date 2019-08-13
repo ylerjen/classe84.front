@@ -9,16 +9,16 @@
                 <p class="text-muted module-meta">Créé par {{event.created_by}} le {{event.created_at | date}}</p>
                 <section class="card-body">
                     <p>
-                        <span class="text-separator"><i class="fa fa-calendar-o"></i></span>
+                        <span class="mr-2"><i class="fa fa-calendar-o"></i></span>
                         <span>{{event.start_date | date: 'dd.MM.yyyy'}} - {{event.end_date | date: 'dd.MM.yyyy'}}</span>
                     </p>
                     <p>
-                        <span><i class="fa fa-map-marker"></i></span>
+                        <span class="mr-2"><i class="fa fa-map-marker"></i></span>
                         <span>{{event.location}}</span><br/>
                         <span>({{event.latitude}} / {{event.longitude}})</span>
                     </p>
                     <p>
-                        <span><i class="fa fa-money text-separator"></i></span>
+                        <span class="mr-2"><i class="fa fa-money text-separator"></i></span>
                         <span>CHF {{event.price | number:'.2'}}</span>
                     </p>
                 </section>

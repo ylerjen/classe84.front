@@ -86,7 +86,7 @@
                 <button (click)="searchLocation($event)" class="btn btn-outline-dark">Génère Lat/Lng</button>
             </div>
         </div>
-            <app-validation-error [errors]="eventForm?.get('location').errors"></app-validation-error>
+        <app-validation-error [errors]="eventForm?.get('location').errors"></app-validation-error>
     </div>
     <div class="form-group">
         <label for="latitude-{{compId}}">Latitude (Lat)</label>
@@ -105,6 +105,11 @@
             formControlName="longitude"
             placeholder="longitude" />
             <app-validation-error [errors]="eventForm.get('longitude').errors"></app-validation-error>
+    </div>
+    <div>
+    <img class="img-fluid" *ngIf="mapPath"
+        [src]="mapPath"
+        alt="Map for coordinates {{eventForm.get('latitude').value}},{{eventForm.get('longitude').value}}" />
     </div>
     <div class="form-group">
         <label for="link-{{compId}}">Lien</label>

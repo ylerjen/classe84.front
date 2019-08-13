@@ -8,6 +8,9 @@ import { GeoService } from '@shared/services/geo/geo.service';
 import { CustomValidators } from '@shared/validators/CustomValidators';
 import { MapquestResultPayload, MapquestResult, MapquestResultLocations } from '@shared/services/geo/Mapquest';
 import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
+import { mapQuestKey, mapQuestMapUrl } from 'app/shared/services/geo/geo.service';
+
+
 
 @Component({
     selector: 'app-event-form',
@@ -19,18 +22,14 @@ export class EventFormComponent implements OnInit {
     private _event: EventModel;
 
     public compId: string;
-
     public eventForm: FormGroup;
-
     public georesults: Array<MapquestResult>;
-
     public choosenResult: number;
-
     public isLocationLoading = false;
-
     public isModalDisplayed: boolean;
-
     public minEndDate: Date = null;
+    public mapQuestKey = mapQuestKey;
+    public mapPath = '';
 
     @Input()
     set event(val: EventModel) {
@@ -46,6 +45,13 @@ export class EventFormComponent implements OnInit {
 
     @Output()
     cancelEvent = new EventEmitter<string>();
+
+    static eventToCoordinate(event: EventModel): MapquestCoordinates {
+        return  {
+            lat: event.latitude.toString(),
+            lng: event.longitude.toString(),
+        };
+    }
 
     constructor(
         private _fb: FormBuilder,
@@ -77,6 +83,7 @@ export class EventFormComponent implements OnInit {
                 validator: CustomValidators.endDateIsGreaterOrEqualThanStartDateValidator('start_date', 'end_date')
             }
         );
+        this.setMap(EventFormComponent.eventToCoordinate(this.event));
     }
 
     onSubmit(event: Event): void {
@@ -98,12 +105,14 @@ export class EventFormComponent implements OnInit {
                 this.georesults = geoResp.results;
                 console.log(this.georesults);
                 if (Array.isArray(this.georesults) && this.georesults.length) {
-                    if (this.georesults.length === 1) {
+                    if (this.georesults.length > 1) {
+                        this.displayModalWithGeoResult()
+                    } else if (this.georesults.length && this.georesults[0].locations.length) {
                         const geo1 = this.georesults[0] as MapquestResult;
                         const coord = geo1.locations[0].latLng;
                         this.setLatLng(coord);
                     } else {
-                        this.displayModalWithGeoResult()
+                        this.setLatLng(null);
                     }
                 }
             });
@@ -113,9 +122,28 @@ export class EventFormComponent implements OnInit {
      * Set the lat/lng coordinates values in the form
      * @param coord - are the lat/lng coordinates to set in the form
      */
-    setLatLng(coord: MapquestCoordinates): void {
+    setLatLng(coord: MapquestCoordinates = {lat: '', lng: ''}): void {
+        if (!coord || !coord.lat || !coord.lng) {
+            coord = {lat: '', lng: ''};
+        }
         this.eventForm.controls.latitude.setValue(coord.lat);
         this.eventForm.controls.longitude.setValue(coord.lng);
+        this.setMap(coord);
+    }
+
+    /**
+     * Set the map coordinate to refresh the image
+     * @param coord - the coordinate to center the map
+     */
+    setMap(coord: MapquestCoordinates): void {
+        if (!coord || !coord.lat || !coord.lng) {
+            this.mapPath = '';
+            return;
+        }
+        const mapUrl = new URL(mapQuestMapUrl);
+        mapUrl.searchParams.set('key', this.mapQuestKey);
+        mapUrl.searchParams.set('center', `${coord.lat},${coord.lng}`);
+        this.mapPath = mapUrl.toString();
     }
 
     /**
