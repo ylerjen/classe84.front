@@ -36,15 +36,15 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.router.events.subscribe((routerEvent: RouterEvent) => {
+        this.subs$ = this.router.events.subscribe((routerEvent: RouterEvent) => {
             this.checkRouterEvent(routerEvent);
         });
 
-        this.subs$ = this._store.select(store => store.appState)
+        this.subs$.add(this._store.select(store => store.appState)
             .subscribe(
                 (resp) => this.version = resp.version,
                 (err: Error) => console.error(err)
-            );
+            ));
         this._store.dispatch(new StoreFrontVersion(new Version(environment.version)));
         this._store.dispatch(new GetApiVersion());
 

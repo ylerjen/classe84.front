@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { User, EGender } from 'app/models/User';
 import { UserListState } from 'app/stores/userlist/userlist.reducer';
 import { UsersService } from 'app/user/services/users.service';
 import { GlobalState } from 'app/stores/globalState';
+import { Subscription } from 'rxjs';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -12,7 +13,9 @@ import { GlobalState } from 'app/stores/globalState';
     templateUrl: './user-list-page.component.html',
     styleUrls: ['./user-list-page.component.scss']
 })
-export class UserListPageComponent implements OnInit {
+export class UserListPageComponent implements OnInit, OnDestroy {
+
+    private sub: Subscription;
 
     public nextBirthdayUsers: Array<User> = [];
     public top3SubscribersList: Array<User> = [];
@@ -34,7 +37,7 @@ export class UserListPageComponent implements OnInit {
         this._userSrvc.getTopSubscriptions()
             .subscribe( (userList: Array<User>) => this.top3SubscribersList = userList);
 
-        this._store.select(store => store.userlistState)
+        this.sub = this._store.select(store => store.userlistState)
             .subscribe( (uState: UserListState) => {
                 if (uState) {
                     const usersList = uState.userList;
@@ -44,6 +47,10 @@ export class UserListPageComponent implements OnInit {
                     this.totalWomen = this.totalMembers - this.totalMen;
                 }
             });
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     addUser(user: User) {

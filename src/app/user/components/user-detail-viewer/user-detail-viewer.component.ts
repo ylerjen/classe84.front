@@ -19,14 +19,13 @@ import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 })
 export class UserDetailViewerComponent implements OnInit, OnDestroy {
 
+    private sub: Subscription;
+    private userStore$: Observable<IUserState>;
+    private AddressStore$: Observable<IAddressListState>;
+
     public user: User;
     public addressList: Array<Address> = [];
     public isLoading: boolean;
-
-    private userStore$: Observable<IUserState>;
-    private AddressStore$: Observable<IAddressListState>;
-    private subUser: Subscription;
-    private subAddress: Subscription;
 
     constructor(
         private _store: Store<GlobalState>,
@@ -38,10 +37,10 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.subAddress = this.AddressStore$.subscribe(
+        this.sub = this.AddressStore$.subscribe(
             (addrState: IAddressListState) => this.addressList = addrState.addressList
         );
-        this.subUser = this.userStore$.subscribe(
+        this.sub.add(this.userStore$.subscribe(
             (userState: IUserState) => {
                 if (userState.user) {
                     const curUser = new User(userState.user);
@@ -49,12 +48,11 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
                     this.isLoading = userState.isLoading;
                 }
             }
-        );
+        ));
     }
 
     ngOnDestroy(): void {
-        this.subUser.unsubscribe();
-        this.subAddress.unsubscribe();
+        this.sub.unsubscribe();
     }
 
     goToEdit(id: string): void {

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { User } from '@models/User';
-import { Subscription } from '@models/Subscription';
+import { Subscription as EventSubscription } from '@models/Subscription';
 import { Event as EventModel } from '@models/Event';
 import { GlobalState } from 'app/stores/globalState';
 import { EventState } from 'app/stores/event/event.reducer';
@@ -23,12 +23,14 @@ import { GetUserListAsync } from '@actions/userlist.actions';
     templateUrl: './event-subscriptions-viewer.component.html',
     styleUrls: ['./event-subscriptions-viewer.component.scss']
 })
-export class EventSubscriptionsViewerComponent implements OnInit {
+export class EventSubscriptionsViewerComponent implements OnInit, OnDestroy {
+
+    private sub: Subscription;
+    private subscribableUserList: Array<User>;
 
     public event: EventModel;
 
-    public subscribersList: Array<Subscription>;
-    private subscribableUserList: Array<User>;
+    public subscribersList: Array<EventSubscription>;
 
     public asyncSelected: string;
 
@@ -43,29 +45,31 @@ export class EventSubscriptionsViewerComponent implements OnInit {
     constructor(
         private _route: ActivatedRoute,
         private _store: Store<GlobalState>,
-    ) {
-        this._store.select(store => store.eventState)
+    ) {}
+
+    ngOnInit(): void {
+        this.sub = this._store.select(store => store.eventState)
             .subscribe((eventState: EventState) => {
                 this.event = new EventModel(eventState.event);
                 this.isLoading = eventState.isLoading;
             });
-        this._store.select(store => store.userlistState)
+        this.sub.add(this._store.select(store => store.userlistState)
             .subscribe((userListState: UserListState) => {
                 this.subscribableUserList = userListState.userList;
                 this.refreshSearchableList();
-            });
-        this._store.select(store => store.subscriptionsState)
+            })
+        );
+        this.sub.add(this._store.select(store => store.subscriptionsState)
             .subscribe((subscrState: ISubscriptionState) => {
                 this.subscribersList = subscrState.subscriptionList.map(
-                    sub => new Subscription(sub)
+                    sub => new EventSubscription(sub)
                 );
                 this.refreshSearchableList();
-            });
-    }
+            })
+        );
 
-    ngOnInit() {
         this.isLoading = false;
-        this._route.params
+        this.sub.add(this._route.params
             .subscribe((routeData: Params) => {
                 this._store.dispatch(new GetUserListAsync());
                 const id = routeData.id;
@@ -75,7 +79,12 @@ export class EventSubscriptionsViewerComponent implements OnInit {
 
                 this._store.dispatch(new GetEvent(id));
                 this._store.dispatch(new GetSubscriptionStart(id));
-            });
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     /**
@@ -99,7 +108,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
     onAddSubscription(selectedItem) {
         const user = selectedItem.originalObject as User;
 
-        const subscr = new Subscription({
+        const subscr = new EventSubscription({
             user,
             user_id: user.id,
             event: this.event,
@@ -110,7 +119,7 @@ export class EventSubscriptionsViewerComponent implements OnInit {
         this._store.dispatch(new AddSubscription(subscr));
     }
 
-    onDeleteSubscription(subscr: Subscription) {
+    onDeleteSubscription(subscr: EventSubscription) {
         this._store.dispatch(new DeleteSubscription(subscr));
     }
 }

@@ -1,8 +1,8 @@
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {throwError as observableThrowError,  Observable, Subscription } from 'rxjs';
 
 import {finalize, catchError, switchMap} from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -24,7 +24,9 @@ import { CustomValidators } from '@shared/validators/CustomValidators';
     templateUrl: './restore-password.component.html',
     styleUrls: ['./restore-password.component.scss']
 })
-export class RestorePasswordComponent implements OnInit {
+export class RestorePasswordComponent implements OnInit, OnDestroy {
+
+    private sub: Subscription;
 
     public compId: string;
 
@@ -59,7 +61,7 @@ export class RestorePasswordComponent implements OnInit {
             }
         );
 
-        this._route.params.pipe(
+        this.sub = this._route.params.pipe(
             switchMap( (routeData: Params): Observable<Object> => {
                 if (!routeData[RECOVERY_TOKEN_PARAM_NAME]) {
                     throw new Error(`no route param '${RECOVERY_TOKEN_PARAM_NAME}' found`);
@@ -81,14 +83,18 @@ export class RestorePasswordComponent implements OnInit {
                 }
                 this.isLoading = false;
             }),
-            finalize(() => {console.log('putain'); this.isLoading = false; }))
-            .subscribe(
-                val => {
-                    this.isTokenValid = true;
-                    this.isLoading = false;
-                },
-                err => console.log(err)
-            );
+            finalize(() => {console.log('putain'); this.isLoading = false; })
+        ).subscribe(
+            val => {
+                this.isTokenValid = true;
+                this.isLoading = false;
+            },
+            err => console.log(err)
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     changePassword($event: Event): void {

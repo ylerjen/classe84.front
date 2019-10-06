@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { Store } from '@ngrx/store';
 
 
@@ -9,13 +8,16 @@ import { UserListState } from 'app/stores/userlist/userlist.reducer';
 import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
 import { GlobalState } from 'app/stores/globalState';
 import { GetUserListAsync } from 'app/actions/userlist.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-user-list-wrapper',
     templateUrl: './user-list-wrapper.component.html',
     styleUrls: ['./user-list-wrapper.component.scss']
 })
-export class UserListWrapperComponent implements OnInit {
+export class UserListWrapperComponent implements OnInit, OnDestroy {
+
+    private sub: Subscription;
 
     public filter: IUserListFilter = {
         name: '',
@@ -33,7 +35,7 @@ export class UserListWrapperComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this._store.select(store => store.userlistState)
+        this.sub = this._store.select(store => store.userlistState)
             .subscribe( (uState: UserListState) => {
                 if (uState) {
                     this.usersList = uState.userList;
@@ -43,13 +45,19 @@ export class UserListWrapperComponent implements OnInit {
                 }
             });
         this._store.dispatch(new GetUserListAsync());
-        this._activeRoute.queryParams.subscribe(
-            (params: IUserListFilter) => {
-                if (params) {
-                    this.filter = params;
+        this.sub.add(this._activeRoute.queryParams
+            .subscribe(
+                (params: IUserListFilter) => {
+                    if (params) {
+                        this.filter = params;
+                    }
                 }
-            }
+            )
         );
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     filterList() {

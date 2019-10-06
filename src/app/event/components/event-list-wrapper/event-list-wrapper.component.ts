@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -7,14 +7,16 @@ import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { GlobalState } from 'app/stores/globalState';
 import { ChangeEventListFilter, GetEventListAsyncStart } from 'app/actions/eventlist.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-event-list-wrapper',
     templateUrl: './event-list-wrapper.component.html',
     styleUrls: ['./event-list-wrapper.component.scss']
 })
-export class EventListWrapperComponent implements OnInit {
+export class EventListWrapperComponent implements OnInit, OnDestroy {
 
+    private sub: Subscription;
     private eventsList: Array<Event> = [];
 
     public filter: IEventListFilter =  {
@@ -33,7 +35,7 @@ export class EventListWrapperComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this._store.select(store => store.eventlistState)
+        this.sub = this._store.select(store => store.eventlistState)
             .subscribe( (evtState: IEventListState) => {
                 if (evtState) {
                     this.eventsList = evtState.eventList;
@@ -43,14 +45,18 @@ export class EventListWrapperComponent implements OnInit {
                     this.updateCurrentRoute();
                 }
             });
-        this._activeRoute.queryParams.subscribe(
+        this.sub.add(this._activeRoute.queryParams.subscribe(
             (params: IEventListFilter) => {
                 if (params) {
                     this.filter = params;
                 }
             }
-        );
+        ));
         this._store.dispatch(new GetEventListAsyncStart());
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     filterList() {
