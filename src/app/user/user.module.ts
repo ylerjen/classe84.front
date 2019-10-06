@@ -1,13 +1,11 @@
 
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 
 import { GMAP_API_KEY } from 'app/config/settings';
 import { SharedModule } from 'app/shared/shared.module';
 import { AddressModule } from 'app/address/address.module';
-import { AuthService } from '../auth/services/auth.service';
 import { UsersService } from './services/users.service';
 import { AddressService } from '../address/address.service';
 import { UserPageComponent } from './pages/user-page/user-page.component';
@@ -23,26 +21,13 @@ import { UserFormViewerComponent } from './components/user-form-viewer/user-form
 import { EffectsModule } from '@ngrx/effects';
 import { UserlistEffects } from 'app/effects/userlist.effect';
 import { UserEffects } from 'app/effects/user.effect';
-
-const userRoutes = [
-    { path: 'users', component: UserListPageComponent },
-    { path: 'users/add', component: UserFormViewerComponent },
-    {
-        path: 'users/:id',
-        component: UserPageComponent,
-        canActivate: [ AuthService ],
-        children: [
-            { path: '', component: UserDetailViewerComponent },
-            { path: 'edit', component: UserFormViewerComponent },
-        ]
-    }
-];
+import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
     imports: [
         SharedModule,
         AddressModule,
-        RouterModule.forChild(userRoutes),
+        UserRoutingModule,
         EffectsModule.forFeature([
             UserEffects,
             UserlistEffects,
@@ -70,8 +55,5 @@ const userRoutes = [
         AddressService
     ],
     bootstrap: [],
-    exports: [
-        RouterModule
-    ]
 })
 export class UserModule { }

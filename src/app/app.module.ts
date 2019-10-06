@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,12 +9,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
 import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ContactModule } from './contact/contact.module';
 import { UserModule } from './user/user.module';
 import { EventModule } from './event/event.module';
-import { appRoutes } from './config/router.config';
 import { AppComponent } from './app.component';
 import { globalState } from './stores/globalState';
 import { AppService } from './services/app/app.service';
@@ -26,7 +26,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
-import { NotFoundPage } from './pages/not-found/not-found.page';
 import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 import { AppEffects } from './effects/app.effect';
 import { SessionEffects } from './effects/session.effect';
@@ -36,6 +35,7 @@ import { NotificationEffects } from './effects/notification.effect';
 import { HttpErrorInterceptor } from '@shared/interceptors/http-error.interceptor';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { ForbiddenPage } from './pages/forbidden/forbidden.page';
+import { ErrorRoutingModule } from './config/error-routing.module';
 
 
 @NgModule({
@@ -48,7 +48,6 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
         LoginPageComponent,
         NotifierComponent,
         UnauthorizedPage,
-        NotFoundPage,
         LogoutPageComponent,
         ForbiddenPage,
     ],
@@ -56,7 +55,7 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
         BrowserModule,
         BrowserAnimationsModule,
         StoreModule.forRoot(globalState),
-        RouterModule.forRoot(appRoutes),
+        AppRoutingModule,
         EffectsModule.forRoot([
             AppEffects,
             NotificationEffects,
@@ -77,6 +76,7 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
         UserModule,
         ContactModule,
         SharedModule,
+        ErrorRoutingModule
     ],
     providers: [
         AppService,

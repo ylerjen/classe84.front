@@ -12,7 +12,8 @@ export const userRoutes: Routes = [
         children: [
             {
                 path: ROUTE_URL.default,
-                component: UserDetailViewerComponent
+                component: UserDetailViewerComponent,
+                pathMatch: 'full'
             }, {
                 path: ROUTE_URL.byId,
                 component: UserPageComponent,

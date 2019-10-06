@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { LoginPageComponent } from '../pages/login-page/login.page';
 import { HomePage } from '../pages/home-page/home.page';
 import { AboutPage } from '../pages/about-page/about.page';
-import { NotFoundPage } from '../pages/not-found/not-found.page';
 import { UnauthorizedPage } from '../pages/unauthorized/unauthorized.page';
 import { LogoutPageComponent } from '../pages/logout-page/logout-page.component';
 import { ForbiddenPage } from '../pages/forbidden/forbidden.page';
@@ -52,8 +51,4 @@ export const appRoutes: Routes = [
     //     redirectTo: '/',
     //     pathMatch: 'full'
     // },
-    {
-        path: '**',
-        component: NotFoundPage
-    }
 ];
