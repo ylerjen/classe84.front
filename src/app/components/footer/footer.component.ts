@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AppInfo } from '@models/AppInfo';
 
 
 @Component({
@@ -9,5 +10,5 @@ import { Component, Input } from '@angular/core';
 export class FooterComponent {
 
     @Input()
-    public version: { [any: string]: any };
+    public version: AppInfo;
 }

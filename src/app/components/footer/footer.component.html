@@ -1,3 +1,6 @@
 <footer class="app-footer">
-    <div>© classe84.org - api v. {{ version?.api?.full }} / front v. {{ version?.front?.full }}</div>
+    <div>© classe84.org - 
+        <span>api v. {{ version?.api ? version.api.full : 'N/A' }}</span> / 
+        <span>front v. {{ version?.front ? version.front.full : 'N/A' }}</span>
+    </div>
 </footer>
