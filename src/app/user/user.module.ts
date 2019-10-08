@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'app/shared/shared.module';
 import { AddressModule } from 'app/address/address.module';
 import { UsersService } from './services/users.service';
-import { AddressService } from '../address/address.service';
+import { AddressService } from '../address/services/address.service';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
