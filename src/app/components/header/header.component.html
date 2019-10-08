@@ -28,33 +28,33 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" dropdown>
             <li *ngIf="!session || !session.user">
                 <a class="btn btn-primary" routerLink="/login" routerLinkActive="active">
                     <i class="fa fa-sign-in"></i> Login
                 </a>
             </li>
-            <li *ngIf="session?.user" class="nav-item dropdown" dropdown>
-                <a class="dropdown-toggle nav-link" href="#" dropdownToggle (click)="false">
+            <li *ngIf="session?.user" class="nav-item dropdown" ngbDropdown>
+                <button type="button" id="user-menu" class="dropdown-toggle nav-link btn" dropdownToggle>
                     <img class="navbar-brand" src="http://www.gravatar.com/avatar/023da329ad0304e026ee0d41533a26f7?s=30" alt="User avatar" class="rounded-circle">
                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right" role="menu" *dropdownMenu>
-                    <li>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" *dropdownMenu aria-labelledby="user-menu">
+                    <li ngbDropdownItem>
                         <h6 class="dropdown-header">{{session?.user.fullname}}</h6>
                     </li>
                     <li class="divider dropdown-divider"></li>
-                    <li role="menuitem">
+                    <li role="menuitem" ngbDropdownItem>
                         <a class="dropdown-item" href="/users/{{session?.user.id}}">
                             <i class="fa fa-id-card-o"></i> Mes infos
                         </a>
                     </li>
-                    <li role="menuitem">
+                    <li role="menuitem" ngbDropdownItem>
                         <a class="dropdown-item" href="#">
                             <i class="fa fa-shield"></i> Modifier le mot de passe
                         </a>
                     </li>
-                    <li role="menuitem">
+                    <li role="menuitem" ngbDropdownItem>
                         <a class="dropdown-item" href="/logout">
                             <i class="fa fa-sign-out"></i> Se déconnecter
                         </a>

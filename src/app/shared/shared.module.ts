@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BsDatepickerModule, CollapseModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
 import { LoadersCssModule } from 'angular2-loaders-css';
 
@@ -19,6 +19,7 @@ import { ModalComponent } from './modal/modal.component';
         LoadersCssModule,
         BsDatepickerModule.forRoot(),
         CollapseModule.forRoot(),
+        BsDropdownModule.forRoot(),
         NgxMaskModule.forRoot(),
     ],
     providers: [
@@ -37,6 +38,8 @@ import { ModalComponent } from './modal/modal.component';
         CommonModule,
         LoadersCssModule,
         BsDatepickerModule,
+        BsDropdownModule,
+        NgxMaskModule,
         CollapseModule,
         PanelComponent,
         PhoneNbPipe,
