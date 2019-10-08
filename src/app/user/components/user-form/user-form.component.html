@@ -1,5 +1,5 @@
 <div *ngIf="!(user && userForm)" class="mb-5 mt-5 text-center">
-    <i class="fa fa-2x fa-spinner fa-spin"></i>
+    <loaders-css loader="ball-scale-multiple" loaderClass="my-loader"></loaders-css>
 </div>
 <form 
     *ngIf="user && userForm"
