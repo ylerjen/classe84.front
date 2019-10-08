@@ -8,7 +8,7 @@ const routes = [
         path: '**',
         component: NotFoundPage
     }
-]
+];
 
 @NgModule({
     imports: [
