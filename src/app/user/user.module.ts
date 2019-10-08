@@ -1,9 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AgmCoreModule } from '@agm/core';
 
-import { GMAP_API_KEY } from 'app/config/settings';
 import { SharedModule } from 'app/shared/shared.module';
 import { AddressModule } from 'app/address/address.module';
 import { UsersService } from './services/users.service';
@@ -34,9 +32,6 @@ import { UserRoutingModule } from './user-routing.module';
         ]),
         FormsModule,
         ReactiveFormsModule,
-        AgmCoreModule.forRoot({
-            apiKey: GMAP_API_KEY
-        }),
     ],
     declarations: [
         UserListPageComponent,

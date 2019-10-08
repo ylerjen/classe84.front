@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AgmCoreModule } from '@agm/core';
 import { NgxEditorModule } from 'ngx-editor';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
-import { GMAP_API_KEY } from '../config/settings';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../auth/services/auth.service';
 import { EventsService } from './services/events.service';
@@ -70,9 +68,6 @@ const eventRoutes: Routes = [
             EventEffects,
         ]),
         NgxEditorModule,
-        AgmCoreModule.forRoot({
-            apiKey: GMAP_API_KEY
-        }),
         TypeaheadModule.forRoot(),
     ],
     declarations: [
