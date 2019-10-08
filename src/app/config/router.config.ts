@@ -23,6 +23,16 @@ export const ROUTE_URL: { [key: string]: string } = {
     forbidden: 'forbidden',
 };
 
+export const routeBuilder = {
+    userlist: () => ROUTE_URL.users,
+    user: (id: string) => `${ROUTE_URL.users}/${id}`,
+    userEdit: (id: string) => `${ROUTE_URL.users}/${id}/edit`,
+    addressEdit: (id: string) => `${ROUTE_URL.address}/${id}/edit`,
+    eventlist: () => ROUTE_URL.events,
+    event: (id: string) => `${ROUTE_URL.events}/${id}`,
+    eventEdit: (id: string) => `${ROUTE_URL.events}/${id}/edit`,
+};
+
 export const appRoutes: Routes = [
     {
         path: ROUTE_URL.default,
