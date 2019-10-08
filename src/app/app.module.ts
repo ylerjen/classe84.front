@@ -36,6 +36,7 @@ import { HttpErrorInterceptor } from '@shared/interceptors/http-error.intercepto
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { ForbiddenPage } from './pages/forbidden/forbidden.page';
 import { ErrorRoutingModule } from './config/error-routing.module';
+import { AddressModule } from './address/address.module';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { ErrorRoutingModule } from './config/error-routing.module';
         AuthModule,
         EventModule,
         UserModule,
+        AddressModule,
         ContactModule,
         SharedModule,
         ErrorRoutingModule

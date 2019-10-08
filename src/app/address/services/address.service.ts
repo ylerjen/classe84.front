@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { environment as env } from '../../environments/environment';
-import { UserAddressCmd } from '../actions/addresslist.actions';
+import { environment as env } from '../../../environments/environment';
+import { UserAddressCmd } from '../../actions/addresslist.actions';
 import { Address } from '@models/Address';
 
 const BASE_URL = `${env.API_URL}`;

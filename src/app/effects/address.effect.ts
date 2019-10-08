@@ -14,7 +14,7 @@ import {
     GetAddressListAsync,
     SetFavoriteAddress
 } from 'app/actions/addresslist.actions';
-import { AddressService } from 'app/address/address.service';
+import { AddressService } from 'app/address/services/address.service';
 
 @Injectable()
 export class AddressEffects {
