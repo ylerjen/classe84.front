@@ -11,6 +11,7 @@ import { IUserState } from 'app/stores/user/user.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { GetAddressListAsync } from '@actions/addresslist.actions';
 import { GetParticipationListStart } from '@actions/participations.actions';
+import { selectUserState } from 'app/stores/user/selectors/user.selector';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -22,6 +23,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     private _id: string;
+
     public isLoading: boolean;
     public isEditMode: boolean;
     public user: User;
@@ -34,7 +36,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        this.sub = this._store.select(store => store.userState)
+        this.sub = this._store.select(s => selectUserState(s))
             .subscribe(
                 (resp: IUserState) => {
                     this.isLoading = resp.isLoading;
@@ -50,12 +52,12 @@ export class UserPageComponent implements OnInit, OnDestroy {
             )
         );
 
-
         this.sub.add(this._route.params
             .subscribe( (routeData: Params) => {
                 // TODO can use : this._route.snapshot instead ?
                 this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id as string;
+                console.log('get user info for id ' + this._id);
                 this._store.dispatch(new GetUserStart(this._id));
                 this._store.dispatch(new GetAddressListAsync(this._id));
                 this._store.dispatch(new GetParticipationListStart(this._id));

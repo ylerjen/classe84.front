@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-
 import { Observable ,  Subscription } from 'rxjs';
 
-import { IUserState } from 'app/stores/user/user.reducer';
-import { User } from 'app/models/User';
+import { User } from '@models/User';
+import { Address } from '@models/Address';
 import { ROUTE_URL } from 'app/config/router.config';
-import { Address } from 'app/models/Address';
-import { SetFavoriteAddress, DeleteAddressById, UserAddressCmd } from 'app/actions/addresslist.actions';
 import { GlobalState } from 'app/stores/globalState';
+import { IUserState } from 'app/stores/user/user.reducer';
+import { SetFavoriteAddress, DeleteAddressById } from 'app/actions/addresslist.actions';
 import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
+import { selectUserState } from 'app/stores/user/selectors/user.selector';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -31,7 +31,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         private _store: Store<GlobalState>,
         private _router: Router
     ) {
-        this.userStore$ = this._store.select(store => store.userState);
+        this.userStore$ = this._store.select(store => selectUserState(store));
         this.AddressStore$ = this._store.select(store => store.addressListState);
     }
 
@@ -42,6 +42,8 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         );
         this.sub.add(this.userStore$.subscribe(
             (userState: IUserState) => {
+                console.log({userState});
+
                 if (userState.user) {
                     const curUser = new User(userState.user);
                     this.user = curUser;
