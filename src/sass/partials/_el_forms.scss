@@ -29,3 +29,7 @@ input.ng-dirty.ng-invalid {
 		margin: 0;
 	} 
 }
+
+input::placeholder {
+	font-style: italic;
+}
