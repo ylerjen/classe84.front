@@ -1,1 +1,83 @@
-<p>address-form works!</p>
+<section>
+    <form *ngIf="addressForm" [formGroup]="addressForm" class="adr-form">
+        <input type="hidden" formControlName="id" />
+        <div class="row">
+            <label for="adr-street">Rue</label>
+        </div>
+        <div class="row form-group">
+            <input
+                type="text"
+                id="adr-street"
+                class="form-control"
+                formControlName="street"
+                placeholder="Av. de la gare 1"
+            />
+            <app-validation-error
+                [errors]="addressForm.get('street')?.errors"
+            ></app-validation-error>
+        </div>
+        <div class="row">
+            <label for="adr-street2">Complément d'adresse</label>
+        </div>
+        <div class="row form-group">
+            <input
+                type="text"
+                id="adr-street2"
+                class="form-control"
+                formControlName="street2"
+                placeholder="Immeuble Les Flambeaux"
+            />
+            <app-validation-error
+                [errors]="addressForm.get('street2')?.errors"
+            ></app-validation-error>
+        </div>
+        <div class="row">
+            <label for="adr-zip">NPA</label><span class="ml-2 mr-2">/</span
+            ><label for="adr-city">Lieu</label>
+        </div>
+        <div class="row form-group">
+            <input
+                type="text"
+                id="adr-zip"
+                class="col-4 form-control"
+                formControlName="zip"
+                placeholder="1950"
+            />
+            <input
+                type="text"
+                id="adr-city"
+                class="col-8 form-control"
+                formControlName="city"
+                placeholder="Sion"
+            />
+            <app-validation-error class="col-12"
+                [errors]="addressForm.get('zip')?.errors"
+            ></app-validation-error>
+            <app-validation-error class="col-12"
+                [errors]="addressForm.get('city')?.errors"
+            ></app-validation-error>
+        </div>
+        <div class="row">
+            <label for="adr-state">Canton</label><span class="ml-2 mr-2">/</span
+            ><label for="adr-country">Pays</label>
+        </div>
+        <div class="row">
+            <input
+                type="text"
+                id="adr-state"
+                class="form-control col-6"
+                formControlName="state"
+                placeholder="Valais"
+            />
+            <input
+                type="text"
+                id="adr-country"
+                class="form-control col-6"
+                formControlName="country"
+                placeholder="Suisse"
+            />
+            <app-validation-error class="col-12" [errors]="addressForm.get('state')?.errors"></app-validation-error>
+            <app-validation-error class="col-12" [errors]="addressForm.get('country')?.errors"></app-validation-error>
+        </div>
+    </form>
+</section>
