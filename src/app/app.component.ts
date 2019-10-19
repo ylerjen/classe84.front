@@ -28,12 +28,11 @@ export class AppComponent implements OnInit, OnDestroy {
     public isLoading: boolean;
 
     constructor(
-        private cdRef:ChangeDetectorRef,
+        private cdRef: ChangeDetectorRef,
         private _store: Store<GlobalState>,
         private _authSrvc: AuthService,
         private router: Router,
-    ) {
-    }
+    ) { }
 
     ngOnInit(): void {
         this.subs$ = this.router.events.subscribe((routerEvent: RouterEvent) => {
