@@ -1,13 +1,20 @@
 <section class="col-md-12 card user-profile" *ngIf="user">
-    <loaders-css [hidden]="!isLoading" [loader]="'ball-scale-multiple'" [loaderClass]="'my-loader'"></loaders-css>
+    <loaders-css
+        [hidden]="!isLoading"
+        [loader]="'ball-scale-multiple'"
+        [loaderClass]="'my-loader'"
+    ></loaders-css>
     <app-user-detail
         [user]="user"
         (goToEditUser)="goToEdit($event)"
         (deleteUser)="delete($event)"
     ></app-user-detail>
-    <app-address-list
-        [addressList]="addressList"
-        (setFavoriteAddress)="onSetFavoriteAddress($event)"
-        (deleteAddress)="onDeleteAddress($event)"
-    ></app-address-list>
+    <section class="card-body">
+        <h2><i class="fa fa-globe mr-2"></i> Adresses</h2>
+        <app-address-list
+            [addressList]="addressList"
+            (setFavoriteAddress)="onSetFavoriteAddress($event)"
+            (deleteAddress)="onDeleteAddress($event)"
+        ></app-address-list>
+    </section>
 </section>

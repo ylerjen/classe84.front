@@ -6,8 +6,35 @@
     border: 1px solid black;
 	border-radius: 4px;
     display: block;
-    
-    &-text {
+
+    &-header a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         padding: .5em 1em;
+
+        &:hover {
+            text-decoration: none;
+            text-shadow: 1px 1px 4px #3097d1;
+        }
+    }
+    
+    &-title {
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    &-text {
+        text-align: center;
+        margin-bottom: .5em;
+    }
+
+    &-img {
+        text-align: center;
+    }
+
+    &-action {
+        text-align: center;
     }
 }

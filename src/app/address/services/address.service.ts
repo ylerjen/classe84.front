@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../../environments/environment';
 import { UserAddressCmd } from '../../actions/addresslist.actions';
 import { Address } from '@models/Address';
+import { map, tap } from 'rxjs/operators';
 
 const BASE_URL = `${env.API_URL}`;
 
@@ -17,7 +18,20 @@ export class AddressService {
 
     getAllForUser(userId: string): Observable<Array<Address>> {
         const route = `${BASE_URL}/users/${userId}/addresses`;
-        return this._authHttp.get<Array<Address>>(route);
+        return this._authHttp.get<Array<Address>>(route)
+            .pipe(
+                map( (addrList: Array<Address>) => addrList.map( adr => new Address(adr))),
+                tap( (addrList: Array<Address>) => addrList.sort((a: Address, b: Address) => {
+                    // default address first
+                    if (!a.is_default && b.is_default) {
+                        return 1;
+                    }
+                    if (a.is_default && !b.is_default) {
+                        return -1;
+                    }
+                    return 0;
+                }))
+            );
     }
 
     setAsDefault(userAdress: UserAddressCmd): Observable<{}> {

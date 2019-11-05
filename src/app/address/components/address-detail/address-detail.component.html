@@ -1,22 +1,33 @@
 <section class="adr-detail">
-    <figure class="adr-detail-img">
-        <figcaption class="adr-detail-text">
-            {{ address.toString() }}
-        </figcaption>
-        <img [src]="mapLink"
-            alt="Map for coordinates {{ address.latitude }},{{
-                address.longitude
-            }}"
-        />
-    </figure>
-    <footer class="adr-detail-action">
-        <a class="btn btn-primary"
-            href="/addresses/{{ address.id }}/edit"
-            (click)="edit($event)"
-            ><i class="fa fa-pencil"></i
-        ></a>
-        <button type="button" class="btn btn-danger" (click)="delete($event)">
-            <i class="fa fa-trash"></i>
-        </button>
-    </footer>
+    <header class="adr-detail-header">
+        <a href="#" (click)="toggleMap($event)">
+            <h1 class="adr-detail-title">{{ address.toString() }} <span *ngIf="address.is_default" class="badge badge-secondary">Principale</span></h1>
+            <i class="fa fa-chevron-down ml-3"></i>
+        </a>
+    </header>
+    <div class="adr-detail-content" *ngIf="isMapVisible">
+        <figure class="adr-detail-img">
+            <img class="mb-2 mt-2"
+            [src]="mapLink"
+            alt="Map for coordinates {{ address.coordinates.toString() }}"/>
+            <figcaption class="adr-detail-text">
+                {{ address.coordinates.toString() }}
+            </figcaption>
+        </figure>
+        <footer class="adr-detail-action">
+            <a
+                class="btn btn-primary"
+                href="/addresses/{{ address.id }}/edit"
+                (click)="edit($event)"
+                ><i class="fa fa-pencil"></i
+            ></a>
+            <button
+                type="button"
+                class="btn btn-danger"
+                (click)="delete($event)">
+                <i class="fa fa-trash"></i>
+            </button>
+            <pre>{{ address | json }}</pre>
+        </footer>
+    </div>
 </section>
