@@ -3,7 +3,7 @@ import { MapquestCoordinates } from './MapquestCoordinates';
 export interface MapquestResultPayload {
     info: MapquestResultInfo;
     options: MapquestResultOptions;
-    results: Array<MapquestResult>
+    results: Array<MapquestResult>;
 }
 
 interface MapquestResultInfo {

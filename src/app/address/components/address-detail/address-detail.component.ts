@@ -1,7 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Address } from 'app/models/Address';
-import { mapQuestKey } from 'app/shared/services/geo/geo.service';
+import { mapQuestKey, mapLinkBuilder } from 'app/shared/services/geo/geo.service';
+import { MapquestCoordinates } from 'app/shared/services/geo/MapquestCoordinates';
+
+const mapSize = 400;
+const marker = 'marker';
 
 @Component({
     selector: 'app-address-detail',
@@ -9,8 +13,20 @@ import { mapQuestKey } from 'app/shared/services/geo/geo.service';
     styleUrls: ['./address-detail.component.scss']
 })
 export class AddressDetailComponent {
+
+    private _address: Address;
+
+    public mapLink: URL;
+
     @Input()
-    public address: Address;
+    set address(value: Address) {
+        this._address = value;
+        const coord = new MapquestCoordinates(value.latitude, value.longitude);
+        this.mapLink = mapLinkBuilder(coord, mapSize, marker);
+    }
+    get address(): Address {
+        return this._address;
+    }
 
     @Output()
     public setFavoriteEmitter = new EventEmitter<string>();
@@ -30,6 +46,8 @@ export class AddressDetailComponent {
 
     edit(evt: Event) {
         evt.preventDefault();
+        debugger;
+        throw 'implement open modal here '
         this.editEmitter.emit(this.address.id.toString());
     }
 

@@ -1,31 +1,22 @@
-<div class="card block-card content address-item">
-    <div *ngIf="address.latitude && address.longitude" class="img-top">
-        <img class="img-fluid"
-            src="https://www.mapquestapi.com/staticmap/v5/map?key={{mapQuestKey}}&center={{address.latitude}},{{address.longitude}}"
-            alt="Map for coordinates {{address.latitude}},{{address.longitude}}">
-    </div>
-    <div class="card-body">
-        <div class="address-item__logo">
-            <button *ngIf="!address.is_default;else favorite" (click)="setFavorite($event)" class="btn btn-outline-primary btn-sm">
-                <i class="fa fa-2x fa-star-o" title="Set address as default"></i>
-            </button>
-        </div>
-        <ng-template #favorite>
-            <span class="favorite-address">
-                <i class="fa fa-2x fa-star" title="This is the default address"></i>
-            </span>
-        </ng-template >
-        <div class="address-item__detail">
-            <p>{{ address.street }}</p>
-            <p *ngIf="address.street2">{{ address.street2 }}</p>
-            <p>{{ address.npa }} {{ address.city }}</p>
-            <p>{{ address.state }} - {{ address.country }}</p>
-        </div>
-    </div>
-    <div class="card-footer filled-card-part">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <a href="/addresses/{{address.id}}/edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-            <button type="button" class="btn btn-danger" (click)="delete($event)"><i class="fa fa-trash"></i></button>
-          </div>
-    </div>
-</div>
+<section class="adr-detail">
+    <figure class="adr-detail-img">
+        <figcaption class="adr-detail-text">
+            {{ address.toString() }}
+        </figcaption>
+        <img [src]="mapLink"
+            alt="Map for coordinates {{ address.latitude }},{{
+                address.longitude
+            }}"
+        />
+    </figure>
+    <footer class="adr-detail-action">
+        <a class="btn btn-primary"
+            href="/addresses/{{ address.id }}/edit"
+            (click)="edit($event)"
+            ><i class="fa fa-pencil"></i
+        ></a>
+        <button type="button" class="btn btn-danger" (click)="delete($event)">
+            <i class="fa fa-trash"></i>
+        </button>
+    </footer>
+</section>

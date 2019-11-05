@@ -1,4 +1,3 @@
-export interface MapquestCoordinates {
-    lat: string;
-    lng: string;
+export class MapquestCoordinates {
+    constructor(public lat: string, public lng: string) { }
 }

@@ -9,7 +9,6 @@ export class Address {
     is_default: boolean;
     created_at: string;
     updated_at: string;
-
     latitude: string;
     longitude: string;
 
@@ -24,7 +23,6 @@ export class Address {
         this.is_default = props.is_default || false;
         this.created_at = props.created_at;
         this.updated_at = props.updated_at;
-
         this.latitude = props.latitude;
         this.longitude = props.longitude;
     }
