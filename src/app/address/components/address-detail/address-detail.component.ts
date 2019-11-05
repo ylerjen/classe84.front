@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import { UUID } from 'angular2-uuid';
 import { Address } from 'app/models/Address';
 import { mapQuestKey, mapLinkBuilder } from 'app/shared/services/geo/geo.service';
 import { MapquestCoordinates } from 'app/shared/services/geo/MapquestCoordinates';
@@ -17,12 +18,17 @@ export class AddressDetailComponent {
     private _address: Address;
 
     /**
-     * The boolean used to toggle the visibility of the map detail
+     * The id of the current component to make it unique
      */
-    public isMapVisible = false;
+    public compId: string;
 
     /**
-     * The url of the static map img related to the address 
+     * The boolean used to toggle the visibility of the map detail and actions
+     */
+    public isDetailCollapsed = true;
+
+    /**
+     * The url of the static map img related to the address
      */
     public mapLink: URL;
 
@@ -47,6 +53,10 @@ export class AddressDetailComponent {
 
     public mapQuestKey = mapQuestKey;
 
+    constructor() {
+        this.compId = UUID.UUID();
+    }
+
     /**
      * Set the current address as the default one
      * @param evt - the click event
@@ -62,8 +72,6 @@ export class AddressDetailComponent {
      */
     edit(evt: Event) {
         evt.preventDefault();
-        debugger;
-        throw 'implement open modal here '
         this.editEmitter.emit(this.address.id);
     }
 
@@ -80,8 +88,8 @@ export class AddressDetailComponent {
      * Toggle the visibility of the details like the map and the interaction buttons
      * @param evt - The click event
      */
-    toggleMap(evt: Event) {
+    toggleDetail(evt: Event) {
         evt.preventDefault();
-        this.isMapVisible = ! this.isMapVisible;
+        this.isDetailCollapsed = ! this.isDetailCollapsed;
     }
 }

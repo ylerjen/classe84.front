@@ -25,13 +25,16 @@ export class AddressListComponent {
     public setFavoriteAddress = new EventEmitter<string>();
 
     @Output()
+    public editAddress = new EventEmitter<string>();
+
+    @Output()
     public deleteAddress = new EventEmitter<string>();
 
     onSetFavoriteAddress(addressId: string) {
         this.setFavoriteAddress.emit(addressId);
     }
     onEditAddress(addressId: string) {
-        throw new Error('not implemented');
+        this.editAddress.emit(addressId);
     }
     onDeleteAddress(addressId: string) {
         this.deleteAddress.emit(addressId);
