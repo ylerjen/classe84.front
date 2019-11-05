@@ -1,14 +1,13 @@
-
-import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
-import { User } from 'app/models/User';
+import { User } from '@models/User';
 import { GlobalState } from 'app/stores/globalState';
 import { SessionState } from 'app/stores/session/session.reducer';
 import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from 'app/models/Login';
@@ -16,6 +15,7 @@ import { Session } from '@models/Session';
 import { ROUTE } from '../auth-route.config';
 import { ResetPasswordResponse } from '@models/ResetPasswordResponse';
 import { SessionExpired } from '@actions/session.actions';
+import { ExtendableError } from '@models/ExtendableError';
 
 export const RECOVERY_TOKEN_VAR_NAME = '${token}';
 export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
@@ -69,9 +69,9 @@ export class AuthService implements CanActivate {
                 this.storeSession(session);
                 return session;
             }),
-            catchError((err: Error): Observable<any> => {
+            catchError((err: ExtendableError): Observable<any> => {
                 this.deleteStoredSession();
-                throw err;
+                throw err.innerError;
             }),
         );
     }
@@ -185,6 +185,7 @@ export class AuthService implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const session = this.getStoredSession();
+        console.log('canActive::auth.service', {storedSession: session});
         if (session) {
             if (this.isTokenValid(session.token)) {
                 return true;
@@ -193,7 +194,9 @@ export class AuthService implements CanActivate {
         }
 
         const redirectTo = state.url;
-        // FIXME ROUTE_URL POSE PROBLEME LORSQU'IL EST UTILISE ICI. ERROR => Token is not defined!
+        console.warn(`can't activate route ${route.url}. Will redirect to : ${redirectTo}`);
+
+        // FIXME: ROUTE_URL POSE PROBLEME LORSQU'IL EST UTILISE ICI. ERROR => Token is not defined!
         // this._router.navigate([ROUTE_URL.login, { redirectTo }]);
         this._router.navigate(['login', { redirectTo }]);
         return false;
