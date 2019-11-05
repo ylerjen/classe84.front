@@ -27,11 +27,10 @@ import {
 
 @Injectable()
 export class SessionEffects {
-
     @Effect()
     login$: Observable<Action> = this.actions$.pipe(
         ofType(SessionActionTypes.Login),
-        tap(action => console.log('action triggered', action)),
+        tap(action => console.log('login action triggered', action)),
         concatMap((act: LoginAction): Observable<LoginFinishedAction | LoginFailedAction> => {
             const creds: Login = act.payload;
             if (creds.remember) {
@@ -44,6 +43,7 @@ export class SessionEffects {
                 map((res: Session): LoginFinishedAction => new LoginFinishedAction(res)),
                 catchError((err: HttpErrorResponse): Observable<LoginFailedAction> => {
                     let action: LoginFailedAction;
+
                     if (err.status === HTTP_STATUS_CODE.Unauthorized) {
                         action = new LoginFailedAction(new AuthenticationError(`Le login a échoué, vérifiez votre saisie.`));
                     } else {
@@ -127,6 +127,12 @@ export class SessionEffects {
             const msg = (err instanceof ProgressEvent) ? 'API error. See console' : err.message;
             this._notifSrvc.notify(msg, ENotificationType.ERROR);
         })
+    );
+
+    @Effect({dispatch: false})
+    sessionExpired: Observable<Action> = this.actions$.pipe(
+        ofType(SessionActionTypes.SessionExpired),
+        tap( act => this._authSrvc.deleteStoredSession()),
     );
 
     @Effect()
