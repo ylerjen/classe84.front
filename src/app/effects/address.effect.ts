@@ -3,16 +3,18 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
 
 import {
     addressActions,
     GetAddressListAsyncFailed,
     GetAddressListAsyncFinished,
-    UserAddressCmd,
     DeleteAddressById,
     GetAddressListAsync,
-    SetFavoriteAddress
+    SetFavoriteAddress,
+    CreateAddressForUserIdCmd,
+    AddressCreated,
+    CreateAddressForUser
 } from 'app/actions/addresslist.actions';
 import { AddressService } from 'app/address/services/address.service';
 
@@ -48,13 +50,20 @@ export class AddressEffects {
     @Effect()
     deleteAddress$ = this.actions$.pipe(
         ofType(addressActions.deleteAddressFromAddresslist),
-        map((action: Action) => {
-            const act = action as DeleteAddressById;
-            return act.payload;
-        }),
+        map((action: Action) => (action as DeleteAddressById).payload),
         switchMap(payload => this._addressService.deleteById(payload).pipe(
             map(res => ({ type: 'addressDeleted' })),
             catchError((err: Error) => of({ type: 'addressDeletionFailed' }))
+        ))
+    );
+
+    @Effect()
+    createAddressForUser$ = this.actions$.pipe(
+        ofType(addressActions.createAddressForUser),
+        map((action: Action) => (action as CreateAddressForUser).payload),
+        mergeMap(payload => this._addressService.createForUser(payload.userId, payload.address).pipe(
+            map(res => new AddressCreated(res)),
+            catchError((err: Error) => of({ type: 'addressCreationFailed' }))
         ))
     );
 

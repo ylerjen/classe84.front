@@ -1,4 +1,4 @@
-import { MapquestCoordinates } from "@shared/services/geo/MapquestCoordinates";
+import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
 
 export class Address {
     id: string;
@@ -14,11 +14,11 @@ export class Address {
     latitude: string;
     longitude: string;
 
-    constructor(props: {[key: string]: any}) {
+    constructor(props: {[key: string]: any} =  {}) {
         this.id = props.id;
         this.street = props.street;
         this.street2 = props.street2;
-        this.npa = props.npa;
+        this.npa = props.npa || props.zip;  // in the form, the prop is named zip for autocompletion
         this.city = props.city;
         this.state = props.state;
         this.country = props.country;

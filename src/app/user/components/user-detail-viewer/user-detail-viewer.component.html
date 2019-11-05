@@ -6,15 +6,36 @@
     ></loaders-css>
     <app-user-detail
         [user]="user"
-        (goToEditUser)="goToEdit($event)"
-        (deleteUser)="delete($event)"
+        (editUser)="editUser($event)"
+        (deleteUser)="deleteUser($event)"
     ></app-user-detail>
     <section class="card-body">
         <h2><i class="fa fa-globe mr-2"></i> Adresses</h2>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="addAddress($event)"><i class="fa fa-plus"></i> Nouvelle adresse</button>
         <app-address-list
             [addressList]="addressList"
             (setFavoriteAddress)="onSetFavoriteAddress($event)"
+            (editAddress)="onEditAddress($event)"
             (deleteAddress)="onDeleteAddress($event)"
         ></app-address-list>
     </section>
 </section>
+
+<ng-template #addressFormModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{ currentlyEditedAddress?.id ? "Modifier l'adresse" : 'Ajouter une adresse' }}</h4>
+        <button
+            type="button"
+            class="close pull-right"
+            aria-label="Close"
+            (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-address-form [address]="currentlyEditedAddress"
+            (saveEmitter)="onSaveAddress($event)"
+            (cancelEmitter)="onCancelAddressModal()"
+        ></app-address-form>
+    </div>
+</ng-template>

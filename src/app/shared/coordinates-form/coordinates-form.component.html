@@ -1,0 +1,21 @@
+<div [formGroup]="form" class="coordinates-frm">
+    <button
+        type="button"
+        class="btn btn-secondary btn-sm"
+        (click)="searchCoordinates($event)"
+    >
+        Génerer les coordonnées
+    </button>
+    <div>
+        <input type="hidden" formControlName="latitude" />
+        <input type="hidden" formControlName="longitude" />
+    </div>
+    <figure class="mt-2 text-center">
+        <app-static-map
+            *ngIf="coordinates"
+            [coordinates]="coordinates"
+            size="200"
+        ></app-static-map>
+        <figcaption>Coordonnées : {{ coordinates.lat }} / {{ coordinates.lng }}</figcaption>
+    </figure>
+</div>

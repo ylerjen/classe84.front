@@ -8,7 +8,8 @@ export enum addressActions {
     asyncAddresslistFailed = '[AddressList] get failed',
     resetAddresslist = '[AddressList] reset',
     setFavoriteAddress = '[Address] set favorite',
-    addAddressInAddresslist = '[Address] add in list',
+    createAddressForUser = '[Address] add for user',
+    addressCreated = '[Address] created',
     updateAddressInAddresslist = '[Address] update in list',
     deleteAddressFromAddresslist = '[Address] delete from list',
 }
@@ -16,6 +17,11 @@ export enum addressActions {
 export interface UserAddressCmd {
     userId: string;
     addressId: string;
+}
+
+export interface CreateAddressForUserIdCmd {
+    address: Address;
+    userId: string;
 }
 
 export class GetAddressListAsync implements Action {
@@ -33,8 +39,13 @@ export class GetAddressListAsyncFailed implements Action {
     constructor(public payload: Error) {}
 }
 
-export class AddAddressInList implements Action {
-    readonly type = addressActions.addAddressInAddresslist;
+export class CreateAddressForUser implements Action {
+    readonly type = addressActions.createAddressForUser;
+    constructor(public payload: CreateAddressForUserIdCmd) {}
+}
+
+export class AddressCreated implements Action {
+    readonly type = addressActions.addressCreated;
     constructor(public payload: Address) {}
 }
 
@@ -63,7 +74,8 @@ export class SetFavoriteAddress implements Action {
 export type AddressListActions = GetAddressListAsync
     | GetAddressListAsyncFinished
     | GetAddressListAsyncFailed
-    | AddAddressInList
+    | CreateAddressForUser
+    | AddressCreated
     | UpdateAddressInList
     | EmptyAddressList
     | SetFavoriteAddress

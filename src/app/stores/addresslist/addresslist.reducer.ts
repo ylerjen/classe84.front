@@ -3,7 +3,7 @@ import {
     addressActions,
     DeleteAddressById,
     GetAddressListAsyncFinished,
-    AddAddressInList,
+    AddressCreated,
     UpdateAddressInList,
     SetFavoriteAddress,
     AddressListActions } from 'app/actions/addresslist.actions';
@@ -36,8 +36,8 @@ export function addresslistReducer(state: IAddressListState = initialState, acti
             };
         }
 
-        case addressActions.addAddressInAddresslist: {
-            const act = action as AddAddressInList;
+        case addressActions.addressCreated: {
+            const act = action as AddressCreated;
             return {
                 ...state,
                 isLoading: false,

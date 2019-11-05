@@ -13,14 +13,14 @@ export class UserDetailComponent {
     user: User = new User();
 
     @Output()
-    goToEditUser = new EventEmitter<string>();
+    editUser = new EventEmitter<string>();
 
     @Output()
     deleteUser = new EventEmitter<string>();
 
     onClickEdit(): void {
         if (this.user) {
-            this.goToEditUser.emit(this.user.id);
+            this.editUser.emit(this.user.id);
         }
     }
 

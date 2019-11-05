@@ -40,7 +40,33 @@ export class AddressService {
     }
 
     deleteById(id: string): Observable<Object> {
+        if (!id) {
+            throw new Error(`Can't delete an address without any id`);
+        }
         const route = `${BASE_URL}/addresses/${id}`;
         return this._authHttp.delete(route);
+    }
+
+    createForUser(userId: string, address: Address): Observable<Address> {
+        if (!userId) {
+            throw new Error(`Can't create an address without user id`);
+        }
+        if (!address) {
+            throw new Error(`Can't create an empty address`);
+        }
+        const route = `${BASE_URL}/users/${userId}/addresses`;
+        return this._authHttp.post<Address>(route, address);
+    }
+
+    /**
+     * Update an address by it's id
+     * @param address - the address to update
+     */
+    updateAddress(address: Address): Observable<void> {
+        if (!address || !address.id) {
+            throw new Error(`Can't update an address with an empty id`);
+        }
+        const route = `${BASE_URL}/addresses/${address.id}`;
+        return this._authHttp.put<void>(route, address);
     }
 }
