@@ -57,7 +57,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
                 // TODO can use : this._route.snapshot instead ?
                 this.isEditMode = window.location.pathname.indexOf('edit') > 0;
                 this._id = routeData.id as string;
-                console.log('get user info for id ' + this._id);
                 this._store.dispatch(new GetUserStart(this._id));
                 this._store.dispatch(new GetAddressListAsync(this._id));
                 this._store.dispatch(new GetParticipationListStart(this._id));

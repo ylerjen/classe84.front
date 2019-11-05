@@ -106,7 +106,7 @@ export class EventFormComponent implements OnInit {
                 console.log(this.georesults);
                 if (Array.isArray(this.georesults) && this.georesults.length) {
                     if (this.georesults.length > 1) {
-                        this.displayModalWithGeoResult()
+                        this.displayModalWithGeoResult();
                     } else if (this.georesults.length && this.georesults[0].locations.length) {
                         const geo1 = this.georesults[0] as MapquestResult;
                         const coord = geo1.locations[0].latLng;
