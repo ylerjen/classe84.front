@@ -8,18 +8,21 @@
     display: block;
 
     &-header a {
+        color: black;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: .5em 1em;
 
         &:hover {
+            background-color: #3097d1;
+            color: white;
             text-decoration: none;
-            text-shadow: 1px 1px 4px #3097d1;
         }
     }
     
     &-title {
+        color: inherit;
         font-size: 1rem;
         margin: 0;
         padding: 0;

@@ -47,21 +47,33 @@ export class AddressDetailComponent {
 
     public mapQuestKey = mapQuestKey;
 
-    setFavorite(evt: Event) {
+    /**
+     * Set the current address as the default one
+     * @param evt - the click event
+     */
+    setAsFavorite(evt: Event) {
         evt.preventDefault();
-        this.setFavoriteEmitter.emit(this.address.id.toString());
+        this.setFavoriteEmitter.emit(this.address.id);
     }
 
+    /**
+     * action to edit the current address
+     * @param evt - the click event
+     */
     edit(evt: Event) {
         evt.preventDefault();
         debugger;
         throw 'implement open modal here '
-        this.editEmitter.emit(this.address.id.toString());
+        this.editEmitter.emit(this.address.id);
     }
 
+    /**
+     * Action to delete the current address
+     * @param evt - the click event
+     */
     delete(evt: Event) {
         evt.preventDefault();
-        this.deleteEmitter.emit(this.address.id.toString());
+        this.deleteEmitter.emit(this.address.id);
     }
 
     /**
