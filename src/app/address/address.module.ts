@@ -23,7 +23,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
         AddressFormViewerComponent,
     ],
     exports: [
-        AddressListComponent
+        AddressListComponent,
+        AddressFormComponent,
     ]
 })
 export class AddressModule { }

@@ -50,10 +50,12 @@
                 formControlName="city"
                 placeholder="Sion"
             />
-            <app-validation-error class="col-12"
+            <app-validation-error
+                class="col-12"
                 [errors]="addressForm.get('zip')?.errors"
             ></app-validation-error>
-            <app-validation-error class="col-12"
+            <app-validation-error
+                class="col-12"
                 [errors]="addressForm.get('city')?.errors"
             ></app-validation-error>
         </div>
@@ -61,7 +63,7 @@
             <label for="adr-state">Canton</label><span class="ml-2 mr-2">/</span
             ><label for="adr-country">Pays</label>
         </div>
-        <div class="row">
+        <div class="row mb-2">
             <input
                 type="text"
                 id="adr-state"
@@ -76,8 +78,35 @@
                 formControlName="country"
                 placeholder="Suisse"
             />
-            <app-validation-error class="col-12" [errors]="addressForm.get('state')?.errors"></app-validation-error>
-            <app-validation-error class="col-12" [errors]="addressForm.get('country')?.errors"></app-validation-error>
+            <app-validation-error
+                class="col-12"
+                [errors]="addressForm.get('state')?.errors"
+            ></app-validation-error>
+            <app-validation-error
+                class="col-12"
+                [errors]="addressForm.get('country')?.errors"
+            ></app-validation-error>
+        </div>
+        <app-coordinates-form
+            isFormReadonly="true"
+            [baseForm]="addressForm"
+            [coordinates]="{ lat: addressForm.get('latitude').value, lng: addressForm.get('longitude').value }"
+        ></app-coordinates-form>
+        <div class="adr-form-action-wrapper mt-3">
+            <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="cancel($event)"
+            >
+                Annuler
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                (click)="save($event)"
+            >
+                Sauver
+            </button>
         </div>
     </form>
 </section>

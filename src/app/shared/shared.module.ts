@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BsDatepickerModule, CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, CollapseModule, BsDropdownModule, ModalModule } from 'ngx-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
 import { LoadersCssModule } from 'angular2-loaders-css';
 
@@ -12,15 +12,21 @@ import { GeoService } from './services/geo/geo.service';
 import { NotificationService } from './services/notification/notification.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ModalComponent } from './modal/modal.component';
+import { ItemControlsComponent } from './item-controls/item-controls.component';
+import { CoordinatesFormComponent } from './coordinates-form/coordinates-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StaticMapComponent } from './static-map/static-map.component';
 
 @NgModule({
     imports: [
         CommonModule,
+        ReactiveFormsModule,
         LoadersCssModule,
         BsDatepickerModule.forRoot(),
         CollapseModule.forRoot(),
         BsDropdownModule.forRoot(),
         NgxMaskModule.forRoot(),
+        ModalModule.forRoot(),
     ],
     providers: [
         GeoService,
@@ -33,6 +39,9 @@ import { ModalComponent } from './modal/modal.component';
         FlipComponent,
         DropdownComponent,
         ModalComponent,
+        ItemControlsComponent,
+        CoordinatesFormComponent,
+        StaticMapComponent,
     ],
     exports: [
         CommonModule,
@@ -40,6 +49,7 @@ import { ModalComponent } from './modal/modal.component';
         BsDatepickerModule,
         BsDropdownModule,
         NgxMaskModule,
+        ModalModule,
         CollapseModule,
         PanelComponent,
         PhoneNbPipe,
@@ -47,7 +57,9 @@ import { ModalComponent } from './modal/modal.component';
         FlipComponent,
         DropdownComponent,
         ModalComponent,
-        NgxMaskModule
+        ItemControlsComponent,
+        CoordinatesFormComponent,
+        StaticMapComponent,
     ],
 })
 export class SharedModule { }

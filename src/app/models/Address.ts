@@ -1,3 +1,5 @@
+import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
+
 export class Address {
     id: string;
     street: string;
@@ -9,22 +11,20 @@ export class Address {
     is_default: boolean;
     created_at: string;
     updated_at: string;
-
     latitude: string;
     longitude: string;
 
-    constructor(props: {[key: string]: any}) {
+    constructor(props: {[key: string]: any} =  {}) {
         this.id = props.id;
         this.street = props.street;
         this.street2 = props.street2;
-        this.npa = props.npa;
+        this.npa = props.npa || props.zip;  // in the form, the prop is named zip for autocompletion
         this.city = props.city;
         this.state = props.state;
         this.country = props.country;
-        this.is_default = props.is_default || false;
+        this.is_default = !!(props.is_default || false);
         this.created_at = props.created_at;
         this.updated_at = props.updated_at;
-
         this.latitude = props.latitude;
         this.longitude = props.longitude;
     }
@@ -53,5 +53,9 @@ export class Address {
             str.push(this.country);
         }
         return str.join(', ');
+    }
+
+    get coordinates(): MapquestCoordinates {
+        return new MapquestCoordinates(this.latitude, this.longitude);
     }
 }

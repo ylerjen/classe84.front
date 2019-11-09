@@ -1,31 +1,41 @@
-<div class="card block-card content address-item">
-    <div *ngIf="address.latitude && address.longitude" class="img-top">
-        <img class="img-fluid"
-            src="https://www.mapquestapi.com/staticmap/v5/map?key={{mapQuestKey}}&center={{address.latitude}},{{address.longitude}}"
-            alt="Map for coordinates {{address.latitude}},{{address.longitude}}">
-    </div>
-    <div class="card-body">
-        <div class="address-item__logo">
-            <button *ngIf="!address.is_default;else favorite" (click)="setFavorite($event)" class="btn btn-outline-primary btn-sm">
-                <i class="fa fa-2x fa-star-o" title="Set address as default"></i>
+<section class="adr-detail">
+    <header class="adr-detail-header">
+        <a href="#" (click)="toggleDetail($event)"
+        [attr.aria-expanded]="!isDetailCollapsed" aria-controls="collapsableDetail + compId">
+            <h1 class="adr-detail-title">{{ address.toString() }}</h1>
+            <span *ngIf="address.is_default" class="badge badge-primary">Principale</span>
+            <i class="fa fa-chevron-up ml-3 collapse-trigger" [class.upside-down]="isDetailCollapsed"></i>
+        </a>
+    </header>
+    <div id="collapsableDetail + compId" class="adr-detail-content" [collapse]="isDetailCollapsed" [isAnimated]="true">
+        <div class="adr-detail-action mt-2 mb-2">
+            <button type="button"
+                class="btn btn-primary btn-sm mr-1"
+                title="Editer l'adresse"
+                (click)="edit($event)"
+                ><i class="fa fa-pencil"></i
+            > Editer</button>
+            <button type="button"
+                class="btn btn-danger btn-sm mr-1"
+                title="Supprimer l'adresse"
+                (click)="delete($event)">
+                <i class="fa fa-trash"></i> Supprimer
+            </button>
+            <button *ngIf="!address.is_default"
+                type="button"
+                title="Définir comme adresse principale"
+                class="btn btn-warning btn-sm mr-1"
+                (click)="setAsFavorite($event)">
+                <i class="fa fa-star"></i> Définir comme principale
             </button>
         </div>
-        <ng-template #favorite>
-            <span class="favorite-address">
-                <i class="fa fa-2x fa-star" title="This is the default address"></i>
-            </span>
-        </ng-template >
-        <div class="address-item__detail">
-            <p>{{ address.street }}</p>
-            <p *ngIf="address.street2">{{ address.street2 }}</p>
-            <p>{{ address.npa }} {{ address.city }}</p>
-            <p>{{ address.state }} - {{ address.country }}</p>
-        </div>
+        <figure class="adr-detail-img">
+            <img class="mb-2 mt-2"
+            alt="Map for coordinates {{ address.coordinates.toString() }}"
+            [src]="mapLink" />
+            <figcaption class="adr-detail-text">
+                {{ address.coordinates.toString() }}
+            </figcaption>
+        </figure>
     </div>
-    <div class="card-footer filled-card-part">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <a href="/addresses/{{address.id}}/edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-            <button type="button" class="btn btn-danger" (click)="delete($event)"><i class="fa fa-trash"></i></button>
-          </div>
-    </div>
-</div>
+</section>

@@ -1,5 +1,5 @@
-<ul class="address-list row">
-    <li *ngFor="let address of addressList" class="col-12 col-lg-6">
+<ul class="address-list">
+    <li *ngFor="let address of addressList">
         <app-address-detail
             [address]="address"
             (setFavoriteEmitter)="onSetFavoriteAddress($event)"
@@ -8,5 +8,5 @@
         ></app-address-detail>
     </li>
     <li *ngIf="!addressList.length"
-        class="col-12 alert alert-info">No address to display...</li>
+        class="alert alert-info">Aucune adresse trouvée !</li>
 </ul>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Address } from '@models/Address';
@@ -12,6 +12,12 @@ export class AddressFormComponent implements OnInit {
 
     @Input()
     public address: Address;
+
+    @Output()
+    public cancelEmitter = new EventEmitter();
+
+    @Output()
+    public saveEmitter = new EventEmitter<Address>();
 
     public addressForm: FormGroup;
 
@@ -28,7 +34,7 @@ export class AddressFormComponent implements OnInit {
         this.addressForm = this.fb.group({
             id: [this.address.id],
             street: [this.address.street || '', Validators.required],
-            street2: [this.address.street2 || '', Validators.required],
+            street2: [this.address.street2 || ''],
             zip: [this.address.npa || '', Validators.required],
             city: [this.address.city || '', Validators.required],
             state: [this.address.state || '', Validators.required],
@@ -39,4 +45,17 @@ export class AddressFormComponent implements OnInit {
         });
     }
 
+    cancel(evt: Event) {
+        evt.preventDefault();
+        this.cancelEmitter.emit();
+    }
+
+    save(evt: Event) {
+        evt.preventDefault();
+        this.addressForm.markAllAsTouched();
+        if (this.addressForm.valid) {
+            const address = new Address(this.addressForm.value);
+            this.saveEmitter.emit(address);
+        }
+    }
 }

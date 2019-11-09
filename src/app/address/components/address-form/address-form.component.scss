@@ -1,3 +1,9 @@
 .adr-form {
     max-width: 500px;
+    margin: auto;
+    
+    &-action-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
 }
