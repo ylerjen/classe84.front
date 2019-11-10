@@ -1,6 +1,6 @@
 <div>
     <figure class="user-image-holder">
-        <img id="profileImg" src="assets/svg/user.svg" class="png" alt="Photo de {{ user.first_name }}" class="logo img-circle" />
+        <img id="profileImg" src="assets/svg/{{user.gender === 'm' ? 'man':'girl'}}.svg" class="png" alt="Photo de {{ user.first_name }}" class="logo img-circle" />
     </figure>
     <div class="user-title text-center">
         <h1>{{user.fullname}}</h1>
