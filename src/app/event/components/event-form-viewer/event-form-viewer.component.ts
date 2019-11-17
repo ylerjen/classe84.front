@@ -44,7 +44,7 @@ export class EventFormViewerComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subs.unsubscribe()
+        this.subs.unsubscribe();
     }
 
     saveEvent(event: EventModel) {

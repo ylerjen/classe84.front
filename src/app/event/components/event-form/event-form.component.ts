@@ -10,8 +10,6 @@ import { MapquestResultPayload, MapquestResult, MapquestResultLocations } from '
 import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
 import { mapQuestKey, mapQuestMapUrl } from 'app/shared/services/geo/geo.service';
 
-
-
 @Component({
     selector: 'app-event-form',
     templateUrl: './event-form.component.html',
@@ -152,7 +150,7 @@ export class EventFormComponent implements OnInit {
      */
     onStartDateChanged(newDate: Date): void {
         const startDate = this.eventForm.get('start_date').value;
-        const endDateCtrl = this.eventForm.get('end_date')
+        const endDateCtrl = this.eventForm.get('end_date');
         const endDate = endDateCtrl.value;
         if (!endDate) {
             endDateCtrl.setValue(startDate);
