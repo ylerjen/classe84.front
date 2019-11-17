@@ -9,5 +9,3 @@ export class Permission {
         this.createdAt = opts.createdAt;
     }
 }
-
-export const CAN_MODIFY_USERS = 'users::modify';

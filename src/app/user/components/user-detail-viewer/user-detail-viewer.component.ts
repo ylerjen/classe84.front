@@ -6,14 +6,19 @@ import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
 
 import { User } from '@models/User';
 import { Address } from '@models/Address';
+import { Session } from '@models/Session';
 import { ROUTE_URL } from 'app/config/router.config';
 import { GlobalState } from 'app/stores/globalState';
 import { IUserState } from 'app/stores/user/user.reducer';
-import { SetFavoriteAddress, DeleteAddressById, CreateAddressForUser, CreateAddressForUserIdCmd, UpdateAddressInList } from 'app/actions/addresslist.actions';
 import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 import { selectUserState } from 'app/stores/user/selectors/user.selector';
-import { selectSessionState, SessionFeatureState } from 'app/auth/state/selectors/session.selector';
-import { SessionState } from 'app/auth/state/reducers/session.reducer';
+import { SessionFeatureState, selectSession } from 'app/auth/state/selectors/session.selector';
+import { SetFavoriteAddress,
+    DeleteAddressById,
+    CreateAddressForUser,
+    CreateAddressForUserIdCmd,
+    UpdateAddressInList
+} from 'app/actions/addresslist.actions';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -24,12 +29,12 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     private userStore$: Observable<IUserState>;
-    private sessionStore$: Observable<SessionState>;
     private AddressStore$: Observable<IAddressListState>;
 
     @ViewChild('addressFormModal', { static: false })
     public addressFormModal: ModalDirective;
 
+    public session$: Observable<Session>;
     public modalRef: BsModalRef | null;
     public user: User;
     public addressList: Array<Address> = [];
@@ -42,7 +47,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         private modalService: BsModalService,
     ) {
         this.userStore$ = this._store.select((state: GlobalState) => selectUserState(state));
-        this.sessionStore$ = this._store.select((state: SessionFeatureState) => selectSessionState(state));
+        this.session$ = this._store.select((state: SessionFeatureState) => selectSession(state));
         this.AddressStore$ = this._store.select((state: GlobalState) => state.addressListState);
     }
 
@@ -53,8 +58,6 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         );
         this.sub.add(this.userStore$.subscribe(
             (userState: IUserState) => {
-                console.log({ userState });
-
                 if (userState.user) {
                     const curUser = new User(userState.user);
                     this.user = curUser;

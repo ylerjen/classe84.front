@@ -1,20 +1,30 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { User } from 'app/models/User';
-import { Permission, CAN_MODIFY_USERS } from '@models/Permission';
+import { Permission } from '@models/Permission';
+import { PermissionType } from '@models/PermissionType';
+import { routeBuilder } from 'app/config/router.config';
 
 @Component({
     selector: 'app-user-detail',
     templateUrl: './user-detail.component.html',
     styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent {
+export class UserDetailComponent implements OnInit {
+    private _user: User;
 
     @Input()
-    permissions: Array<Permission> = [];
+    permissions: Array<string> = [];
 
     @Input()
-    user: User = new User();
+    set user(val: User) {
+        this._user = val;
+        this.editUrl = val ? routeBuilder.userEdit(val.id) : '';
+    }
+
+    get user() {
+        return this._user;
+    }
 
     @Output()
     editUser = new EventEmitter<string>();
@@ -22,11 +32,7 @@ export class UserDetailComponent {
     @Output()
     deleteUser = new EventEmitter<string>();
 
-    onClickEdit(): void {
-        if (this.user) {
-            this.editUser.emit(this.user.id);
-        }
-    }
+    public editUrl: string;
 
     onClickDelete(): void {
         if (this.user) {
@@ -35,6 +41,9 @@ export class UserDetailComponent {
     }
 
     canModify(): boolean {
-        return Array.isArray(this.permissions) && this.permissions.find( perm => perm.name === CAN_MODIFY_USERS) != null;
+        if (!Array.isArray(this.permissions)) {
+            return false;
+        }
+        return !!this.permissions.find( perm => perm === PermissionType.WriteUsers);
     }
 }
