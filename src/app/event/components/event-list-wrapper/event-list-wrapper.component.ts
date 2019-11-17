@@ -3,10 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Event } from 'app/models/Event';
-import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
+import { IEventListState } from 'app/event/state/reducers/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { GlobalState } from 'app/stores/globalState';
-import { ChangeEventListFilter, GetEventListAsyncStart } from 'app/actions/eventlist.actions';
+import { ChangeEventListFilter, GetEventListAsyncStart } from 'app/event/state/actions/eventlist.actions';
 import { Subscription } from 'rxjs';
 
 @Component({

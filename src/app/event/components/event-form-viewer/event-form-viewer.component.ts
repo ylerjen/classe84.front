@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { SessionState } from 'app/auth/state/reducers/session.reducer';
-import { EventState } from 'app/stores/event/event.reducer';
+import { EventState } from 'app/event/state/reducers/event.reducer';
 import { EventsService } from '../../services/events.service';
 import { Event as EventModel } from 'app/models/Event';
-import { UpdateEvent } from 'app/actions/event.actions';
+import { UpdateEvent } from 'app/event/state/actions/event.actions';
 import { NotificationService } from '@shared/services/notification/notification.service';
 
 import { ROUTE_URL } from 'app/config/router.config';

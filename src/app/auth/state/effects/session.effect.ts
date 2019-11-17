@@ -10,7 +10,7 @@ import { HTTP_STATUS_CODE } from '@models/Constants';
 import { Login } from '@models/Login';
 import { Session } from '@models/Session';
 import { ENotificationType } from '@models/Notification';
-import { AuthService } from '../auth/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { AuthenticationError } from '@models/AuthenticationError';
 import {

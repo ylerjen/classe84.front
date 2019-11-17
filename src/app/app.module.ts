@@ -28,7 +28,7 @@ import { NotifierComponent } from './components/notifier/notifier.component';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 import { AppEffects } from './effects/app.effect';
-import { SessionEffects } from './effects/session.effect';
+import { SessionEffects } from './auth/state/effects/session.effect';
 import { AddressEffects } from './effects/address.effect';
 import { SubscriptionEffects } from './effects/subscription.effect';
 import { NotificationEffects } from './effects/notification.effect';

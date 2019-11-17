@@ -7,7 +7,7 @@ import { GlobalState } from 'app/stores/globalState';
 import { User } from '@models/User';
 import { Subscription } from '@models/Subscription';
 import { Event as EventModel } from '@models/Event';
-import { DeleteEventFromList } from '@actions/eventlist.actions';
+import { DeleteEventFromList } from 'app/event/state/actions/eventlist.actions';
 import { DeleteSubscription, AddSubscription } from '@actions/subscription.actions';
 import { selectSubscription } from 'app/stores/subscription/subscription.selector';
 import { selectLoggedUser, SessionFeatureState } from 'app/auth/state/selectors/session.selector';

@@ -7,7 +7,7 @@ import { Session } from '@models/Session';
 import { Event } from '@models/Event';
 import { Subscription as EventSubscription } from '@models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
-import { EventState } from 'app/stores/event/event.reducer';
+import { EventState } from 'app/event/state/reducers/event.reducer';
 import { SessionState } from 'app/auth/state/reducers/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { selectSessionState, SessionFeatureState } from 'app/auth/state/selectors/session.selector';

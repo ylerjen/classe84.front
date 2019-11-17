@@ -7,10 +7,10 @@ import { User } from '@models/User';
 import { Subscription as EventSubscription } from '@models/Subscription';
 import { Event as EventModel } from '@models/Event';
 import { GlobalState } from 'app/stores/globalState';
-import { EventState } from 'app/stores/event/event.reducer';
+import { EventState } from 'app/event/state/reducers/event.reducer';
 import { UserListState } from 'app/stores/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { GetEvent } from '@actions/event.actions';
+import { GetEvent } from 'app/event/state/actions/event.actions';
 import {
     AddSubscription,
     DeleteSubscription,

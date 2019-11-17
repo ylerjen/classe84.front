@@ -6,7 +6,7 @@ import { take, map, filter } from 'rxjs/operators';
 
 import { Event } from '@models/Event';
 import { GlobalState } from 'app/stores/globalState';
-import { GetEvent } from '@actions/event.actions';
+import { GetEvent } from 'app/event/state/actions/event.actions';
 import { GetSubscriptionStart } from '@actions/subscription.actions';
 
 
