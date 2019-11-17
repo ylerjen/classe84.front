@@ -4,13 +4,14 @@ import { Store } from '@ngrx/store';
 import { Observable ,  Subscription as RxjsSubscriptions } from 'rxjs';
 
 import { ROUTE_URL } from 'app/config/router.config';
-import { Session } from 'app/models/Session';
-import { Event } from 'app/models/Event';
-import { Subscription as EventSubscription } from 'app/models/Subscription';
+import { Session } from '@models/Session';
+import { Event } from '@models/Event';
+import { Subscription as EventSubscription, Subscription } from '@models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
 import { EventState } from 'app/stores/event/event.reducer';
 import { SessionState } from 'app/stores/session/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { AddSubscription, DeleteSubscription } from '@actions/subscription.actions';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -62,7 +63,7 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         this.rxjsSubscriptions.add(
             this.sessionState$.subscribe(
                 state => {
-                    if (state.isLoggedIn && state.session.user) {
+                    if (state.session.user) {
                         this.session = state.session;
                     }
                     this.defineSubscriptionState();
@@ -89,24 +90,5 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
             this.event = new Event(state.event);
             this.isLoading = state.isLoading;
         }
-    }
-
-    goToEdit(): void {
-        if (!this.event) {
-            throw new Error('no valid Event is referenced');
-        }
-        const id = this.event.id;
-        if (typeof id === 'undefined') { return; }
-        const url = `${ROUTE_URL.events}/${id.toString()}/edit`;
-        this._router.navigate([url]);
-    }
-
-    delete(): void {
-        if (!this.event) {
-            throw new Error('no valid Event is referenced');
-        }
-        const id = this.event.id;
-        console.log('delete', id);
-        throw new Error('not implemented yet');
     }
 }

@@ -20,28 +20,10 @@ export class EventControlsComponent {
     public isSubscribable: boolean;
 
     @Output()
-    public goToEditEvent = new EventEmitter();
-
-    @Output()
-    public deleteEvent = new EventEmitter();
-
-    @Output()
     public subscribeToEvent = new EventEmitter();
 
     @Output()
     public unsubscribeFromEvent = new EventEmitter();
-
-    goToEdit(evt: Event): void {
-        evt.preventDefault();
-        console.log('edit');
-        this.goToEditEvent.emit();
-    }
-
-    delete(evt: Event): void {
-        evt.preventDefault();
-        console.log('delete');
-        this.deleteEvent.emit();
-    }
 
     subscribe(evt: Event): void {
         evt.preventDefault();

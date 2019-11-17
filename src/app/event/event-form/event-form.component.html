@@ -107,9 +107,9 @@
             <app-validation-error [errors]="eventForm.get('longitude').errors"></app-validation-error>
     </div>
     <div>
-    <img class="img-fluid" *ngIf="mapPath"
-        [src]="mapPath"
-        alt="Map for coordinates {{eventForm.get('latitude').value}},{{eventForm.get('longitude').value}}" />
+        <img class="img-fluid" *ngIf="mapPath"
+            [src]="mapPath"
+            alt="Map for coordinates {{eventForm.get('latitude').value}},{{eventForm.get('longitude').value}}" />
     </div>
     <div class="form-group">
         <label for="link-{{compId}}">Lien</label>

@@ -1,18 +1,6 @@
 <nav class="module-actions">
-    <a href="/events" class="btn btn-default">
-        <i class="fa fa-arrow-left"></i>
-    </a>
+    les actions
     <div *ngIf="isAdmin">
-        <button class="btn btn-outline-info"
-            (click)="goToEdit($event)"
-            title="Edit">
-            <i class="fa fa-pencil"></i> Editer
-        </button>
-        <button class="btn btn-outline-danger"
-            (click)="delete($event)"
-            title="Delete">
-            <i class="fa fa-trash"></i> Supprimer
-        </button>
         <a href="/events/{{eventId}}/subscriptions" class="btn btn-outline-info">Gérer les inscriptions</a>
     </div>
     <div *ngIf="isSubscribable">

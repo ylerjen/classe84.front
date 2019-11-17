@@ -11,6 +11,7 @@ import { ContactPageComponent } from '../contact/contact-page/contact-page.compo
 export const ROUTE_URL: { [key: string]: string } = {
     default: '',
     about: 'about',
+    admin: 'admin',
     login: 'login',
     logout: 'logout',
     events: 'events',
@@ -31,6 +32,7 @@ export const routeBuilder = {
     eventlist: () => ROUTE_URL.events,
     event: (id: string) => `${ROUTE_URL.events}/${id}`,
     eventEdit: (id: string) => `${ROUTE_URL.events}/${id}/edit`,
+    admin: () => ROUTE_URL.admin,
 };
 
 export const appRoutes: Routes = [

@@ -7,14 +7,12 @@ import { SessionActionTypes,
     LoginFinishedAction } from 'app/actions/session.actions';
 
 export interface SessionState {
-    isLoggedIn: boolean;
     session: Session;
     isProcessing: boolean;
     errors: Array<string>;
 }
 
 export const initialState: SessionState = {
-    isLoggedIn: false,
     session: null,
     isProcessing: false,
     errors: []
@@ -35,7 +33,6 @@ export function sessionReducer(state: SessionState = initialState, action: Sessi
             const act = action as LoginFinishedAction | SetExistingSession;
             return {
                 ...state,
-                isLoggedIn: true,
                 session: act.payload,
                 isProcessing: false
             };

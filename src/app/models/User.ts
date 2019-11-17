@@ -22,7 +22,6 @@ export class User {
     public website: string;
     public created_at: Date;
     public updated_at: Date;
-    public permissions: Array<any>;
 
     get fullname(): string {
         let name = '';

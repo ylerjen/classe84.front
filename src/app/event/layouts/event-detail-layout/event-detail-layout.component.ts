@@ -1,12 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription as ObsSubscr } from 'rxjs';
+import { Subscription as ObsSubscr, Observable, combineLatest } from 'rxjs';
 
 import { GlobalState } from 'app/stores/globalState';
-import { EventState } from 'app/stores/event/event.reducer';
+import { User } from '@models/User';
 import { Subscription } from '@models/Subscription';
-import { ActivatedRoute } from '@angular/router';
-import { Session } from '@models/Session';
+import { Event as EventModel } from '@models/Event';
+import { DeleteEventFromList } from '@actions/eventlist.actions';
+import { DeleteSubscription, AddSubscription } from '@actions/subscription.actions';
+import { selectSubscription } from 'app/stores/subscription/subscription.selector';
+import { selectLoggedUser } from 'app/stores/session/session.selector';
+import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 
 @Component({
     selector: 'app-event-detail-layout',
@@ -15,34 +20,75 @@ import { Session } from '@models/Session';
 })
 export class EventDetailLayoutComponent implements OnInit, OnDestroy {
 
+    private user: User;
     public subscriptions: ObsSubscr;
+    public eventSubscr$: Observable<ISubscriptionState>;
+    public loggedUser$: Observable<User>;
     public eventSubscriptions: Array<Subscription>;
-    public isAdmin: boolean;
     public isLoading = true;
-    public eventId: string;
+    public event: EventModel;
+    public formUrl: string;
+    public isSubscribable = true;
+    public isSubscribed: boolean;
+    public permissions: 
 
     constructor(
-        private _route: ActivatedRoute,
+        private route: ActivatedRoute,
         private store$: Store<GlobalState>,
     ) {}
 
     ngOnInit() {
-        this.eventId = this._route.snapshot.data.currentEvent.id;
-        this.subscriptions = this.store$.select(s => s.subscriptionsState)
-            .subscribe({
-                next: s => {
-                    this.eventSubscriptions = s.subscriptionList;
-                    this.isLoading = s.isLoading;
-                }
-            });
+        this.event = this.route.snapshot.data.currentEvent;
+        this.eventSubscr$ = this.store$.select(s => selectSubscription(s));
+        this.loggedUser$ = this.store$.select(s => selectLoggedUser(s));
 
-        this.subscriptions.add(this.store$.select(s => s.sessionState)
-            .subscribe({
-                next: s => this.isAdmin = s.session.isAdmin,
-            }))
+
+        combineLatest(this.eventSubscr$, this.loggedUser$, (subscState, user) => {
+            this.user = user;
+            this.eventSubscriptions = subscState.subscriptionList;
+            const userSub = this.eventSubscriptions.find(subscr => subscr.user.id === user.id);
+            this.isSubscribed = !!userSub;
+            this.isLoading = subscState.isLoading;
+          }).subscribe();
     }
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe();
+    }
+
+    delete(): void {
+        this.store$.dispatch(new DeleteEventFromList(this.event));
+    }
+
+    /**
+     * Subscribe current user to the event
+     */
+    subscribe(): void {
+        const subscription = new Subscription({
+            event,
+            user: this.user,
+        });
+        this.store$.dispatch(new AddSubscription(subscription));
+    }
+
+    /**
+     * Unsubscribe current user to the event
+     */
+    unsubscribe(): void {
+        const id = this.event.id;
+        const subscription = new Subscription({
+            event,
+            user: this.user,
+        });
+        this.store$.dispatch(new DeleteSubscription(subscription));
+    }
+
+    deleteEvent(): void {
+        if (!this.event) {
+            throw new Error('no valid Event is referenced');
+        }
+        const id = this.event.id;
+        console.log('delete', id);
+        throw new Error('not implemented yet');
     }
 }

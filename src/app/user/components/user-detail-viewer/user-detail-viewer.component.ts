@@ -12,6 +12,8 @@ import { SetFavoriteAddress, DeleteAddressById, CreateAddressForUser, CreateAddr
 import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 import { selectUserState } from 'app/stores/user/selectors/user.selector';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
+import { selectSessionState } from 'app/stores/session/session.selector';
+import { SessionState } from 'app/stores/session/session.reducer';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -22,6 +24,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     private userStore$: Observable<IUserState>;
+    private sessionStore$: Observable<SessionState>;
     private AddressStore$: Observable<IAddressListState>;
 
     @ViewChild('addressFormModal', { static: false })
@@ -39,6 +42,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
         private modalService: BsModalService,
     ) {
         this.userStore$ = this._store.select(store => selectUserState(store));
+        this.sessionStore$ = this._store.select(store => selectSessionState(store));
         this.AddressStore$ = this._store.select(store => store.addressListState);
     }
 

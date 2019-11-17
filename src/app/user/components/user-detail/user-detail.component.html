@@ -10,7 +10,7 @@
     <div class="ribbon-wrapper">
         <div class="ribbon" [ngClass]="{inactiv : !user.is_active}">{{user.is_active ? "Actif" : "Inactif"}}</div>
     </div>
-    <div class="actions" *ngIf="user">
+    <div class="actions" *ngIf="user && canModify()">
         <button class="btn btn-primary" (click)="onClickEdit()">
             <i class="fa fa-pencil"></i>
         </button>
