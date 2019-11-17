@@ -6,6 +6,8 @@ import { SessionActionTypes,
     SetExistingSession,
     LoginFinishedAction } from 'app/actions/session.actions';
 
+export const sessionFeatureKey = 'sessionState';
+
 export interface SessionState {
     session: Session;
     isProcessing: boolean;

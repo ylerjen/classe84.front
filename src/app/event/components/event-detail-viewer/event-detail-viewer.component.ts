@@ -3,15 +3,14 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable ,  Subscription as RxjsSubscriptions } from 'rxjs';
 
-import { ROUTE_URL } from 'app/config/router.config';
 import { Session } from '@models/Session';
 import { Event } from '@models/Event';
-import { Subscription as EventSubscription, Subscription } from '@models/Subscription';
+import { Subscription as EventSubscription } from '@models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
 import { EventState } from 'app/stores/event/event.reducer';
-import { SessionState } from 'app/stores/session/session.reducer';
+import { SessionState } from 'app/auth/state/reducers/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
-import { AddSubscription, DeleteSubscription } from '@actions/subscription.actions';
+import { selectSessionState, SessionFeatureState } from 'app/auth/state/selectors/session.selector';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -38,12 +37,12 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
     public isAdmin = true;
 
     constructor(
-        private _store: Store<GlobalState>,
+        private _store: Store<GlobalState|SessionFeatureState>,
         private _router: Router,
     ) {
-        this.eventState$ = this._store.select(store => store.eventState);
-        this.sessionState$ = this._store.select(store => store.sessionState);
-        this.evtSubscrState$ = this._store.select(store => store.subscriptionsState);
+        this.eventState$ = this._store.select( (state: GlobalState) => state.eventState);
+        this.sessionState$ = this._store.select( (store: SessionFeatureState) => selectSessionState(store));
+        this.evtSubscrState$ = this._store.select((state: GlobalState) => state.subscriptionsState);
     }
 
     ngOnInit(): void {

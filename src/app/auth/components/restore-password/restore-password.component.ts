@@ -1,10 +1,10 @@
 
-import {throwError as observableThrowError,  Observable, Subscription } from 'rxjs';
 
-import {finalize, catchError, switchMap} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {throwError as observableThrowError,  Observable, Subscription } from 'rxjs';
+import {finalize, catchError, switchMap} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 
@@ -12,9 +12,9 @@ import { UUID } from 'angular2-uuid';
 
 import { GlobalState } from 'app/stores/globalState';
 import { ChangePasswordFromRecovery } from '@actions/session.actions';
-import { AuthService, RECOVERY_TOKEN_PARAM_NAME } from '../services/auth.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { CustomValidators } from '@shared/validators/CustomValidators';
+import { AuthService, RECOVERY_TOKEN_PARAM_NAME } from '../../services/auth.service';
 
 /**
  * This component is used to restore the password of an account identified by the passed token in the url

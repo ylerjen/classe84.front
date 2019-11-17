@@ -1,7 +1,18 @@
 <div class="row">
     <ng-template #loader>Loading...</ng-template>
     <section class="col-md-8">
-        <app-item-controls class="card-body" [editUrl]="formUrl" (delete)="deleteEvent()"></app-item-controls>
+        <nav class="module-actions">
+            <a class="btn btn-outline-info"
+                [href]="editEventUrl"
+                title="Edit">
+                <i class="fa fa-pencil"></i> Editer
+        </a>
+            <button class="btn btn-outline-danger"
+                (click)="delete($event)"
+                title="Delete">
+                <i class="fa fa-trash"></i> Supprimer
+            </button>
+        </nav>
         <app-event-detail-viewer></app-event-detail-viewer>
     </section>
     <aside class="col-md-4">

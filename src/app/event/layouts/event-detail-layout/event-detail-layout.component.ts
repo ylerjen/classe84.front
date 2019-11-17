@@ -10,8 +10,9 @@ import { Event as EventModel } from '@models/Event';
 import { DeleteEventFromList } from '@actions/eventlist.actions';
 import { DeleteSubscription, AddSubscription } from '@actions/subscription.actions';
 import { selectSubscription } from 'app/stores/subscription/subscription.selector';
-import { selectLoggedUser } from 'app/stores/session/session.selector';
+import { selectLoggedUser, SessionFeatureState } from 'app/auth/state/selectors/session.selector';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { eventRouteBuilder } from 'app/event/event-route-builder';
 
 @Component({
     selector: 'app-event-detail-layout',
@@ -30,18 +31,20 @@ export class EventDetailLayoutComponent implements OnInit, OnDestroy {
     public formUrl: string;
     public isSubscribable = true;
     public isSubscribed: boolean;
-    public permissions: 
+    public permissions: Array<string> = [];
+    public editEventUrl: string;
 
     constructor(
         private route: ActivatedRoute,
-        private store$: Store<GlobalState>,
+        private store$: Store<GlobalState | SessionFeatureState>,
     ) {}
 
     ngOnInit() {
         this.event = this.route.snapshot.data.currentEvent;
-        this.eventSubscr$ = this.store$.select(s => selectSubscription(s));
-        this.loggedUser$ = this.store$.select(s => selectLoggedUser(s));
+        this.loggedUser$ = this.store$.select((s: SessionFeatureState) => selectLoggedUser(s));
+        this.eventSubscr$ = this.store$.select((s: GlobalState) => selectSubscription(s));
 
+        this.editEventUrl = eventRouteBuilder.edit(this.event.id);
 
         combineLatest(this.eventSubscr$, this.loggedUser$, (subscState, user) => {
             this.user = user;

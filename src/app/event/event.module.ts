@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxEditorModule } from 'ngx-editor';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { SharedModule } from '../shared/shared.module';
-import { AuthService } from '../auth/services/auth.service';
 import { EventsService } from './services/events.service';
 import { EventlistPageComponent } from './pages/eventlist/eventlist-page.component';
 import { EventListComponent } from './components/event-list/event-list.component';
@@ -26,49 +23,20 @@ import { EventResolverService } from './resolvers/event-resolver.service';
 import { EffectsModule } from '@ngrx/effects';
 import { EventEffects } from 'app/effects/event.effect';
 import { EventlistEffects } from 'app/effects/eventlist.effect';
-
-const eventRoutes: Routes = [
-    {
-        path: 'events',
-        component: EventlistPageComponent
-    },
-    {
-        path: 'events/add',
-        component: EventFormLayoutComponent,
-    }, {
-        path: 'events/:id',
-        component: EventDetailLayoutComponent,
-        canActivate: [ AuthService ],
-        resolve: {
-            currentEvent: EventResolverService
-        },
-    }, {
-        path: 'events/:id/edit',
-        component: EventFormLayoutComponent,
-        canActivate: [ AuthService ],
-        resolve: {
-            dispatcher: EventResolverService,
-        }
-    }, {
-        path: 'events/:id/subscriptions',
-        component: EventSubscriptionsViewerComponent,
-        canActivate: [ AuthService ],
-    }
-];
+import { EventRoutingModule } from './event-routing.module';
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
-        RouterModule.forChild(eventRoutes),
         FormsModule,
         ReactiveFormsModule,
+        EventRoutingModule,
         EffectsModule.forFeature([
             EventlistEffects,
             EventEffects,
         ]),
         NgxEditorModule,
-        TypeaheadModule.forRoot(),
     ],
     declarations: [
         EventlistPageComponent,
@@ -87,7 +55,6 @@ const eventRoutes: Routes = [
         EventDetailLayoutComponent,
     ],
     providers: [
-        EventsService,
         EventResolverService,
     ]
 })

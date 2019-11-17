@@ -8,14 +8,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
 import { User } from '@models/User';
-import { GlobalState } from 'app/stores/globalState';
-import { SessionState } from 'app/stores/session/session.reducer';
 import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from 'app/models/Login';
 import { Session } from '@models/Session';
 import { ROUTE } from '../auth-route.config';
 import { ResetPasswordResponse } from '@models/ResetPasswordResponse';
 import { SessionExpired } from '@actions/session.actions';
 import { ExtendableError } from '@models/ExtendableError';
+import { SessionFeatureState, selectLoggedUser } from '../state/selectors/session.selector';
 
 export const RECOVERY_TOKEN_VAR_NAME = '${token}';
 export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
@@ -45,13 +44,13 @@ export class AuthService implements CanActivate {
 
     constructor(
         private _authHttp: HttpClient,
-        private _store: Store<GlobalState>,
+        private _store: Store<SessionFeatureState>,
         private _router: Router,
         public jwtHelper: JwtHelperService
     ) {
-        this._store.select(store => store.sessionState)
-            .subscribe((sessionState: SessionState) => {
-                this._isLoggedIn = sessionState.isLoggedIn;
+        this._store.select(state => selectLoggedUser(state))
+            .subscribe((user: User) => {
+                this._isLoggedIn = !!user;
             });
     }
 
@@ -95,6 +94,11 @@ export class AuthService implements CanActivate {
         const endpoint = `${authBaseRoute}/user`;
         return this._authHttp.get<Session>(endpoint).pipe(
             map((body): User => new User(body.user)));
+    }
+
+    refreshSession(): Observable<Session> {
+        const endpoint = `${authBaseRoute}/refresh`;
+        return this._authHttp.post<Session>(endpoint, {});
     }
 
     /**

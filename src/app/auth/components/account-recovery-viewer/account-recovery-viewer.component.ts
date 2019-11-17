@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { SendPasswordRecoveryMail } from '@actions/session.actions';
 import { Store } from '@ngrx/store';
-import { GlobalState } from '../../stores/globalState';
+import { GlobalState } from '../../../stores/globalState';
 
 @Component({
     selector: 'app-account-recovery-viewer',

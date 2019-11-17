@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { SessionState } from 'app/stores/session/session.reducer';
+import { SessionState } from 'app/auth/state/reducers/session.reducer';
 import { EventState } from 'app/stores/event/event.reducer';
 import { EventsService } from '../../services/events.service';
 import { Event as EventModel } from 'app/models/Event';

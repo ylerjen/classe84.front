@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { adminRoutes } from './admin-router.config';
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(adminRoutes)
-],
-declarations: [],
-providers: [],
-bootstrap: [],
-exports: [
-    RouterModule
-]
+    imports: [
+        RouterModule.forChild(adminRoutes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class AdminRoutingModule { }

@@ -12,10 +12,13 @@ import { AddEvent, UpdateEvent} from 'app/actions/event.actions';
 import { DeleteEventFromList } from 'app/actions/eventlist.actions';
 import { ErrorWithContext } from '@models/ErrorWithContext';
 import { User } from '@models/User';
+import { EventModule } from '../event.module';
 
 const BASE_URL = `${env.API_URL}/events`;
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class EventsService {
 
     constructor(

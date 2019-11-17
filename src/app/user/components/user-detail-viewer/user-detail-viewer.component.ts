@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/c
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
 
 import { User } from '@models/User';
 import { Address } from '@models/Address';
@@ -11,9 +12,8 @@ import { IUserState } from 'app/stores/user/user.reducer';
 import { SetFavoriteAddress, DeleteAddressById, CreateAddressForUser, CreateAddressForUserIdCmd, UpdateAddressInList } from 'app/actions/addresslist.actions';
 import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 import { selectUserState } from 'app/stores/user/selectors/user.selector';
-import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
-import { selectSessionState } from 'app/stores/session/session.selector';
-import { SessionState } from 'app/stores/session/session.reducer';
+import { selectSessionState, SessionFeatureState } from 'app/auth/state/selectors/session.selector';
+import { SessionState } from 'app/auth/state/reducers/session.reducer';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -37,13 +37,13 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     public currentlyEditedAddress: Address;
 
     constructor(
-        private _store: Store<GlobalState>,
+        private _store: Store<GlobalState | SessionFeatureState>,
         private _router: Router,
         private modalService: BsModalService,
     ) {
-        this.userStore$ = this._store.select(store => selectUserState(store));
-        this.sessionStore$ = this._store.select(store => selectSessionState(store));
-        this.AddressStore$ = this._store.select(store => store.addressListState);
+        this.userStore$ = this._store.select((state: GlobalState) => selectUserState(state));
+        this.sessionStore$ = this._store.select((state: SessionFeatureState) => selectSessionState(state));
+        this.AddressStore$ = this._store.select((state: GlobalState) => state.addressListState);
     }
 
     ngOnInit(): void {

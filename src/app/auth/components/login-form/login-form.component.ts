@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 
 import { Login, LoginFactory } from 'app/models/Login';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 /**
  * Login form
