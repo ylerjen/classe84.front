@@ -12,9 +12,8 @@ import { GeoService } from './services/geo/geo.service';
 import { NotificationService } from './services/notification/notification.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ModalComponent } from './modal/modal.component';
-import { ItemControlsComponent } from './item-controls/item-controls.component';
 import { CoordinatesFormComponent } from './coordinates-form/coordinates-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { StaticMapComponent } from './static-map/static-map.component';
 
 @NgModule({
@@ -39,7 +38,6 @@ import { StaticMapComponent } from './static-map/static-map.component';
         FlipComponent,
         DropdownComponent,
         ModalComponent,
-        ItemControlsComponent,
         CoordinatesFormComponent,
         StaticMapComponent,
     ],
@@ -57,7 +55,6 @@ import { StaticMapComponent } from './static-map/static-map.component';
         FlipComponent,
         DropdownComponent,
         ModalComponent,
-        ItemControlsComponent,
         CoordinatesFormComponent,
         StaticMapComponent,
     ],
