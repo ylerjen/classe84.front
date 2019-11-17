@@ -10,7 +10,7 @@ import { routeBuilder } from 'app/config/router.config';
     templateUrl: './user-detail.component.html',
     styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent {
     private _user: User;
 
     @Input()
