@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 
 import { Event } from '@models/Event';
 import { IEventListState } from 'app/event/states/reducers/eventlist/eventlist.reducer';
@@ -21,9 +21,8 @@ export class EventListWrapperComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private eventsList: Array<Event> = [];
 
-    public filter: IEventListFilter =  {
+    public filter: IEventListFilter = {
         name: '',
-        year: undefined,
     };
 
     public isLoading: boolean;
@@ -37,23 +36,29 @@ export class EventListWrapperComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.sub = this._store.pipe(select(selectEventlistState))
-            .subscribe( (evtState: IEventListState) => {
-                if (evtState) {
-                    this.eventsList = evtState.eventList;
-                    this.filter = evtState.eventFilter;
-                    this.isLoading = evtState.isLoading;
-                    this.filterList();
-                    this.updateCurrentRoute();
-                }
-            });
-        this.sub.add(this._activeRoute.queryParams.subscribe(
-            (params: IEventListFilter) => {
-                if (params) {
-                    this.filter = params;
-                }
+        this.sub = combineLatest(
+            this._store.pipe(select(selectEventlistState)),
+            this._activeRoute.queryParams,
+        ).subscribe(([eventlistState, routeParam]) => {
+            if (eventlistState) {
+                this.eventsList = eventlistState.eventList;
+                this.filter = eventlistState.eventFilter;
+                this.isLoading = eventlistState.isLoading;
             }
-        ));
+            if (routeParam) {
+                const p: IEventListFilter = {
+                    name: routeParam.name,
+                };
+                if (routeParam.year > 0) {
+                    p.year = +routeParam.year;
+                } else {
+                    delete p.year;
+                }
+                this.filter = p;
+            }
+            this.updateCurrentRoute();
+            this.filterList();
+        });
         this._store.dispatch(new GetEventListAsyncStart());
     }
 
@@ -68,7 +73,7 @@ export class EventListWrapperComponent implements OnInit, OnDestroy {
             const isNameFilterMatching = !isNameFilterEnabled || event.title.toLowerCase().includes(nameFilter);
             const isYearFilterEnabled = !!this.filter.year;
             const yearFilter = isYearFilterEnabled ? this.filter.year : 0;
-            const isYearFilterMatching = !isYearFilterEnabled || (event.start_date.getFullYear() === yearFilter
+            const isYearFilterMatching = !isYearFilterEnabled || (event.start_date.getFullYear() === yearFilter
                 || event.end_date.getFullYear() === yearFilter);
             return isNameFilterMatching && isYearFilterMatching;
         });
