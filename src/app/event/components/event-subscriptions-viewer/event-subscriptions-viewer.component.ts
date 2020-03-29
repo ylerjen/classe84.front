@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
 import { User } from '@models/User';
@@ -18,6 +18,9 @@ import {
     GetSubscriptionStart
 } from 'app/actions/subscription.actions';
 import { GetUserListAsync } from 'app/user/states/actions/userlist.actions';
+import { EventModuleState } from 'app/event/states/event.state';
+import { selectEventState } from 'app/event/states/selectors/event.selector';
+import { selectUserlistState } from 'app/user/states/selectors/userlist.selector';
 
 @Component({
     selector: 'app-event-subscriptions-viewer',
@@ -45,16 +48,16 @@ export class EventSubscriptionsViewerComponent implements OnInit, OnDestroy {
 
     constructor(
         private _route: ActivatedRoute,
-        private _store: Store<GlobalState|UserModuleState>,
+        private _store: Store<GlobalState|UserModuleState|EventModuleState>,
     ) {}
 
     ngOnInit(): void {
-        this.sub = this._store.select((store: GlobalState) => store.eventState)
+        this.sub = this._store.pipe(select(selectEventState))
             .subscribe((eventState: EventState) => {
                 this.event = new EventModel(eventState.event);
                 this.isLoading = eventState.isLoading;
             });
-        this.sub.add(this._store.select((store: UserModuleState) => store.userlistState)
+        this.sub.add(this._store.pipe(select(selectUserlistState))
             .subscribe((userListState: UserListState) => {
                 this.subscribableUserList = userListState.userList;
                 this.refreshSearchableList();

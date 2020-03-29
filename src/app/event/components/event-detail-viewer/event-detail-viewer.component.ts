@@ -1,16 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable ,  Subscription as RxjsSubscriptions } from 'rxjs';
 
 import { ROUTE_URL } from 'app/config/router.config';
-import { Session } from 'app/models/Session';
-import { Event } from 'app/models/Event';
+import { Session } from '@models/Session';
+import { Event } from '@models/Event';
 import { Subscription as EventSubscription } from 'app/models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
 import { EventState } from 'app/event/states/reducers/event/event.reducer';
 import { SessionState } from 'app/stores/session/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
+import { selectEventState } from 'app/event/states/selectors/event.selector';
 
 @Component({
     selector: 'app-event-detail-viewer',
@@ -40,7 +41,7 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         private _store: Store<GlobalState>,
         private _router: Router,
     ) {
-        this.eventState$ = this._store.select(store => store.eventState);
+        this.eventState$ = this._store.pipe(select(selectEventState));
         this.sessionState$ = this._store.select(store => store.sessionState);
         this.evtSubscrState$ = this._store.select(store => store.subscriptionsState);
     }

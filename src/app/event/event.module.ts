@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { NgxEditorModule } from 'ngx-editor';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
@@ -23,9 +25,9 @@ import { EventControlsComponent } from './components/event-controls/event-contro
 import { EventFormLayoutComponent } from './layouts/event-form-layout/event-form-layout.component';
 import { EventDetailLayoutComponent } from './layouts/event-detail-layout/event-detail-layout.component';
 import { EventResolverService } from './resolvers/event-resolver.service';
-import { EffectsModule } from '@ngrx/effects';
 import { EventEffects } from 'app/event/states/effects/event.effect';
 import { EventlistEffects } from 'app/event/states/effects/eventlist.effect';
+import { eventModuleFeatureKey, eventModuleReducers } from './states/event.state';
 
 const eventRoutes: Routes = [
     {
@@ -63,6 +65,7 @@ const eventRoutes: Routes = [
         RouterModule.forChild(eventRoutes),
         FormsModule,
         ReactiveFormsModule,
+        StoreModule.forFeature(eventModuleFeatureKey, eventModuleReducers),
         EffectsModule.forFeature([
             EventlistEffects,
             EventEffects,

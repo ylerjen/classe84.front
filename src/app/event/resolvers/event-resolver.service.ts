@@ -8,13 +8,14 @@ import { Event } from '@models/Event';
 import { GlobalState } from 'app/stores/globalState';
 import { GetEvent } from 'app/event/states/actions/event.actions';
 import { GetSubscriptionStart } from '@actions/subscription.actions';
+import { EventModuleState } from '../states/event.state';
 
 
 @Injectable()
 export class EventResolverService implements Resolve<Event>  {
 
     constructor(
-        private store: Store<GlobalState>,
+        private store: Store<EventModuleState>,
     ) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Event> | Observable<never> {

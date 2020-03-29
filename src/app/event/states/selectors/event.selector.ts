@@ -1,6 +1,12 @@
-import { GlobalState } from '../../../stores/globalState';
-import { EventState } from '../reducers/event/event.reducer';
+import { createSelector } from '@ngrx/store';
+import { selectEventModuleState, EventModuleState } from '../event.state';
 
-export function selectEventState(state: GlobalState): EventState {
-    return state.eventState;
+export const selectEventState = createSelector(
+    selectEventModuleState,
+    (state: EventModuleState) => state.eventState
+);
+
+export function selectEvent(state: EventModuleState) {
+    const userState = selectEventState(state);
+    return userState ? userState.event : null;
 }

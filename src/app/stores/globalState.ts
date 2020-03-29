@@ -15,8 +15,6 @@ export interface GlobalState {
     addressListState: IAddressListState;
     notificationState: Array<Notification>;
     sessionState: SessionState;
-    eventState: EventState;
-    eventlistState: IEventListState;
     subscriptionsState: ISubscriptionState;
     participationsState: ISubscriptionState;
 }
@@ -26,8 +24,6 @@ export const globalState = {
     addressListState: addresslistReducer,
     notificationState: notificationReducer,
     sessionState: sessionReducer,
-    eventState: eventReducer,
-    eventlistState: eventlistReducer,
     subscriptionsState: subscriptionsReducer,
     participationsState: participationsReducer
 };

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { Event } from '@models/Event';
@@ -8,6 +8,8 @@ import { IEventListState } from 'app/event/states/reducers/eventlist/eventlist.r
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { GlobalState } from 'app/stores/globalState';
 import { GetEventListAsyncStart } from 'app/event/states/actions/eventlist.actions';
+import { selectEventlistState } from 'app/event/states/selectors/eventlist.selector';
+import { EventModuleState } from 'app/event/states/event.state';
 
 @Component({
     selector: 'app-event-list-wrapper',
@@ -29,13 +31,13 @@ export class EventListWrapperComponent implements OnInit, OnDestroy {
     public filteredList: Array<Event> = [];
 
     constructor(
-        private _store: Store<GlobalState>,
+        private _store: Store<EventModuleState>,
         private _activeRoute: ActivatedRoute,
         private _router: Router
     ) { }
 
     ngOnInit(): void {
-        this.sub = this._store.select(store => store.eventlistState)
+        this.sub = this._store.pipe(select(selectEventlistState))
             .subscribe( (evtState: IEventListState) => {
                 if (evtState) {
                     this.eventsList = evtState.eventList;
