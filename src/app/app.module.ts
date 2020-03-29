@@ -3,10 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import localeFr from '@angular/common/locales/fr';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +40,7 @@ import { ForbiddenPage } from './pages/forbidden/forbidden.page';
 import { ErrorRoutingModule } from './config/error-routing.module';
 import { AddressModule } from './address/address.module';
 
+registerLocaleData(localeFr, 'fr'); // the second parameter 'fr' is optional
 
 @NgModule({
     declarations: [
