@@ -8,10 +8,10 @@
             <span class="title"><i class="fa fa-magic"></i> Actions</span>
             <app-event-controls class="text card-body"
                 [eventId]="eventId"
-                [isAdmin]="isAdmin"
+                [canEdit]="canEdit"
+                [canDelete]="canDelete"
                 [isSubscribed]="isSubscribed"
                 [isSubscribable]="isSubscribable"
-                (goToEditEvent)="goToEdit()"
                 (deleteEvent)="delete()"
                 (subscribeToEvent)="subscribe()"
                 (unsubscribeFromEvent)="unsubscribe()"

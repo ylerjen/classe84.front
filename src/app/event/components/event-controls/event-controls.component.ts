@@ -11,7 +11,10 @@ export class EventControlsComponent {
     public eventId: string;
 
     @Input()
-    public isAdmin: boolean;
+    public canEdit: boolean;
+
+    @Input()
+    public canDelete: boolean;
 
     @Input()
     public isSubscribed: boolean;

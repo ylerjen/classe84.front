@@ -1,30 +1,24 @@
 <nav class="module-actions">
-    <a href="/events" class="btn btn-default">
-        <i class="fa fa-arrow-left"></i>
+    <a href="/events" class="btn btn-link">
+        <i class="fa fa-arrow-left"></i> Retour à la liste
     </a>
-    <div *ngIf="isAdmin">
-        <button class="btn btn-outline-info"
-            (click)="goToEdit($event)"
-            title="Edit">
-            <i class="fa fa-pencil"></i> Editer
-        </button>
-        <button class="btn btn-outline-danger"
-            (click)="delete($event)"
-            title="Delete">
-            <i class="fa fa-trash"></i> Supprimer
-        </button>
-        <a href="/events/{{eventId}}/subscriptions" class="btn btn-outline-info">Gérer les inscriptions</a>
-    </div>
-    <div *ngIf="isSubscribable">
+    <a href="/events/{{eventId}}/edit" class="btn btn-outline-info"><i class="fa fa-pencil mr-1"></i>Editer</a>
+    <a href="/events/{{eventId}}/subscriptions" class="btn btn-outline-info">Gérer les inscriptions</a>
+    <ng-container *ngIf="isSubscribable">
         <button *ngIf="!isSubscribed"
             class="btn btn-outline-info"
             (click)="subscribe($event)">
-            <i class="fa fa-ticket"></i> S'inscrire
+            <i class="fa fa-ticket mr-1"></i> S'inscrire
         </button>
         <button  *ngIf="isSubscribed"
             class="btn btn-outline-danger" 
             (click)="unsubscribe($event)">
-            <i class="fa fa-ticket"></i> Se désinscrire
+            <i class="fa fa-ticket mr-1"></i> Se désinscrire
         </button>
-    </div>
+    </ng-container>
+    <button *ngIf="canDelete" class="btn btn-outline-danger"
+        (click)="delete($event)"
+        title="Delete">
+        <i class="fa fa-trash mr-1"></i>Supprimer
+    </button>
 </nav>

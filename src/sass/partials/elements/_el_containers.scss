@@ -25,11 +25,13 @@
 
 .module-actions {
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
-    margin: 2*$step;
+    margin: 0 2*$step;
     
-    .btn {
-        margin-left: 4px;
+    .btn,
+    a {
+        margin-bottom: 4px;
     }
 }
 .module-title {
