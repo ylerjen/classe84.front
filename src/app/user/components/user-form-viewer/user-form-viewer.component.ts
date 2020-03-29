@@ -4,13 +4,12 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { User } from '@models/User';
-import { UpdateUser } from 'app/actions/user.actions';
+import { UpdateUser } from 'app/user/states/actions/user.actions';
 import { UsersService } from 'app/user/services/users.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
-
 import { ROUTE_URL } from 'app/config/router.config';
-import { GlobalState } from 'app/stores/globalState';
-import { selectUser } from 'app/stores/user/selectors/user.selector';
+import { selectUser } from 'app/user/states/selectors/user.selector';
+import { UserModuleState } from 'app/user/states/user.state';
 
 const httpRegexp = new RegExp('http(s?):\/\/');
 
@@ -35,7 +34,7 @@ export class UserFormViewerComponent implements OnInit, OnDestroy {
     }
 
     constructor(
-        private _store: Store<GlobalState>,
+        private _store: Store<UserModuleState>,
         private _userSrvc: UsersService,
         private _notifSrvc: NotificationService,
         private _router: Router

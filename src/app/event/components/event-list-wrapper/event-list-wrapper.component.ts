@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
-import { Event } from 'app/models/Event';
+import { Event } from '@models/Event';
 import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { GlobalState } from 'app/stores/globalState';
-import { ChangeEventListFilter, GetEventListAsyncStart } from 'app/actions/eventlist.actions';
-import { Subscription } from 'rxjs';
+import { GetEventListAsyncStart } from 'app/actions/eventlist.actions';
 
 @Component({
     selector: 'app-event-list-wrapper',

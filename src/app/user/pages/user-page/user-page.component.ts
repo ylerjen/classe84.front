@@ -6,12 +6,13 @@ import { Subscription } from 'rxjs';
 import { User } from '@models/User';
 import { Subscription as EventSubscription } from '@models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
-import { GetUserStart } from 'app/actions/user.actions';
-import { IUserState } from 'app/stores/user/user.reducer';
+import { GetUserStart } from 'app/user/states/actions/user.actions';
+import { IUserState } from 'app/user/states/reducers/user/user.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { GetAddressListAsync } from '@actions/addresslist.actions';
 import { GetParticipationListStart } from '@actions/participations.actions';
-import { selectUserState } from 'app/stores/user/selectors/user.selector';
+import { selectUserState } from 'app/user/states/selectors/user.selector';
+import { UserModuleState } from 'app/user/states/user.state';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -30,13 +31,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
     public userParticipations: Array<EventSubscription> = [];
 
     constructor(
-        private _store: Store<GlobalState>,
+        private _store: Store<GlobalState|UserModuleState>,
         private _route: ActivatedRoute,
         private _router: Router,
     ) {}
 
     ngOnInit(): void {
-        this.sub = this._store.select(s => selectUserState(s))
+        this.sub = this._store.select((s: UserModuleState) => selectUserState(s))
             .subscribe(
                 (resp: IUserState) => {
                     this.isLoading = resp.isLoading;
@@ -45,7 +46,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
                 (error: any) => this._router.navigate(['unauthorized'])
             );
 
-        this.sub.add(this._store.select(store => store.participationsState)
+        this.sub.add(this._store.select((store: GlobalState) => store.participationsState)
             .subscribe(
                 (subscrState: ISubscriptionState) => this.userParticipations = subscrState.subscriptionList,
                 (err: Error) => console.error(err)

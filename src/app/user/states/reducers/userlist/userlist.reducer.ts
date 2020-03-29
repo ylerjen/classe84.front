@@ -4,7 +4,7 @@ import { UserlistActionTypes,
     GetUserListAsyncFinished,
     GetUserListAsyncFailed,
     AddUserInList,
-    DeleteUserFromList } from 'app/actions/userlist.actions';
+    DeleteUserFromList } from 'app/user/states/actions/userlist.actions';
 
 export interface UserListState {
     userList: User[];

@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-
-
-import { User } from 'app/models/User';
-import { UserListState } from 'app/stores/userlist/userlist.reducer';
-import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
-import { GlobalState } from 'app/stores/globalState';
-import { GetUserListAsync } from 'app/actions/userlist.actions';
+import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+
+
+import { User } from '@models/User';
+import { UserListState } from 'app/user/states/reducers/userlist/userlist.reducer';
+import { IUserListFilter } from '../user-list-filter/user-list-filter.component';
+import { GetUserListAsync } from 'app/user/states/actions/userlist.actions';
+import { UserModuleState } from 'app/user/states/user.state';
+import { selectUserlist, selectUserlistState } from 'app/user/states/selectors/userlist.selector';
 
 @Component({
     selector: 'app-user-list-wrapper',
@@ -29,13 +30,13 @@ export class UserListWrapperComponent implements OnInit, OnDestroy {
     public errors: Array<Error> = [];
 
     constructor(
-        private _store: Store<GlobalState>,
+        private _store: Store<UserModuleState>,
         private _activeRoute: ActivatedRoute,
         private _router: Router
     ) { }
 
     ngOnInit(): void {
-        this.sub = this._store.select(store => store.userlistState)
+        this.sub = this._store.pipe(select(selectUserlistState))
             .subscribe( (uState: UserListState) => {
                 if (uState) {
                     this.usersList = uState.userList;

@@ -1,6 +1,6 @@
 import { userReducer, initialState, IUserState } from './user.reducer';
 
-import { User } from 'app/models/User';
+import { User } from '@models/User';
 import {
     ASYNC_USER_START,
     ASYNC_USER_FINISHED,

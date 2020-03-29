@@ -6,7 +6,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 
 import { Notification, ENotificationType } from '@models/Notification';
 import { AddNotif } from '@actions/notifications.actions';
-import { GetUserFinished, GetUserFailed, UserActionTypes, GetUserStart } from '@actions/user.actions';
+import { GetUserFinished, GetUserFailed, UserActionTypes, GetUserStart } from 'app/user/states/actions/user.actions';
 import { UsersService } from 'app/user/services/users.service';
 
 @Injectable()

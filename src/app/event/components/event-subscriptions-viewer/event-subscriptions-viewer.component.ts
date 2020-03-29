@@ -8,7 +8,8 @@ import { Subscription as EventSubscription } from '@models/Subscription';
 import { Event as EventModel } from '@models/Event';
 import { GlobalState } from 'app/stores/globalState';
 import { EventState } from 'app/stores/event/event.reducer';
-import { UserListState } from 'app/stores/userlist/userlist.reducer';
+import { UserModuleState } from 'app/user/states/user.state';
+import { UserListState } from 'app/user/states/reducers/userlist/userlist.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 import { GetEvent } from '@actions/event.actions';
 import {
@@ -16,7 +17,7 @@ import {
     DeleteSubscription,
     GetSubscriptionStart
 } from 'app/actions/subscription.actions';
-import { GetUserListAsync } from '@actions/userlist.actions';
+import { GetUserListAsync } from 'app/user/states/actions/userlist.actions';
 
 @Component({
     selector: 'app-event-subscriptions-viewer',
@@ -44,22 +45,22 @@ export class EventSubscriptionsViewerComponent implements OnInit, OnDestroy {
 
     constructor(
         private _route: ActivatedRoute,
-        private _store: Store<GlobalState>,
+        private _store: Store<GlobalState|UserModuleState>,
     ) {}
 
     ngOnInit(): void {
-        this.sub = this._store.select(store => store.eventState)
+        this.sub = this._store.select((store: GlobalState) => store.eventState)
             .subscribe((eventState: EventState) => {
                 this.event = new EventModel(eventState.event);
                 this.isLoading = eventState.isLoading;
             });
-        this.sub.add(this._store.select(store => store.userlistState)
+        this.sub.add(this._store.select((store: UserModuleState) => store.userlistState)
             .subscribe((userListState: UserListState) => {
                 this.subscribableUserList = userListState.userList;
                 this.refreshSearchableList();
             })
         );
-        this.sub.add(this._store.select(store => store.subscriptionsState)
+        this.sub.add(this._store.select((store: GlobalState) => store.subscriptionsState)
             .subscribe((subscrState: ISubscriptionState) => {
                 this.subscribersList = subscrState.subscriptionList.map(
                     sub => new EventSubscription(sub)

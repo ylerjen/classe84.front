@@ -1,16 +1,21 @@
-import { User } from 'app/models/User';
-import { UserActionTypes, UserActions, GetUserFinished, GetUserFailed, UpdateUser } from 'app/actions/user.actions';
+import { User } from '@models/User';
+import { UserActionTypes, UserActions, GetUserFinished, GetUserFailed, UpdateUser } from 'app/user/states/actions/user.actions';
+
+/**
+ * This is the name of the state feature
+ */
+export const featureKey = 'feature';
 
 export interface IUserState {
     user: User;
     isLoading: boolean;
-    errors: Array<Error>
+    errors: Array<Error>;
 }
 
 export const initialState: IUserState = {
     user: undefined,
     isLoading: false,
-    errors: []
+    errors: [],
 };
 
 export function userReducer(state: IUserState = initialState, action: UserActions): IUserState {

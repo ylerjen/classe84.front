@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { User } from '../models/User';
+import { User } from '../../../models/User';
 
 export enum UserActionTypes {
     getUserStart = '[User] get Start',

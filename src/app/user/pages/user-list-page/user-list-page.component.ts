@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import { User, EGender } from 'app/models/User';
-import { UserListState } from 'app/stores/userlist/userlist.reducer';
-import { UsersService } from 'app/user/services/users.service';
-import { GlobalState } from 'app/stores/globalState';
 import { Subscription } from 'rxjs';
+
+import { User, EGender } from '@models/User';
+import { UserListState } from 'app/user/states/reducers/userlist/userlist.reducer';
+import { UsersService } from 'app/user/services/users.service';
+import { UserModuleState } from 'app/user/states/user.state';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -27,7 +27,7 @@ export class UserListPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private _userSrvc: UsersService,
-        private _store: Store<GlobalState>,
+        private _store: Store<UserModuleState>,
     ) {}
 
     ngOnInit(): void {

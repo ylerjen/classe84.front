@@ -1,6 +1,8 @@
 
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { AddressModule } from 'app/address/address.module';
@@ -16,10 +18,10 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserDetailViewerComponent } from './components/user-detail-viewer/user-detail-viewer.component';
 import { UserFormViewerComponent } from './components/user-form-viewer/user-form-viewer.component';
-import { EffectsModule } from '@ngrx/effects';
-import { UserlistEffects } from 'app/effects/userlist.effect';
-import { UserEffects } from 'app/effects/user.effect';
+import { UserlistEffects } from 'app/user/states/effects/userlist.effect';
+import { UserEffects } from 'app/user/states/effects/user.effect';
 import { UserRoutingModule } from './user-routing.module';
+import { userModuleReducers, userModuleFeatureKey } from './states/user.state';
 
 @NgModule({
     imports: [
@@ -30,6 +32,7 @@ import { UserRoutingModule } from './user-routing.module';
             UserEffects,
             UserlistEffects,
         ]),
+        StoreModule.forFeature(userModuleFeatureKey, userModuleReducers),
         FormsModule,
         ReactiveFormsModule,
     ],

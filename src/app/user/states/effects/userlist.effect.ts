@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable ,  of } from 'rxjs';
 import { catchError, switchMap, map, withLatestFrom } from 'rxjs/operators';
 
-import { User } from 'app/models/User';
+import { User } from '@models/User';
 import { UsersService } from 'app/user/services/users.service';
-import { UserlistActionTypes, GetUserListAsyncFinished, GetUserListAsyncFailed, GetUserListAsync } from '@actions/userlist.actions';
-import { Store } from '@ngrx/store';
-import { UserListState } from 'app/stores/userlist/userlist.reducer';
-import { GlobalState } from 'app/stores/globalState';
+import { UserlistActionTypes, GetUserListAsyncFinished, GetUserListAsyncFailed, GetUserListAsync } from 'app/user/states/actions/userlist.actions';
+import { UserListState } from 'app/user/states/reducers/userlist/userlist.reducer';
+import { UserModuleState } from 'app/user/states/user.state';
 
 @Injectable()
 export class UserlistEffects {
@@ -30,6 +30,6 @@ export class UserlistEffects {
     constructor(
         private actions$: Actions,
         private _userService: UsersService,
-        private store$: Store<GlobalState>,
+        private store$: Store<UserModuleState>,
     ) { }
 }

@@ -7,11 +7,18 @@ import { User } from '@models/User';
 import { Address } from '@models/Address';
 import { ROUTE_URL } from 'app/config/router.config';
 import { GlobalState } from 'app/stores/globalState';
-import { IUserState } from 'app/stores/user/user.reducer';
-import { SetFavoriteAddress, DeleteAddressById, CreateAddressForUser, CreateAddressForUserIdCmd, UpdateAddressInList } from 'app/actions/addresslist.actions';
+import { IUserState } from 'app/user/states/reducers/user/user.reducer';
+import {
+    SetFavoriteAddress,
+    DeleteAddressById,
+    CreateAddressForUser,
+    CreateAddressForUserIdCmd,
+    UpdateAddressInList
+} from 'app/actions/addresslist.actions';
 import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
-import { selectUserState } from 'app/stores/user/selectors/user.selector';
+import { selectUserState } from 'app/user/states/selectors/user.selector';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
+import { UserModuleState } from 'app/user/states/user.state';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -34,12 +41,12 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     public currentlyEditedAddress: Address;
 
     constructor(
-        private _store: Store<GlobalState>,
+        private _store: Store<GlobalState|UserModuleState>,
         private _router: Router,
         private modalService: BsModalService,
     ) {
-        this.userStore$ = this._store.select(store => selectUserState(store));
-        this.AddressStore$ = this._store.select(store => store.addressListState);
+        this.userStore$ = this._store.select((store: UserModuleState) => selectUserState(store));
+        this.AddressStore$ = this._store.select((store: GlobalState) => store.addressListState);
     }
 
     ngOnInit(): void {

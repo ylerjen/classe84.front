@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://api84.loc/api',
+  API_URL: 'http://api.classe84.org/api',
   version: '1.0.0-alpha01'
 };
