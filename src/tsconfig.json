@@ -8,7 +8,10 @@
     "paths": {
       "@models/*": ["app/models/*"],
       "@actions/*": ["app/actions/*"],
-      "@shared/*": ["app/shared/*"]
+      "@shared/*": ["app/shared/*"],
+      "@users/*": ["app/user/*"],
+      "@events/*": ["app/event/*"],
+      "@addresses/*": ["app/address/*"]
     }
   },
   "exclude": [
