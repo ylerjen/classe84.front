@@ -1,11 +1,6 @@
 import { User } from '@models/User';
 import { UserActionTypes, UserActions, GetUserFinished, GetUserFailed, UpdateUser } from 'app/user/states/actions/user.actions';
 
-/**
- * This is the name of the state feature
- */
-export const featureKey = 'feature';
-
 export interface IUserState {
     user: User;
     isLoading: boolean;
