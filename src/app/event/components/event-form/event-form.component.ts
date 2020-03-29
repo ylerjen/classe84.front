@@ -3,12 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UUID } from 'angular2-uuid';
 
-import { Event as EventModel } from 'app/models/Event';
+import { Event as EventModel } from '@models/Event';
 import { GeoService } from '@shared/services/geo/geo.service';
 import { CustomValidators } from '@shared/validators/CustomValidators';
 import { MapquestResultPayload, MapquestResult, MapquestResultLocations } from '@shared/services/geo/Mapquest';
 import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
-import { mapQuestKey, mapQuestMapUrl } from 'app/shared/services/geo/geo.service';
+import { mapQuestKey, mapQuestMapUrl } from '@shared/services/geo/geo.service';
 
 
 

@@ -1,5 +1,5 @@
-import { Event } from 'app/models/Event';
-import { EventActionTypes, GetEventSuccess, UpdateEvent, EventActions } from 'app/actions/event.actions';
+import { Event } from '@models/Event';
+import { EventActionTypes, GetEventSuccess, UpdateEvent, EventActions } from 'app/event/states/actions/event.actions';
 
 export interface EventState {
     event: Event;

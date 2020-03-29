@@ -9,7 +9,7 @@ import { Subscription } from '@models/Subscription';
 import { selectSessionState } from 'app/stores/session/session.selector';
 import { selectSubscriptionState } from 'app/stores/subscription/subscription.selector';
 import { isSubscribable } from 'app/event/services/subscription.service';
-import { selectEventState } from 'app/stores/event/event.selector';
+import { selectEventState } from 'app/event/states/selectors/event.selector';
 
 @Component({
     selector: 'app-event-detail-layout',

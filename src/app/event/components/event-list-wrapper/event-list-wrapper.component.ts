@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { Event } from '@models/Event';
-import { IEventListState } from 'app/stores/eventlist/eventlist.reducer';
+import { IEventListState } from 'app/event/states/reducers/eventlist/eventlist.reducer';
 import { IEventListFilter } from '../event-list-filter/event-list-filter.component';
 import { GlobalState } from 'app/stores/globalState';
-import { GetEventListAsyncStart } from 'app/actions/eventlist.actions';
+import { GetEventListAsyncStart } from 'app/event/states/actions/eventlist.actions';
 
 @Component({
     selector: 'app-event-list-wrapper',

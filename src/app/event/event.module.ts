@@ -15,7 +15,7 @@ import { EventListWrapperComponent } from './components/event-list-wrapper/event
 import { EventListFilterComponent } from './components/event-list-filter/event-list-filter.component';
 import { EventDetailViewerComponent } from './components/event-detail-viewer/event-detail-viewer.component';
 import { EventFormViewerComponent } from './components/event-form-viewer/event-form-viewer.component';
-import { EventFormComponent } from './event-form/event-form.component';
+import { EventFormComponent } from './components/event-form/event-form.component';
 import { GeoresultFormComponent } from './components/georesult-form/georesult-form.component';
 import { EventSubscriptionsComponent } from './components/event-subscriptions/event-subscriptions.component';
 import { EventSubscriptionsViewerComponent } from './components/event-subscriptions-viewer/event-subscriptions-viewer.component';
@@ -24,8 +24,8 @@ import { EventFormLayoutComponent } from './layouts/event-form-layout/event-form
 import { EventDetailLayoutComponent } from './layouts/event-detail-layout/event-detail-layout.component';
 import { EventResolverService } from './resolvers/event-resolver.service';
 import { EffectsModule } from '@ngrx/effects';
-import { EventEffects } from 'app/effects/event.effect';
-import { EventlistEffects } from 'app/effects/eventlist.effect';
+import { EventEffects } from 'app/event/states/effects/event.effect';
+import { EventlistEffects } from 'app/event/states/effects/eventlist.effect';
 
 const eventRoutes: Routes = [
     {

@@ -8,7 +8,7 @@ import { Session } from 'app/models/Session';
 import { Event } from 'app/models/Event';
 import { Subscription as EventSubscription } from 'app/models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
-import { EventState } from 'app/stores/event/event.reducer';
+import { EventState } from 'app/event/states/reducers/event/event.reducer';
 import { SessionState } from 'app/stores/session/session.reducer';
 import { ISubscriptionState } from 'app/stores/subscription/subscription.reducer';
 

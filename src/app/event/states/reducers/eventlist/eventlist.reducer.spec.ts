@@ -1,5 +1,5 @@
 import { eventlistReducer, initialState, IEventListState } from './eventlist.reducer';
-import { Event } from 'app/models/Event';
+import { Event } from '@models/Event';
 import {
     ASYNC_EVENTLIST_START,
     ASYNC_EVENTLIST_FINISHED,

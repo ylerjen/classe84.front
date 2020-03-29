@@ -1,6 +1,6 @@
 import { eventReducer, initialState, IEventState } from './event.reducer';
 
-import { Event } from 'app/models/Event';
+import { Event } from '@models/Event';
 import {
     resetEventState,
     getEventAsyncStart,

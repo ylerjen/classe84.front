@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { EventlistActionTypes, GetEventListAsyncFinished, GetEventListAsyncFailed } from '../actions/eventlist.actions';
-import { EventsService } from '../event/services/events.service';
+import { EventsService } from '../../services/events.service';
 
 @Injectable()
 export class EventlistEffects {

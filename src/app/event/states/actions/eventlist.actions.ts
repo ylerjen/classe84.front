@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { Event as EventModel} from '../models/Event';
-import { IEventListFilter } from '../event/components/event-list-filter/event-list-filter.component';
+import { Event as EventModel} from '../../../models/Event';
+import { IEventListFilter } from '../../components/event-list-filter/event-list-filter.component';
 
 export enum EventlistActionTypes {
     resetEventlistState = '[Eventlist] reset state',

@@ -1,11 +1,11 @@
-import { Event } from 'app/models/Event';
-import { ChangeEventListFilter } from '@actions/eventlist.actions';
-import { IEventListFilter } from '../../event/components/event-list-filter/event-list-filter.component';
+import { Event } from '@models/Event';
+import { ChangeEventListFilter } from 'app/event/states/actions/eventlist.actions';
+import { IEventListFilter } from '../../../components/event-list-filter/event-list-filter.component';
 import { EventlistActionTypes,
     EventlistActions,
     GetEventListAsyncFinished,
     AddEventInlist,
-    DeleteEventFromList } from 'app/actions/eventlist.actions';
+    DeleteEventFromList } from 'app/event/states/actions/eventlist.actions';
 
 export interface IEventListState {
     eventList: Event[];

@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { EventActionTypes, GetEventSuccess, GetEventFailed, GetEvent, EventActions } from '../actions/event.actions';
-import { EventsService } from '../event/services/events.service';
+import { EventsService } from '../../services/events.service';
 import { ForbiddenError } from '@models/ForbiddenError';
 import { UnauthorizedError } from '@models/UnauthorizedError';
 import { NotificationService } from '@shared/services/notification/notification.service';
