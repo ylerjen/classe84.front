@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { GlobalState } from 'app/stores/globalState';
-import { Notification } from 'app/models/Notification';
+import { Notification } from '@models/Notification';
 import { DeleteNotif } from 'app/actions/notifications.actions';
 
 @Component({

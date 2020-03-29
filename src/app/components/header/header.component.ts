@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Session } from 'app/models/Session';
+import { Session } from '@models/Session';
 import { GlobalState } from 'app/stores/globalState';
 import { LogoutAction } from '@actions/session.actions';
 import { SessionState } from 'app/stores/session/session.reducer';

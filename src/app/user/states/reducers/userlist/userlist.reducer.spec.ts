@@ -1,5 +1,5 @@
 import { userlistReducer, initialState, IUserListState } from './userlist.reducer';
-import { User } from 'app/models/User';
+import { User } from '@models/User';
 import {
     ASYNC_USERLIST_START,
     ASYNC_USERLIST_FINISHED,

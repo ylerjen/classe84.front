@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { Contact } from 'app/models/Contact';
+import { Contact } from '@models/Contact';
 
 @Component({
     selector: 'app-contact-form',

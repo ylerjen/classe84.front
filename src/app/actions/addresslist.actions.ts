@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Address } from 'app/models/Address';
+import { Address } from '@models/Address';
 
 export enum addressActions {
     asyncAddresslistStart = '[AddressList] get',

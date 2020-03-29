@@ -1,4 +1,4 @@
-import { Notification } from 'app/models/Notification';
+import { Notification } from '@models/Notification';
 import { NotificationActions, NotifActions, AddNotif, DeleteNotif } from 'app/actions/notifications.actions';
 
 export const initialState: Array<Notification> = [];

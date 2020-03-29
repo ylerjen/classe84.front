@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 
 import { environment as env } from '../../../environments/environment';
-import { Version } from 'app/models/Version';
+import { Version } from '@models/Version';
 
 @Injectable()
 export class AppService {

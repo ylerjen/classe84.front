@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 
 import { SessionState } from 'app/stores/session/session.reducer';
 import { LoginAction } from 'app/actions/session.actions';
-import { Session } from 'app/models/Session';
-import { Login } from 'app/models/Login';
+import { Session } from '@models/Session';
+import { Login } from '@models/Login';
 import { GlobalState } from 'app/stores/globalState';
 import { SubscriptionLike as ISubscription } from 'rxjs';
 

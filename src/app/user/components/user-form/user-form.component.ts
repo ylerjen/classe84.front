@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { User, EGender } from 'app/models/User';
+import { User, EGender } from '@models/User';
 
 @Component({
     selector: 'app-user-form',

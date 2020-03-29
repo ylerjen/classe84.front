@@ -1,4 +1,4 @@
-import { Session } from 'app/models/Session';
+import { Session } from '@models/Session';
 import { SessionActionTypes,
     AddFormErrorsAction,
     LoginFailedAction,

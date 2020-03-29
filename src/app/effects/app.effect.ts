@@ -6,8 +6,8 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { AppActionTypes, GetApiVersionFinished } from 'app/actions/app.actions';
 import { AddNotif } from 'app/actions/notifications.actions';
 import { AppService } from '../services/app/app.service';
-import { Version } from 'app/models/Version';
-import { Notification, ENotificationType } from 'app/models/Notification';
+import { Version } from '@models/Version';
+import { Notification, ENotificationType } from '@models/Notification';
 
 @Injectable()
 export class AppEffects {

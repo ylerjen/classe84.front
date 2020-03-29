@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Event as Evt } from 'app/models/Event';
+import { Event as Evt } from '@models/Event';
 
 @Component({
     selector: 'app-event-list',

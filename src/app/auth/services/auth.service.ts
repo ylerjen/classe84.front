@@ -10,7 +10,7 @@ import { environment as env } from '../../../environments/environment';
 import { User } from '@models/User';
 import { GlobalState } from 'app/stores/globalState';
 import { SessionState } from 'app/stores/session/session.reducer';
-import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from 'app/models/Login';
+import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from '@models/Login';
 import { Session } from '@models/Session';
 import { ROUTE } from '../auth-route.config';
 import { ResetPasswordResponse } from '@models/ResetPasswordResponse';

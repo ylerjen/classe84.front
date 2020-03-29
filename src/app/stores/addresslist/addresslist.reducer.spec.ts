@@ -1,6 +1,6 @@
 import { addresslistReducer, initialState, IAddressListState } from './addresslist.reducer';
 
-import { Address } from 'app/models/Address';
+import { Address } from '@models/Address';
 import {
     getAddressListAsync,
     getAddressListAsyncFinished,

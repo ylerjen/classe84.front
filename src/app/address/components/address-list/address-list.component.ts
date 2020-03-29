@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Address } from 'app/models/Address';
+import { Address } from '@models/Address';
 
 @Component({
     selector: 'app-address-list',

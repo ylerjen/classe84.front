@@ -5,8 +5,8 @@ import { Observable ,  throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment as env } from 'app/../environments/environment';
-import { Event } from 'app/models/Event';
-import { Subscription } from 'app/models/Subscription';
+import { Event } from '@models/Event';
+import { Subscription } from '@models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
 import { AddEvent, UpdateEvent} from 'app/event/states/actions/event.actions';
 import { DeleteEventFromList } from 'app/event/states/actions/eventlist.actions';

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Event } from 'app/models/Event';
+import { Event } from '@models/Event';
 import { mapQuestKey } from 'app/shared/services/geo/geo.service';
 
 @Component({

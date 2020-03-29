@@ -6,7 +6,7 @@ import { Observable ,  Subscription as RxjsSubscriptions } from 'rxjs';
 import { ROUTE_URL } from 'app/config/router.config';
 import { Session } from '@models/Session';
 import { Event } from '@models/Event';
-import { Subscription as EventSubscription } from 'app/models/Subscription';
+import { Subscription as EventSubscription } from '@models/Subscription';
 import { GlobalState } from 'app/stores/globalState';
 import { EventState } from 'app/event/states/reducers/event/event.reducer';
 import { SessionState } from 'app/stores/session/session.reducer';

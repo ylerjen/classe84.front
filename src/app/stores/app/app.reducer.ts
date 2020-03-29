@@ -1,5 +1,5 @@
 import { AppActions, AppActionTypes, GetApiVersionFinished, StoreFrontVersion } from 'app/actions/app.actions';
-import { Version } from 'app/models/Version';
+import { Version } from '@models/Version';
 
 
 const initialVersion = '0.0.0';

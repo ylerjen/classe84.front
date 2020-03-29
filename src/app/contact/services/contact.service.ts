@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment as env } from '../../../environments/environment';
 import { MAILER_TOKEN } from 'app/config/settings';
-import { Contact } from 'app/models/Contact';
+import { Contact } from '@models/Contact';
 
 const BASE_URL = `${env.API_URL}/contact`;
 

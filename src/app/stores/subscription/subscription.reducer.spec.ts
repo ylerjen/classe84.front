@@ -1,5 +1,5 @@
 import { subscriptionsReducer, initialState, ISubscriptionState } from './subscription.reducer';
-import { Subscription } from 'app/models/Subscription';
+import { Subscription } from '@models/Subscription';
 import {
     addSubscription,
     updateSubscription,

@@ -7,7 +7,7 @@ import {
     transition
 } from '@angular/animations';
 
-import { User } from 'app/models/User';
+import { User } from '@models/User';
 
 @Component({
     selector: 'app-users-list',

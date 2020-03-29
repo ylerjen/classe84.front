@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { UUID } from 'angular2-uuid';
-import { Address } from 'app/models/Address';
+import { Address } from '@models/Address';
 import { mapQuestKey, mapLinkBuilder } from 'app/shared/services/geo/geo.service';
 import { MapquestCoordinates } from 'app/shared/services/geo/MapquestCoordinates';
 

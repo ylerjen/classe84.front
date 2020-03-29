@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Response, ResponseOptions, XHRBackend } from '@angular/http';
 
 import { ContactService } from './contact.service';
-import { Contact } from 'app/models/Contact';
+import { Contact } from '@models/Contact';
 
 describe('ContactService', () => {
 

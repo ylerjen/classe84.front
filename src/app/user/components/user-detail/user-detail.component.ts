@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { User } from 'app/models/User';
+import { User } from '@models/User';
 
 @Component({
     selector: 'app-user-detail',

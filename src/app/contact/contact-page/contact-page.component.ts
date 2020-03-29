@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Contact } from 'app/models/Contact';
+import { Contact } from '@models/Contact';
 import { ContactService } from '../services/contact.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { ContactFormComponent } from '../contact-form/contact-form.component';

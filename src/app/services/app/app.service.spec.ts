@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 
-import { Version } from 'app/models/Version';
+import { Version } from '@models/Version';
 import { AppService } from './app.service';
 
 describe('AppService', () => {
