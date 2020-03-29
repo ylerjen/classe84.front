@@ -16,7 +16,7 @@ export interface IEventListState {
 export const initialState: IEventListState = {
     eventList: [],
     isLoading: false,
-    eventFilter: { name: '', year: '' }
+    eventFilter: { name: '' }
 };
 
 export function eventlistReducer(state: IEventListState = initialState, action: EventlistActions): IEventListState {
