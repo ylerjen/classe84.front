@@ -6,8 +6,9 @@ import { UserPageComponent } from '../user/pages/user-page/user-page.component';
 import { UserFormViewerComponent } from '../user/components/user-form-viewer/user-form-viewer.component';
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
 
-
-
+/**
+ * The route definition for the user module
+ */
 export const userRoutes: Routes = [
     {
         path: routeBuilder.userlist(),
