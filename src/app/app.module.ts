@@ -11,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import localeFr from '@angular/common/locales/fr';
 
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './config/app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ContactModule } from './contact/contact.module';
@@ -22,13 +22,10 @@ import { globalState } from './stores/globalState';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './auth/services/auth.service';
 import { HomePage } from './pages/home-page/home.page';
-import { LoginPageComponent } from './pages/login-page/login.page';
 import { AboutPage } from './pages/about-page/about.page';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
-import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
-import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 import { AppEffects } from './effects/app.effect';
 import { SessionEffects } from './effects/session.effect';
 import { AddressEffects } from './effects/address.effect';
@@ -36,7 +33,6 @@ import { SubscriptionEffects } from './effects/subscription.effect';
 import { NotificationEffects } from './effects/notification.effect';
 import { HttpErrorInterceptor } from '@shared/interceptors/http-error.interceptor';
 import { NotificationService } from '@shared/services/notification/notification.service';
-import { ForbiddenPage } from './pages/forbidden/forbidden.page';
 import { ErrorRoutingModule } from './config/error-routing.module';
 import { AddressModule } from './address/address.module';
 
@@ -49,17 +45,13 @@ registerLocaleData(localeFr, 'fr'); // the second parameter 'fr' is optional
         AboutPage,
         HeaderComponent,
         FooterComponent,
-        LoginPageComponent,
         NotifierComponent,
-        UnauthorizedPage,
-        LogoutPageComponent,
-        ForbiddenPage,
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot(globalState),
         AppRoutingModule,
+        StoreModule.forRoot(globalState),
         EffectsModule.forRoot([
             AppEffects,
             NotificationEffects,

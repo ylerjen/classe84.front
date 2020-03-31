@@ -7,7 +7,7 @@ import { User } from '@models/User';
 import { UpdateUser } from 'app/user/states/actions/user.actions';
 import { UsersService } from 'app/user/services/users.service';
 import { NotificationService } from '@shared/services/notification/notification.service';
-import { ROUTE_URL } from 'app/config/router.config';
+import { ROUTE_SEGMENT } from 'app/config/router.config';
 import { selectUser } from 'app/user/states/selectors/user.selector';
 import { UserModuleState } from 'app/user/states/user.state';
 
@@ -70,6 +70,6 @@ export class UserFormViewerComponent implements OnInit, OnDestroy {
     }
 
     goToDetails(userId: string) {
-        this._router.navigate([`/${ROUTE_URL.users}/${userId}`]);
+        this._router.navigate([`/${ROUTE_SEGMENT.users}/${userId}`]);
     }
 }

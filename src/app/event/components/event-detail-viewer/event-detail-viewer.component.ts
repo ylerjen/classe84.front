@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable ,  Subscription as RxjsSubscriptions } from 'rxjs';
 
-import { ROUTE_URL } from 'app/config/router.config';
+import { ROUTE_SEGMENT, routeBuilder } from 'app/config/router.config';
 import { Session } from '@models/Session';
 import { Event } from '@models/Event';
 import { Subscription as EventSubscription } from '@models/Subscription';
@@ -98,7 +98,7 @@ export class EventDetailViewerComponent implements OnInit, OnDestroy {
         }
         const id = this.event.id;
         if (typeof id === 'undefined') { return; }
-        const url = `${ROUTE_URL.events}/${id.toString()}/edit`;
+        const url = routeBuilder.eventEdit(id.toString());
         this._router.navigate([url]);
     }
 

@@ -15,7 +15,7 @@ const routes = [
         RouterModule.forChild(routes)
     ],
     declarations: [
-        NotFoundPage
+        NotFoundPage,
     ],
     exports: [
         RouterModule

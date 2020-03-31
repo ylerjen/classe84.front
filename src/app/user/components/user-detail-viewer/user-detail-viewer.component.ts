@@ -2,12 +2,16 @@ import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/c
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
 
 import { User } from '@models/User';
 import { Address } from '@models/Address';
-import { ROUTE_URL } from 'app/config/router.config';
-import { GlobalState } from 'app/stores/globalState';
+import { ROUTE_SEGMENT } from 'app/config/router.config';
 import { IUserState } from 'app/user/states/reducers/user/user.reducer';
+import { GlobalState } from 'app/stores/globalState';
+import { selectUserState } from 'app/user/states/selectors/user.selector';
+import { UserModuleState } from 'app/user/states/user.state';
+import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
 import {
     SetFavoriteAddress,
     DeleteAddressById,
@@ -15,10 +19,6 @@ import {
     CreateAddressForUserIdCmd,
     UpdateAddressInList
 } from 'app/actions/addresslist.actions';
-import { IAddressListState } from 'app/stores/addresslist/addresslist.reducer';
-import { selectUserState } from 'app/user/states/selectors/user.selector';
-import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
-import { UserModuleState } from 'app/user/states/user.state';
 
 @Component({
     selector: 'app-user-detail-viewer',
@@ -80,13 +80,13 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     editUser(id: string): void {
         throw new Error('editUser user not implemented yet');
         if (typeof id === 'undefined') { return; }
-        const url = `${ROUTE_URL.users}/${id}/edit`;
+        const url = `${ROUTE_SEGMENT.users}/${id}/edit`;
         this._router.navigate([url]);
     }
 
     deleteUser(id: string): void {
         throw new Error('delete user not implemented yet');
-        const url = `${ROUTE_URL.users}`;
+        const url = `${ROUTE_SEGMENT.users}`;
         this._router.navigate([url]);
     }
 

@@ -1,64 +1,33 @@
-import { Routes } from '@angular/router';
-
-import { LoginPageComponent } from '../pages/login-page/login.page';
-import { HomePage } from '../pages/home-page/home.page';
-import { AboutPage } from '../pages/about-page/about.page';
-import { UnauthorizedPage } from '../pages/unauthorized/unauthorized.page';
-import { LogoutPageComponent } from '../pages/logout-page/logout-page.component';
-import { ForbiddenPage } from '../pages/forbidden/forbidden.page';
-import { ContactPageComponent } from '../contact/contact-page/contact-page.component';
-
-export const ROUTE_URL: { [key: string]: string } = {
+/**
+ * Route segment used to construct urls
+ */
+export const ROUTE_SEGMENT = {
     default: '',
+    byId: ':id',
+    add: 'add',
+    edit: 'edit',
     about: 'about',
     login: 'login',
     logout: 'logout',
     events: 'events',
     users: 'users',
-    byId: ':id',
-    edit: 'edit',
-    address: 'addresses',
+    addresses: 'addresses',
+    subscriptions: 'subscriptions',
     contact: 'contact',
+    restorePassword: 'restore-password',
+    changePassword: 'change-password',
     unauthorized: 'unauthorized',
     forbidden: 'forbidden',
 };
 
 export const routeBuilder = {
-    userlist: () => ROUTE_URL.users,
-    user: (id: string) => `${ROUTE_URL.users}/${id}`,
-    userEdit: (id: string) => `${ROUTE_URL.users}/${id}/edit`,
-    addressEdit: (id: string) => `${ROUTE_URL.address}/${id}/edit`,
-    eventlist: () => ROUTE_URL.events,
-    event: (id: string) => `${ROUTE_URL.events}/${id}`,
-    eventEdit: (id: string) => `${ROUTE_URL.events}/${id}/edit`,
+    subscriptionsForId: () => `${ROUTE_SEGMENT.byId}/${ROUTE_SEGMENT.subscriptions}`,
+    editById: () => `${ROUTE_SEGMENT.byId}/${ROUTE_SEGMENT.edit}`,
+    userlist: () => ROUTE_SEGMENT.users,
+    user: (id: string) => `${ROUTE_SEGMENT.users}/${id}`,
+    userEdit: (id: string) => `${ROUTE_SEGMENT.users}/${id}/${ROUTE_SEGMENT.edit}`,
+    addressEdit: (id: string) => `${ROUTE_SEGMENT.addresses}/${id}/${ROUTE_SEGMENT.edit}`,
+    eventlist: () => ROUTE_SEGMENT.events,
+    event: (id: string) => `${ROUTE_SEGMENT.events}/${id}`,
+    eventEdit: (id: string) => `${ROUTE_SEGMENT.events}/${id}/${ROUTE_SEGMENT.edit}`,
 };
-
-export const appRoutes: Routes = [
-    {
-        path: ROUTE_URL.default,
-        component: HomePage
-    }, {
-        path: ROUTE_URL.unauthorized,
-        component: UnauthorizedPage
-    }, {
-        path: ROUTE_URL.forbidden,
-        component: ForbiddenPage
-    }, {
-        path: ROUTE_URL.about,
-        component: AboutPage
-    }, {
-        path: ROUTE_URL.contact,
-        component: ContactPageComponent
-    }, {
-        path: ROUTE_URL.login,
-        component: LoginPageComponent
-    }, {
-        path: ROUTE_URL.logout,
-        component: LogoutPageComponent
-    },
-    // {
-    //     path: '',
-    //     redirectTo: '/',
-    //     pathMatch: 'full'
-    // },
-];

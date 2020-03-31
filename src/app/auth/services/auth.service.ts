@@ -7,15 +7,15 @@ import { catchError, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment as env } from '../../../environments/environment';
+import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from '@models/Login';
+import { Session } from '@models/Session';
 import { User } from '@models/User';
 import { GlobalState } from 'app/stores/globalState';
 import { SessionState } from 'app/stores/session/session.reducer';
-import { Login, LoginFactory, PasswordRecoveryObject, PasswordChangeObject } from '@models/Login';
-import { Session } from '@models/Session';
-import { ROUTE } from '../auth-route.config';
 import { ResetPasswordResponse } from '@models/ResetPasswordResponse';
 import { SessionExpired } from '@actions/session.actions';
 import { ExtendableError } from '@models/ExtendableError';
+import { ROUTE_SEGMENT } from 'app/config/router.config';
 
 export const RECOVERY_TOKEN_VAR_NAME = '${token}';
 export const RECOVERY_TOKEN_PARAM_NAME = 'recoveryToken';
@@ -103,7 +103,7 @@ export class AuthService implements CanActivate {
      */
     recoverPassword(email): Observable<ResetPasswordResponse> {
         const endpoint = `${authBaseRoute}/reset-password`;
-        const recoveryRoute = `${window.location.origin}/${ROUTE.restorePassword};${RECOVERY_TOKEN_PARAM_NAME}=${RECOVERY_TOKEN_VAR_NAME}`;
+        const recoveryRoute = `${window.location.origin}/${ROUTE_SEGMENT.restorePassword};${RECOVERY_TOKEN_PARAM_NAME}=${RECOVERY_TOKEN_VAR_NAME}`;
         const param = {
             email,
             frontUrl: recoveryRoute,

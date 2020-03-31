@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -14,15 +13,15 @@ import { RestorePasswordComponent } from './restore-password/restore-password.co
 import { LoginFormViewerComponent } from './login-form-viewer/login-form-viewer.component';
 import { AccountRecoveryViewerComponent } from './account-recovery-viewer/account-recovery-viewer.component';
 import { PasswordConfirmFormComponent } from './password-confirm-form/password-confirm-form.component';
-import { ROUTE } from './auth-route.config';
+import { AuthRoutingModule } from './auth-routing.module';
+import { LoginPageComponent } from 'app/pages/login-page/login.page';
+import { LogoutPageComponent } from 'app/pages/logout-page/logout-page.component';
+import { ForbiddenPage } from 'app/pages/forbidden/forbidden.page';
+import { UnauthorizedPage } from 'app/pages/unauthorized/unauthorized.page';
 
-export const authRoutes: Routes = [
-    { path: ROUTE.restorePassword, component: RestorePasswordComponent },
-    { path: ROUTE.changePassword, component: ChangePasswordComponent }
-];
 @NgModule({
     imports: [
-        RouterModule.forChild(authRoutes),
+        AuthRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         BrowserModule,
@@ -41,11 +40,15 @@ export const authRoutes: Routes = [
     declarations: [
         LoginFormComponent,
         AccountRecoveryFormComponent,
-        ChangePasswordComponent,
-        RestorePasswordComponent,
         LoginFormViewerComponent,
         AccountRecoveryViewerComponent,
-        PasswordConfirmFormComponent
+        PasswordConfirmFormComponent,
+        LoginPageComponent,
+        LogoutPageComponent,
+        ForbiddenPage,
+        UnauthorizedPage,
+        ChangePasswordComponent,
+        RestorePasswordComponent,
     ],
     exports: [
         LoginFormComponent,

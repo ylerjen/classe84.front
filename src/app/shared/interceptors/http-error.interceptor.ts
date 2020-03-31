@@ -3,14 +3,14 @@ import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ROUTE_URL } from 'app/config/router.config';
+import { ROUTE_SEGMENT } from 'app/config/router.config';
 import { ForbiddenError } from '@models/ForbiddenError';
 import { UnauthorizedError } from '@models/UnauthorizedError';
 import { NotificationService } from '@shared/services/notification/notification.service';
 import { HTTP_STATUS_CODE } from '@models/Constants';
 
 const excludeUrl = [
-    ROUTE_URL.login,
+    ROUTE_SEGMENT.login,
 ];
 
 /**
@@ -53,12 +53,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     } else if (error.status === HTTP_STATUS_CODE.Unauthorized) {
                         this._notificationService.notifyError(`Veuillez vous connecter pour pouvoir accéder à cette page.`);
                         const redirectTo = this._activatedRoute.snapshot['_routerState'].url;
-                        this._router.navigate([ROUTE_URL.login, { redirectTo }]);
+                        this._router.navigate([ROUTE_SEGMENT.login, { redirectTo }]);
                         return throwError(new UnauthorizedError(errorMessage, error));
                     } else if (error.status === HTTP_STATUS_CODE.Forbidden) {
                         this._notificationService.notifyError(`Vous n'avez pas les droits suffisant pour pouvoir accéder
                         à cette page. Si c'est une erreur, adressez-vous à l'administrateur de l'application.`);
-                        this._router.navigate([ROUTE_URL.Forbidden]);
+                        this._router.navigate([ROUTE_SEGMENT.forbidden]);
                         return throwError(new ForbiddenError(errorMessage, error));
                     } else if (error.status === HTTP_STATUS_CODE.TooManyRequests) {
                         this._notificationService.notifyError(`Taux d'accès trop fréquents. Veuillez réessayer plus tard.`);

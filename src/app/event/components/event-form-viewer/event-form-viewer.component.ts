@@ -9,7 +9,7 @@ import { Event as EventModel } from '@models/Event';
 import { UpdateEvent } from 'app/event/states/actions/event.actions';
 import { NotificationService } from '@shared/services/notification/notification.service';
 
-import { ROUTE_URL } from 'app/config/router.config';
+import { ROUTE_SEGMENT } from 'app/config/router.config';
 import { GlobalState } from 'app/stores/globalState';
 import { Subscription } from 'rxjs';
 import { EventModuleState } from 'app/event/states/event.state';
@@ -65,6 +65,6 @@ export class EventFormViewerComponent implements OnInit, OnDestroy {
     }
 
     goToDetails(eventId: string) {
-        this._router.navigate([`/${ROUTE_URL.events}/${eventId}`]);
+        this._router.navigate([`/${ROUTE_SEGMENT.events}/${eventId}`]);
     }
 }
