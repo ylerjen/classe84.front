@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 import { UUID } from 'angular2-uuid';
 
 import { Event as EventModel } from '@models/Event';
@@ -9,8 +8,6 @@ import { CustomValidators } from '@shared/validators/CustomValidators';
 import { MapquestResultPayload, MapquestResult, MapquestResultLocations } from '@shared/services/geo/Mapquest';
 import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
 import { mapQuestKey, mapQuestMapUrl } from '@shared/services/geo/geo.service';
-
-
 
 @Component({
     selector: 'app-event-form',
@@ -48,8 +45,8 @@ export class EventFormComponent implements OnInit {
 
     static eventToCoordinate(event: EventModel): MapquestCoordinates {
         return  {
-            lat: event.latitude.toString(),
-            lng: event.longitude.toString(),
+            lat: event.latitude ? event.latitude.toString() : '',
+            lng: event.longitude ? event.longitude.toString() : '',
         };
     }
 
