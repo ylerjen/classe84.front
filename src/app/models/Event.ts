@@ -15,7 +15,7 @@ export class Event {
     public updated_at: Date;
     public subscriptionsNb: number;
 
-    constructor(props: { [key: string]: any } = {}) {
+    constructor(props: Partial<Event> = {}) {
         this.id = props.id;
         this.title = props.title;
         this.start_date = props.start_date ? new Date(props.start_date) : null;

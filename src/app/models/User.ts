@@ -51,7 +51,7 @@ export class User {
         }
     };
 
-    constructor(props: { [key: string]: any } = {}) {
+    constructor(props: Partial<User> = {}) {
         this.id = props.id;
         this.last_name = props.last_name;
         this.maiden_name = props.maiden_name;
