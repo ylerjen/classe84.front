@@ -8,7 +8,7 @@ import { NgxEditorModule } from 'ngx-editor';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { SharedModule } from '../shared/shared.module';
-import { AuthService } from '../auth/services/auth.service';
+import { EventRoutingModule } from './event-routing.module';
 import { EventsService } from './services/events.service';
 import { EventlistPageComponent } from './pages/eventlist/eventlist-page.component';
 import { EventListComponent } from './components/event-list/event-list.component';
@@ -29,40 +29,12 @@ import { EventEffects } from 'app/event/states/effects/event.effect';
 import { EventlistEffects } from 'app/event/states/effects/eventlist.effect';
 import { eventModuleFeatureKey, eventModuleReducers } from './states/event.state';
 
-const eventRoutes: Routes = [
-    {
-        path: 'events',
-        component: EventlistPageComponent
-    },
-    {
-        path: 'events/add',
-        component: EventFormLayoutComponent,
-    }, {
-        path: 'events/:id',
-        component: EventDetailLayoutComponent,
-        canActivate: [ AuthService ],
-        resolve: {
-            currentEvent: EventResolverService
-        },
-    }, {
-        path: 'events/:id/edit',
-        component: EventFormLayoutComponent,
-        canActivate: [ AuthService ],
-        resolve: {
-            dispatcher: EventResolverService,
-        }
-    }, {
-        path: 'events/:id/subscriptions',
-        component: EventSubscriptionsViewerComponent,
-        canActivate: [ AuthService ],
-    }
-];
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
-        RouterModule.forChild(eventRoutes),
+        EventRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forFeature(eventModuleFeatureKey, eventModuleReducers),

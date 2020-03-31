@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Observable, of, EMPTY } from 'rxjs';
-import { take, map, filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take, filter } from 'rxjs/operators';
 
 import { Event } from '@models/Event';
 import { GetEvent } from 'app/event/states/actions/event.actions';
