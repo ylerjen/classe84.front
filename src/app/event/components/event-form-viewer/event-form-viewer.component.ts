@@ -1,19 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import { SessionState } from 'app/stores/session/session.reducer';
-import { EventState } from 'app/event/states/reducers/event/event.reducer';
 import { EventsService } from '../../services/events.service';
 import { Event as EventModel } from '@models/Event';
 import { UpdateEvent } from 'app/event/states/actions/event.actions';
 import { NotificationService } from '@shared/services/notification/notification.service';
-
 import { ROUTE_SEGMENT } from 'app/config/router.config';
-import { GlobalState } from 'app/stores/globalState';
-import { Subscription } from 'rxjs';
 import { EventModuleState } from 'app/event/states/event.state';
-import { selectEventState } from 'app/event/states/selectors/event.selector';
+import { selectEvent } from 'app/event/states/selectors/event.selector';
 
 @Component({
     selector: 'app-event-form-viewer',
@@ -27,8 +24,6 @@ export class EventFormViewerComponent implements OnInit, OnDestroy {
 
     public event: EventModel;
 
-    public isLoading: boolean;
-
     constructor(
         private _store: Store<EventModuleState>,
         private _evtSrvc: EventsService,
@@ -38,11 +33,8 @@ export class EventFormViewerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.subs = this._store.pipe(select(selectEventState))
-            .subscribe((eventState: EventState) => {
-                this.event = new EventModel(eventState.event);
-                this.isLoading = eventState.isLoading;
-            });
+        this.subs = this._store.pipe(select(selectEvent))
+            .subscribe((event: EventModel) => this.event = new EventModel(event));
     }
 
     ngOnDestroy(): void {
