@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { User } from '@models/User';
@@ -14,9 +14,9 @@ import { UserModuleState } from 'app/user/states/user.state';
 const httpRegexp = new RegExp('http(s?):\/\/');
 
 @Component({
-  selector: 'app-user-form-viewer',
-  templateUrl: './user-form-viewer.component.html',
-  styleUrls: ['./user-form-viewer.component.scss']
+    selector: 'app-user-form-viewer',
+    templateUrl: './user-form-viewer.component.html',
+    styleUrls: ['./user-form-viewer.component.scss']
 })
 export class UserFormViewerComponent implements OnInit, OnDestroy {
 
@@ -41,8 +41,8 @@ export class UserFormViewerComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.sub = this._store.select(s => selectUser(s))
-            .subscribe((user: User) => this.user = user ? new User(user) :  null);
+        this.sub = this._store.pipe(select(selectUser))
+            .subscribe((user: User) => this.user = new User(user));
     }
 
     ngOnDestroy(): void {

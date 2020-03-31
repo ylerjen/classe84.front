@@ -1,5 +1,8 @@
-<app-user-form
-    [user]="user"
-    (saveEvent)="saveUser($event)"
-    (cancelEvent)="goToDetails($event)"
-></app-user-form>
+<section>
+    <h1>{{ user?.id ? 'Modifier' : 'Créer' }} un membre</h1>  
+    <app-user-form
+        [user]="user"
+        (saveEvent)="saveUser($event)"
+        (cancelEvent)="goToDetails($event)"
+    ></app-user-form>
+</section>

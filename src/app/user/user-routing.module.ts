@@ -6,6 +6,7 @@ import { ROUTE_SEGMENT, routeBuilder } from '../config/router.config';
 import { UserPageComponent } from '../user/pages/user-page/user-page.component';
 import { UserFormViewerComponent } from '../user/components/user-form-viewer/user-form-viewer.component';
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
+import { UserResolverService } from './services/user-resolver.service';
 
 /**
  * The route definition for the user module
@@ -26,7 +27,10 @@ export const userRoutes: Routes = [
                 canActivate: [AuthService],
             }, {
                 path: routeBuilder.editById(),
-                component: UserFormViewerComponent
+                component: UserFormViewerComponent,
+                resolve: {
+                    dispatcher: UserResolverService,
+                }
             }
         ]
     }

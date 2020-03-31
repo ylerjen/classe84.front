@@ -50,7 +50,7 @@ import { userModuleReducers, userModuleFeatureKey } from './states/user.state';
     ],
     providers: [
         UsersService,
-        AddressService
+        AddressService,
     ],
     bootstrap: [],
 })
