@@ -1,13 +1,9 @@
-
-import {throwError as observableThrowError,  Observable, Subscription } from 'rxjs';
-
-import {finalize, catchError, switchMap} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-
-
+import { throwError as observableThrowError, Observable, Subscription } from 'rxjs';
+import { finalize, catchError, switchMap } from 'rxjs/operators';
 import { UUID } from 'angular2-uuid';
 
 import { GlobalState } from 'app/stores/globalState';
@@ -77,7 +73,7 @@ export class RestorePasswordComponent implements OnInit, OnDestroy {
                     if (error.status === 402) {
                         this._notifSrvc.notifyError('The token has expired');
                         // TODO redirect to password recovery request page
-                    } else if (error.status < 400 ||  error.status === 500) {
+                    } else if (error.status < 400 || error.status === 500) {
                         return observableThrowError(new Error(error.status));
                     }
                 }
