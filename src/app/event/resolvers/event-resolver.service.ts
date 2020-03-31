@@ -11,7 +11,7 @@ import { EventModuleState } from '../states/event.state';
 import { selectEvent } from '../states/selectors/event.selector';
 
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EventResolverService implements Resolve<Event>  {
 
     constructor(
