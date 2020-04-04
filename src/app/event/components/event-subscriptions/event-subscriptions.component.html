@@ -2,29 +2,58 @@
     <form *ngIf="isEditable" autocomplete="off">
         <div class="form-group">
             <label for="user-subscription-search">
-                <i class="fa fa-search" aria-labelledby="search"></i> <span>Inscrire des membres par leur nom</span>
+                <span>Inscrire des membres par leur nom</span>
             </label>
-            <input [(ngModel)]="searchStr" name="user-subscription-search"
-                [typeahead]="searchableList"
-                [typeaheadMinLength]="2"
-                id="user-subscription-search"
-                class="form-control"
-                typeaheadOptionField="title"
-                [adaptivePosition]="true"
-                (typeaheadOnSelect)="addUserSubscription($event)"
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-search" aria-labelledby="search"></i>
+                    </span>
+                </div>
+                <input #userSubscriptionSearch
+                    class="form-control"
+                    name="user-subscription-search"
+                    [(ngModel)]="searchStr"
+                    typeaheadOptionField="title"
+                    [typeahead]="searchableList"
+                    [typeaheadMinLength]="2"
+                    [adaptivePosition]="true"
+                    (typeaheadOnSelect)="addUserSubscription($event)"
                 />
-            <div class="alert alert-danger" *ngIf="noResult">Aucun résultat pour cette recherche</div>
-
+            </div>
+            <div class="alert alert-danger" *ngIf="noResult">
+                Aucun résultat pour cette recherche
+            </div>
         </div>
     </form>
-    <div *ngIf="!subscribersList.length" class="alert alert-primary" role="alert">No subscription yet...</div>
+    <div
+        *ngIf="!subscribersList.length"
+        class="alert alert-primary"
+        role="alert"
+    >
+        No subscription yet...
+    </div>
     <div *ngIf="subscribersList.length">
-        <span *ngIf="!isTotalHidden">{{subscribersList.length}} membres inscrits à cet évènement.</span>
+        <span *ngIf="!isTotalHidden"
+            >{{ subscribersList.length }} membres inscrits à cet
+            évènement.</span
+        >
         <ol>
             <li *ngFor="let subscr of subscribersList">
-                <i class="fa fa-spinner fa-spin" *ngIf="subscr.isStorePending"></i>
-                <a href="/users/{{subscr.user.id}}">{{subscr.user.fullname}}</a>
-                <button class="btn btn-sm" *ngIf="isEditable" (click)="removeUserSubscription(subscr)">&times;</button>
+                <i
+                    class="fa fa-spinner fa-spin"
+                    *ngIf="subscr.isStorePending"
+                ></i>
+                <a href="/users/{{ subscr.user_id || subscr.user?.id }}">{{
+                    subscr.user.fullname
+                }}</a>
+                <button
+                    class="btn btn-sm"
+                    *ngIf="isEditable"
+                    (click)="removeUserSubscription(subscr)"
+                >
+                    &times;
+                </button>
             </li>
         </ol>
     </div>

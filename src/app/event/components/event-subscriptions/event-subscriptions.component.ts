@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 import { User } from '@models/User';
-import { UsersService } from 'app/user/services/users.service';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 
 @Component({
@@ -37,8 +36,9 @@ export class EventSubscriptionsComponent {
     @Output()
     public removeSubscriptionEmitter = new EventEmitter<string>();
 
-    @ViewChild('user-subscription-search', { static: false })
+    @ViewChild('userSubscriptionSearch', { static: false })
     searchField: ElementRef;
+
     setFocus(): void {
         this.searchField.nativeElement.focus();
     }
@@ -53,7 +53,7 @@ export class EventSubscriptionsComponent {
     }
 
     removeUserSubscription(id: string) {
-        if (typeof id === 'undefined') {
+        if (!id) {
             return;
         }
         this.removeSubscriptionEmitter.emit(id);
