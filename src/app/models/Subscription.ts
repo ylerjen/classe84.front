@@ -14,7 +14,7 @@ export class Subscription {
      * We change the store even if the request is not finished.
      * The request state will then confirm this value or remove the subscription.
      */
-    public isStorePending: boolean;
+    public isStorePending = false;
 
     /**
      * This is a comparator to sort subscription list by user fullname
