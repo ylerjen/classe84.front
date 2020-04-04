@@ -15,7 +15,6 @@ import { EventListComponent } from './components/event-list/event-list.component
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { EventListWrapperComponent } from './components/event-list-wrapper/event-list-wrapper.component';
 import { EventListFilterComponent } from './components/event-list-filter/event-list-filter.component';
-import { EventDetailViewerComponent } from './components/event-detail-viewer/event-detail-viewer.component';
 import { EventFormViewerComponent } from './components/event-form-viewer/event-form-viewer.component';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { GeoresultFormComponent } from './components/georesult-form/georesult-form.component';
@@ -52,7 +51,6 @@ import { eventModuleFeatureKey, eventModuleReducers } from './states/event.state
         EventDetailComponent,
         EventListWrapperComponent,
         EventListFilterComponent,
-        EventDetailViewerComponent,
         EventFormViewerComponent,
         EventFormComponent,
         GeoresultFormComponent,
