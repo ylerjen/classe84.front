@@ -30,4 +30,5 @@ export const routeBuilder = {
     eventlist: () => ROUTE_SEGMENT.events,
     event: (id: string) => `${ROUTE_SEGMENT.events}/${id}`,
     eventEdit: (id: string) => `${ROUTE_SEGMENT.events}/${id}/${ROUTE_SEGMENT.edit}`,
+    eventsSubscriptions: (id: string) => `${ROUTE_SEGMENT.events}/${id}/${ROUTE_SEGMENT.subscriptions}`,
 };

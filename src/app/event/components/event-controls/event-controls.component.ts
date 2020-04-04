@@ -1,11 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { routeBuilder } from 'app/config/router.config';
 
 @Component({
     selector: 'app-event-controls',
     templateUrl: './event-controls.component.html',
     // styleUrls: ['./event-controls.component.scss']
 })
-export class EventControlsComponent {
+export class EventControlsComponent implements OnInit {
 
     @Input()
     public eventId: string;
@@ -33,6 +34,21 @@ export class EventControlsComponent {
 
     @Output()
     public unsubscribeFromEvent = new EventEmitter();
+
+    /**
+     * The to manage event's subscriptions
+     */
+    public routeToSubscriptions: string;
+
+    /**
+     * The route to edit the event
+     */
+    public routeToEditEvent: string;
+
+    ngOnInit(): void {
+        this.routeToSubscriptions = routeBuilder.eventsSubscriptions(this.eventId);
+        this.routeToEditEvent = routeBuilder.eventEdit(this.eventId);
+    }
 
     delete(evt: Event): void {
         evt.preventDefault();

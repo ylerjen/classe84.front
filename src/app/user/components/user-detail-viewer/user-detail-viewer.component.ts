@@ -6,7 +6,7 @@ import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap';
 
 import { User } from '@models/User';
 import { Address } from '@models/Address';
-import { ROUTE_SEGMENT } from 'app/config/router.config';
+import { ROUTE_SEGMENT, routeBuilder } from 'app/config/router.config';
 import { IUserState } from 'app/user/states/reducers/user/user.reducer';
 import { GlobalState } from 'app/stores/globalState';
 import { selectUserState } from 'app/user/states/selectors/user.selector';
@@ -34,6 +34,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     @ViewChild('addressFormModal', { static: false })
     public addressFormModal: ModalDirective;
 
+    public backUrl: string;
     public modalRef: BsModalRef | null;
     public user: User;
     public addressList: Array<Address> = [];
@@ -50,6 +51,7 @@ export class UserDetailViewerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.backUrl = routeBuilder.userlist();
         this.isLoading = true;
         this.sub = this.AddressStore$.subscribe(
             (addrState: IAddressListState) => this.addressList = addrState.addressList
