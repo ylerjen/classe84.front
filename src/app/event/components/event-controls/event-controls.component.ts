@@ -34,27 +34,20 @@ export class EventControlsComponent {
     @Output()
     public unsubscribeFromEvent = new EventEmitter();
 
-    goToEdit(evt: Event): void {
-        evt.preventDefault();
-        console.log('edit');
-        this.goToEditEvent.emit();
-    }
-
     delete(evt: Event): void {
         evt.preventDefault();
-        console.log('delete');
-        this.deleteEvent.emit();
+        if (confirm('Etes-vous sûr de vouloir supprimer cet évènement ?')) {
+            this.deleteEvent.emit(this.eventId);
+        }
     }
 
     subscribe(evt: Event): void {
         evt.preventDefault();
-        console.log('subscribe');
-        this.subscribeToEvent.emit();
+        this.subscribeToEvent.emit(this.eventId);
     }
 
     unsubscribe(evt: Event): void {
         evt.preventDefault();
-        console.log('unsubscribe');
-        this.unsubscribeFromEvent.emit();
+        this.unsubscribeFromEvent.emit(this.eventId);
     }
 }
