@@ -14,7 +14,7 @@
     ></app-user-detail>
     <section class="card-body">
         <h2><i class="fa fa-globe mr-2"></i> Adresses</h2>
-        <button type="button" class="btn btn-outline-primary btn-sm" (click)="addAddress($event)"><i class="fa fa-plus"></i> Nouvelle adresse</button>
+        <button type="button" class="btn btn-outline-primary btn-sm mb-2" (click)="addAddress($event)"><i class="fa fa-plus"></i> Nouvelle adresse</button>
         <app-address-list
             [addressList]="addressList"
             (setFavoriteAddress)="onSetFavoriteAddress($event)"
