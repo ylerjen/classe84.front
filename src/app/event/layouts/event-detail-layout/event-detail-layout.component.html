@@ -12,9 +12,9 @@
                 [canDelete]="canDelete"
                 [isSubscribed]="isSubscribed"
                 [isSubscribable]="isSubscribable"
-                (deleteEvent)="delete()"
-                (subscribeToEvent)="subscribe()"
-                (unsubscribeFromEvent)="unsubscribe()"
+                (deleteEvent)="delete($event)"
+                (subscribeToEvent)="subscribe($event)"
+                (unsubscribeFromEvent)="unsubscribe($event)"
             ></app-event-controls>
         </app-panel>
         <app-panel *ngIf="!isLoading;else loader">

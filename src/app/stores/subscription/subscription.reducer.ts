@@ -8,7 +8,8 @@ import { SubscriptionActionTypes,
     UpdateSubscription,
     DeleteSubscription,
     DeleteSubscriptionFailed,
-    SubscriptionActions } from 'app/actions/subscription.actions';
+    SubscriptionActions, 
+    DeleteSubscriptionFinished} from 'app/actions/subscription.actions';
 
 export interface ISubscriptionState {
     subscriptionList: Array<Subscription>;
@@ -100,6 +101,21 @@ export function subscriptionsReducer(state: ISubscriptionState = initialState, a
 
         case SubscriptionActionTypes.deleteSubscription: {
             const act = action as DeleteSubscription;
+            const subscriptionList = state.subscriptionList.map(subscr => {
+                if (subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id) {
+                    subscr.isStorePending = true;
+                }
+                return subscr;
+            });
+
+            return {
+                ...state,
+                subscriptionList
+            };
+        }
+
+        case SubscriptionActionTypes.deleteSubscriptionFinished: {
+            const act = action as DeleteSubscriptionFinished;
             const subscriptionList = state.subscriptionList.filter(
                 subscr => !(subscr.event_id === act.payload.event_id && subscr.user_id === act.payload.user_id)
             );
