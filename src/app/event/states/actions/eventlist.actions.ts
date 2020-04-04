@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Event as EventModel} from '../../../models/Event';
+import { Event as EventModel} from '@models/Event';
 import { IEventListFilter } from '../../components/event-list-filter/event-list-filter.component';
 
 export enum EventlistActionTypes {
