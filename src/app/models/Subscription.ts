@@ -29,7 +29,7 @@ export class Subscription {
         }
     };
 
-    constructor(props: { [key: string]: any } = {}) {
+    constructor(props: Partial<Subscription> = {}) {
         this.user = props.user ? new User(props.user) : null;
         this.user_id = props.user ? props.user.id : props.user_id;
         this.event = props.event ? new Event(props.event) : null;
