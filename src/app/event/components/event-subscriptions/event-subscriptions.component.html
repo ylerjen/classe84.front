@@ -10,50 +10,30 @@
                         <i class="fa fa-search" aria-labelledby="search"></i>
                     </span>
                 </div>
-                <input #userSubscriptionSearch
-                    class="form-control"
-                    name="user-subscription-search"
-                    [(ngModel)]="searchStr"
-                    typeaheadOptionField="title"
-                    [typeahead]="searchableList"
-                    [typeaheadMinLength]="2"
-                    [adaptivePosition]="true"
-                    (typeaheadOnSelect)="addUserSubscription($event)"
-                />
+                <input #userSubscriptionSearch class="form-control" name="user-subscription-search"
+                    [(ngModel)]="searchStr" typeaheadOptionField="title" [typeahead]="searchableList"
+                    [typeaheadMinLength]="2" [adaptivePosition]="true"
+                    (typeaheadOnSelect)="addUserSubscription($event)" />
             </div>
             <div class="alert alert-danger" *ngIf="noResult">
                 Aucun résultat pour cette recherche
             </div>
         </div>
     </form>
-    <div
-        *ngIf="!subscribersList.length"
-        class="alert alert-primary"
-        role="alert"
-    >
+    <div *ngIf="!subscribersList.length" class="alert alert-primary" role="alert">
         No subscription yet...
     </div>
     <div *ngIf="subscribersList.length">
-        <span *ngIf="!isTotalHidden"
-            >{{ subscribersList.length }} membres inscrits à cet
-            évènement.</span
-        >
+        <span *ngIf="!isTotalHidden">{{ subscribersList.length }} membres inscrits à cet
+            évènement.</span>
         <ol>
             <li *ngFor="let subscr of subscribersList">
-                <i
-                    class="fa fa-spinner fa-spin"
-                    *ngIf="subscr.isStorePending"
-                ></i>
+                <i class="fa fa-spinner fa-spin" *ngIf="subscr.isStorePending"></i>
                 <a href="/users/{{ subscr.user_id || subscr.user?.id }}">{{
                     subscr.user.fullname
                 }}</a>
-                <button
-                    class="btn btn-sm"
-                    *ngIf="isEditable"
-                    (click)="removeUserSubscription(subscr)"
-                >
-                    &times;
-                </button>
+                <button class="btn btn-sm" *ngIf="isEditable && !subscr.isStorePending"
+                    (click)="removeUserSubscription(subscr)"><i class="fa fa-times"></i></button>
             </li>
         </ol>
     </div>

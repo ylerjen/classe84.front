@@ -11,9 +11,9 @@ import { selectLoggedUser } from 'app/stores/session/session.selector';
 import { selectSubscriptionState } from 'app/stores/subscription/subscription.selector';
 import { isSubscribable } from 'app/event/services/subscription.service';
 import { selectEventState } from 'app/event/states/selectors/event.selector';
-import { PermissionService } from 'app/auth/services/permission.service';
 import { DeleteEventFromList } from '@events/states/actions/eventlist.actions';
 import { AddSubscription, DeleteSubscription } from '@actions/subscription.actions';
+import { routeBuilder } from 'app/config/router.config';
 
 @Component({
     selector: 'app-event-detail-layout',
@@ -21,24 +21,54 @@ import { AddSubscription, DeleteSubscription } from '@actions/subscription.actio
     styleUrls: ['./event-detail-layout.component.scss']
 })
 export class EventDetailLayoutComponent implements OnInit, OnDestroy {
+    /**
+     * The subscriptions to observable
+     */
+    private subscriptions: ObsSubscr;
+    /**
+     * The currently logged user
+     */
     private loggedUser: User;
+    /**
+     * The url to go back to the list of events
+     */
+    public backUrl: string;
+    /**
+     * The current event object
+     */
     public event: Event;
-    public subscriptions: ObsSubscr;
+    /**
+     * The subscriptions related to the current event
+     */
     public eventSubscriptions: Array<Subscription>;
+    /**
+     * An info to know if the current user can delete the event
+     */
     public canDelete: boolean;
+    /**
+     * An info to know if the current user can edit the event
+     */
     public canEdit: boolean;
+    /**
+     * Inform if the component's data is loading
+     */
     public isLoading = true;
+    /**
+     * The current event id
+     */
     public eventId: string;
+    /**
+     * If the current user is subscribed to the event of not
+     */
     public isSubscribed: boolean;
-    public isSubscribable: boolean;
 
     constructor(
         private _route: ActivatedRoute,
         private store$: Store<GlobalState>,
-        private permissionService: PermissionService,
     ) {}
 
     ngOnInit() {
+        this.backUrl = routeBuilder.eventlist();
         this.eventId = this._route.snapshot.data.currentEvent.id;
         this.subscriptions = combineLatest(
             this.store$.select(selectSubscriptionState),
@@ -55,7 +85,6 @@ export class EventDetailLayoutComponent implements OnInit, OnDestroy {
             this.loggedUser = sessionUser;
 
             this.isSubscribed = subscriptionState.subscriptionList.some(u => u.user_id === sessionUser.id);
-            this.isSubscribable = isSubscribable();
         });
     }
 
@@ -63,16 +92,27 @@ export class EventDetailLayoutComponent implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 
+    /**
+     * Subscribe the currently logged user to the event
+     * @param eventId - the id of the event
+     */
     subscribe(eventId: string): void {
         const subscription = new Subscription({event_id: eventId, user: this.loggedUser});
         this.store$.dispatch(new AddSubscription(subscription));
     }
 
+    /**
+     * Unsubscribe the currently logged user to the event
+     * @param eventId - the id of the event
+     */
     unsubscribe(eventId: string): void {
         const subscription = new Subscription({event_id: eventId, user: this.loggedUser});
         this.store$.dispatch(new DeleteSubscription(subscription));
     }
-
+    /**
+     * Delete the event
+     * @param eventId - the id of the event to delete
+     */
     delete(eventId: string): void {
         this.store$.dispatch(new DeleteEventFromList(new Event({id: eventId})));
     }

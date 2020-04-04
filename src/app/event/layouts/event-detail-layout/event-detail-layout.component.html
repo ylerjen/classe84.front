@@ -1,3 +1,6 @@
+<a href="/events" class="btn btn-link">
+    <i class="fa fa-arrow-left"></i> Retour à la liste
+</a>
 <div class="row">
     <ng-template #loader>Loading...</ng-template>
     <section class="col-md-8">
@@ -6,24 +9,17 @@
     <aside class="col-md-4">
         <app-panel *ngIf="!isLoading; else loader">
             <span class="title"><i class="fa fa-magic"></i> Actions</span>
-            <app-event-controls class="text card-body"
-                [eventId]="eventId"
-                [canEdit]="canEdit"
-                [canDelete]="canDelete"
-                [isSubscribed]="isSubscribed"
-                [isSubscribable]="isSubscribable"
-                (deleteEvent)="delete($event)"
-                (subscribeToEvent)="subscribe($event)"
-                (unsubscribeFromEvent)="unsubscribe($event)"
-            ></app-event-controls>
+            <app-event-controls class="text card-body" [eventId]="eventId" [canEdit]="canEdit" [canDelete]="canDelete"
+                [isSubscribed]="isSubscribed" [isSubscribable]="isSubscribable" (deleteEvent)="delete($event)"
+                (subscribeToEvent)="subscribe($event)" (unsubscribeFromEvent)="unsubscribe($event)">
+            </app-event-controls>
         </app-panel>
         <app-panel *ngIf="!isLoading;else loader">
-            <span class="title"><i class="fa fa-ticket"></i> {{ eventSubscriptions ? eventSubscriptions.length : '' }} inscrits</span>
+            <span class="title"><i class="fa fa-ticket"></i> {{ eventSubscriptions ? eventSubscriptions.length : '' }}
+                inscrits</span>
             <span class="text" *ngIf="eventSubscriptions && eventSubscriptions.length">
-                <app-event-subscriptions
-                    isTotalHidden="true"
-                    [subscribersList]="eventSubscriptions"
-                ></app-event-subscriptions>
+                <app-event-subscriptions isTotalHidden="true" [subscribersList]="eventSubscriptions">
+                </app-event-subscriptions>
             </span>
         </app-panel>
         <app-panel>
