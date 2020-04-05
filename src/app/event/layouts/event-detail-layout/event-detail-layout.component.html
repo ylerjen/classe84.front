@@ -10,7 +10,7 @@
         <app-panel *ngIf="!isLoading; else loader">
             <span class="title"><i class="fa fa-magic"></i> Actions</span>
             <app-event-controls class="text card-body" [eventId]="eventId" [canEdit]="canEdit" [canDelete]="canDelete"
-                [isSubscribed]="isSubscribed" [isSubscribable]="isSubscribable" (deleteEvent)="delete($event)"
+                [isSubscribed]="isSubscribed" (deleteEvent)="delete($event)"
                 (subscribeToEvent)="subscribe($event)" (unsubscribeFromEvent)="unsubscribe($event)">
             </app-event-controls>
         </app-panel>

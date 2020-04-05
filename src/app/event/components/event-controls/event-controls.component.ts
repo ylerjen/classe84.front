@@ -20,9 +20,6 @@ export class EventControlsComponent implements OnInit {
     @Input()
     public isSubscribed: boolean;
 
-    @Input()
-    public isSubscribable: boolean;
-
     @Output()
     public goToEditEvent = new EventEmitter();
 
