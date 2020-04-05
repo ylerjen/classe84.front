@@ -2,37 +2,42 @@
     <div class="col-12">
         <section class="card event-details" *ngIf="event">
             <div class="card-img-top">
-                <img src="http://images.myswitzerland.com/n49464/images/buehne/ville_de_sion.jpg" alt="Ville de Sion" class="img-fill">
+                <img src="http://images.myswitzerland.com/n49464/images/buehne/ville_de_sion.jpg" alt="Ville de Sion"
+                    class="img-fill">
                 <h1 class="card-title module-title">{{event.title}}</h1>
             </div>
             <div class="content">
-                <p class="text-muted module-meta">Créé par {{event.created_by}} le {{event.created_at | date}}</p>
-                <section class="card-body">
-                    <p>
-                        <span class="mr-2"><i class="fa fa-calendar-o"></i></span>
-                        <span>{{event.start_date | date: 'dd.MM.yyyy'}} - {{event.end_date | date: 'dd.MM.yyyy'}}</span>
-                    </p>
-                    <p>
-                        <span class="mr-2"><i class="fa fa-map-marker"></i></span>
-                        <span>{{event.location}}</span><br/>
-                        <span>({{event.latitude}} / {{event.longitude}})</span>
-                    </p>
-                    <p>
-                        <span class="mr-2"><i class="fa fa-money text-separator"></i></span>
-                        <span>CHF {{event.price | number:'.2'}}</span>
-                    </p>
-                </section>
-                <section class="card-body">
-                    <h2>Description</h2>
-                    <div [innerHTML]="event.description"></div>
-                    <p>{{event.organisator}}</p>
-                </section>
-                <section class="card-body">
-                    <h2>Lieu</h2>
-                    <img class="img-fluid"
-                        src="https://www.mapquestapi.com/staticmap/v5/map?key={{mapQuestKey}}&center={{event.latitude}},{{event.longitude}}"
-                        alt="Map for coordinates {{event.latitude}},{{event.longitude}}">
-                </section>
+                <p class="text-muted module-meta">Créé
+                    <!--par {{event.created_by}} -->le {{event.created_at | date}}</p>
+                <div class="card-body">
+                    <section>
+                        <p>
+                            <span class="mr-2"><i class="fa fa-calendar-o"></i></span>
+                            <span>{{event.start_date | date: 'dd.MM.yyyy'}} -
+                                {{event.end_date | date: 'dd.MM.yyyy'}}</span>
+                        </p>
+                        <p>
+                            <span class="mr-2"><i class="fa fa-map-marker"></i></span>
+                            <span>{{event.location}}</span><br />
+                            <span>({{event.latitude}} / {{event.longitude}})</span>
+                        </p>
+                        <p>
+                            <span class="mr-2"><i class="fa fa-money text-separator"></i></span>
+                            <span>CHF {{event.price | number:'.2'}}</span>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Description</h2>
+                        <div [innerHTML]="event.description"></div>
+                        <p>{{event.organisator}}</p>
+                    </section>
+                    <section>
+                        <h2>Lieu</h2>
+                        <img class="img-fluid"
+                            src="https://www.mapquestapi.com/staticmap/v5/map?key={{mapQuestKey}}&center={{event.latitude}},{{event.longitude}}"
+                            alt="Map for coordinates {{event.latitude}},{{event.longitude}}">
+                    </section>
+                </div>
             </div>
         </section>
     </div>
