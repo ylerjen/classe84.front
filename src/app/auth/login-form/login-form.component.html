@@ -3,7 +3,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="login($event)" novalidate>
         <div class="form-group">
             <label for="email-{{compId}}" class="center-block">Email</label>
-            <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" />
+            <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" autofocus />
             <ul class="invalid-feedback"
                 *ngIf="loginForm.get('email') && loginForm.get('email').touched && loginForm.get('email').errors">
                 <li *ngIf="loginForm.get('email').hasError('required')">Ce champ est requis</li>
