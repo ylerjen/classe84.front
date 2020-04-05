@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+
 import { MapquestCoordinates } from '@shared/services/geo/MapquestCoordinates';
 import { mapLinkBuilder } from '@shared/services/geo/geo.service';
 
@@ -14,6 +15,9 @@ export class StaticMapComponent implements OnChanges {
     @Input() public size: number;
 
     ngOnChanges(changes: SimpleChanges) {
+        if (!this.coordinates.lat || !this.coordinates.lng) {
+            return;
+        }
         this.mapPath = mapLinkBuilder(this.coordinates, this.size);
     }
 }
