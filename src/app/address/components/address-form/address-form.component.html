@@ -5,106 +5,55 @@
             <label for="adr-street">Rue</label>
         </div>
         <div class="row form-group">
-            <input
-                type="text"
-                id="adr-street"
-                class="form-control"
-                formControlName="street"
-                placeholder="Av. de la gare 1"
-            />
-            <app-validation-error
-                [errors]="addressForm.get('street')?.errors"
-            ></app-validation-error>
+            <input type="text" id="adr-street" class="form-control" formControlName="street"
+                placeholder="Av. de la gare 1" />
+            <app-validation-error [errors]="addressForm.get('street')?.errors"></app-validation-error>
         </div>
         <div class="row">
             <label for="adr-street2">Complément d'adresse</label>
         </div>
         <div class="row form-group">
-            <input
-                type="text"
-                id="adr-street2"
-                class="form-control"
-                formControlName="street2"
-                placeholder="Immeuble Les Flambeaux"
-            />
-            <app-validation-error
-                [errors]="addressForm.get('street2')?.errors"
-            ></app-validation-error>
+            <input type="text" id="adr-street2" class="form-control" formControlName="street2"
+                placeholder="Immeuble Les Flambeaux" />
+            <app-validation-error [errors]="addressForm.get('street2')?.errors"></app-validation-error>
         </div>
         <div class="row">
-            <label for="adr-zip">NPA</label><span class="ml-2 mr-2">/</span
-            ><label for="adr-city">Lieu</label>
+            <label for="adr-zip">NPA</label><span class="ml-2 mr-2">/</span><label for="adr-city">Lieu</label>
         </div>
         <div class="row form-group">
-            <input
-                type="text"
-                id="adr-zip"
-                class="col-4 form-control"
-                formControlName="zip"
-                placeholder="1950"
-            />
-            <input
-                type="text"
-                id="adr-city"
-                class="col-8 form-control"
-                formControlName="city"
-                placeholder="Sion"
-            />
-            <app-validation-error
-                class="col-12"
-                [errors]="addressForm.get('zip')?.errors"
-            ></app-validation-error>
-            <app-validation-error
-                class="col-12"
-                [errors]="addressForm.get('city')?.errors"
-            ></app-validation-error>
+            <div class="col-4">
+                <input type="text" id="adr-zip" class="form-control" formControlName="zip" placeholder="1950" />
+                <app-validation-error class="col-12" [errors]="addressForm.get('zip')?.errors"></app-validation-error>
+            </div>
+            <div class="col-8">
+                <input type="text" id="adr-city" class="form-control" formControlName="city" placeholder="Sion" />
+                <app-validation-error class="col-12" [errors]="addressForm.get('city')?.errors"></app-validation-error>
+            </div>
         </div>
         <div class="row">
-            <label for="adr-state">Canton</label><span class="ml-2 mr-2">/</span
-            ><label for="adr-country">Pays</label>
+            <label for="adr-state">Canton</label><span class="ml-2 mr-2">/</span><label for="adr-country">Pays</label>
         </div>
         <div class="row mb-2">
-            <input
-                type="text"
-                id="adr-state"
-                class="form-control col-6"
-                formControlName="state"
-                placeholder="Valais"
-            />
-            <input
-                type="text"
-                id="adr-country"
-                class="form-control col-6"
-                formControlName="country"
-                placeholder="Suisse"
-            />
-            <app-validation-error
-                class="col-12"
-                [errors]="addressForm.get('state')?.errors"
-            ></app-validation-error>
-            <app-validation-error
-                class="col-12"
-                [errors]="addressForm.get('country')?.errors"
-            ></app-validation-error>
+            <div class="col-6">
+                <input type="text" id="adr-state" class="form-control" formControlName="state"
+                    placeholder="Valais" />
+                <app-validation-error class="col-12" [errors]="addressForm.get('state')?.errors"></app-validation-error>
+            </div>
+            <div class="col-6">
+                <input type="text" id="adr-country" class="form-control" formControlName="country"
+                    placeholder="Suisse" />
+                <app-validation-error class="col-12" [errors]="addressForm.get('country')?.errors">
+                </app-validation-error>
+            </div>
         </div>
-        <app-coordinates-form
-            isFormReadonly="true"
-            [baseForm]="addressForm"
-            [coordinates]="{ lat: addressForm.get('latitude').value, lng: addressForm.get('longitude').value }"
-        ></app-coordinates-form>
+        <app-coordinates-form isFormReadonly="true" [baseForm]="addressForm"
+            [coordinates]="{ lat: addressForm.get('latitude').value, lng: addressForm.get('longitude').value }">
+        </app-coordinates-form>
         <div class="adr-form-action-wrapper mt-3">
-            <button
-                type="button"
-                class="btn btn-outline-secondary"
-                (click)="cancel($event)"
-            >
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel($event)">
                 Annuler
             </button>
-            <button
-                type="button"
-                class="btn btn-primary"
-                (click)="save($event)"
-            >
+            <button type="button" class="btn btn-primary" (click)="save($event)">
                 Sauver
             </button>
         </div>

@@ -4,19 +4,12 @@
         <div class="form-group">
             <label for="email-{{compId}}" class="center-block">Email</label>
             <input id="email-{{compId}}" type="text" class="form-control" formControlName="email" placeholder="me@example.org" autofocus />
-            <ul class="invalid-feedback"
-                *ngIf="loginForm.get('email') && loginForm.get('email').touched && loginForm.get('email').errors">
-                <li *ngIf="loginForm.get('email').hasError('required')">Ce champ est requis</li>
-                <li *ngIf="loginForm.get('email').hasError('email')">Le format de l'email est invalide</li>
-            </ul>
+            <app-validation-error [errors]="loginForm.get('email')?.errors"></app-validation-error>
         </div>
         <div class="form-group">
             <label for="password-{{compId}}" class="center-block">Mot de passe</label>
             <input id="password-{{compId}}" type="password" class="form-control" formControlName="password" placeholder="password" />
-            <ul class="invalid-feedback"
-                *ngIf="loginForm.get('password') && loginForm.get('password').touched && loginForm.get('password').errors">
-                <li>Ce champ est requis</li>
-            </ul>
+            <app-validation-error [errors]="loginForm.get('password')?.errors"></app-validation-error>
         </div>
         <div class="checkbox">
             <label for="remember-me-{{compId}}">

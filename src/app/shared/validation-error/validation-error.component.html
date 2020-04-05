@@ -1,3 +1,6 @@
-<ul *ngIf="errors" class="text-danger">
-    <li>{{formattedErrors | json}}</li>
+<ul *ngIf="errors" class="invalid-feedback">
+    <li *ngIf="preDefinedErrors.required">Ce champ est requis</li>
+    <li *ngIf="preDefinedErrors.minlength">Ce champ doit contenir au moins {{preDefinedErrors.minlength.requiredLength}} caractères</li>
+    <li *ngIf="preDefinedErrors.email">Le format de l'email est invalide</li>
+    <li *ngFor="let error of formattedErrors">{{ error | json}}</li>
 </ul>

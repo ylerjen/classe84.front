@@ -14,12 +14,15 @@ h2 {
 }
 
 .invalid-feedback {
-  display: block; // bootstrap need the form input invalid state to display correctly
+  display: block; // bootstrap need the form input invalid state to display correctly.error-list {
+  padding: 0 0 0 1rem;
 }
+
 // to be able to use labels as input-group-prepend-element
 label.input-group-prepend {
   margin-bottom: 0;
 }
+
 // to use btn as group append (ex: datepicker trigger button)
 .input-group-append .btn {
   padding-top: 5px;

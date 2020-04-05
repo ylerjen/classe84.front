@@ -35,7 +35,10 @@ export class AddressFormComponent implements OnInit {
             id: [this.address.id],
             street: [this.address.street || '', Validators.required],
             street2: [this.address.street2 || ''],
-            zip: [this.address.npa || '', Validators.required],
+            zip: [this.address.npa || '', [
+                Validators.required,
+                Validators.minLength(4),
+            ]],
             city: [this.address.city || '', Validators.required],
             state: [this.address.state || '', Validators.required],
             country: [this.address.country || ''],
