@@ -41,7 +41,7 @@ export class AddressFormComponent implements OnInit {
             ]],
             city: [this.address.city || '', Validators.required],
             state: [this.address.state || '', Validators.required],
-            country: [this.address.country || ''],
+            country: [this.address.country || 'Suisse'],
             latitude: [this.address.latitude || ''],
             longitude: [this.address.longitude || ''],
             is_default: [this.address.is_default || ''],

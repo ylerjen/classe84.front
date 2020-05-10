@@ -1,9 +1,28 @@
 .adr-form {
     max-width: 500px;
     margin: auto;
+    display: grid;
     
     &-action-wrapper {
         display: flex;
         justify-content: space-between;
+    }
+
+    grid-template-areas: 
+    "label"
+    "input"
+    "label"
+    "input"
+    "label separator label"
+    "input input"
+    "label separator label"
+    "input input";
+
+    .combo1 {
+
+    }
+
+    .combo3 {
+
     }
 }

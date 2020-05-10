@@ -1,51 +1,28 @@
 <section>
     <form *ngIf="addressForm" [formGroup]="addressForm" class="adr-form">
         <input type="hidden" formControlName="id" />
-        <div class="row">
-            <label for="adr-street">Rue</label>
-        </div>
-        <div class="row form-group">
+        <label for="adr-street" class="label-street">Rue</label>
+        <div class="form-group">
             <input type="text" id="adr-street" class="form-control" formControlName="street"
                 placeholder="Av. de la gare 1" />
             <app-validation-error [errors]="addressForm.get('street')?.errors"></app-validation-error>
         </div>
-        <div class="row">
-            <label for="adr-street2">Complément d'adresse</label>
-        </div>
-        <div class="row form-group">
-            <input type="text" id="adr-street2" class="form-control" formControlName="street2"
-                placeholder="Immeuble Les Flambeaux" />
-            <app-validation-error [errors]="addressForm.get('street2')?.errors"></app-validation-error>
-        </div>
-        <div class="row">
-            <label for="adr-zip">NPA</label><span class="ml-2 mr-2">/</span><label for="adr-city">Lieu</label>
-        </div>
-        <div class="row form-group">
-            <div class="col-4">
-                <input type="text" id="adr-zip" class="form-control" formControlName="zip" placeholder="1950" />
-                <app-validation-error [errors]="addressForm.get('zip')?.errors"></app-validation-error>
-            </div>
-            <div class="col-8">
-                <input type="text" id="adr-city" class="form-control" formControlName="city" placeholder="Sion" />
-                <app-validation-error [errors]="addressForm.get('city')?.errors"></app-validation-error>
-            </div>
-        </div>
-        <div class="row">
-            <label for="adr-state">Canton</label><span class="ml-2 mr-2">/</span><label for="adr-country">Pays</label>
-        </div>
-        <div class="row mb-2">
-            <div class="col-6">
-                <input type="text" id="adr-state" class="form-control" formControlName="state"
-                    placeholder="Valais" />
-                <app-validation-error [errors]="addressForm.get('state')?.errors"></app-validation-error>
-            </div>
-            <div class="col-6">
-                <input type="text" id="adr-country" class="form-control" formControlName="country"
-                    placeholder="Suisse" />
-                <app-validation-error [errors]="addressForm.get('country')?.errors">
-                </app-validation-error>
-            </div>
-        </div>
+        <label for="adr-street2">Complément d'adresse</label>
+        <input type="text" id="adr-street2" class="form-control" formControlName="street2"
+            placeholder="Immeuble Les Flambeaux" />
+        <app-validation-error [errors]="addressForm.get('street2')?.errors"></app-validation-error>
+        <label for="adr-zip" class="label-npa">NPA</label><span class="separator1 ml-2 mr-2">/</span><label for="adr-city"
+            class="label-lieu">Lieu</label>
+        <input type="text" id="adr-zip" class="form-control input-zip" formControlName="zip" placeholder="1950" />
+        <app-validation-error [errors]="addressForm.get('zip')?.errors"></app-validation-error>
+        <input type="text" id="adr-city" class="form-control input-city" formControlName="city" placeholder="Sion" />
+        <app-validation-error [errors]="addressForm.get('city')?.errors"></app-validation-error>
+        <label for="adr-state">Canton</label><span class="ml-2 mr-2">/</span><label for="adr-country">Pays</label>
+        <input type="text" id="adr-state" class="form-control input-state" formControlName="state" placeholder="Valais" />
+        <app-validation-error [errors]="addressForm.get('state')?.errors"></app-validation-error>
+        <input type="text" id="adr-country" class="form-control input-country" formControlName="country" placeholder="Suisse" />
+        <app-validation-error [errors]="addressForm.get('country')?.errors">
+        </app-validation-error>
         <app-coordinates-form isFormReadonly="true" [baseForm]="addressForm"
             [coordinates]="{ lat: addressForm.get('latitude').value, lng: addressForm.get('longitude').value }">
         </app-coordinates-form>
