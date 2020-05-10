@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export interface IUserListFilter {
-    name: string;
-    activeOnly: boolean;
+    name?: string;
+    activeOnly?: boolean;
 }
 
 @Component({

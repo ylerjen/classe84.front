@@ -79,6 +79,12 @@ export class UserListWrapperComponent implements OnInit, OnDestroy {
     }
 
     updateCurrentRoute() {
+        if (!this.filter.name) {
+            delete this.filter.name;
+        }
+        if (!this.filter.activeOnly) {
+            delete this.filter.activeOnly;
+        }
         this._router.navigate([], {
             queryParams: this.filter,
             relativeTo: this._activeRoute

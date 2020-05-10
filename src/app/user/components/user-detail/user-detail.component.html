@@ -1,11 +1,11 @@
 <div>
     <figure class="user-image-holder">
-        <img id="profileImg" src="http://findicons.com/files/icons/175/halloween_avatar/300/mike.png" class="png" alt="Photo de {{ user.first_name }}" class="logo img-circle" height="140px" width="140px" />
+        <img id="profileImg" src="assets/svg/{{user.gender === 'm' ? 'man':'girl'}}.svg" class="png" alt="Photo de {{ user.first_name }}" class="logo img-circle" />
     </figure>
     <div class="user-title text-center">
         <h1>{{user.fullname}}</h1>
-        <p>{{user.birthdate | date: 'dd.MM.yyyy'}}</p>
-        <p class="text-muted">Créé le {{user.created_at | date}}</p>
+        <p><i class="fa fa-birthday-cake mr-2"></i>{{user.birthdate | date: 'dd.MM.yyyy'}}</p>
+        <p class="text-muted">Inscrit le {{user.created_at | date:'d MMM y'}}</p>
     </div>
     <div class="ribbon-wrapper">
         <div class="ribbon" [ngClass]="{inactiv : !user.is_active}">{{user.is_active ? "Actif" : "Inactif"}}</div>
@@ -19,7 +19,7 @@
         </button>
     </div>
     <section class="card-body">
-        <h2><i class="fa fa-address-book"></i> Infos</h2>
+        <h2><i class="fa fa-address-book"></i> Contacts</h2>
         <div class="user-card">            
             <p ng-show="user.mobile">
                 <span class="text-separator"><i class="fa fa-mobile"></i></span>

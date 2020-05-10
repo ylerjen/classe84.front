@@ -27,7 +27,11 @@ export class EventsService {
      * Fetch all events
      */
     fetchAll(): Observable<Array<Event>> {
-        return this._authHttp.get<Array<Event>>(BASE_URL);
+        return this._authHttp.get<Array<Event>>(BASE_URL).pipe(
+            map( (evtList: Array<Event>) => evtList.map(
+                (evt: Event) => new Event(evt)
+            ))
+        );
     }
 
     /**
@@ -37,7 +41,7 @@ export class EventsService {
     get(id: string): Observable<Event> {
         const endpoint = `${BASE_URL}/${id}`;
         return this._authHttp.get<Event>(endpoint).pipe(
-            map( (evtAttr: Object): Event => new Event(evtAttr))
+            map( (evtAttr: Event) => new Event(evtAttr))
         );
     }
 

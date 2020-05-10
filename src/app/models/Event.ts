@@ -13,7 +13,7 @@ export class Event {
     public created_at: Date;
     public created_by: string;
     public updated_at: Date;
-    public subscriptionsNb: number
+    public subscriptionsNb: number;
 
     constructor(props: { [key: string]: any } = {}) {
         this.id = props.id;

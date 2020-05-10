@@ -21,7 +21,7 @@ export class EventListWrapperComponent implements OnInit, OnDestroy {
 
     public filter: IEventListFilter =  {
         name: '',
-        year: ''
+        year: undefined,
     };
 
     public isLoading: boolean;
@@ -61,18 +61,31 @@ export class EventListWrapperComponent implements OnInit, OnDestroy {
 
     filterList() {
         this.filteredList = this.eventsList.filter(event => {
-            const nameFilter = (this.filter.name) ? this.filter.name.toLowerCase() : '';
-            const checkNameSearch = event.title.toLowerCase().includes(nameFilter);
-            return checkNameSearch;
+            const isNameFilterEnabled = !!this.filter.name;
+            const nameFilter = isNameFilterEnabled ? this.filter.name.toLowerCase() : '';
+            const isNameFilterMatching = !isNameFilterEnabled || event.title.toLowerCase().includes(nameFilter);
+            const isYearFilterEnabled = !!this.filter.year;
+            const yearFilter = isYearFilterEnabled ? this.filter.year : 0;
+            const isYearFilterMatching = !isYearFilterEnabled || (event.start_date.getFullYear() === yearFilter
+                || event.end_date.getFullYear() === yearFilter);
+            return isNameFilterMatching && isYearFilterMatching;
         });
     }
 
     onFilterChange(filter: IEventListFilter) {
         console.log(filter);
-        this._store.dispatch(new ChangeEventListFilter(filter));
+        this.filter = filter;
+        this.filterList();
+        this.updateCurrentRoute();
     }
 
     updateCurrentRoute() {
+        if (!this.filter.name) {
+            delete this.filter.name;
+        }
+        if (this.filter.year <= 0) {
+            delete this.filter.year;
+        }
         this._router.navigate([], {
             queryParams: this.filter,
             relativeTo: this._activeRoute

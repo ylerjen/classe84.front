@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription as ObsSubscr } from 'rxjs';
-
-import { GlobalState } from 'app/stores/globalState';
-import { EventState } from 'app/stores/event/event.reducer';
-import { Subscription } from '@models/Subscription';
 import { ActivatedRoute } from '@angular/router';
-import { Session } from '@models/Session';
+import { Store } from '@ngrx/store';
+import { Subscription as ObsSubscr, combineLatest } from 'rxjs';
+
+import { Event } from '@models/Event';
+import { GlobalState } from 'app/stores/globalState';
+import { Subscription } from '@models/Subscription';
+import { selectSessionState } from 'app/stores/session/session.selector';
+import { selectSubscriptionState } from 'app/stores/subscription/subscription.selector';
+import { isSubscribable } from 'app/event/services/subscription.service';
+import { selectEventState } from 'app/stores/event/event.selector';
 
 @Component({
     selector: 'app-event-detail-layout',
@@ -14,12 +17,14 @@ import { Session } from '@models/Session';
     styleUrls: ['./event-detail-layout.component.scss']
 })
 export class EventDetailLayoutComponent implements OnInit, OnDestroy {
-
+    public event: Event;
     public subscriptions: ObsSubscr;
     public eventSubscriptions: Array<Subscription>;
     public isAdmin: boolean;
     public isLoading = true;
     public eventId: string;
+    public isSubscribed: boolean;
+    public isSubscribable: boolean;
 
     constructor(
         private _route: ActivatedRoute,
@@ -28,18 +33,18 @@ export class EventDetailLayoutComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.eventId = this._route.snapshot.data.currentEvent.id;
-        this.subscriptions = this.store$.select(s => s.subscriptionsState)
-            .subscribe({
-                next: s => {
-                    this.eventSubscriptions = s.subscriptionList;
-                    this.isLoading = s.isLoading;
-                }
-            });
-
-        this.subscriptions.add(this.store$.select(s => s.sessionState)
-            .subscribe({
-                next: s => this.isAdmin = s.session.isAdmin,
-            }))
+        this.subscriptions = combineLatest(
+            this.store$.select(s => selectSubscriptionState(s)),
+            this.store$.select(s => selectSessionState(s)),
+            this.store$.select(s => selectEventState(s)),
+        ).subscribe(([subscriptionState, sessionState, eventState]) => {
+            this.event = eventState.event;
+            this.eventSubscriptions = subscriptionState.subscriptionList;
+            this.isLoading = subscriptionState.isLoading;
+            this.isAdmin = !!sessionState.session.isAdmin;
+            this.isSubscribed = subscriptionState.subscriptionList.some(u => u.user_id === sessionState.session.user.id);
+            this.isSubscribable = isSubscribable();
+        });
     }
 
     ngOnDestroy(): void {

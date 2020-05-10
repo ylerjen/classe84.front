@@ -1,17 +1,16 @@
 <div class="row">
     <ng-template #loader>Loading...</ng-template>
     <section class="col-md-8">
-        <app-event-detail-viewer></app-event-detail-viewer>
+        <app-event-detail [event]="event"></app-event-detail>
     </section>
-    {{dispatcher | json}}
     <aside class="col-md-4">
         <app-panel *ngIf="!isLoading; else loader">
             <span class="title"><i class="fa fa-magic"></i> Actions</span>
             <app-event-controls class="text card-body"
                 [eventId]="eventId"
+                [isAdmin]="isAdmin"
                 [isSubscribed]="isSubscribed"
                 [isSubscribable]="isSubscribable"
-                [isAdmin]="isAdmin"
                 (goToEditEvent)="goToEdit()"
                 (deleteEvent)="delete()"
                 (subscribeToEvent)="subscribe()"
