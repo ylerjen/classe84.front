@@ -47,7 +47,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     let errorMessage = 'http request error.';
-                    if (error.status === HTTP_STATUS_CODE.ServerDown) {
+                    if (error.status === HTTP_STATUS_CODE.UnknownError) {
                         this._notificationService.notifyError(`Veuillez réessayer plus tard, le server est actuellement
                         indisponible. Si le problème persiste, contactez un administrateur du site.`);
                     } else if (error.status === HTTP_STATUS_CODE.Unauthorized) {
